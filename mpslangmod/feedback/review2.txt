@@ -1,0 +1,83 @@
+----------------------- REVIEW 2 ---------------------
+PAPER: 2
+TITLE: Language and IDE Mo dularization, Extension and Comp osition with MPS
+AUTHORS: Markus Voelter
+
+The paper discusses MPS. The topic in itself is very interesting, MPS seems to be a powerful system.
+In that sense it is a valuable contribution to the GTTSE body of knowledge. However, my main concern
+with this paper is that it gives the impression of being written in a hurry and thus
+at quite a number of places it is sloppy. Furthermore, the scientific contribution of this paper is thin.
+It quite a number of places claims are made, for instance on typing, that are not well motivated or
+references to related work are missing.  The paper takes the reader through a number of tricks to
+get things done. This means what will be valid of the work presented here in a few years time.
+These aspects have to be improved in order to make the paper acceptable for publication.
+
+Detailed remarks:
+- The paper starts with discussing the structure of the paper. I would rather see a proper discussion
+  of the underlying philosophy of MPS. Next to that a discussion of alternative approaches. The way
+  the paper is presented now is a kind of sophisticated user manual. The introduction is in my opinion
+  messy, it discusses the structure of the paper (which actually tries to give some of the philosophy).
+  Example code, with a strange remark on not have been able to test the code! Type of modularization,
+  which is interesting but actually not well worked out. Why do we actually want DSLs, etc. are not
+  discussed at all.
+  * The remark on "modular type systems" (page 2) should be supported by a reference, it is unclear
+     whether it is meant in a general setting or MPS specific.
+  * The remark on MPS2.0 is weak!
+  * What is the Liskov substitution principle, please add reference.
+  * Why only extension, I think that retraction is an issue as well.
+- Section 2 discusses the workings of MPS. This section suffers from the fact that it is a kind of
+  company advertisement. A number of claims are made that are not supported by or related to
+  work of others. The combination of textual and graphical syntax can also be achieved in alternative
+  ways, see [EB2010].
+  * On page 6 a reference is missing (top of the page).
+  * woth -> with (page 6)
+  * Last paragraph (page 6, before section 2.3), please look into the work on SmartTools [PCDFPFHA2002],
+     or the ALOE of GANDALF [MF81].
+  * In the discussion on web development (page 6) I would expect a reference to the work on WebDSL.
+  * Please add a reference to "hampering developer productivity" (bottom page 6).
+  * cant -> cannot
+  * Please add to the bullet on SQL (page 7) a reference to work performed by Ralf Laemmel and Erik Meijer.
+  * In the part on "dnq" please add a reference to the recent work on Rascal by Jurgen Vinju and Paul Klint.
+  * "a persistent entities" -> "a persistent entity"
+  * The sentence starting on page 7 and continuing on page 8 covers 6 lines, please split up.
+- Section 3 discusses related approaches. Unfortunately, some work on earlier and related language workbenches is
+  is missing.
+  * SmartTools is closer related than Xtext.
+  * The sentence "Code completion for references ... out of the box." is too cryptic to be understandable,
+     furthermore, I think this is a too positive view on the tooling.
+  * SDF is not developed in Delft, it is maintained there, it is the result of more than 20 years research at the
+    University of Amsterdam and CWI. Spoofax is just one of the SDF implementations, if you mention Spoofax
+    why not mention the ASF+SDF Meta-Environment as well.
+- Section 4 discusses the implementation of a DSL using MPS. Is the DSL used a real DSL? It looks more like
+  an data type.
+   * There is a unresolved reference "the DSL design paper". Furthermore, given the fact that this is a tutorial
+      paper, self-containedness is appreciated. So, please elaborate on the terminology.
+   * "Language definition" -> "Defining a language"
+   * On page 12, the type rules for the entities language are introduced, this is a very concise description.
+     Explain why this is enough to catch the type errors.
+  * On page 13, after figure 4, you mention Xpand, Jet and StringTemplate, please add references.
+  * The sentence "Developers first write ... we generate." is incomprehensible.
+  * The next part lacks abstraction and is a bulk of details, why do I need to read this? What is the point you
+    are trying to make. The paper suffers at more places at this point. A lot of details are given without
+    describing on a more abstract level what you are solving.
+  * The sentence "So instances of the types ... configuration." is grammatically wrong and hard to understand therefore.
+- Section 5 describes the various ways of implementing language extensions. This section suffers from a proper
+  introduction and setting of the scope. A bulk of implementation details are given. I fail to get the point. Are you
+  trying to solve the same problem in different ways, are you showing all features of MPS? I would expect that each
+  section draws some conclusions/lessons learnt.
+- Section 6 presents an evaluation and Section 7 a summary. I miss an evaluation of the drawbacks of MPS. The fact
+  that is a "closed" system. It has no real mechanisms for importing or exporting, but maybe it is so perfect that this
+  is not necessary.
+- Please check references a number of them are incomplete, eg. [10].
+
+
+[EB2010] Engelen, L.J.P. & Brand, M.G.J. van den (2010). Integrating textual and graphical modelling languages.
+In T. Ekman & J. Vinju (Eds.), Proceedings of the 9th Workshop on Language Descriptions, Tools and Applications,
+LDTA 2009, York, UK, March 28-29, 2009). (Electronic Notes in Theoretical Computer Science, Vol. 253(7), pp. 105-120).
+[PCDFPFHA2002] Didier Parigot, Carine Courbis, Pascal Degenne, Alexandre Fau, Claude Pasquier, Jo‘l Fillon,
+Christophe Held, Isabelle Attali: Aspect and XML-oriented Semantic Framework Generator: SmartTools.
+Electr. Notes Theor. Comput. Sci. 65(3): 97-116 (2002)
+[MF1981] Raul Medina-Mora, Peter H. Feiler: An Incremental Programming Environment.
+IEEE Trans. Software Eng. 7(5): 472-482 (1981)
+
+

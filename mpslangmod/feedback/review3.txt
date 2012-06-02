@@ -1,0 +1,324 @@
+----------------------- REVIEW 3 ---------------------
+PAPER: 2
+TITLE: Language and IDE Mo dularization, Extension and Comp osition with MPS
+AUTHORS: Markus Voelter
+
+General Comments:
+
+The abstract and introduction talk about how the paper will introduce MPS in a “practically usable way.” Yet, the conclusions talk about how challenging the learning curve is for most adopters. These statements seem incongruous.
+
+The conclusion states that MPS “scales to realistic program sizes” but there is no evidence either in the paper or references to support this. Please prove or remove the statement. Almost all of the statements in the conclusion are opinions and not backed by any evidence, so this should be more clearly mentioned as opinion in the paper’s current state and lack of empirical evidence.
+
+The paper lacks the level of citation that would be expected for a scholarly paper of 35 pages (more below). Just 8 non-self references is generally at the level of a workshop paper, not a paper at this length and depth. Paper seems to depend a lot on reference 10, but the citation details only list the author names, title, and year. Overall, links to literature and the citations used are rather weak.
+
+The paper mislabels “evaluation” for “discussion.” An evaluation is typically an empirical assessment based on experimentation. That is not provided in this paper. Please use a different word so as not to confuse those who use that word for a specific meaning in experimental software engineering.
+
+The paper talks a lot about “projectional editing” in the early parts of the paper, but never really defines what is meant until later. For readers new to the area, please provide a more concrete and definitive discussion early in the paper.
+
+I may have missed, but the idea of the base language actually evolving could be an important challenge. Can you say more to that (sorry if I missed this discussion, but it seems important to highlight)? If one DSL is derived from another, the idea of co-evolution seems real.
+
+Page 4 mentions “For editing purposes … using graphical shapes.” This is true for MPS? It is in the paragraph mentioning MPS, but no examples of editing graphical shapes is presented in this paper for MPS. Perhaps some concepts are mixed and need to be clarified in the last paragraph.
+
+The idea of interaction patterns is introduced on page 5, but at that point not really explained what this means. Please elaborate at that point.
+
+Perhaps some intro to section 2.3 would help, before jumping right into the examples.
+
+Page 8 mentions a project started in July 2011. Update in revision.
+
+Page 8 also mentions that mbeddr uses Lego Mindstorms for “real-world relevance” – this seems somewhat odd – how does what many consider to be a toy point to real-world relevance? The paragraph then mentions a line tracing robot – this example is taught to middle school children on a daily basis, so not sure why it is that motivating.
+
+The comment about Intentional Software on page 8 could easily be removed – seems a bit like a jab and perhaps not the place for this, or at least reworded (even if this is true).
+
+Perhaps Figure 2 could also indicate “BaseConcept” on the figure.
+
+In footnote 1 on page 11, it is mentioned that the complete definition was not provided. Please provide a link or reference to where a complete definition may be available, if it exists.
+
+When the first MPS templates are introduce around Figure 5, I felt that the accompanying text could have been much better written. This is an important part of the paper in terms of reader understandability – please try to give more details around page 13-14, and other figures that are early in the introduction of MPS. I also felt more detail was needed in Section 5.4.1, and on page 31. The discussion at the bottom of page 34 could also be expanded with more detail.
+
+In Section 5.3, in examples where no type system applies, please explain why.
+
+The discussion about AspectJ on page 23 is a bit perplexing. The bottom of the page touts the advantages of the approach (in terms of preplanning), but the middle of the page just gives a weak justification for not using it as “”we don’t want to introduce AspectJ here” – why not, if that offers the advantages mentioned at the bottom of the paper? Better justification for not using it seems to be needed.
+
+At the bottom of page 25, please explain what you mean by an “intention.”
+
+The introduction seemed a bit oddly initiated. There is no initial section but jumps right to “1.1” – perhaps some intro text would be helpful.
+
+When acronyms are presented on first use (e.g., IDE in abstract, and other examples), please fully elaborate.
+
+
+
+References:
+
+The paper only has 8 non-self references for a 35-page paper. This suggests, as I found in this case, that the author has not set up the paper very well in terms of related work and expressing the content in the context of existing literature. It is understood that this is a tutorial paper, but I still expected the paper to have more of a scientific approach by placing the paper amid the related literature.
+
+At the top of page 2, where various limitations are listed with current approaches (e.g., “limited composability”) please try to point to literature that also identifies this as a problem.
+
+Provide a reference to “JetBrains MPS” on first mention on page 2 and opening of section 2.2.
+
+On page 3, the types of modularization are presented as if they are new to this paper, but have been covered in the literature in many places by others. I am not sure why the author does not recognize these other works. The classic paper by Mernik, Heering and Sloane is missing in an obvious way to anyone working in this area.
+
+Please provide a reference to LSP as mentioned on page 3 (Liskov substitution).
+
+When mentioning modern parsing techniques on page 4, mention a few examples and provide references.
+
+Perhaps some reference to Hibernate, JDO and JPA (also expand acronyms) is needed
+
+Cite references for JSP, Velocity and FreeMarker on page 7
+
+Ref for Misra-C, Osek, and Mindstorms on page 8
+
+On page 9, instead of the URL for Antlr, there are also books and papers about it that could be cited
+
+Refs for Xpand and Jet on page 13
+
+On page 33, component-based design has a URL to a Wikipedia entry. There are many good books and articles that would serve as better references and could be added to the bibliography.
+
+The details of reference 10 are missing! Not sure where this was published…
+
+
+
+Spelling and Grammar:
+
+The following are suggestions about the grammar and writing style used in the paper – many of these are VERY minor:
+
+General:
+There are many spelling errors that could have been caught by a spell checker. Please make sure to run your paper through a spell checker before submitting.
+
+For some reason, all of the open quote symbols are printed backwards. Please fix.
+
+Some of the text extends far into the right margin.
+
+“meta models” and “meta-model” different spellings; perhaps just “metamodels”
+
+Abstract:
+“an extensive example that shows” to “a set of extensive examples that show”
+
+Page 2:
+“Specifically, LME&C, requires” remove second comma
+“semantics i.e., the constraints and the type system have” to
+   “semantics (i.e., the constraints and the type system) have”
+“For example in case” to “For example, in the case”
+“be extended and composed as well” to “be extended and composed”
+“well supported” hyphenate
+“in this paper as well.” to “in this paper.”
+“However, as we will see, in” to “However, in”
+“in many cases, languages” remove comma
+“for reuse, in order” remove comma
+“and explained in the [10] paper” to “and explained in [10]”
+“Then we describe” to “Then, we describe”
+“”Next we provide” to “Next, we provide”
+“overview over related” to “overview of related”
+“language, entities, for this task” “language entities for this task”
+“approaches is discussed” to “approaches, is discussed”
+“Section 6 looks at what” to “Section 6 discusses what”
+“paper cannot be a complete” to “paper is not a complete”
+“tutorial for a at detailed MPS tutorial” to “tutorial for details”
+
+Page 3:
+“MPS 2.0 as well” to “MPS 2.0”
+“At the point of this writing” – perhaps ok to update or reword now
+“We then build additional language” to “We then build an additional language”
+
+Page 4:
+“separated generated code” to “separate generated code”
+“Workbench has been coined” to “Workbench was coined”
+“he defines it as” to “he defines a Language Workbench as”
+“In the meantime, Martin Fowler, and the community” to “In the meantime, the community”
+“Users use” to “Users provide”
+
+Page 5:
+“as part of language definition” to “as part of the language definition”
+“of the approach projectional editing” to “of the projectional editing approach”
+“is easily possible” to “is made easy”
+“data, i.e. annotations ..” to “data (i.e., annotations …)”
+“Jet Brains” to “The Jet Brains”
+“workbench, so all the statements” to “workbench. All of the statements”
+“concepts and (c)” to “concepts, and (c)”
+
+Page 6:
+“with a text-oriented tools” to “with text-oriented tools”
+“For higher-level languages assimilation” to “For higher level languages, assimilation” (2 changes)
+“see [?] for details” missing reference
+“needs some getting used to” reword
+“section 4” to “Section 4”
+“woth MPS” to “with MPS”
+“All these languages” to “All of these languages”
+“general purpose” hyphenate
+“bidirectional cant” to “bidirectional cannot”
+
+Page 7:
+“its much more” to “it is much more”
+“for querying database” to “for querying a database”
+“if the query language were integrated” to “if the query language is integrated”
+“language, a language which” to “language, which”
+“For example, t supports” to “For example, dnq supports”  (?)
+“frameworks this tasks” to “frameworks this task”
+“XML based” hyphenate
+“its impossible” to “it is impossible”
+“well integrated” hyphenate
+“use a persistent entities” to “use a persistent entity”
+“more and more software” to “more software”
+“a major headache” to “a major challenge”
+
+Page 8:
+“as well a core” to “as well as a core”
+“in this InfoQ” to “in an InfoQ”
+Perhaps the URL on this page could be a footnote instead of inline
+
+Page 9:
+“are supported out of the box” to “are supported natively”
+“in the concrete syntax!” remove exclamation
+“Currently SDF” to “Currently, SDF”
+“Monticore(“ add space
+“parser based” hyphenate
+“RWTH” spell out
+“to not have to regenerate” to “to not regenerate”
+“SAP and the FZI” to “SAP and FZI”
+“into a retaining object identity” to “into retaining object identity”
+“and then for example something” to “and then something”
+“aren’t” to “are not”
+“recreated but really” to “recreated, but really”
+
+Page 10:
+“UUID’s” to “UUIDs”
+“approach is possible” to “approach, it is possible”
+“tables or diagrams or annotations” to “tables, diagrams, or annotations”
+“of the tool, and makes” remove comma
+“As of June 2010” – update date and numbers
+“Here is an example model.” This sentence seems out of place and could be removed
+“top level” hyphenate
+“design paper [?]” missing reference
+“defined via so-called concepts” to “defined by concepts”
+
+Page 11:
+“attributes, those have” to “attributes, which have”
+“an editor hence consists” to “an editor consists”
+“This is similar to what we know from math.” To “This is similar to solving a set of equations mathematically.”
+
+Page 12:
+“also don’t just contain equations” to “also do not contain only equations”
+“Finally the textgen” to “Finally, the textgen”
+“template based” hyphenate
+“top level” hyphenate (twice)
+“and replace it” to “and replaces it”
+
+Page 13:
+“such as for example Xpand”to “such as Xpand”
+“Then so called macros” to “Macros”
+“types defines as” to “types defined as”
+Last word: “Finally” to “Finally,”
+
+Page 15:
+“This means, that” remove comma
+“Here is the definition” to “Below is the definition”
+Footnote 2: “uses or referes” to “uses or refers”
+
+Page 16:
+“are dependent, they share” to “are dependent, because they share”
+“the UI, it needs” to “the UI, because it needs”
+“transformation, the transitive” to “transformation, such that the transitive”
+
+Page 17:
+“shows an Example” to “shows an example”
+Figure 7: Figure extends well beyond margin; true for most figures in this section
+Figure 7: “Expression block are” to “Expression blocks are”
+“This is why an BlockExpression” to “This is why a BlockExpression”
+“because languages are mixed” to “because the languages are mixed”
+
+Page 18:
+Figure 8: “method for this” Explain what is “this”
+“creates a a mapping” remove redundant “a”
+“used insider method bodies” to “used inside method bodies”
+
+Page 19:
+“happens inside the -?$ macros” – something seems wrong here
+“language that has been” to “language has been”
+“separate of the code” to “separate from the code”
+
+Page 21:
+“So the dependency” to “The dependency”
+“depdencies” to “dependcies”
+“dedpendency” to “dependency”  (use spell checker for other cases of this word)
+“the name (and” to “the name and” (remove nested parens)
+“about the structure) of” to “about the structure of” (remove nested parens)
+“The subclass, generated” remove comma
+“So the generator” to “The generator”
+“are dependent, the information” to “are dependent. The information”
+
+Page 22:
+“sublanguge” to “sublanguage”
+Perhaps move fragmented code at bottom of page to next page
+
+Page 23:
+“we don’t” to “we do not”
+“But it does not.” To “But it does not work.”
+“dependent, they have” to “dependent, because they have”
+
+Page 24:
+“we don’t have” to “we do not have”
+“So when it encounters” to “When the code generator encounters” (several changes)
+“i.e. a partial” to “i.e., a partial”
+
+Page 25:
+“uispec, it is sublanguage” to “uispec, which is a sublanguage”
+“the user has to use” to “the user has to provide”
+Figure 15: “LenghtOf” misspelled in actual figure
+
+Page 26:
+“LenghtOf” to “LengthOf”
+“those entities that used” to “those entities that are used”
+“is no problem at all as a consequence” to “is not a problem because” (several changes)
+“So the two sets” to “The two sets”
+“Here are a couple of examples.” Perhaps ok to remove
+
+Page 27:
+“for the expressions languages’s” to “for the expressions language’s”
+“we define so-called overloaded” to “we define overloaded”
+“Here is the code” to “The following is the code”
+
+Page 28:
+“Java Text” to “Java text”
+“Either we can” to “We can”
+“rules would get used” to “rules would be used”
+
+Page 29:
+Figure 17: “template” to “template”
+Figure 17: “-?$” something wrong here?
+“language insider validation” to “language inside validation”
+“Structure and Syntax:” this paragraph was hard to follow, please reword
+
+Page 30:
+The code at the top is orphaned from the previous page
+“Instead we define” to “Instead, we define”
+“relmapping_annotations which extends” to “relamapping_annotation which extends”
+“define a so-called annotation link” to “define an annotation link”
+“of the node it is annotated to.” to “of the node it annotates.”
+“So the Attribute” to “The Atrribute”
+“in [11] and [9]” to “in [9] and [11]”
+
+Page 31:
+“described above” to “described previously”
+“to the above example” to “to the previous example”
+“annotations introduced above” to “annotations introduced earlier”
+“use of of annotations” remove redundant “of”
+“explicit dependency any” to “explicit dependency to any”
+
+Page 33:
+“Evaluation” this is not an Evaluation in the Computer Science term, but rather a “Discussion”
+“The examples above show” to “The previous examples show”
+Redefine LME&C on use here
+“in MPS at all, since” to “in MPS, because”
+“In case of generators” to “In the case of generators”
+“directly, this is why” to “directly. This is why”
+“although this is supposed to change” perhaps update if this has changed since writing
+“before the the behavior” remove redundant “the” spell checkers can find things like this!
+
+Page 34:
+Figure 22: “determines which facets” to “determines which facet”
+“This could be used for example to define” to “For example, this could be used to define”
+“base language designed” to “base language designer”
+“group his structures” to “group the structures”
+“rich advise” to “rich advice”
+
+Page 35:
+“First ideas exist…” Not sure what is meant here, but perhaps could be “There are initial ideas on how this can be done.”

@@ -1,0 +1,174 @@
+I am going through the related work comments of the reviewers and add some things here and there.
+
+---------------------
+
+
+  MERNIK, Marjan, ZUMER, Viljem. Incremental programming language development. 
+  Comput. syst. struct., 2005, Vol. 31, pp. 1-16
+
+Definitely worth reviewing both for political reasons and because it is relatively recent and it sort of surveys some relevant part of the universe.
+
+---------------------
+   Aspect-oriented extension of LISA has been described in:
+   REBERNAK, Damijan, MERNIK, Marjan, HENRIQUES, Pedro Rangel, DA CRUZ, Daniela, 
+   VARANDO PEREIRA, Maria Jo‹o. Specifying Languages Using Aspect-oriented Approach: 
+   AspectLISA. CIT. J. Comput. Inf. Technol., 2006, vol. 14, no. 4, pp. 343-350
+
+  REBERNAK, Damijan, MERNIK, Marjan, WU, Hui, GRAY, Jeffrey G. Domain-specific 
+  aspect languages for modularising crosscutting concerns in grammars. IET softw., 
+  Jun. 2009, vol. 3, iss. 3, pp. 184-200.
+
+Well, this is getting much from the same folks, but this is on topic. I am concerned that if you just cite these three Mernik papers, then we are not doing justice. Let's see.
+
+---------------------
+
+  * Last paragraph (page 6, before section 2.3), please look into the work on SmartTools [PCDFPFHA2002],
+     or the ALOE of GANDALF [MF81].
+
+This is pretty old stuff, but this might be good references (I only know the former) to show the long tradition of IDE research. I don't see how you can easily summarize the differences between MPS and potentially everything what has existed in the past, but probably you have some ways of saying that already.
+
+
+---------------------
+
+ * Please add to the bullet on SQL (page 7) a reference to work performed by Ralf Laemmel 
+    and Erik Meijer.
+
+Is that in the context of adding SQL to a language?
+Well, that would be mainly LINQ papers and that would be Meijer and others (not me).
+I did two papers on SQL/XML impedance mismatch with Erik, but I wonder whether the reviewer had this really in mind.
+
+
+---------------------
+
+ * In the part on "dnq" please add a reference to the recent work on Rascal by Jurgen 
+    Vinju and Paul Klint.
+
+Referencing Rascal somewhere seems sound.
+Do you have a way of assessing Rascal's language composition capabilities?
+
+---------------------
+
+  * SmartTools is closer related than Xtext.
+
+Ok, Smarttools were mentioned before. Mentioning this (again) sounds Ok.
+http://dblp.uni-trier.de/rec/bibtex/conf/cc/AttaliCDFPP01
+
+---------------------
+
+    if you mention Spoofax
+    why not mention the ASF+SDF Meta-Environment as well.
+
+Indeed, ASF+SDF MetaEnvironment should be mentioned.
+It is one of these popular systems for generic language technology including IDE support.
+http://dblp.uni-trier.de/rec/bibtex/conf/cc/BrandDHJJKKMOSVVV01
+
+
+---------------------
+
+[EB2010] Engelen, L.J.P. & Brand, M.G.J. van den (2010). Integrating textual and graphical modelling languages. In T. Ekman & J. Vinju (Eds.), Proceedings of the 9th Workshop on Language Descriptions, Tools and Applications, LDTA 2009, York, UK, March 28-29, 2009). (Electronic Notes in Theoretical Computer Science, Vol. 253(7), pp. 105-120).
+Not too relevant as far as I can tell.
+
+[PCDFPFHA2002] Didier Parigot, Carine Courbis, Pascal Degenne, Alexandre Fau, Claude Pasquier, Jo‘l Fillon, Christophe Held, Isabelle Attali: Aspect and XML-oriented Semantic Framework Generator: SmartTools. Electr. Notes Theor. Comput. Sci. 65(3): 97-116 (2002)
+This or the other SmartTools reference.
+[MF1981] Raul Medina-Mora, Peter H. Feiler: An Incremental Programming Environment.
+IEEE Trans. Software Eng. 7(5): 472-482 (1981)
+Ok, this is a classic that I don't know (or don't remember).
+
+
+
+---------------------
+
+Perhaps some reference to Hibernate, JDO and JPA (also expand acronyms) is needed
+Cite references for JSP, Velocity and FreeMarker on page 7
+Ref for Misra-C, Osek, and Mindstorms on page 8
+
+On page 9, instead of the URL for Antlr, there are also books and papers about 
+it that could be cited
+
+I strongly disagree. Using URLs is Ok for citing technologies that have NOT been grown dominantly in the academic literature. Also, for JDO and JPA etc., yes, I would expand the acronyms (and perhaps add a tiny phrase of explanation), but I would not try to find academic literature.
+
+
+
+---------------------
+
+component-based design has a URL to a Wikipedia entry. There are many 
+good books and articles that would serve as better references and could be added to 
+the bibliography.
+
+That's difficult. Our community does not (yet) accept Wikipedia to be used in this manner for conceptual terms. If you have good scholarly references, please use them; otherwise remove the Wikipedia reference. (Unfortunately.)
+
+
+
+
+---------------------
+
+ÒThe challenge of grammar composition is not an issue in MPS at all, since 
+  no grammars and parsers are usedÓ. But, language composition is not just grammar 
+  composition! Semantics is much more important. 
+  
+-> I disagree. Many systems can't even do syntax, so the semantics issue never comes up!  
+
+I think this is the point which reveals the broader expectation regarding related work:
+
+
+- modular IDE-specific aspects
+- modular type system/semantics
+- modular syntax
+
+For modular syntax, here are some things perhaps you haven't though of.
+
+http://dblp.uni-trier.de/rec/bibtex/conf/sle/SchwerdfegerW09
+
+
+http://dblp.uni-trier.de/rec/bibtex/conf/oopsla/BravenboerTV06
+
+
+
+I am not saying that these are directly the right ones, but you could do some chasing from them that may lead to good coverage I believe.
+
+
+
+More generally, I also realize that you probably want to refer more to E. Visser's work:
+
+http://www.informatik.uni-trier.de/~ley/db/indices/a-tree/v/Visser:Eelco.html
+
+
+
+There is stuff on parsing (SDF), debgugging, and others.
+
+More related to the IDE front, there is SugarJ, or did you refer to this already.
+
+http://dblp.uni-trier.de/rec/bibtex/conf/oopsla/ErdwegKRKOV11
+
+
+
+Overall, the challenge will be to discuss related work at a level of abstraction that a) does not insult the normal academic reviewer; b) does not get lost in too many details of this extremely diverse and rich area.
+
+
+
+A few words on modular semantics in closing.
+Often, the term extensibility in the more formal area of semantics.
+
+
+I have some papers, from which could perhaps could extract from related work picture:
+
+http://homepages.cwi.nl/~ralf/waga99/
+http://homepages.cwi.nl/~ralf/pepm99/
+
+
+http://homepages.cwi.nl/~ralf/jlap04/
+
+Keywords that come to mind:
+- Modular SOS (P. Mosses)
+
+
+- Action semantics (ditto)
+- Monads in denotational semantics (E. Moggi)
+
+
+- Various notions of modular attribute grammars (see my WAGA paper)
+
+
+
+Have fun and regards,
+Ralf
