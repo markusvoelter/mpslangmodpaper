@@ -1,0 +1,19 @@
+*** SugarJ:
+Does it include type system extension as well? seems so. Example of extension.
+semantics by reducing to lower meta level.
+It does include concrete syntax and transformation (desugaring).
+
+The paper also suggests that semantic interactions seem to be no problem in 
+practice. Good related work. "Outside the scope of this paper".
+
+Pluggable type systems; Braha 
+
+TODO: Point out contributions clearly
+TODO: Use API and Hudak examples to describe what we don't want to do.
+  String encoding - Lib embedding - lang extension by modifying grammar
+
+No IDE -> next paper.
+
+*** EDitorLibs
+In Intro: Good Literature! Maybe just copy, and explain one or
+two in detail.

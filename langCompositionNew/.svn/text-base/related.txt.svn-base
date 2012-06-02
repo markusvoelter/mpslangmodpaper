@@ -1,0 +1,218 @@
+Embedding and Assimilation
+  Eelco's stuff
+  -> 
+  
+argons for Domain Engineering
+  Standardized Syntax: very[params...]
+  so, no syntax composition problem. Like Lisp, actually.
+  If care is taken to
+  make the concrete terms unique across all jargons that
+  might collaborate, the jargons are composable without
+  conflict -> Haha :-)
+  a bit like XML :-)
+  too simplistic to be relevant - maybe as a way of what we
+  don't want to do!
+  
+A Meta-Environment	for Generating Programming Environments
+  Has a number of potentially relevant referneces in the Intro
+  This paper has the idea of modular languages - worth citing!
+  composition by first building an IDE with all modules,
+  then selecting.
+  There is also a good discussion of composition operators.
+  "structure-oriented	editing should be seen as a complement	rather than as a replacement	of a good text editor. 
+  Look at problems and open questions
+  How can we specify type systems and semantics declaratively
+  so that it is more modular
+    => declarative means composable, because ordering is irrelevant?
+  
+  
+Notable design patterns for domain-specific languages
+  Has the notion of a pipeline ... 
+  Has Language Extension as a pattern (adds constructs)
+  Has Language Specialization as a pattern (removes constructs)
+  But does not talk about the technical approach to doing it
+    (in other words, copy-paste-modify is fine).
+
+Khepera: A System for Rapid Implementation of Domain Specific Languages
+  Composition == Cascading
+  Note that cascading is not just transformation, but also an interpreter
+  implemented in a lower-level lang
+  
+Approach only works reasonably if semantics are not mixed with grammars:
+  The Reuse of Grammars with Embedded Semantic Actions
+
+Language Oriented Programming: The Next Programming Paradigm
+  relevant, but we know the story.
+
+OpenJava: A Class-Based Macro System for Java
+  good discussion of macros
+  composition of several macros is of course possible
+  semantic interaction? unsolved.
+  limited places where new syntax can be added.
+  Generally seems like a nice system :-)
+
+The JastAdd Extensible Java Compiler
+  modularization of abstract syntax no problem.
+  behaviour: no problem - declarative (they say).
+  declarativeness removes order dependency!
+
+Sectional Domain Specific Languages
+  PEGs are close under composition, intersection and complement  
+  ‡ la Hyper/J: multi-dim separation; 
+  roles such as syntax, type check, runtime eval
+  Very interesting and relevant
+  Hive/Neverlang seems to be very ineresting, except (as usual) for tool support :-)
+  
+  
+Polymorphic Embedding of DSLs
+  One Embedded Scala DSL - several interpretations/semantics
+  "s can chose an alternative semantics for their DSL programs."
+  why do we want several semantics?? Yes, different implementations
+  (optimization, platform), but different sematnics??
+  It is about internal DSLs - not relevant?
+  This hierarchical definition of DSLs enables
+  code reuse by importing -> Cascading
+  How, exactly, are a bunch of functions a DSL?????
+  Really interesting paper, but not that relevant.
+  Decide: internal???
+
+
+Xoc, an Extension-Oriented Compiler for Systems Programming
+  extending C once more. 
+  Nothing about tooling...
+  Discussion about composable languge extensions -> Paper on 
+  doing so with MPS?
+  This looks like a nice tool and paper. Relevant!
+  Very interesting: xoc has a type system to type expression
+  wrt which grammars they conform to: C99.expr vs. (C99+XRotate).expr
+  I wonder how specific this tool and approach is to C?
+  good related work discussion,
+  Nice Paper!
+
+
+Repleo: a Syntax-Safe Template Engine
+  Based on SDF - Grammars can have parameters; very cool!!
+  a little bit like inheritance with exhangable base classes
+  actually quite cool! (no tool support though)
+
+!! no syntax
+!! no tool support
+
+
+Maya: Multiple-Dispatch Syntax Extension in Java
+  At least a good related work list at beginning
+  Macro system for Java. Macro dispatch also based on AST;
+    identifier-value based dispatch to avoid defining new keywords
+  Combined grammar must be LALR(1) 
+  not sure how type system extensions are handled
+  All macros systems are a form of cascading, where the translation
+    is defined in the language itself
+
+
+
+The Java Syntactic Extender (JSE)
+  Another Macro System for Java
+  No real syntactic extension, only a limited number of
+    syntactic "shapes"; macros begin with names.
+  Are all these macro systems relevant??
+
+
+Towards Context Sensitive Domain Specific Languages
+  exchanging interpreter to change the semantics of
+  existing language over time. A kind of modularity,
+  I guess....
+
+
+Better Extensibility through Modular Syntax
+  A lot of good DSL references in the intro -- useful to cite?
+  incremental C extension as an idea
+  "xplore the ex- pression, composition, and implementation of fine-grained exten- sions for C-like languages, #
+  good discussion of what properties grammars should have to be extendible
+  modules have parameters for explicit dependency management (DI?)
+  (with this, in MPS one could make a concept inherit from several ones,
+   or a dectab could contain various kinds of expressions - very neat!)
+  very good idea for modularization!
+  it also has public, private, protected; 
+  has fine grained extension/modification/removal ops
+  contains a couple of C extensions
+  I don't see support for modularized type systems etc.
+
+
+Programming for the 21st Century
+  Keynote by Guy Steele OOPSLA 98;
+    Extensible Lang
+  Basically the idea of extensible languages....
+  also advocates projection...
+  not too interesting, but maybe worth citing as an early example
+  of the idea
+
+
+An Architecture for Composing Embedded Domain-Specific Languages
+  Embdedded DSLs - focus on semantic composition; what happens
+  if the combined use of lang A and B affects the semantics of A
+  or B
+  -> Solution: AOP on the interpreters
+  exchanging the semantics (interpreter) is obviously simple.
+  I really have a problem calling an interpreter the "semantics".
+  Don't semantics exist independent of the execution engine???
+  AOP as an idea to handle "semantic interaction" is a good one.
+
+
+Adding Domain-Specific and General Purpose Language Features to Java with the Java Language Extender
+  examples for language integration (SQL into Java)
+
+
+MontiCore: A Framework for the Development of Textual Domain Specific Languages
+  grammar inheritance: mutliple?
+  How can new concepts be integrated?
+  language embedding by explicitly defining "holes" into
+  which other languages can plug into.
+    -> does an extension need to know into which hole it plugs in?
+       Are adapters possible?
+  combination in compiled form - no "regeneration" of compiled grammar.
+    do we need some kind of "syntactic hint" to identify the embedded
+    language fragment?
+  "Furthermore, possible ambiguities are analyzed while designing the 
+   fragments and are therefore avoided at combination time.
+   hä?
+  Generally: how do the composition frameworks deal with ambiguity
+    after combination? How about independent ext development, and
+    later composition?
+  is this "binary compatibility" also true for the editors?
+
+
+Polyglot: An Extensible Compiler Framework for Java
+  Syntax and Semantics
+  Good related work...
+  Not sure I understand how syntactic exensibility works,
+  and no discussion on composition of indepednently developed
+  extensions.
+
+
+Component-Based DSL Development
+  advocates keyword based programming. Not convincing.
+  Some kind of DI seems useful for language modules,
+  especially, if the base types can be "parametrized".
+  The paper does not show a reasonably sized example.
+  I am not convinced.
+
+
+Modular Domain Specific Languages and Tools
+  Reading deferred, since it is about internal DSLs.
+
+
+
+
+
+TO READ:  
+* Metafront  
+* Implementing Extensible Compilers (for semantics)  
+* Language Boxes  
+* Embedding Languages Without Breaking Tools 
+* ScalaQL: Language-Integrated Database Queries for Scala
+* On Language-Independent Model Modularisation
+  
+
+
+
+

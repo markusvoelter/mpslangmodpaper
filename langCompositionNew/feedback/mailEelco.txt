@@ -1,0 +1,91 @@
+Hi Markus,
+
+I've attached the last PDF you sent me with my notes.
+
+> attached is the next state of the paper. The kind of feedback
+> I'd appreciate most at this time is whether the paper as a whole
+> has enough merit to be submitted. The story should be clear,
+> the main ingredients are in. In places, things are still missing, and
+> of course the language etc. can be improved a lot.
+
+The main issue that the paper has that it is not clear what its message is
+
+* What is the contribution?
+* What is new?
+* Is there existing related work that this paper follows up on? This
+reads as if all of the paper is completely new.
+* How about the relation with regular module systems? Component systems?
+* Is it the language aspect that is new?
+* Why are IDEs and language workbenches relevant?
+* If this is a modularity vision paper, what is the vision?
+
+It is not clear whether this is a survey paper or a research paper.
+
+It is not really a survey, since it does not refer to the existing
+literature. As an example, it might be useful to have a look at
+http://researchr.org/publication/BravenboerV07 , which by the way
+surveys the syntactic part of language modularization. Is there a new
+insight that the paper gives relative to the existing literature?
+
+It is also not really a research paper, since it mostly discusses
+generalities, without becoming detailed enough. As a research paper
+there is not a clear technical contribution.
+
+> below are some thoughts on the paper. What do you think?
+> Is this enough of a contribution?
+>
+> Contribution:
+>  - Justify the need for modular languages
+
+I don't see that it does that. And other papers have done that. (where
+are the references?)
+
+>  - Provide a classification of modularization approaches
+
+That seems to be the core of the paper, but it does not become clear
+why that is useful.
+
+>  - ... and a couple of examples.
+
+The examples are very superficial. Without more of a description they
+are not useful. The examples are mentioned as if the reader should be
+intimately familiar with them. In the dimensions paper there was a bit
+more a description that could be used as a basis.
+
+...
+
+I've been thinking a bit about our research collaboration. I'm finding
+it quite difficult to deal with these 'survey type' papers. They tend
+to be too generalistic to my taste. It would be nice to do something
+more technical and down to earth. It is clear you're not going to
+touch Spoofax. So perhaps we should make MPS the topic of your thesis
+(that's where your passion is anyway), and that we should think about
+technical papers about 'DSL engineering with MPS'. As a side effect, I
+would learn something useful.
+
+Following this line of thought, I think I would be interested in
+looking into MPS when you're visiting Delft in September, and thinking
+about research questions in that area.
+
+...
+
+Another general thought: when thinking about papers, consider not
+ideas that you want to impose on others, but think about topics that
+_you_ are trying to understand yourself. Your writing very much has
+the flavor of advocacy rather than research. Advocacy is what you do
+as a consultant. (And that is fine.) In research it is fine not to
+know something. Indeed, it is the things that we don't know that are
+interesting. (And I know that the distinction is not always so clear;
+as researchers we're also trying to sell ideas)
+
+...
+
+Are you in Munich yet? How is SPLC? Good luck with the talk tomorrow.
+(Any slides I should have a look at?)
+
+cheers,
+
+
+-- Eelco
+
+P.S. Until next Tuesday (30 August) I'm working on my proposal full time.

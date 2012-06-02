@@ -1,0 +1,166 @@
+Contribution:
+  - Justify the need for modular languages
+  - Provide a classification of modularization approaches
+  - ... and a couple of examples.
+  
+Structure:
+
+## Introduction
+  - modularization is important because it supports better understanding of 
+    problems and the potential for reuse. Reuse is good, because of reduced
+    implementation effort and lowered learning effort.
+  - modularization and composition are two sides of the same coin: you
+    modularize, so you can compose in different ways
+  - languages have to have certain properties to facilitate modularization
+    (the language defines what kinds of mod of programs are possible). This 
+    include delegation, namespaces, inheritance, higher-order functions, etc.
+  - however, language themselves are typically not modularized (mod. of JDK is 
+    different: this is library modularization, not *language* mod).  
+    why would lang modularization be useful?
+    * multi-concern programming: with DSLs rising, different DSLs should be 
+      composed to create a complete solution. In GPL, this may not be
+      so necessary, because you write everything with the same language,
+      and you build libs
+    * but even there it makes sense: "remove" evil parts of C for safety
+      critical apps. Remove other parts for realtime stuff.
+	* A way to grow a language: You can start with a GPL, and then add DS
+	  language modules to it to make the language fit a particular domain
+	  better
+  - Modularized languages are better than f/w and libs, because they can provide
+    adapted syntax, type systems and constraints and IDE support.
+  - Scope: External DSLs. Not use internal DSLs because
+    - scattered lang def
+    - often not easy/possible to adapt type system and compiler
+    - no IDE support 
+    -> External is simply better.
+  
+## Challenges (why hasn't this been done already all the time?)
+  
+  - syntax composition: grammar stuff...
+  - type system composition: modularized type systems?
+  - generator composition: modularized transformation
+
+## Classification
+  basically what we had come up with before...
+  - Referencing
+  - Extension
+  - Reuse
+  - Embedding
+
+## Examples
+
+WebDSL, Mbeddr-C, etc.   
+   
+## Solution approaches
+
+briefly outline MPS and SDF approach; then
+  -> point at GTTSE paper regarding how MPS solves it
+  -> point at some SDF/Stratego papers to show how they do it 
+
+
+## Related Work
+
+The reading we did before. There is a lot of interesting related work. 
+
+
+
+
+
+
+
+
+
+
+P: Partition, a tree of model elements where the top one has no parent
+E: A set of program elements
+E(P): the set of program elements in a partition
+C(L): the set of language concepts in a language L
+S(L): the set of concrete syntax symbols in a language L
+typeof: E(P) -> C(P), with the C(P) is the set of language concepts from
+                      which E(P) are instances
+langof: C -> L, returns the language of a concept                    
+partof: E -> P, returns the partition for a program element                    
+References(P): the set of pointing-to relationships in a partition
+               properties: source, target
+               (also for languages)
+Children(P): the set of child-of  relationships in a partition
+             properties: parent, child
+             (also for languages)
+Super(L): the set of is-supertype-of relationships in a lanuguage
+          properties: super, sub
+
+we also need the notion of lang concept extension: 
+C2 extends C1 means that C2 can be used wherever C1 is expected (LSP)
+
+
+An *independent* language is defined as a language L, where
+* (A) for all r in References(L) | langof(r.target) == langof(r.source) == L
+* (B) for all s in Super(L) | langof(s.super) == langof(s.sub) == L 
+* (C) for all c in Children(L) | langof(c.parent) == langof(c.child) == L 
+
+An *independent* partition is defined as a partition P, where
+* (D) for all e in E(P) | 
+		langof(typeof(e)) == L
+* (E) L is independent
+* (F) for all r in References(L) | 
+		partof(r.target) == partof(r.source) == P
+
+
+## No Relationship
+* There are two independent languages L1 and L2
+* There are two independent partitions P1 and P2
+
+
+## Referencing: L2 references L1
+* L1 is independent
+* L2 is not independent. (B) and (C) holds, but (A) does not:
+  (3) for all r in References(L2) | langof(r.source) == L2
+                                    langof(r.source) == (L1 || L2)
+* An independent partition P1
+* A dependent parition P2 that depends on P1, 
+  (4) for all r in References(P2) | part(r.source) == P2
+                                    part(r.target) == P1 || P2
+
+  
+## Extension: L2 extends L1
+* L1 is independent
+* L2 is not independent, because
+  (5) for all s in Super(L2) | s.sub == L2 && s.super == (L1||L2)
+* (6) and a partition P with C(P) subsetOf (C(L1) union C(L2))
+* (7) for all c in Children(P) | langof(c.parent) == L1 || L2, 
+                                 langof(c.child) == L1 || L2
+ 
+
+## Reuse: L2 is reused with L1
+* given two independent languages L1, L2
+* given an independent partition L1
+* and a partition P2 that is not independent, because
+  (8) for all r in References(P2) | part(r.source) == P2, 
+                                    part(r.target) == (P1 || P2)
+* some kind of adapter is needed, for example a language LA, which 
+  LA extends L1 and L2
+  (9) there exists s in Super(LA) | langof(s.sub) == LA
+                                    langof(s.super) == L1
+  (10) there exists r in References(LA) | langof(s.source) == LA
+                                          langof(s.target) == L2
+                                     
+       
+## Embedding: L2 is embedded in L1
+* given two independent languages L1, L2
+* and a partition with elements from L1 and L2 mixed, so that
+  (11) for all c in Children(P) | langof(c.parent) == L1 || L2, 
+                                  langof(c.child) == L1 || L2
+* some kind of adapter is needed, for example a language LA, which 
+  LA extends L1 and L2
+  (9) there exists s in Super(LA) | langof(s.sub) == LA
+                                    langof(s.super) == L1
+  (10) there exists c in Children(LA) | langof(s.child) == LA
+                                        langof(s.parent) == L1
+
+
+  
+ 
+ 
+ 
+
+

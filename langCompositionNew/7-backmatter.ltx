@@ -1,0 +1,36 @@
+
+
+
+\section{Discussion and Future Work}
+\label{conclusion}
+
+The modularization approaches discussed in this paper are supported to various
+degrees by the example tools. In this section we compare those approaches to
+established module and component systems as a way of identifying what is still
+missing. According to Szyperski's book Component Software
+\cite{SzyperskiSzyperski1998}, components can essentially be characterized as
+follows: (1) A component defines interfaces that provide access to its behavior.
+The actual implementation is hidden. Interfaces also specify that behavior to
+some extent, for example using pre- and post-conditions or protocol state
+machines. (2) A component makes all its context dependencies explicit, for
+example, by referring to the interfaces it makes use of. (3) Components also
+often work on the binary level, where the source code is not necessary to use or
+extend a component.
+
+None of the tools support language interfaces. It is not even clear what a
+language interface would be, although it is clear that it would have to export
+not just the syntax, but also some of the type system rules and transformations.
+There is no hiding of internal structure. All tools support declaration of
+context dependencies in the form of references to extended or used languages.
+However, because of the lack of interfaces, it is not possible to exchange a
+referenced language for another one that provides the same interfaces. Support
+for binary reuse exists to some extent. For example, in MPS all the \lmrc\
+approaches work with the referenced languages packaged in JAR files.
+
+Essentially, the implementations of the \lmrc{} approaches is comparable to white
+box object-oriented frameworks where all classes are available for use and
+extension and we cannot even have the equivalent of Java's \texttt{final} which
+prevents the overriding of some methods or the extension of classes.
+
+%Future work in the area of language modularity needs to come up with a
+%definition of a language interface and experiment with implementations.

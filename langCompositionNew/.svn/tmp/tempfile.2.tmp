@@ -1,0 +1,221 @@
+<<<<<<< .mine
+\begin{thebibliography}{10}
+
+\bibitem{Voelter2011}
+{\em Language and IDE Development, Modularization and Composition with MPS},
+  2011.
+
+\bibitem{504285}
+J.~Bachrach and K.~Playford.
+\newblock The java syntactic extender (jse).
+\newblock In {\em OOPSLA '01: Proceedings of the 16th ACM SIGPLAN conference on
+  Object-oriented programming, systems, languages, and applications}, 2001.
+
+\bibitem{BravenboerDV07}
+M.~Bravenboer, E.~Dolstra, and E.~Visser.
+\newblock Preventing injection attacks with syntax embeddings.
+\newblock In {\em GPCE}, pages 3--12, 2007.
+
+\bibitem{BravenboerV07}
+M.~Bravenboer and E.~Visser.
+\newblock Designing syntax embeddings and assimilations for language libraries.
+\newblock In {\em MoDELS}, pages 34--46, 2007.
+
+\bibitem{CoxBCKK08}
+R.~Cox, T.~Bergan, A.~T. Clements, M.~F. Kaashoek, and E.~Kohler.
+\newblock Xoc, an extension-oriented compiler for systems programming.
+\newblock In {\em asplos}, pages 244--254, 2008.
+
+\bibitem{lopnextprogrammingparadigm}
+S.~Dmitriev.
+\newblock Language oriented programming: The next programming paradigm, 2004.
+
+\bibitem{Erdweg-GPCE-2011}
+S.~Erdweg, L.~C.~L. Kats, Rendel, C.~Kastner, K.~Ostermann, and E.~Visser.
+\newblock Growing a language environment with editor libraries.
+\newblock In {\em GPCE}, 2011.
+
+\bibitem{Erdweg-OOPSLA-2011}
+S.~Erdweg, T.~Rendel, C.~Kästner, and K.~Ostermann.
+\newblock Sugarj: Library-based syntactic language extensibility.
+\newblock In {\em OOPSLA}, 2011.
+
+\bibitem{FaithNP97}
+R.~E. Faith, L.~S. Nyland, and J.~Prins.
+\newblock Khepera: A system for rapid implementation of domain specific
+  languages.
+\newblock In {\em DSL}, 1997.
+
+\bibitem{Fowler2004}
+M.~Fowler.
+\newblock Language workbenches: The killer-app for domain specific languages?,
+  2005.
+
+\bibitem{HemelVisser2011}
+Z.~Hemel and E.~Visser.
+\newblock Declaratively programming the mobile web with mobl.
+\newblock In {\em OOPSLA}, 2011.
+
+\bibitem{HoferORM08}
+C.~Hofer, K.~Ostermann, T.~Rendel, and A.~Moors.
+\newblock Polymorphic embedding of {DSLs}.
+\newblock In {\em GPCE}, pages 137--148, 2008.
+
+\bibitem{Steele99}
+G.~L.~S. Jr.
+\newblock Growing a language.
+\newblock {\em lisp}, 12(3):221--236, 1999.
+
+\bibitem{KatsVW10}
+L.~C.~L. Kats, E.~Visser, and G.~Wachsmuth.
+\newblock Pure and declarative syntax definition: paradise lost and regained.
+\newblock In {\em OOPSLA}, pages 918--932, 2010.
+
+\bibitem{MernikHS05}
+M.~Mernik, J.~Heering, and A.~M. Sloane.
+\newblock When and how to develop domain-specific languages.
+\newblock {\em ACM Comput. Surv.}, 37(4):316--344, 2005.
+
+\bibitem{SzyperskiSzyperski1998}
+Szyperski and C.~Szyperski.
+\newblock {\em Component Software - Beyond Object-Oriented Programming}.
+\newblock Number ISBN 0-201-17888-5. Addison-Wesley, 1998.
+
+\bibitem{TatsuboriCIK99}
+M.~Tatsubori, S.~Chiba, K.~Itano, and M.-O. Killijian.
+\newblock Openjava: A class-based macro system for java.
+\newblock In {\em oorase}, pages 117--133, 1999.
+
+\bibitem{Visser07}
+E.~Visser.
+\newblock {WebDSL}: {A} case study in domain-specific language engineering.
+\newblock In {\em GTTSE}, pages 291--373, 2007.
+
+\bibitem{Voelter10}
+M.~Voelter.
+\newblock Embedded software development with projectional language workbenches.
+\newblock In {\em MoDELS}, pages 32--46, 2010.
+
+\bibitem{Voelter2010}
+M.~Voelter.
+\newblock Implementing feature variability for models and code with
+  projectional language workbenches.
+\newblock 2010.
+
+\bibitem{Voelter2011-0}
+M.~Völter.
+\newblock From programming to modeling - and back again.
+\newblock {\em IEEE Software}, 2011.
+
+\end{thebibliography}
+=======
+\begin{thebibliography}{10}
+
+\bibitem{Voelter2011}
+{\em Language and IDE Development, Modularization and Composition with MPS},
+  2011.
+
+\bibitem{504285}
+J.~Bachrach and K.~Playford.
+\newblock The java syntactic extender (jse).
+\newblock In {\em OOPSLA '01: Proceedings of the 16th ACM SIGPLAN conference on
+  Object-oriented programming, systems, languages, and applications}, 2001.
+
+\bibitem{BravenboerDV07}
+M.~Bravenboer, E.~Dolstra, and E.~Visser.
+\newblock Preventing injection attacks with syntax embeddings.
+\newblock In {\em GPCE}, pages 3--12, 2007.
+
+\bibitem{BravenboerV07}
+M.~Bravenboer and E.~Visser.
+\newblock Designing syntax embeddings and assimilations for language libraries.
+\newblock In {\em MoDELS}, pages 34--46, 2007.
+
+\bibitem{CoxBCKK08}
+R.~Cox, T.~Bergan, A.~T. Clements, M.~F. Kaashoek, and E.~Kohler.
+\newblock Xoc, an extension-oriented compiler for systems programming.
+\newblock In {\em asplos}, pages 244--254, 2008.
+
+\bibitem{lopnextprogrammingparadigm}
+S.~Dmitriev.
+\newblock Language oriented programming: The next programming paradigm, 2004.
+
+\bibitem{Erdweg-GPCE-2011}
+S.~Erdweg, L.~C.~L. Kats, Rendel, C.~Kastner, K.~Ostermann, and E.~Visser.
+\newblock Growing a language environment with editor libraries.
+\newblock In {\em GPCE}, 2011.
+
+\bibitem{Erdweg-OOPSLA-2011}
+S.~Erdweg, T.~Rendel, C.~Kästner, and K.~Ostermann.
+\newblock Sugarj: Library-based syntactic language extensibility.
+\newblock In {\em OOPSLA}, 2011.
+
+\bibitem{FaithNP97}
+R.~E. Faith, L.~S. Nyland, and J.~Prins.
+\newblock Khepera: A system for rapid implementation of domain specific
+  languages.
+\newblock In {\em DSL}, 1997.
+
+\bibitem{Fowler2004}
+M.~Fowler.
+\newblock Language workbenches: The killer-app for domain specific languages?,
+  2005.
+
+\bibitem{HemelVisser2011}
+Z.~Hemel and E.~Visser.
+\newblock Declaratively programming the mobile web with mobl.
+\newblock In {\em OOPSLA}, 2011.
+
+\bibitem{HoferORM08}
+C.~Hofer, K.~Ostermann, T.~Rendel, and A.~Moors.
+\newblock Polymorphic embedding of {DSLs}.
+\newblock In {\em GPCE}, pages 137--148, 2008.
+
+\bibitem{Steele99}
+G.~L.~S. Jr.
+\newblock Growing a language.
+\newblock {\em lisp}, 12(3):221--236, 1999.
+
+\bibitem{KatsVW10}
+L.~C.~L. Kats, E.~Visser, and G.~Wachsmuth.
+\newblock Pure and declarative syntax definition: paradise lost and regained.
+\newblock In {\em OOPSLA}, pages 918--932, 2010.
+
+\bibitem{MernikHS05}
+M.~Mernik, J.~Heering, and A.~M. Sloane.
+\newblock When and how to develop domain-specific languages.
+\newblock {\em ACM Comput. Surv.}, 37(4):316--344, 2005.
+
+\bibitem{SzyperskiSzyperski1998}
+Szyperski and C.~Szyperski.
+\newblock {\em Component Software - Beyond Object-Oriented Programming}.
+\newblock Number ISBN 0-201-17888-5. Addison-Wesley, 1998.
+
+\bibitem{TatsuboriCIK99}
+M.~Tatsubori, S.~Chiba, K.~Itano, and M.-O. Killijian.
+\newblock Openjava: A class-based macro system for java.
+\newblock In {\em oorase}, pages 117--133, 1999.
+
+\bibitem{Visser07}
+E.~Visser.
+\newblock {WebDSL}: {A} case study in domain-specific language engineering.
+\newblock In {\em GTTSE}, pages 291--373, 2007.
+
+\bibitem{Voelter2011-0}
+M.~Völter.
+\newblock From programming to modeling - and back again.
+\newblock {\em IEEE Software}, 2011.
+
+\bibitem{Voelter10}
+M.~Voelter.
+\newblock Embedded software development with projectional language workbenches.
+\newblock In {\em MoDELS}, pages 32--46, 2010.
+
+\bibitem{Voelter2010}
+M.~Voelter.
+\newblock Implementing feature variability for models and code with
+  projectional language workbenches.
+\newblock 2010.
+
+\end{thebibliography}
+>>>>>>> .r600

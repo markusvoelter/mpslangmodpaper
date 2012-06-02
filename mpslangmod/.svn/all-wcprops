@@ -1,0 +1,81 @@
+K 26
+svn:wc:ra_dav:activity-url
+V 24
+/repos/dslbook/!svn/act/
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/repos/dslbook/!svn/ver/552/mpslangmod
+END
+doc.tex
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/dslbook/!svn/ver/524/papers/trunk/mpslangmod/doc.tex
+END
+template.tex
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/template.tex
+END
+spphys.bst
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/spphys.bst
+END
+example.eps
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/dslbook/!svn/ver/524/papers/trunk/mpslangmod/example.eps
+END
+structure.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/structure.txt
+END
+spbasic.bst
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/spbasic.bst
+END
+svjour3.cls
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/svjour3.cls
+END
+fromResearchr.bib
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repos/dslbook/!svn/ver/392/papers/trunk/mpslangmod/fromResearchr.bib
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/.project
+END
+.texlipse
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/.texlipse
+END
+svglov3.clo
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/svglov3.clo
+END
+spmpsci.bst
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/repos/dslbook/!svn/ver/235/papers/trunk/mpslangmod/spmpsci.bst
+END

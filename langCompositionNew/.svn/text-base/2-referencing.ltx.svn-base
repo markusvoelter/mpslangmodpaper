@@ -1,0 +1,87 @@
+\subsection{Language Referencing}
+
+Language referencing  enables \emph{homogeneous} fragments with cross-references
+among them, using \emph{dependent} languages (\fig{langReferencing}).
+ 
+A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
+$l_2$ and $l_1$. The referencing language $l_2$ depends on the referenced
+language $l_1$ because at least one concept in the $l_2$ references a concept
+from $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
+\emph{referenced} language. While equations (2) and (3) continue to hold, (1)
+does not. Instead
+\begin{align}
+\forall r \in \mathit{Refs_{l_2}} \mid   
+   \mathit{lo(r.from)} = l_2\; \wedge \; \mathit{lo(r.to)} = (l_1 \vee  l_2)
+\end{align}
+                                  
+(we use $x=(a \vee b)$ as a shorthand for $x = a \vee x = b$).                            
+
+\begin{figure}[b]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langReferencing.png} 
+  \caption[labelInTOC]{Referencing: Language $l_2$ depends on $l_1$, because
+  concepts in $l_2$ reference concepts in $l_1$. (We
+  use rectangles for languages, circles for language concepts, and UML
+  syntax for the lines: dotted = dependency, normal arrows = associations,
+  hollow-triangle-arrow for inheritance.)} 
+  \label{langReferencing}  
+\end{center} 
+\end{figure} 
+
+\subsubsection{Use Cases and Examples}
+
+\begin{figure}[b]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/viewpoints.png}
+  \caption[labelInTOC]{Part A shows an integrated DSL where the various
+  concerns, represented by different line styles in the boxes, are covered by a
+  single integrated language and reside in one fragment. Part B
+  shows several viewpoint languages and program fragments, each covering a 
+  single concern. Arrows in Part B highlight dependencies between the viewpoints.}
+  \label{viewpoints} 
+\end{center}
+\end{figure} 
+
+A domain $D$ can be composed from different concerns. To
+describe a complete program $p \in P_D$, the program needs to address all these
+concerns. Two fundamentally different approaches are possible to deal with the
+set of concerns in a domain. Either a single, integrated language can be
+designed that supports addressing all concerns of $D$ in one fragment.
+Alternatively, separate concern-specific DSLs can be defined, each addressing
+one or more of the domain's concerns. A program then consists of a set of
+concern-specific fragments, that relate to each other in a well-defined way
+using language referencing. \fig{viewpoints} illustrates the two different
+approaches. The latter alternative has the advantage that different
+stakeholders can modify "their" concern independently from others. It also
+allows reuse of the independent fragments and languages with different referencing
+languages. The obvious drawback is that for tightly integrated concerns the
+separation into separate fragments can be a usability problem.
+  
+
+As an example, consider the domain of refrigerator configuration. The domain
+consists of four concerns. The first concern $H$ describes the hardware
+structure of refrigerators appliances including compartments, compressors, fans,
+vents and thermometers. The second concern $A$ describes the cooling algorithm
+using a state-based, asynchronous language. Cooling programs refer to hardware
+building blocks and access their properties in expressions and commands. The
+third concern is testing $T$. A cooling test can test and simulate cooling
+programs. The fourth concern $P$ is parametrization, used to
+configure a specific hardware and algorithm with different settings, such as the
+actual target cooling temperature. The dependencies are as follows: $A
+\rightarrow H, T \rightarrow A, P \rightarrow A$.
+
+Each of these concerns is implemented as a separate language with references
+between them. $H$ and $A$ are separated because $H$ is defined by product
+management, whereas $A$ is defined by thermodynamics engineers. Also, several
+algorithms for the same hardware must be supported, which makes separate
+fragments for $H$ and $A$ useful. $T$ is separate from $A$ because tests are not
+strictly part of the product definition and may be enhanced after a product has
+been released. Finally, $P$ is separate, because the parameters have to be
+changed by technicians in the field, and several parametrizations for the same
+algorithm exist. These languages have been built as part of a single project, so
+the dependencies between them are not a problem.
+
+
+
+
+ 

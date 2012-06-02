@@ -1,0 +1,44 @@
+digraph gosi {
+
+	{rank=sink AdviceRelation RelationKind};
+
+	node [shape=record];
+
+	Component [shape=plaintext label=<
+	<table cellborder="1" border="0" cellspacing="0">
+	<tr><td><b>Component</b></td></tr>
+	<tr><td><font POINT-SIZE="12">type: string</font></td></tr>
+	</table>
+	>];
+	
+	
+	Facet [shape=plaintext label=<
+	<table cellborder="1" border="0" cellspacing="0">
+	<tr><td><b>Facet</b></td></tr>
+	<tr><td><font POINT-SIZE="12">type: string</font></td></tr>
+	</table>
+	>];
+	
+	AdviceRelation [shape=plaintext label=<
+	<table cellborder="1" border="0" cellspacing="0">
+	<tr><td><b>AdviceRelation</b></td></tr>
+	<tr><td><font POINT-SIZE="12">kind: RelationKind</font></td></tr>
+	</table>
+	>];
+	
+	RelationKind [shape=plaintext label=<
+	<table cellborder="1" border="0" cellspacing="0">
+	<tr><td><b>&lt;&lt;enum&gt;&gt; <br/> RelationKind</b></td></tr>
+	<tr><td><font POINT-SIZE="12">preempt<br/>enhance<br/>override</font></td></tr>
+	</table>
+	>];
+	
+	Component -> Facet [dir=both arrowhead=normal arrowtail=diamond label=" facets *" ]; 
+
+	Component -> Component [label=" advises"];
+	 
+	Facet -> AdviceRelation [dir=both arrowhead=normal arrowtail=diamond label=" relations *   " ]; 
+	
+	AdviceRelation -> Facet [label=" target"];	
+	
+}

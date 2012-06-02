@@ -1,0 +1,71 @@
+\section{Related Work}
+\label{related}
+
+The contribution of this paper is the systematic definition and classification
+of language modularization approaches, as well as the challenges and solution
+involved regarding syntax definition, type systems, transformations and IDE
+support. The idea of language modularization and composition itself is not new,
+however. 
+
+In their paper "When and How to design DSLs" \cite{MernikHS05}, Mernik et. al.
+discuss various aspects of DSL design. Among other things, they also describe a
+number of modularization approaches, among them extension and restriction. In
+our paper, we provide a clearer definition and discuss the challenges and
+solution approaches. Mernik et al. also propose Piggybacking and Pipelining as
+ways to reuse existing generators or interpreters. While these approaches are
+certainly useful, we don't include them in our discussion here because they
+don't \emph{compose} languages --- they just chain their translation.
+
+ 
+\paragraph{Incremental Extension of Languages} was first popularized in
+the context of Lisp, where definition of language extensions to solve problems
+in a given domain is a well-known approach. Guy Steele's Growing a Language
+keynote explains the idea well \cite{Steele99}. The paper on Xoc
+\cite{CoxBCKK08} describes the idea of extending C incrementally, albeit without
+extending a corresponding IDE. Sergey Dmitriev discusses the idea of language
+and IDE extension in his article on Language Oriented Programming
+\cite{lopnextprogrammingparadigm}, which uses MPS as the tool to achieve the
+goal.
+
+\paragraph{Macro Systems} support the definition of additional syntax for
+existing languages. Macro expansion maps the new syntax to valid code in the
+extended language, and this mapping is expressed with host language code instead
+of a separate transformation language.They differ with regard to degree of
+freedom they provide for the extension syntax, and whether they support
+extensions of type systems and IDEs. The most primitive macro system is the C
+preprocessor which performs pure text replacement during macro expansion. The
+Lisp macro system is more powerful because it is aware of the syntactic
+structure of Lisp code. An example of a macro system with limited syntactic
+freedom is the The Java Syntactic Extender \cite{504285} where all macros have
+to begin with names, and a limited set of syntactic shapes is supported. In
+OpenJava \cite{TatsuboriCIK99}, the locations where macros can be added is
+limited. More fine-grained extensions, such as adding a new operator, are not
+possible.
+
+\paragraph{Language Cascading} refers to a form of language combination where a
+program expressed in languge $l_1$ is translated into a program expressed in
+language $l_2$. Essentially this is what every code generator or compiler does;
+the languages themselves are not related in any way except through the
+transformation engine, which is why we don't consider this as an example of
+language modularization and composition. An example of this approach is KHEPERA
+\cite{FaithNP97}
+
+\paragraph{Full Language Extension and Composition} refers to the case where
+arbitrary syntax can be added to a host language, and type systems and IDEs are
+aware of the extension. This paper classifies four approaches for doing this.
+Existing implementations exist. For example, Bravenboer and Visser describe how
+SQL can be embedded into Java to prevent SQL injection attacks
+\cite{BravenboerDV07}. The same authors discuss library-based language extension
+and embedding in \cite{BravenboerV07}. A more recent publication
+\cite{Erdweg-OOPSLA-2011} also based on SDF introduces SugarJ, which supports
+library based languages extension. \cite{Erdweg-GPCE-2011} adds IDE support.
+
+
+\paragraph{Internal DSLs} are languages embedded in general purpose host
+languages. Suitable host languages are those that provide a flexible syntax, as
+well as meta programming facilities to support the definition of new
+abstractions with a custom concrete syntax. For example \cite{HoferORM08}
+describes embedding DSLs in Scala. In this paper we don't address internal DSLs,
+because IDE support for the embedded languages is not available in these cases,
+and we consider IDE support for the composed languages essential.
+

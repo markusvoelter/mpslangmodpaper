@@ -1,0 +1,206 @@
+
+
+\section{Concepts and Terminology}
+\label{concterm}
+
+\subsection{Programs, Languages, Domains}
+
+In this paper we will be talking about \emph{programs}, \emph{languages},
+and \emph{domains}, so we explain these terms here. We start by considering the
+relation between programs and languages. Let's define $P$ to be the set of all
+programs. A \emph{program} $p \in P$ is the Platonic representation of some
+\emph{effective computation} that runs on a universal computer. That is, we
+assume that $P$ represents the canonical semantic model of all programs and
+includes all possible hardware on which programs may run. A \emph{language} $l$
+defines a structure and notation for \emph{expressing} or \emph{encoding}
+programs. Thus, a program $p$ in $P$ may have an expression in $l$, which we
+will denote $p_l$. Note that $p_{l_1}$ and $p_{l_2}$ are representations of a
+single semantic (platonic) program in the languages $l_1$ and $l_2$. There may
+be multiple ways to express the same program in a language~$l$.
+
+A language is a \emph{finitely generated} set of program encodings. That is,
+there must be a finite description that generates all program expressions in the
+language. It may not be possible to define all programs in some
+language~$l$. For example, the language of context-free grammars can be used to
+represent a wide range of parsing programs, but cannot be used to express
+pension calculations. We denote as $P_l$ the subset of $P$ that can be expressed
+in $l$. A translation $t$ between languages $l_1$ and $l_2$ maps programs from
+their $l_1$ encoding to their $l_2$ encoding, i.e. $t(p_{l_1}) = p_{l_2}$.
+
+% \begin{figureeee}[h]
+% \begin{center}
+%   \includegraphics[scale=0.55]{figures/domain.png}
+%   \caption[labelInTOC]{Programs, Languages, Domains}
+%   \label{domain} 
+% \end{center}
+% \end{figure}
+
+Now, what are domains? There are essentially two approaches to characterize
+domains. First, domains are often considered as a body of knowledge in the real
+world, i.e. outside the realm of software. For instance, pension policies are
+contracts that can be defined and used without software and computers. From this
+\emph{deductive} or \emph{top-down} perspective, a domain $D$ is a body of
+knowledge for which we want to provide some form of software support. We define
+$P_D$ the subset of programs in $P$ that implement computations in $D$,
+e.g. 'this program implements a refigerator cooling algorithm'. 
+
+In the \emph{inductive} or \emph{bottom-up} approach we define a domain in terms
+of existing software. That is, a domain $D$ is identified as a subset $P_D$ of
+$P$, i.e. a set of programs with common characteristics or similar purpose.
+Often, such domains do not exist outside the realm of software. For example,
+$P_{web}$ is the domain of web applications, which is intrinsically bound to
+computers and software. There is a wide variety of programs that we would agree
+to be web applications. A domain can be very specific. For example $P_{vcool}$
+is the set of cooling programs for the particular refrigerator hardware produced
+by vendor $v$. A special case of the inductive approach is where we define a
+domain as a subset of programs of a specific $P_l$ instead of the more general
+set $P$. In this special case we can often clearly identify the commonality between
+programs in the domain, in the form of their consistent use of a set of 
+domain-specific patterns or idioms. We will come back to this approch in the
+section on language extension (\sect{lext}).
+
+Whether we take the deductive or inductive route, we can ultimately identify a
+domain $D$ by a set of programs $P_D$. There can be multiple languages in which
+we can express $P_D$ programs. Possibly, $P_D$ can only be partially expressed
+in a language $L$. A \emph{domain-specific language} $L_D$ for $D$ is a language
+that is \emph{specialized} to encoding $P_D$~programs. That is, $L_D$ is more
+efficient in some respect (e.g. regarding program size or complexity) in
+representing $P_D$~programs. Typically, such a language is \emph{smaller} in the
+sense that $P_{L_D}$ is a strict subset of $P_L$ for a less specialized
+language~$L$. General purpose languages are those that can express all programs
+$P$. Consequently, they can also express $P_D$ for any $D$, but they may not be
+particularly efficient in doing so. This is where DSLs have an advantage.
+
+The fact that DSLs are specialized languages for expressing some limited
+domain $D$ naturally leads to the need for combining multiple DSLs that cover
+the various domains relevant for fully implementing a particular system. To
+reduce the overhead of creating all those DSLs, support for \lmrc{}{}\ is required.
+
+
+
+\subsection{Programs as Trees of Elements}
+
+Programs are represented in two ways: concrete syntax and abstract syntax. Users
+use the concrete syntax as they write or change programs. The abstract syntax is
+a data structure that contains all the data expressed with the concrete syntax,
+but without the notational details. The abstract syntax is used for analysis and
+downstream processing of programs. A language definition includes the concrete
+as well as the abstract syntax, as well as rules for mapping one to the other.
+\emph{Parser-based} systems map the concrete syntax to the abstract syntax.
+Users interact with a stream of characters, and a parser derives the abstract
+syntax by using a grammar. \emph{Projectional} editors go the other way round.
+User editing gestures directly change the abstract syntax, the concrete syntax
+being a mere projection that looks (and mostly feels) like text. SDF and Xtext
+are parser-based, MPS is projectional.
+
+While concrete syntax modularization and composition can be a challenge (as
+discussed in \sect{challenges}), we will illustrate the principles of the
+composition approaches based on the abstract syntax. The abstract syntax of
+programs are primarily trees of program \emph{elements}. Every element (except
+the root) is contained by exactly one parent element. Syntactic nesting of the
+concrete syntax corresponds to a parent-child relationship in the abstract
+syntax. There may also be any number of non-containing cross-references between
+elements, established either directly during editing (in projectional systems)
+or by a linking phase that follows parsing.
+
+A program may be composed from several program \emph{fragments} that usually
+reference each other. A Fragment $f$ is a standalone tree. $E_f$ is the set of
+program elements in a fragment.
+
+A language $l$ defines a set of language concepts $C_l$ and their relationships.
+We use the term concept to refer to concrete syntax, abstract syntax plus the
+associated type system rules and constraints as well as some definition of its
+semantics. In a fragment, each program element $e$ is an instance of a concept
+$c$ defined in some language $l$. We define the \emph{concept-of} function $co$
+to return the concept of which a program element is an instance: $co \Rightarrow
+\mathit{element} \to \mathit{concept}$. Similarly we define the
+\emph{language-of} function $lo$ to return the language in which a given concept
+is defined: $lo \Rightarrow \mathit{concept} \to \mathit{language}$. Finally, we
+define a \emph{fragment-of} function $fo$ that returns the fragment that
+contains a given program element: $fo \Rightarrow \mathit{element} \to
+\mathit{fragment}$.
+
+We also define the following sets of relations between program elements.
+$\mathit{Cdn_f}$ is the set of parent-child relationships in a fragment $f$.
+Each $c \in C$ has the properties $parent$ and $child$. $\mathit{Refs_f}$ is the
+set of non-containing cross-references between program elements in a fragment
+$f$. Each reference $r$ in $\mathit{Refs_f}$ has the properties $from$ and $to$,
+which refer to the two ends of the reference relationship. Finally, we define an
+inheritance relationship that applies the Liskov Substitution Principle to
+language concepts. A concept $c_{sub}$ that extends another concept $c_{super}$ can
+be used in places where an instance of $c_{super}$ is expected. $\mathit{Inh_l}$
+is the set of inheritance relationships for a language $l$. Each $i \in
+\mathit{Inh_l}$ has the properties $super$ and $sub$.
+
+An important concept in \lmrc{} is the notion of independence. An
+\emph{independent language} does not depend on other languages. An independent
+language $l$ can be defined as a language for which the following hold:
+\begin{align}
+\forall r \in \mathit{Refs_l} &\mid \mathit{lo(r.to)} = 
+	\mathit{lo(r.from)} = l
+\\ 
+\forall s \in \mathit{Inh_l} &\mid \mathit{lo(s.super)} = 
+	\mathit{lo(s.sub)} = l
+\\ 
+\forall c \in \mathit{Cdn_l} &\mid \mathit{lo(c.parent)} = 
+     \mathit{lo(c.child)} = l
+\end{align}
+An \emph{independent fragment} is one where all references stay within the
+fragment (4). 
+\begin{align}
+\forall r \in \mathit{Refs_f} &\mid \mathit{fo(r.to)} 
+	= \mathit{fo(r.from)} = f
+\end{align}
+We also distinguish \emph{homogeneous} and \emph{heterogeneous} fragments. A
+homogeneous fragment is one where all elements are expressed with the same
+language:
+\begin{align}
+\forall e \in E_f &\mid \mathit{lo(e)} = l \\
+\forall c \in \mathit{Cdn_f} &\mid \mathit{lo(c.parent)} = 
+	\mathit{lo(c.child)} = l
+\end{align}
+
+
+
+\section{Classification}
+\label{classification}
+
+We now have all the ingredients to discuss the various approaches to \lmrc{}. We
+have identified the following four: referencing, extension, reuse and
+embedding. We distinguish them regarding fragment structure and language
+dependencies, as illustrated in \fig{quadrants}. \fig{fragAndLang} shows the
+relationships between fragments and languages in these cases. We consider these
+two criteria to be essential for the following reasons.
+
+\emph{Language dependencies} capture whether a language has to be designed with
+knowledge about a particular composition partner in mind in order to be
+composable with that partner. It is desirable in many scenarios that languages
+be composable \emph{without} previous knowledge about all possible composition
+partners. \emph{Fragment Structure} captures whether the two composed languages
+can be syntactically mixed. Since modular concrete syntax can be a challenge,
+this is not always that possible, though often desirable.
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/quadrants.png}
+  \caption[labelInTOC]{We distinguish the four modularization and composition
+  approaches regarding their consequences for fragment structure and language
+  dependencies.}
+  \label{quadrants} 
+\end{center}
+\end{figure} 
+
+
+\begin{figure}[t] 
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/fragAndLang.png}
+  \caption[labelInTOC]{The relationships between fragments and languages in the
+  four composition approaches. Boxes represent fragments, rounded boxes are
+  languages. Dotted lines are dependencies, solid lines
+  references/associations. The shading of the boxes represent the two
+  different languages.}
+  \label{fragAndLang} 
+\end{center}
+\end{figure}
+
+

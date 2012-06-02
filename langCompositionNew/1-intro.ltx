@@ -1,0 +1,143 @@
+\section{Introduction and Motivation}
+
+Traditionally, programmers use general purpose languages (GPLs) for developing
+systems. "general-purpose" refers to the fact that they can be used for
+any programming task. They are Turing complete, and provide means to build
+custom abstractions using classes, higher-order functions, or logic predicates,
+depending on the particular language. Traditionally, a complete software system
+is implemented using a single GPL, plus a number of configuration files.
+However, more recently this has started to change; systems are built using a
+multitude of languages. 
+
+One reason is the rising level of sophistication and complexity of execution
+infrastructures. For example, web applications consist of business logic on the
+server, a database backend, business logic on the client as well as presentation
+code on the client, most of these coming with their own set of languages. A
+particular language stack could use Java, SQL, JavaScript and HTML. A web
+application is implemented by using these languages together.
+The second reason driving polyglot programming is increasing popularity of
+domain-specific languages (DSLs), specialized, often small languages that are
+optimized for expressing programs in a particular application domain. Such an
+application domain may be a technical domain, e.g. database querying with SQL,
+or an actual business domain, such as insurance contracts or refrigerator
+cooling algorithms, or state-based programs in embedded systems. DSLs support
+these domains more effectively than GPLs because they provide linguistic
+abstractions for common idioms encountered in those domains. Using
+custom linguistic abstractions makes the code more concise, more accessible to
+formal analysis, verification, transformation and optimization, and possibly
+usable by non-programmer domain experts.
+
+The use of polyglot programming raises the question how the syntax, semantics,
+and IDE support of the various languages is integrated. Especially syntactic
+integration has traditionally been very hard \cite{KatsVW10} and hence is often
+not supported for a particular combination of languages. Program parts expressed
+in different languages reside in different files. References among "common"
+things in these different program parts are implemented by using agreed-upon
+identifiers that must be used consistently. For some combinations of languages,
+the IDE may be aware of the "integration by name" and check the consistency. In
+some rare cases, syntactic integration between specific pairs of languages has
+been built, for example, embedded SQL in Java~\cite{BravenboerDV07}.
+
+However, building specialized integrations between two languages is very
+expensive, especially if IDE support like code completion, syntax coloring and
+static error checking or refactoring is to be provided as well. So this is done
+only for combinations of very widely used languages, if at all. Building such an
+integration between Java and a company-specific DSL for financial calculations
+is infeasible. A more systematic approach for language modularization, reuse and
+composition (\lmrc) is required. Once available and supported by tools, this
+will lead to a new perspective on programming, taking advantage of the hitherto
+untapped potential for reuse. Languages can be extended as necessary, DSLs can
+be embedded in general purpose languages, and the distinction between
+programming and modeling, which creates significant issues for model-driven
+development today, may go away completely~\cite{Voelter2011-0}.
+
+The contribution of this paper is a systematic approach for characterizing
+modularized languages and their IDEs. We identify four different composition
+approaches which we introduce in \sect{classification}: referencing, extension,
+reuse and embedding. For each of these approaches we provide a concise
+description, a formal definition, usage scenarios and an example.
+\sect{challenges} describes challenges that need to be addressed when
+implementing the particular composition approach, and \sect{tools} describes how
+Xtext, SDF/Spoofax and MPS address these challenges. We conclude the paper with
+related work (\sect{related}) and a Summary. In the rest of \emph{this} section
+we outline the general challenges in language modularization and briefly
+introduce the tools we as examples. To provide foundation for our discussion,
+the next section (\sect{concterm}) introduces terminology and concepts.
+ 
+Our classification is useful because it provides a clearly defined vocabulary
+for \lmrc. Tools can be characterized regarding their support for any of the
+modularization approaches. DSL designers can use the vocabulary to discuss
+tradeoffs between the various approaches as they build DSLs. Researchers can use
+the vocabulary as a means of describing how novel approaches address the
+challenges outlined in this paper.
+ 
+ 
+\subsection{Challenges in language modularization}
+ 
+For each of the \lmrc{} approaches we discuss implementation challenges in three
+areas. Many language \emph{syntax description} formalisms, such as LL($k$), are
+not closed under composition. Combining two valid grammars may result in an
+invalid, ambiguous grammar. To support \lmrc{} languages have to be described with
+formalisms that support combinations of independently developed grammars. The
+languages used for describing \emph{type systems} and constraints have to be
+modular as well, supporting enhancement or combination with other type system
+definitions. Finally, reusable languages may already come with
+\emph{transformations}. These may have to be reused, combined or extended as
+well.
+
+%\TODO{EV: do you have something on the challenge of modular type
+%systems based on your reading this month?} 
+ 
+
+\subsection{Example Tools}
+\label{toolintro}
+
+In this paper we use three different tools to illustrate support for \lmrc. We
+have chosen Xtext, Spoofax and MPS because of their different approaches to
+language implementation and their varying support for \lmrc. The three example
+tools are language workbenches \cite{Fowler2004}, which derive many of the
+ingredients necessary to edit and process programs from language definitions.
+Specifically, they all derive language-specific IDEs. We consider IDE support
+important for efficiently working with languages, which is why we do not
+consider pure grammar definition or parser generation tools such as LEX/YACC,
+ANTLR or SDF in this paper. This requirement also rules out internal DSLs (we
+will come back to this in Related Work). Xtext, MPS and Spoofax all provide IDE
+support for those \lmrc{} approaches they do support. So if, for example, a tool
+supports referencing elements from one program in another one, then the IDE will
+support cross-language go-to-definition and find references. If a tool supports
+embedding one language in another one, then the tool supports code completion
+and static error checking for programs written in the combined languages.
+
+The following paragraphs briefly describe the tools and the reasons for
+discussing them in this paper. All of them are Open Source and hence available
+for experimentation.
+
+\paragraph{Xtext} As part of the Eclipse Modeling framework,
+Xtext\footnote{http://eclipse.org/Xtext} is based on EMF. It supports the
+definition of textual concrete syntax for Ecore-based meta models. Xtext
+supports many advanced IDE aspects. As we will see, its support for \lmrc{} is
+limited, partly because of its reliance on the antlr parser generator, which is
+ll(k). The main reason for including it in this discussion is that it is widely
+used --- it can be considered the industry standard tool for the definition of
+textual DSLs and IDEs --- and that it generates very complete IDE support.
+
+\paragraph{Spoofax} Spoofax\footnote{http://spoofax.org} is an Eclipse-based
+language workbench built on the SDF syntax definition formalism and Stratego
+transformation language \cite{KatsV10}. While it is not yet widely used, several
+non-trivial languages and IDEs have been built with it
+\cite{Visser07,HemelVisser2011}. We include it in the discussion because of its
+extensive support for \lmrc.
+
+\paragraph{MPS} MPS\footnote{http://jetbrains.com/mps} is developed by
+JetBrains. It is fundamentally different from the other two tools because it
+uses projectional editing. No parser is involved, changes to a program's textual
+representation directly change the underlying program tree, so many of the
+challenges of grammar composition do not exist. Despite
+the fact that MPS is not used widely yet, we have included in this discussion
+because of its very good support for \lmrc, and its use
+of projectional editing. An extensive, detailed description of how MPS
+implements the four composition approaches discussed in this paper is available
+in \cite{Voelter2011}.
+
+%\TODO{Fix the "broken" entries in the bib file, e.g. Voelter2011}
+

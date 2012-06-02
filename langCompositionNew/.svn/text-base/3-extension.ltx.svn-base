@@ -1,0 +1,113 @@
+
+\subsection{Language Extension}  
+\label{lext}
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langExtension.png} 
+  \caption[labelInTOC]{Extension: $l_2$ extends $l_1$. It provides additional
+  concepts $B3$ and $B4$. $B3$ extends $A3$, so it can be used as a child of
+  $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
+  $l_2$ depends on $l_2$.}
+  \label{langExtension}  
+\end{center}  
+\end{figure}
+
+Language extension  enables \emph{heterogeneous} fragments
+with \emph{dependent} languages (\fig{langExtension}). A language $l_2$
+extending $l_1$ adds additional language concepts to those of $l_1$. We call $l_2$ the
+\emph{extending} language, and $l_1$ the \emph{base} language. To allow the new
+concepts to be used in the context provided by $l_1$, some of them extend
+concepts in $l_1$. So, while $l_1$ remains independent, $l_2$ becomes dependent
+on $l_1$ since some of the concepts in $l_2$ will inherit from concepts in
+$l_1$:
+\begin{align}
+\exists i \in \mathit{Inh(l_2)} \mid \mathit{i.sub} = l_2\; \wedge \; 
+	\mathit{i.super} = l_1
+\end{align}
+Consequently, a fragment $f$ contains language concepts from both $l_1$ and
+$l_2$:
+\begin{align}
+\forall e \in E_f \mid \mathit{lo(e)} = (l_1 \vee  l_2)
+\end{align}  
+In other words, $C_f \subseteq (C_{l_1} \cup C_{l_2})$, so $f$ is
+\emph{heterogeneous}. For heterogeneous fragments (3) does not
+hold anymore, since
+\begin{align}  
+\forall c \in \mathit{Cdn_f} \mid\; &\mathit{lo(co(c.parent))} = 
+             (l_1 \vee  l_2)\; \wedge \; \nonumber \\ 
+     &\mathit{lo(co(c.child))} = (l_1 \vee  l_2)
+\end{align}
+Note that copying a Language definition and changing it does not constitute a
+case of language extension, because the extension is not modular, it is
+invasive. Also, a native interfaces that supports calling one language from
+another, like calling C from Perl or Java, is not language extension;
+rather it is a form of language referencing. The fragments remain homogeneous.
+
+\subsubsection{Use Cases and Examples}
+   
+\paragraph{Hierarchical Domains} 
+
+Domains are naturally organized in hierarchies \fig{hierarchicalDomains}). At
+the bottom we find the most general domain $D_0$. It is the domain of all
+possible programs $P$. Domains $D_n$, with $n > 0$, represent progressively more
+specialized domains, where the set of possible programs is a subset of those in
+$D_{n-1}$ (abbreviated as $D_{-1}$). We call $\D{+1}$ a subdomain of D. For
+example, $\D{1.1}$ could be the domain of embedded software, and $\D{1-2}$ could
+be the domain of enterprise software. The progressive specialization can be
+continued ad-infinitum in principle. For example, $\D{2.1.1}$ and $\D{2.1.2}$
+are further subdomains of $\D{1.1}$: $\D{2.1.1}$ could be automotive embedded
+software and $\D{2.1.2}$ could be avionics software. At the top of the hierarchy
+we find singleton domains that consist of a single program (obviously not
+useful). Languages designed for $\D{0}$ are called general-purpose languages.
+Languages for $D_n$ with $n > 0$ become more domain-specific for growing $n$.
+
+Language extension fits well with hierarchical domains: a language $L_B$ for
+a domain $D$ may extend a language $L_A$ for $D_{-1}$. $L_B$ contains concepts
+specific to $D$, making analysis and transformation of those concepts possible
+without pattern matching and semantics recovery. As explained in the
+introduction, the new concepts are often reified from the idioms and patterns
+used when using an $L_A$ for $D$. Language semantics are typically defined by
+mapping the new abstractions to just these idioms
+\emph{inline}. This process, also known as \emph{assimilation}, transforms a
+heterogeneous fragment (expressed in $L_D$ and $L_{D+1}$) into a homogeneous
+fragment expressed only with $L_D$. 
+
+Language extension is especially interesting if $D_0$ languages are extended,
+making a DSL an extension of a general purpose language. As an example consider
+embedded programming. The C programming language is typically used as the GPL
+for $D_0$ in this case. Extensions for embedded programming include state
+machines, tasks or data types with physical units. Language extensions for the
+subdomain of real-time systems may include ways of specifying deterministic
+scheduling and worst-case execution time. For the avionics subdomain support for
+remote communication using some of the bus systems used in avionics could be
+added. For examples of extensions of C for embedded programming see
+\cite{Voelter10} and \cite{CoxBCKK08}.
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/hierarchicalDomains.png}
+  \caption[labelInTOC]{Domain hierarchy. Domains with higher index are
+  called subdomains of domains with a lower index ($D_1$ is a subdomain of
+  $D_0$). We use just $D$ to refer to the current domain, and $D_{+1}$ and
+  $D_{-1}$ to refer to the relatively more specific and more general ones.}
+  \label{hierarchicalDomains}  
+\end{center}
+\end{figure}  
+
+\paragraph{Restriction} Sometimes language extension is also used to
+\emph{restrict} the set of language constructs available in the subdomain. For
+example, the real-time extensions for C may restrict the use of dynamic memory
+allocation, the extension for safety-critical systems may prevent the use of
+void pointers and certain casts. Although the extending language is in some sense
+smaller than the extended one, we still consider this a case of language
+extension, for two reasons. First, the restrictions are often implemented by
+\emph{adding additional} constraints that report errors if the restricted
+language constructs are used. Second, a marker concept may be added to the
+base language. The restriction rules are then enforced for children of these
+marker concepts (e.g. in a module marked as "safe", one cannot use void pointers
+and the prohibited casts).
+ 
+
+
+ 

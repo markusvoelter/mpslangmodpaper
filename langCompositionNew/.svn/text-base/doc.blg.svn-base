@@ -1,0 +1,89 @@
+This is BibTeX, Version 0.99c (TeX Live/MacPorts 2009_6)
+The top-level auxiliary file: doc.aux
+The style file: abbrv.bst
+Database file #1: fromResearchr_langComposition.bib
+Database file #2: visser.bib
+Repeated entry---line 195 of file visser.bib
+ : @article{BravenboerKVV08
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 235 of file visser.bib
+ : @inproceedings{HemelVisser2011
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 376 of file visser.bib
+ : @inproceedings{BravenboerV07
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 401 of file visser.bib
+ : @inproceedings{KatsVW10
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 440 of file visser.bib
+ : @inproceedings{BravenboerDV07
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 558 of file visser.bib
+ : @inproceedings{BravenboerTV06
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 734 of file visser.bib
+ : @inproceedings{VisserBT98
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 912 of file visser.bib
+ : @inproceedings{Visser07
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1002 of file visser.bib
+ : @inproceedings{Erdweg-GPCE-2011
+ :                                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1083 of file visser.bib
+ : @phdthesis{Vis97.thesis
+ :                        ,
+I'm skipping whatever remains of this entry
+Warning--there's a number but no series in SzyperskiSzyperski1998
+Warning--empty booktitle in Voelter2010
+You've used 27 entries,
+            2118 wiz_defined-function locations,
+            650 strings with 7589 characters,
+and the built_in function-call counts, 9375 in all, are:
+= -- 872
+> -- 402
+< -- 12
++ -- 161
+- -- 132
+* -- 547
+:= -- 1467
+add.period$ -- 81
+call.type$ -- 27
+change.case$ -- 145
+chr.to.int$ -- 0
+cite$ -- 29
+duplicate$ -- 433
+empty$ -- 836
+format.name$ -- 132
+if$ -- 2088
+int.to.chr$ -- 0
+int.to.str$ -- 27
+missing$ -- 25
+newline$ -- 136
+num.names$ -- 54
+pop$ -- 216
+preamble$ -- 1
+purify$ -- 120
+quote$ -- 0
+skip$ -- 320
+stack$ -- 0
+substring$ -- 465
+swap$ -- 134
+text.length$ -- 12
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 106
+warning$ -- 2
+while$ -- 79
+width$ -- 29
+write$ -- 285
+(There were 10 error messages)
