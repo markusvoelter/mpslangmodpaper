@@ -9,11 +9,11 @@
 
 \subsection{Language Combination}
 
-\phead{Structure and Syntax} We define a language uispec for defining user
-interface forms based on the entities. \fig{uispec} shows the abstract syntax
+\phead{Structure and Syntax} We define a language \ic{uispec} for defining user
+interface forms for \ic{entities}. \fig{uispec} shows the abstract syntax
 and below is an example model. Note how the form is another, separate fragment.
 It is a \emph{dependent} fragment, since it references elements from another
-fragment (expressed in the entities language). Both fragments are
+fragment (expressed in the \ic{entities} language). Both fragments are
 \emph{homogeneous} since they consist of sentences expressed in a single
 language.
 
@@ -30,20 +30,20 @@ form CompanyStructure
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.5]{figures/uispec.png}
-  \caption[labelInTOC]{The abstract syntax of the uispec language. Dotted lines
-  represent classes from another language (here: the entities language). A
-  \ct{Form} contains \ct{EntityReference}s that connect to an entities model. A
+  \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted lines
+  represent classes from another language (here: the \ic{entities} language). A
+  \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
   form also contains \ct{Field}s, each referring to an \ct{Attribute} from an
   \ct{Entity} and containing a \ct{Widget}.}
   \label{uispec} 
 \end{center}
 \end{figure}
 
-The uispec language extends\footnote{MPS uses the term "extension" whenever the
+The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
 definition of one language uses or refers to concepts defined in another
 language. This is not necessarily an example of language extension as defined in
-this paper.} the entities language. This means that concepts from the entities
-language can be used in the definition of language concepts in the uispec
+this paper.} the \ic{entities} language. This means that concepts from the \ic{entities}
+language can be used in the definition of language concepts in the \ic{uispec}
 language. A \ct{Form} owns a number of \ct{EntityReferences}, which in turn
 reference the \ct{Entity} concept. Also, \ct{Field}s refer to the \ct{Attribute}
 that shall be edited via the field. Below is the definition of the \ct{Field}
@@ -62,8 +62,8 @@ concept Field extends BaseConcept implements <none>
 
 
 \phead{Type System} There are limitations regarding which widget can be used
-with which attribute type. This typing rule is defined in the uispec language
-and references types from the entities language. The following is the code for
+with which attribute type. This typing rule is defined in the \ic{uispec} language
+and references types from the \ic{entities} language. The following is the code for
 the type check. We use a non-typesystem rule to illustrate how constraints can
 be written that do not use the inference engine introduced above.
 
@@ -88,7 +88,7 @@ the two languages only reference each other, and the instance fragments are
 dependent, but homogeneous. No syntactic integration is necessary in this case.
 In this example, the generated code exhibits the same separation. From the form
 definition, we generate a Java class that uses Java Swing to build the form. It
-\emph{uses} the beans generated from the entities. The classes are instantiated,
+\emph{uses} the beans generated from the \ic{entities}. The classes are instantiated,
 and the setters are called. The generators are separate but they are
 \emph{dependent}, they share information. Specifically, the forms generator
 knows about the names of the generated entity classes, as well as the names of
@@ -114,7 +114,7 @@ concept behavior Attribute {
 \end{code}
 
 
-The original entities fragment is still \emph{sufficient} for the transformation
+The original \ic{entities} fragment is still \emph{sufficient} for the transformation
 that generates the Java Bean. The form fragment is not sufficient for generating
 the UI, because it needs the entity fragment. This is not surprising since
 \emph{dependent} fragments can never be sufficient for a transformation: the
@@ -165,10 +165,10 @@ okButton.addActionListener(new ActionListener() {
 \end{figure}
 
 
-The jetbrains.mps.baselanguage.exprblocks language extends MPS' BaseLanguage.
+The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS' BaseLanguage.
 The expression block is used in places where the base language
 expects an \ct{Expression}. This is why a \ct{BlockExpression} extends
-\ct{Expression}. Consequently, fragments that use the exprblocks language, can
+\ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language, can
 now use \ct{BlockExpression}s in addition to the concepts provided by the base
 language. The fragments become \emph{heterogeneous}, because the languages are
 mixed.
@@ -181,7 +181,7 @@ concept BlockExpression extends Expression implements INamedConcept
           
 \phead{Type System} The type of the \ct{yield} statement is the type of the
 expression that is yielded, specified by 
-\verb#typeof(yield) :==: typeof(yield.result);# (the type of /verb+yield 1;+
+\ic{typeof(yield) :==: typeof(yield.result);} (the type of /verb+yield 1;+
 would be \ct{int}). Since the \ct{BlockExpression} is used as an expression, it
 has to have a type as well. Since it is not explicitly specified, the type of
 the \ct{BlockExpression} is the common super type of the types of all the
@@ -200,7 +200,7 @@ typeof(blockExpr) :==: resultType;
 \phead{Generator} The generator for \ct{BlockExpression}s reduces the new 
 concept to pure base
 language: it performs assimilation. It transforms a heterogeneous fragment
-(using BaseLanguage and exprblocks) to a homogeneous fragment (using only
+(using BaseLanguage and \ic{exprblocks}) to a homogeneous fragment (using only
 BaseLanguage). The first step is the creation of the additional method 
 for the block expression (\fig{expressionBlockGenerator1}).
 
@@ -259,7 +259,7 @@ method call that replaces the \ct{BlockExpression}
 \end{center}
 \end{figure}
 
-A second concept introduced by the exprblocks language is the
+A second concept introduced by the \ic{exprblocks} language is the
 \ct{PlaceholderStatement}. It extends \ct{Statement} so it can be used
 inside method bodies. It is used to mark locations at which subsequent
 generators want to add additional code. These subsequent generators will use a
@@ -273,9 +273,9 @@ Language reuse covers the case where a language has been developed
 independent of the context in which it should be reused. The respective
 fragments remain homogeneous. In this paper, we cover two alternative cases: the
 first case addresses a persistence mapping language. The generated code is
-separate from the code generated from the entities language. The second case
+separate from the code generated from the \ic{entities} language. The second case
 described a language for role-based access control. The generated code has to be
-"woven into" the entities code to check permissions when setters are called.
+"woven into" the \ic{entities} code to check permissions when setters are called.
 
 
 \subsubsection{Separated Generated Code}
@@ -317,10 +317,10 @@ in a different context, we extend this hook by context-specific code.
 \end{figure}
 
  
-The relmapping\_entities language extends relmapping and adapts it for reuse
-with the entities language. To this end, it provides a subconcept
+The \ic{relmapping\_entities} language extends relmapping and adapts it for reuse
+with the \ic{entities} language. To this end, it provides a subconcept
 of \ct{ColumnMapper}, the \ct{AttributeColMapper}, which references an
-\ct{Attribute} from the entities language as a means of expressing the mapping from the
+\ct{Attribute} from the \ic{entities} language as a means of expressing the mapping from the
 attribute to the column. The column mapper is projected on the right of the
 field definition, resulting in the following (heterogeneous) code fragment:
 
@@ -353,7 +353,7 @@ typeof(column.type) :==: typeof(column.mapper);
 typeof(columnMapper) :==: columnMapper.typeMappedToDB();
 \end{code}
 
-The \ct{AttributeColMapping} concept from the relmapping\_entities implements
+The \ct{AttributeColMapping} concept from the \ic{relmapping\_entities} implements
 this method by mapping ints to numbers, and everything else to chars.
 
 \begin{code}
@@ -368,12 +368,12 @@ public node<> typeMappedToDB()
 
 \phead{Generator} The generated code is also separated into a reusable part (a
 class generated by the generator of the relmapping language) and a
-context-specific subclass of that class, generated by the relmapping\_entities
+context-specific subclass of that class, generated by the \ic{relmapping\_entities}
 language. The generic base class contains code for creating the tables and for
 storing data in those tables. It contains abstract methods that are used to
 access the data to be stored in the columns. The dependency structure of the
 generated fragments, as well as the dependencies of the respective generators,
-resembles the dependency structure of the languages: the generated fragemnts
+resembles the dependency structure of the languages: the generated fragments
 are dependent, and the generators are dependent as well (they share the name
 and implicitly the knowledge about the structure of the class generated by the
 reusable relmapping generator). A relmapping fragment (without the concrete
@@ -414,13 +414,13 @@ public abstract class CompanyDBBaseAdapter {
 }
 \end{code}
 
-The subclass generated by the generator in the relmapping\_entities language
+The subclass generated by the generator in the \ic{relmapping\_entities} language
 implements the methods defined by the generic superclass. The interface,
 represented by the \ct{applicationData} object, has to be kept generic  so any
 kind of user data can be passed in. Note how this class references the beans
-generated from the entities. The generator for entities and the generator
-for relmapping\_entities are dependent. The information shared between the
-two generator is the names of the classes generated from the entities.
+generated from the \ic{entities}. The generator for \ic{entities} and the generator
+for \ic{relmapping\_entities} are dependent. The information shared between the
+two generator is the names of the classes generated from the \ic{entities}.
 The code generated from the relmapping language is designed to be extended by
 code generated from a sublanguage (the abstract getValue methods). This is
 acceptable, since the relmapping language itself is intended to be extended to
@@ -448,8 +448,8 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 
 \subsubsection{Interwoven generated code}
 
-\phead{Structure and Syntax} rbac is a language for specifying role-based access
-control, to specify access permissions for the entities.
+\phead{Structure and Syntax} \ic{rbac} is a language for specifying role-based access
+control, to specify access permissions for the \ic{entities}.
 
 \begin{code}
 RBAC                           
@@ -470,16 +470,16 @@ permissions:
 
 The structure is shown in \fig{rbac}. Like relmapping, it provides a
 hook, in this case, \ct{Resource}, to adapt it to context languages. The
-sublanguge rbac\_entities provides two subconcepts of \ct{Resource}, namely
+sublanguge \ic{rbac\_entities} provides two subconcepts of \ct{Resource}, namely
 \ct{AttributeResource} to reference to an attribute, and \ct{EntityResource} to
-refer to an \ct{Entity}, to define permissions for entities and their
+refer to an \ct{Entity}, to define permissions for \ic{entities} and their
 attributes.
 
 
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.45]{figures/rbac.png}
-  \caption[labelInTOC]{Language strucrure of the rbac language. An \ct{RBACSpec}
+  \caption[labelInTOC]{Language strucrure of the \ic{rbac} language. An \ct{RBACSpec}
   contains \ct{Users}, \ct{Roles} and \ct{Permissions}. Users can be members 
   in several roles. A permission assigns a right to a \ct{Resource}.}
   \label{rbac}  
@@ -491,8 +491,8 @@ attributes.
 \phead{Type System} No type system rules apply here.
 
 \phead{Generator} What distinguishes this case from the relmapping case is that
-the code generated from the rbac\_entities language is \emph{not} separated from
-the code generated from the entities. Instead, inside the setters of the Java
+the code generated from the \ic{rbac\_entities} language is \emph{not} separated from
+the code generated from the \ic{entities}. Instead, inside the setters of the Java
 beans, a permission check is required. 
 
 
@@ -512,22 +512,23 @@ To implement this, several approaches are possible:
 
 
 \begin{itemize}
-  \item We could use AspectJ (\verb+http://www.eclipse.org/aspectj/+). This way,
+  \item We could use AspectJ (\ic{http://www.eclipse.org/aspectj/}). This way,
   we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
   However, we do not want to introduce AspectJ here, so we will not use this
   approach. 
-  \item An interceptor (\verb+http://en.wikipedia.org/wiki/Interceptor_pattern+)
+  \item An interceptor (\ic{http://en.wikipedia.org/wiki/Interceptor\_pattern})
   framework could be added to the generated Java Beans, with the generated
-  code contributing specific interceptors (effectively building a custom AOP solution). 
+  code contributing specific interceptors (effectively building a custom AOP
+  solution).  
   We will not use this approach either, since it would require the addition of a 
   whole interceptor framework to the entities. This seems like overkill.
   \item We could "inject" additional code generation templates to the existing
-  entities generator from the rbac\_entities generator. This would make the
+  \ic{entities} generator from the \ic{rbac\_entities} generator. This would make the
   generators \emph{woven} as opposed to just dependent. Assuming this would work
   in MPS, this would be the most elegant solution. But it does not work.
   \item We could define a hook in the generated Java beans code and then have
-  the rbac\_entities generator contribute code to this hook. This is the
-  appraoch we will use. The generators remain dependent because they share 
+  the \ic{rbac\_entities} generator contribute code to this hook. This is the
+  approach we will use. The generators remain dependent because they share 
   the way the hook works.
 \end{itemize}
 
@@ -538,15 +539,15 @@ To implement this, several approaches are possible:
 
 
 
-Notice that only the AspectJ solution can work without any preplanning from the
-perspective of the entities language, because it avoids mixing the generated
+Notice that only the AspectJ solution can work without any pre-planning from the
+perspective of the \ic{entities} language, because it avoids mixing the generated
 code artifacts (it is handled "magically" by AspectJ). All other solutions
-require the original entities generator to "expect" certain extensions.
+require the original \ic{entities} generator to "expect" certain extensions.
 
-In our case, we have modified the original generator in the entities language to
+In our case, we have modified the original generator in the \ic{entities} language to
 contain a \ct{PlaceholderStatement} (\fig{placeholder}). In every setter, the
 placeholder acts as a hook at which subsequent generators can add statements.
-While we have to preplan \emph{that} we want to extend the generator in this
+While we have to pre-plan \emph{that} we want to extend the generator in this
 place, we do not have to predefine \emph{how}. The placeholder contains a
 key into the session object that points to the currently processed attribute.
 This way, the subsequent generator can know from which attribute the method with
@@ -565,12 +566,12 @@ the placeholder in it was generated.
 \end{center}
 \end{figure}
 
-The rbac\_entities generator contains a reduction rule for
+The \ic{rbac\_entities} generator contains a reduction rule for
 \ct{PlaceholderStatement}s. So when the generator encounters a placeholder (that
-has been put there by the entities generator) it removes it and inserts the code that
+has been put there by the \ic{entities} generator) it removes it and inserts the code that
 checks for the permission (\fig{placeholderreduction}). To make this work we
-have to make sure that this generator runs \emph{after} the entities generator
-(since the entities generator has to create the placeholder) and \emph{before}
+have to make sure that this generator runs \emph{after} the \ic{entities} generator
+(since the \ic{entities} generator has to create the placeholder) and \emph{before}
 the BaseLanguage generator (which transforms BaseLanguage code into Java text
 for compilation). We use generator priorities, i.e., a partial ordering, to
 achieve this.
@@ -592,13 +593,13 @@ achieve this.
 
 \subsection{Language Embedding}
 
-\phead{Structure and Syntax} uispec\_validation extends uispec, which is a
+\phead{Structure and Syntax} \ic{uispec\_validation} extends \ic{uispec}, which is a
 sublanguage of the validation language. It supports writing code such as the
 following in the UI form specifications. Writing the expressions is supported by
 embedding a reusable expressions language. \fig{uival} shows the structure. To
 be able to use the expressions, the user has to instantiate a
 \ct{ValidatedField} instead of a \ct{Field}. \ct{ValidatedField} is also defined
-in uispec\_validation and is a subconcept of \ct{Field}.
+in \ic{uispec\_validation} and is a subconcept of \ct{Field}.
 
 
 \begin{code}
@@ -617,7 +618,7 @@ form CompanyStructure
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.50]{figures/uival.png}
-  \caption[labelInTOC]{The uispec\_validation language defines a subtype of
+  \caption[labelInTOC]{The \ic{uispec\_validation} language defines a subtype of
   \ct{uispec.Field} that contains an \ct{Expression} from a reusable expression
   language. The language also defines a couple of additional expressions,
   specifically the \ct{AttributeRefExpr}, which can be used to refer to
@@ -643,18 +644,18 @@ execute(editorContext, node)->void {
 \end{code}
 
 
-The uispec\_validation language extends the uispec language. We also extend the
+The \ic{uispec\_validation} language extends the uispec language. We also extend the
 existing, reusable expressions language, so we can use \ct{Expressions} in the
 definition of our language. \ct{ValidatedField} has a property \ct{expr} that
 contains the actual expression. As a consequence of polymorphism, we can use any
 existing subconcept of \ct{Expression} here. So without doing anything else, we
-could write \verb#20 + 40 > 10#, since integer literals and the plus operator
+could write \ic{20 + 40 > 10}, since integer literals and the plus operator
 are defined as part of the composed expressions language. However, to write
 anything useful, we have to be able to reference entity attributes from within
 expressions. To achieve this, we create the \ct{AttributeRefExpr} as shown in
 \fig{uival}. We also create \ct{LengthOf} and \ct{IsSetExpression} as further
 examples of how to adapt an embedded language to its new context ---
-i.e. the uispec and entities languages.
+i.e. the \ic{uispec} and \ic{entities} languages.
 
 
 The \ct{AttributeRefExpr} may only reference those attributes of those
@@ -674,19 +675,19 @@ expression. The following is the code for the search scope:
 \end{code}
 
 Notice that the actual syntactic embedding of the expressions in the
-uispec\_validation language is not a problem because of how projectional editors
+\ic{uispec\_validation} language is not a problem because of how projectional editors
 work. We simply define \ct{Expression} to be a child of the \ct{ValidatedField}.
 
 
 \phead{Type System} The general challenge here is that primitive types such as
-\ct{int} and \ct{string} are defined in the entities language and in the
+\ct{int} and \ct{string} are defined in the \ic{entities} language and in the
 reusable expression language. Although they have the same names, they are not
 the same types. The two sets of types must be mapped. Here are a couple of
 examples. The type of the \ct{IsSetExpression} is by definition
 \ct{expressions.BooleanType}. The type of the \ct{LengthOf}, which takes an
 \ct{AttrRefExpression} as its argument, is \ct{expressions.IntType}.
 The type of an attribute reference is the type of the attribute's \ct{type} property, as in
-\verb#typeof(are) :==: typeof(are.attr.type);#. However, consider now the
+\ic{typeof(are) :==: typeof(are.attr.type);}. However, consider now the
 following code:
 
 \begin{code}
@@ -743,7 +744,7 @@ rule typeof_BinaryExpression {
 \end{code}
 
 To override these typing rules to work with \ct{entities.BooleanType}, we simply
-provider another overloaded operation specification in the uispec\_validation
+provider another overloaded operation specification in the \ic{uispec\_validation}
 language:
 
 \begin{code}
@@ -779,18 +780,18 @@ expressions language, we can do one of two things:
   structurally. A wrapper is necessary.
   \item Alternatively, we can write a (reusable) transformation from expressions
   code to BaseLanguage code; these rules would be used as part of the
-  transformation of uispec and uispec\_validation code to BaseLanguage.
+  transformation of \ic{uispec} and \ic{uispec\_validation} code to BaseLanguage.
 \end{itemize}
 
 Since many DSLs will map code to BaseLangauge, it is worth the effort to
-write a reusable generator from uispec\_validation expressions to BaseLanguage
+write a reusable generator from \ic{uispec\_validation} expressions to BaseLanguage
 expressions. We choose this second alternative. The generated Java code is
 multi-sourced, since it is generated by two independent code generators.
 
 
 Expression constructs from the reusable expr language and those of BaseLanguage
 are almost identical, so this generator is trivial. We create a new language
-project de.voelter.mps.expressions.blgen and add reduction rules.
+project \ic{de.voelter.mps.expressions.blgen} and add reduction rules.
 \fig{expr2blgen} shows some of these reduction rules.
 
 
@@ -807,12 +808,12 @@ project de.voelter.mps.expressions.blgen and add reduction rules.
 \end{figure}
 
 In addition to these, we also need reduction rules for those new expressions
-that we have added specifically in the uispec\_validation language
+that we have added specifically in the \ic{uispec\_validation} language
 (\ct{AttrRefExpression, isSetExpression, LengthOf}). Those are defined in
-uispec\_validation. As an example, \fig{reductionAttributeRef} shows the rule
+\ic{uispec\_validation}. As an example, \fig{reductionAttributeRef} shows the rule
 for handling the \ct{AttrRefExpression}. The validation code itself is
 "injected" into the UI form via the same placeholder reduction as in the case of
-the rbac\_entities language.
+the \ic{rbac\_entities} language.
 
 
 \begin{figure}[htp]
@@ -830,7 +831,7 @@ Language extension can also be used to prohibit the use of certain concepts of
 the base language in the sublanguage, at least in certain contexts. As a simple
 (but admittedly relatively useless) example, we restrict the use of certain
 operators provided by the reusable expression language inside validation rules
-in uispec\_validation. This can be achieved by implementing a 
+in \ic{uispec\_validation}. This can be achieved by implementing a 
 \ct{can be ancestor} constraint on \ct{ValidatedField}.
 
 \begin{code}
@@ -870,14 +871,14 @@ module company
   }                                            
 \end{code}
 
-This is a heterogeneous fragment, consisting of code from the entities, as well
+This is a heterogeneous fragment, consisting of code from the \ic{entities}, as well
 as the annotations. From a concrete syntax perspective, the column mapping is
 "embedded" in the entity description. In the underlying persistent data
 structure, the information is also actually stored in the entity model. However,
-the definition of the entities language does not know that this additional
+the definition of the \ic{entities} language does not know that this additional
 information is stored and projected "inside" entities! No modification to the
-entities language is necessary whatsoever. Instead, we define an additional
-language relmapping\_annotations which extends the entities language as well as
+\ic{entities} language is necessary whatsoever. Instead, we define an additional
+language relmapping\_annotations which extends the \ic{entities} language as well as
 the relmapping language. In this language we define a annotation link:
 
 
@@ -926,11 +927,11 @@ requirements traces or presence conditions in product line engineering. We have
 described this in \cite{VoelterVisser2011} and \cite{Voelter2010}.
 
 \phead{Type System} The same typing rules are necessary as in the
-relmapping\_entities language described previously. They reside in
+\ic{relmapping\_entities} language described previously. They reside in
 relmapping\_annotations.
 
 \phead{Generator} The generator is also broadly similar to the previous example
-with relmapping\_entities. It takes the entities model as the input, and then
+with \ic{relmapping\_entities}. It takes the \ic{entities} model as the input, and then
 uses the column mappings in the annotations to create the entity-to-database
 mapping code.
 
@@ -938,7 +939,7 @@ mapping code.
 The annotations introduced earlier were typed to be specific to certain target
 concepts (\ct{EntityAttribute} in this case). A particularly interesting use 
 of annotations includes those that can be annotated to \emph{any} language
-concept (formally targetting \ct{BaseConcept}). In this case, there is no
+concept (formally targeting \ct{BaseConcept}). In this case, there is no
 dependency between the language that contains the annotation and the language
 that is annotated. This is very useful for "meta data", as well as anything that
 can be processed generically. 
@@ -962,7 +963,7 @@ switch.
 An example of the second case is product line variability annotations
 (\fig{featuredependencies}). Boolean expressions over configuration switches can
 be annotated to any model element. Such an annotation means that the respective
-element is only in the program variant, if the boolean expression is true for
+element is only in the program variant, if the Boolean expression is true for
 the given setting of configuration switches. The generic transformation simply
 removes all elements whose annotation evaluates to false. The expressions can
 also be evaluated as part of the projection, showing the code for a given

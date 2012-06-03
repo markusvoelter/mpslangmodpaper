@@ -11,7 +11,7 @@ refactorings. MPS is bootstrapped, so these DSLs are built with MPS itself.
 
 
 At the center of the language extensions we will build later, we use a simple
-entities language (some example code is shown below). \emph{Modules} are
+\ic{entities} language (some example code is shown below). \emph{Modules} are
 root nodes. They live as top-level elements in \emph{models}.
 Referring back to the terminology introduced in the DSL design paper
 \cite{VoelterVisserVoelterVisserVoelterVisser2011}, root nodes (and their
@@ -40,7 +40,7 @@ module company
 
 \phead{Structure and Syntax} Language definition starts with the abstract
 syntax, called \emph{concepts} in MPS. \fig{entities} shows a UML diagram of the
-structure of the entities language. Each box represents a language concept.
+structure of the \ic{entities} language. Each box represents a language concept.
 
 \begin{figure}[htp]
 \begin{center}
@@ -110,12 +110,12 @@ This is similar to solving a set of equations in mathematics. Consider
 \end{code}
 
 
-This set of equations can be solved by \verb#x := 5, y := 10#. The MPS type
+This set of equations can be solved by \ic{x := 5, y := 10}. The MPS type
 system engine works the same way, but the domain is types instead of integers.
 Type equations also do not just contain equations (:==:), but also equations
 with subtyping and other relationships.
 
-For the entities language, we specify two simple typing rules. The first one
+For the \ic{entities} language, we specify two simple typing rules. The first one
 specifies that the type of the primitives (\ct{int}, \ct{string}) is a
 clone of themselves:
 
@@ -133,23 +133,23 @@ rule typeof_Type {
 
 The only other typing rule is an equation that defines the type of the attribute
 as a whole to be the type of the attribute's \ct{type} property, defined as
-\verb#typeof(attribute) :==: typeof(attribute.type);#.
+\ic{typeof(attribute) :==: typeof(attribute.type);}.
 
 
 \phead{Generator} From entity models we generate Java Beans. Since Java is
 available in MPS as the BaseLanguage, the generation is actually a
-model-to-model transformation: from the entities model we generate a Java model.
+model-to-model transformation: from the \ic{entities} model we generate a Java model.
 MPS supports several kinds of transformations. The default case is the
 template-based transformation which uses the concrete syntax of the target
 language to specify model-to-model transformations. Alternatively, one can use
 the node API to manually construct the target tree. Finally, the 
-textgen DSL is available to generate ASCII text (at the end of the
+\ic{textgen} DSL is available to generate ASCII text (at the end of the
 transformation chain). Throughout this paper we use the template-based
 approach.
 
 Template-based generators in MPS consist of two main building blocks: mapping
 configurations and templates. Mapping configurations define which elements are
-processed with which templates. For the entities language, we need a \emph{root
+processed with which templates. For the \ic{entities} language, we need a \emph{root
 mapping rule} and \emph{reduction rules}. Root mapping rules can be used to
 create new top-level artifacts from existing top-level artifacts (they map
 fragments to other fragments). In our case we generate a Java class from an
@@ -158,13 +158,13 @@ encounters an instance of the specified source concept somewhere in a model
 tree, it removes that source node and replaces it with the result of the
 associated template. In our case we have to reduce the various types (\ct{int},
 \ct{string}, etc.) to their Java counterparts. \fig{entitiesmc} shows a part of
-the mapping configuration for the entities language.
+the mapping configuration for the \ic{entities} language.
 
 
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.55]{figures/entitiesmc.png}
-  \caption[labelInTOC]{The mapping configuration for the entities language. The
+  \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
   root mapping rule for Entity specifies that instances of \ct{Entity} should
   be transformed with the \ct{map\_Entity} template. The reduction rules use
   inline templates. For example, the \ct{IntType} is replaced with the Java
@@ -184,14 +184,14 @@ the \ct{map\_Entity} template. It generates a complete Java class --- notice the
 complete structure of a Java class is present, because that is how BaseLanguage
 defines the editor for a Java class. We then generate a field for each entity
 \ct{Attribute}. To do this we first create a prototype field in the class
-(\verb+private int aField;+). Then we use macros to "transform" this prototype
+(\ic{private int aField;}). Then we use macros to "transform" this prototype
 into an instance for each entity attribute. We first attach a \ct{LOOP} macro to
-the whole field. It contains an expression \verb+node.attributes;+ where
+the whole field. It contains an expression \ic{node.attributes;} where
 \ct{node} refers to the input \ct{Entity}. This code is entered in the Inspector
 window and is not shown in the screenshot. We then use a \ct{COPY\_SRC} macro to
 transform the type. \ct{COPY\_SRC} copies the input node (the inspector
 specifies the current attribute's type as the input here) and applies reduction
-rules. So instances of the types defined as part of the entities language are
+rules. So instances of the types defined as part of the \ic{entities} language are
 transformed into a Java type using the reduction rules defined in the mapping
 configuration. Finally, we use a property macro (the dollar sign) to change the
 \ct{name} property of the field we generate from the dummy value \ct{aField} to

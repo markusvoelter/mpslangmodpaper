@@ -5,6 +5,8 @@
 
 \subsection{Approach and Structure of the paper}
 
+\todo{align terminology with other papers}
+
 Language modularization, extension and composition (LME\&C) is an important
 ingredient to the efficient use of DSLs, just like reuse in general is important
 to software development. We discuss the need for LME\&C in the context of DSL
@@ -60,14 +62,14 @@ The example code developed for this tutorial can be found at github.com and
 works with MPS 2.0:
 
 \vspace{5pt}
-\verb#https://github.com/markusvoelter/MPS-Language-Composition-Demos---For-MPS-2.0#
+\ic{https://github.com/markusvoelter/MPS-Language-Composition-Demos---For-MPS-2.0}
 \vspace{5pt}
 
 A set of recorded demos (90 minutes in total) that walk through all the example
 code is available on Youtube. The initial video is here: 
 
 \vspace{5pt}
-\verb#http://www.youtube.com/watch?v=lNMRMZk8KBE#. 
+\ic{http://www.youtube.com/watch?v=lNMRMZk8KBE}. 
 \vspace{5pt}
 
 \noindent The others are either suggested by Youtube, or you can find them by
@@ -79,7 +81,7 @@ powerful, so we have to focus on those aspects that are essential for LME\&C. We
 refer to the LWC 11 MPS tutorial for details:
 
 \vspace{5pt}
-\verb+http://code.google.com/p/mps-lwc11/wiki/GettingStarted+
+\ic{http://code.google.com/p/mps-lwc11/wiki/GettingStarted}
 
 
 \subsection{Types of Modularization}
@@ -130,24 +132,24 @@ extended.
 
 \vspace{8pt}
 In this paper we illustrate all of these approaches with MPS. At the center is a
-simple entities language. We then build an additional language to illustrate
+simple \ic{entities} language. We then build an additional language to illustrate
 LME\&C. \fig{languagestructure} illustrates these additional languages. The
-uispec language illustrates \emph{combination} with entities. relmapping is an
-example of \emph{reuse} with separated generated code. \emph{rbac} illustrates
-reuse with intermixed generated code. uispec\_validation demonstrates
-\emph{extension} (of the uispec language) and \emph{embedding} with regards to
+\ic{uispec} language illustrates \emph{combination} with \ic{entities}. \ic{relmapping} is an
+example of \emph{reuse} with separated generated code. \ic{rbac} illustrates
+reuse with intermixed generated code. \ic{uispec\_validation} demonstrates
+\emph{extension} (of the \ic{uispec} language) and \emph{embedding} with regards to
 the expressions language.
 
 
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.4]{figures/languagestructure.png}
-  \caption[labelInTOC]{entities is the central language. uispec defines UI
-  forms for the entities. uispec\_validation adds validation rules, and composes
+  \caption[labelInTOC]{\ic{entities} is the central language. \ic{uispec} defines UI
+  forms for the \ic{entities}. \ic{uispec\_validation} adds validation rules, and composes
   a reusable expressions language. relmapping provides a reusable database
-  mapping language, relmapping\_entities adapts it to the entities language.
-  rbac is a reusable language for specifying permissions; rbac\_entities adapts
-  this language to the entities language. }
+  mapping language, \ic{relmapping\_entities} adapts it to the \ic{entities} language.
+  rbac is a reusable language for specifying permissions; \ic{rbac\_entities} adapts
+  this language to the \ic{entities} language. }
   \label{languagestructure}  
 \end{center}
 \end{figure}

@@ -7,13 +7,13 @@ the only approach to language modularity and composition. For example, the
 Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
 editor that has been used in real projects. An impressive presentation about its
 capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
-(\verb+http://bit.ly/10BsWa+). IDW is conceptually very similar to MPS, although
+(\ic{http://bit.ly/10BsWa}). IDW is conceptually very similar to MPS, although
 quite different in many details. We will not provide more details here, partly
 because Intentional Software is very sensitive about publishing information
 about details of their technology.
 
 
-MetaEdit+ (\verb+http://metacase.com+) is an example of a purely graphical
+MetaEdit+ (\ic{http://metacase.com}) is an example of a purely graphical
 language workbench (tables and forms can also be used). Languages are defined
 via meta models, constraints, code generators and graphical symbols associated
 with the meta-model. Language concepts can be represented by different symbols
@@ -24,7 +24,7 @@ been) projectional. Since this paper focuses mostly on textual language, we
 include MetaEdit+ here only for completeness.
 
 
-Eclipse Xtext (\verb+http://eclipse.org/Xtext+) supports the creation of
+Eclipse Xtext (\ic{http://eclipse.org/Xtext}) supports the creation of
 extremely powerful text editors (with code completion, error checking and syntax
 coloring) from an enhanced EBNF-like grammar definition. It also generates a
 meta-model that represents the abstract syntax of the grammar as well as a
@@ -32,7 +32,7 @@ parser that parses sentences of the language and builds an instance of the
 meta-model. Since it uses Eclipse EMF as the basis for its meta models, it can
 be used together with any EMF-based model transformation and code generation
 tool (examples include Xpand, ATL, and Acceleo, all at
-\verb+http://eclipse.org/modeling+). Language combination is easily possible;
+\ic{http://eclipse.org/modeling}). Language combination is easily possible;
 Code completion for references into other models as well as cross-model and
 cross-language consistency checks in the editor are supported natively.
 Language reuse, extension and embedding are quite limited, though. It is
@@ -43,7 +43,7 @@ meta-model) of language elements in the base language is also possible. However,
 it is not possible to define different representations of the same element
 (except the concrete syntax of the reference) and it is not possible to embed
 arbitrary languages or language modules. This is mainly because the underlying
-parser technology is antlr (\verb+http://antlr.org+) which is a classical two
+parser technology is antlr (\ic{http://antlr.org}) which is a classical two
 phase LL(*) parser which has problems  with grammar composition
 \cite{BravenboerV08}. While single inheritance is useful, and many interesting
 DSLs can be built with Xtext, single inheritance language extension is not
@@ -52,17 +52,17 @@ inheritance and no delegation or traits.
 
 
 
-SDF \cite{HeeringHKR89} (\verb+http://strategoxt.org/Sdf+), developed by the
+SDF \cite{HeeringHKR89} (\ic{http://strategoxt.org/Sdf}), developed by the
 University of Delft, uses scannerless parsers. Consequently, languages can be
 embedded within each other. Code generators are implemented via term rewriting
 on the abstract syntax, but rendered in the concrete syntax. Currently, SDF is
 mainly a set of command-line tools, but IDE support (with automatically
 generated eclipse editors) is in progress as part of Spoofax \cite{KatsV10}
-\linebreak(\verb+http://strategoxt.org/Spoofax+).
+\linebreak(\ic{http://strategoxt.org/Spoofax}).
 
 
 
-Monticore (\verb+http://monticore.org+) is another parser-based
+Monticore (\ic{http://monticore.org}) is another parser-based
 language engineering environment that generates parsers, meta-models, and editors based on extended grammar.
 Currently, the group at RWTH Aachen university works on modularizing languages
 \cite{KrahnRV10}.
@@ -71,7 +71,7 @@ the ability to not regenerate the parsers or any of the related tools
 after a combined language has been defined. 
 
 
-FURCAS (\verb+http://www.furcas.org/+) is a tool that is developed by
+FURCAS (\ic{http://www.furcas.org/}) is a tool that is developed by
 SAP and FZI Karlsruhe. FURCAS stores models in an abstract structure. However, for editing it "projects" the model
 into plain ASCII. So when editing the model, users actually edit ASCII text.
 Consequently, syntax definition also includes a definition of indentation and
@@ -93,7 +93,7 @@ by some of the tools mentioned in this section), they will not be able to
 work with non-parseable code, inlined tables, diagrams or annotations. 
 
 For a general overview of language workbenches, please refer to the Language
-Workbench Competition at \verb#http://languageworkbenches.net#. Participating
+Workbench Competition at \ic{http://languageworkbenches.net}. Participating
 tools have to implement a standardized language and document the implementation
 strategy. This serves as a good tutorial of the tool and makes them comparable. 
 As of June 2012, the site contains 15 submissions.

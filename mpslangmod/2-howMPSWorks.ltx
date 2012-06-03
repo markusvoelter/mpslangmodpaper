@@ -48,7 +48,7 @@ list of benefits of the projectional editing approach:
 
 \begin{itemize}   
   \item No grammar or parser is required. Editing directly changes the
-  underlying structure. Projectional editors can handle unparsable code.
+  underlying structure. Projectional editors can handle unparseable code.
   Language composition is made easy, because it cannot
   result in ambiguous grammars [1].
 
@@ -158,7 +158,7 @@ expression of relations in a more natural way: unidirectional and bidirectional
 relationships can be declared, distinguishing between composition and
 references. Programmers can access them in a way similar to accessing fields in
 Java. \emph{dnq} also includes a collections language which supports
-the manipulation of collections in a way similar to .NET�s LINQ. For example,
+the manipulation of collections in a way similar to .NET's LINQ. For example,
 \emph{dnq} supports code such as the following:
 
 
@@ -202,12 +202,12 @@ closed nature of modeling tools, the integration of models and code,
 traceability to requirements, long build times as well as management of product
 line variability. To address these issues, we propose an alternative approach
 based on the incremental extension of C. We have implemented a proof-of-concept
-language (\url{http://mbeddr.com}) that contains a set of language extensions
+language (\ic{http://mbeddr.com}) that contains a set of language extensions
 relevant to this embedded development. A larger-scale research project is
 starting in July 2011 to continue the development of this approach.
  
-For the proof-of-concept, the mbeddr project uses Lego mindstorms as the target
-platform together with the Osek operating system to ensure real-world relevance.
+For the proof-of-concept, the mbeddr project uses Lego Mindstorms as the target
+platform together with the OSEK operating system to ensure real-world relevance.
 The current showcase is a line follower robot. It uses a single light sensor to
 follow (one side of) a thick black line by changing the speed of motors that
 drive the two wheels. The current state of the prototype contains language
@@ -219,6 +219,6 @@ for simplified control of the two-wheeled robot using commands such as
 accelerate, turn left, or stop. The implementation of this DSL is a model
 transformation down to the basic embedded languages: we generate tasks,
 procedures and state machines, which are then (automatically) transformed down
-to actual C and are compiled by GCC for the Osek target.
+to actual C and are compiled by GCC for the OSEK target.
 
 
