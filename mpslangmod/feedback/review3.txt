@@ -5,19 +5,19 @@ AUTHORS: Markus Voelter
 
 General Comments:
 
-The abstract and introduction talk about how the paper will introduce MPS in a Òpractically usable way.Ó Yet, the conclusions talk about how challenging the learning curve is for most adopters. These statements seem incongruous.
+The abstract and introduction talk about how the paper will introduce MPS in a â€œpractically usable way.â€ Yet, the conclusions talk about how challenging the learning curve is for most adopters. These statements seem incongruous.
 
-The conclusion states that MPS Òscales to realistic program sizesÓ but there is no evidence either in the paper or references to support this. Please prove or remove the statement. Almost all of the statements in the conclusion are opinions and not backed by any evidence, so this should be more clearly mentioned as opinion in the paperÕs current state and lack of empirical evidence.
+The conclusion states that MPS â€œscales to realistic program sizesâ€ but there is no evidence either in the paper or references to support this. Please prove or remove the statement. Almost all of the statements in the conclusion are opinions and not backed by any evidence, so this should be more clearly mentioned as opinion in the paperâ€™s current state and lack of empirical evidence.
 
 The paper lacks the level of citation that would be expected for a scholarly paper of 35 pages (more below). Just 8 non-self references is generally at the level of a workshop paper, not a paper at this length and depth. Paper seems to depend a lot on reference 10, but the citation details only list the author names, title, and year. Overall, links to literature and the citations used are rather weak.
 
-The paper mislabels ÒevaluationÓ for Òdiscussion.Ó An evaluation is typically an empirical assessment based on experimentation. That is not provided in this paper. Please use a different word so as not to confuse those who use that word for a specific meaning in experimental software engineering.
+The paper mislabels â€œevaluationâ€ for â€œdiscussion.â€ An evaluation is typically an empirical assessment based on experimentation. That is not provided in this paper. Please use a different word so as not to confuse those who use that word for a specific meaning in experimental software engineering.
 
-The paper talks a lot about Òprojectional editingÓ in the early parts of the paper, but never really defines what is meant until later. For readers new to the area, please provide a more concrete and definitive discussion early in the paper.
+The paper talks a lot about â€œprojectional editingâ€ in the early parts of the paper, but never really defines what is meant until later. For readers new to the area, please provide a more concrete and definitive discussion early in the paper.
 
 I may have missed, but the idea of the base language actually evolving could be an important challenge. Can you say more to that (sorry if I missed this discussion, but it seems important to highlight)? If one DSL is derived from another, the idea of co-evolution seems real.
 
-Page 4 mentions ÒFor editing purposes É using graphical shapes.Ó This is true for MPS? It is in the paragraph mentioning MPS, but no examples of editing graphical shapes is presented in this paper for MPS. Perhaps some concepts are mixed and need to be clarified in the last paragraph.
+Page 4 mentions â€œFor editing purposes â€¦ using graphical shapes.â€ This is true for MPS? It is in the paragraph mentioning MPS, but no examples of editing graphical shapes is presented in this paper for MPS. Perhaps some concepts are mixed and need to be clarified in the last paragraph.
 
 The idea of interaction patterns is introduced on page 5, but at that point not really explained what this means. Please elaborate at that point.
 
@@ -25,23 +25,23 @@ Perhaps some intro to section 2.3 would help, before jumping right into the exam
 
 Page 8 mentions a project started in July 2011. Update in revision.
 
-Page 8 also mentions that mbeddr uses Lego Mindstorms for Òreal-world relevanceÓ Ğ this seems somewhat odd Ğ how does what many consider to be a toy point to real-world relevance? The paragraph then mentions a line tracing robot Ğ this example is taught to middle school children on a daily basis, so not sure why it is that motivating.
+Page 8 also mentions that mbeddr uses Lego Mindstorms for â€œreal-world relevanceâ€ â€“ this seems somewhat odd â€“ how does what many consider to be a toy point to real-world relevance? The paragraph then mentions a line tracing robot â€“ this example is taught to middle school children on a daily basis, so not sure why it is that motivating.
 
-The comment about Intentional Software on page 8 could easily be removed Ğ seems a bit like a jab and perhaps not the place for this, or at least reworded (even if this is true).
+The comment about Intentional Software on page 8 could easily be removed â€“ seems a bit like a jab and perhaps not the place for this, or at least reworded (even if this is true).
 
-Perhaps Figure 2 could also indicate ÒBaseConceptÓ on the figure.
+Perhaps Figure 2 could also indicate â€œBaseConceptâ€ on the figure.
 
 In footnote 1 on page 11, it is mentioned that the complete definition was not provided. Please provide a link or reference to where a complete definition may be available, if it exists.
 
-When the first MPS templates are introduce around Figure 5, I felt that the accompanying text could have been much better written. This is an important part of the paper in terms of reader understandability Ğ please try to give more details around page 13-14, and other figures that are early in the introduction of MPS. I also felt more detail was needed in Section 5.4.1, and on page 31. The discussion at the bottom of page 34 could also be expanded with more detail.
+When the first MPS templates are introduce around Figure 5, I felt that the accompanying text could have been much better written. This is an important part of the paper in terms of reader understandability â€“ please try to give more details around page 13-14, and other figures that are early in the introduction of MPS. I also felt more detail was needed in Section 5.4.1, and on page 31. The discussion at the bottom of page 34 could also be expanded with more detail.
 
 In Section 5.3, in examples where no type system applies, please explain why.
 
-The discussion about AspectJ on page 23 is a bit perplexing. The bottom of the page touts the advantages of the approach (in terms of preplanning), but the middle of the page just gives a weak justification for not using it as ÒÓwe donÕt want to introduce AspectJ hereÓ Ğ why not, if that offers the advantages mentioned at the bottom of the paper? Better justification for not using it seems to be needed.
+The discussion about AspectJ on page 23 is a bit perplexing. The bottom of the page touts the advantages of the approach (in terms of preplanning), but the middle of the page just gives a weak justification for not using it as â€œâ€we donâ€™t want to introduce AspectJ hereâ€ â€“ why not, if that offers the advantages mentioned at the bottom of the paper? Better justification for not using it seems to be needed.
 
-At the bottom of page 25, please explain what you mean by an Òintention.Ó
+At the bottom of page 25, please explain what you mean by an â€œintention.â€
 
-The introduction seemed a bit oddly initiated. There is no initial section but jumps right to Ò1.1Ó Ğ perhaps some intro text would be helpful.
+The introduction seemed a bit oddly initiated. There is no initial section but jumps right to â€œ1.1â€ â€“ perhaps some intro text would be helpful.
 
 When acronyms are presented on first use (e.g., IDE in abstract, and other examples), please fully elaborate.
 
@@ -51,9 +51,9 @@ References:
 
 The paper only has 8 non-self references for a 35-page paper. This suggests, as I found in this case, that the author has not set up the paper very well in terms of related work and expressing the content in the context of existing literature. It is understood that this is a tutorial paper, but I still expected the paper to have more of a scientific approach by placing the paper amid the related literature.
 
-At the top of page 2, where various limitations are listed with current approaches (e.g., Òlimited composabilityÓ) please try to point to literature that also identifies this as a problem.
+At the top of page 2, where various limitations are listed with current approaches (e.g., â€œlimited composabilityâ€) please try to point to literature that also identifies this as a problem.
 
-Provide a reference to ÒJetBrains MPSÓ on first mention on page 2 and opening of section 2.2.
+Provide a reference to â€œJetBrains MPSâ€ on first mention on page 2 and opening of section 2.2.
 
 On page 3, the types of modularization are presented as if they are new to this paper, but have been covered in the literature in many places by others. I am not sure why the author does not recognize these other works. The classic paper by Mernik, Heering and Sloane is missing in an obvious way to anyone working in this area.
 
@@ -73,13 +73,13 @@ Refs for Xpand and Jet on page 13
 
 On page 33, component-based design has a URL to a Wikipedia entry. There are many good books and articles that would serve as better references and could be added to the bibliography.
 
-The details of reference 10 are missing! Not sure where this was publishedÉ
+The details of reference 10 are missing! Not sure where this was publishedâ€¦
 
 
 
 Spelling and Grammar:
 
-The following are suggestions about the grammar and writing style used in the paper Ğ many of these are VERY minor:
+The following are suggestions about the grammar and writing style used in the paper â€“ many of these are VERY minor:
 
 General:
 There are many spelling errors that could have been caught by a spell checker. Please make sure to run your paper through a spell checker before submitting.
@@ -88,237 +88,237 @@ For some reason, all of the open quote symbols are printed backwards. Please fix
 
 Some of the text extends far into the right margin.
 
-Òmeta modelsÓ and Òmeta-modelÓ different spellings; perhaps just ÒmetamodelsÓ
+â€œmeta modelsâ€ and â€œmeta-modelâ€ different spellings; perhaps just â€œmetamodelsâ€
 
 Abstract:
-Òan extensive example that showsÓ to Òa set of extensive examples that showÓ
+â€œan extensive example that showsâ€ to â€œa set of extensive examples that showâ€
 
 Page 2:
-ÒSpecifically, LME&C, requiresÓ remove second comma
-Òsemantics i.e., the constraints and the type system haveÓ to
-   Òsemantics (i.e., the constraints and the type system) haveÓ
-ÒFor example in caseÓ to ÒFor example, in the caseÓ
-Òbe extended and composed as wellÓ to Òbe extended and composedÓ
-Òwell supportedÓ hyphenate
-Òin this paper as well.Ó to Òin this paper.Ó
-ÒHowever, as we will see, inÓ to ÒHowever, inÓ
-Òin many cases, languagesÓ remove comma
-Òfor reuse, in orderÓ remove comma
-Òand explained in the [10] paperÓ to Òand explained in [10]Ó
-ÒThen we describeÓ to ÒThen, we describeÓ
-ÒÓNext we provideÓ to ÒNext, we provideÓ
-Òoverview over relatedÓ to Òoverview of relatedÓ
-Òlanguage, entities, for this taskÓ Òlanguage entities for this taskÓ
-Òapproaches is discussedÓ to Òapproaches, is discussedÓ
-ÒSection 6 looks at whatÓ to ÒSection 6 discusses whatÓ
-Òpaper cannot be a completeÓ to Òpaper is not a completeÓ
-Òtutorial for a at detailed MPS tutorialÓ to Òtutorial for detailsÓ
+â€œSpecifically, LME&C, requiresâ€ remove second comma
+â€œsemantics i.e., the constraints and the type system haveâ€ to
+   â€œsemantics (i.e., the constraints and the type system) haveâ€
+â€œFor example in caseâ€ to â€œFor example, in the caseâ€
+â€œbe extended and composed as wellâ€ to â€œbe extended and composedâ€
+â€œwell supportedâ€ hyphenate
+â€œin this paper as well.â€ to â€œin this paper.â€
+â€œHowever, as we will see, inâ€ to â€œHowever, inâ€
+â€œin many cases, languagesâ€ remove comma
+â€œfor reuse, in orderâ€ remove comma
+â€œand explained in the [10] paperâ€ to â€œand explained in [10]â€
+â€œThen we describeâ€ to â€œThen, we describeâ€
+â€œâ€Next we provideâ€ to â€œNext, we provideâ€
+â€œoverview over relatedâ€ to â€œoverview of relatedâ€
+â€œlanguage, entities, for this taskâ€ â€œlanguage entities for this taskâ€
+â€œapproaches is discussedâ€ to â€œapproaches, is discussedâ€
+â€œSection 6 looks at whatâ€ to â€œSection 6 discusses whatâ€
+â€œpaper cannot be a completeâ€ to â€œpaper is not a completeâ€
+â€œtutorial for a at detailed MPS tutorialâ€ to â€œtutorial for detailsâ€
 
 Page 3:
-ÒMPS 2.0 as wellÓ to ÒMPS 2.0Ó
-ÒAt the point of this writingÓ Ğ perhaps ok to update or reword now
-ÒWe then build additional languageÓ to ÒWe then build an additional languageÓ
+â€œMPS 2.0 as wellâ€ to â€œMPS 2.0â€
+â€œAt the point of this writingâ€ â€“ perhaps ok to update or reword now
+â€œWe then build additional languageâ€ to â€œWe then build an additional languageâ€
 
 Page 4:
-Òseparated generated codeÓ to Òseparate generated codeÓ
-ÒWorkbench has been coinedÓ to ÒWorkbench was coinedÓ
-Òhe defines it asÓ to Òhe defines a Language Workbench asÓ
-ÒIn the meantime, Martin Fowler, and the communityÓ to ÒIn the meantime, the communityÓ
-ÒUsers useÓ to ÒUsers provideÓ
+â€œseparated generated codeâ€ to â€œseparate generated codeâ€
+â€œWorkbench has been coinedâ€ to â€œWorkbench was coinedâ€
+â€œhe defines it asâ€ to â€œhe defines a Language Workbench asâ€
+â€œIn the meantime, Martin Fowler, and the communityâ€ to â€œIn the meantime, the communityâ€
+â€œUsers useâ€ to â€œUsers provideâ€
 
 Page 5:
-Òas part of language definitionÓ to Òas part of the language definitionÓ
-Òof the approach projectional editingÓ to Òof the projectional editing approachÓ
-Òis easily possibleÓ to Òis made easyÓ
-Òdata, i.e. annotations ..Ó to Òdata (i.e., annotations É)Ó
-ÒJet BrainsÓ to ÒThe Jet BrainsÓ
-Òworkbench, so all the statementsÓ to Òworkbench. All of the statementsÓ
-Òconcepts and (c)Ó to Òconcepts, and (c)Ó
+â€œas part of language definitionâ€ to â€œas part of the language definitionâ€
+â€œof the approach projectional editingâ€ to â€œof the projectional editing approachâ€
+â€œis easily possibleâ€ to â€œis made easyâ€
+â€œdata, i.e. annotations ..â€ to â€œdata (i.e., annotations â€¦)â€
+â€œJet Brainsâ€ to â€œThe Jet Brainsâ€
+â€œworkbench, so all the statementsâ€ to â€œworkbench. All of the statementsâ€
+â€œconcepts and (c)â€ to â€œconcepts, and (c)â€
 
 Page 6:
-Òwith a text-oriented toolsÓ to Òwith text-oriented toolsÓ
-ÒFor higher-level languages assimilationÓ to ÒFor higher level languages, assimilationÓ (2 changes)
-Òsee [?] for detailsÓ missing reference
-Òneeds some getting used toÓ reword
-Òsection 4Ó to ÒSection 4Ó
-Òwoth MPSÓ to Òwith MPSÓ
-ÒAll these languagesÓ to ÒAll of these languagesÓ
-Ògeneral purposeÓ hyphenate
-Òbidirectional cantÓ to Òbidirectional cannotÓ
+â€œwith a text-oriented toolsâ€ to â€œwith text-oriented toolsâ€
+â€œFor higher-level languages assimilationâ€ to â€œFor higher level languages, assimilationâ€ (2 changes)
+â€œsee [?] for detailsâ€ missing reference
+â€œneeds some getting used toâ€ reword
+â€œsection 4â€ to â€œSection 4â€
+â€œwoth MPSâ€ to â€œwith MPSâ€
+â€œAll these languagesâ€ to â€œAll of these languagesâ€
+â€œgeneral purposeâ€ hyphenate
+â€œbidirectional cantâ€ to â€œbidirectional cannotâ€
 
 Page 7:
-Òits much moreÓ to Òit is much moreÓ
-Òfor querying databaseÓ to Òfor querying a databaseÓ
-Òif the query language were integratedÓ to Òif the query language is integratedÓ
-Òlanguage, a language whichÓ to Òlanguage, whichÓ
-ÒFor example, t supportsÓ to ÒFor example, dnq supportsÓ  (?)
-Òframeworks this tasksÓ to Òframeworks this taskÓ
-ÒXML basedÓ hyphenate
-Òits impossibleÓ to Òit is impossibleÓ
-Òwell integratedÓ hyphenate
-Òuse a persistent entitiesÓ to Òuse a persistent entityÓ
-Òmore and more softwareÓ to Òmore softwareÓ
-Òa major headacheÓ to Òa major challengeÓ
+â€œits much moreâ€ to â€œit is much moreâ€
+â€œfor querying databaseâ€ to â€œfor querying a databaseâ€
+â€œif the query language were integratedâ€ to â€œif the query language is integratedâ€
+â€œlanguage, a language whichâ€ to â€œlanguage, whichâ€
+â€œFor example, t supportsâ€ to â€œFor example, dnq supportsâ€  (?)
+â€œframeworks this tasksâ€ to â€œframeworks this taskâ€
+â€œXML basedâ€ hyphenate
+â€œits impossibleâ€ to â€œit is impossibleâ€
+â€œwell integratedâ€ hyphenate
+â€œuse a persistent entitiesâ€ to â€œuse a persistent entityâ€
+â€œmore and more softwareâ€ to â€œmore softwareâ€
+â€œa major headacheâ€ to â€œa major challengeâ€
 
 Page 8:
-Òas well a coreÓ to Òas well as a coreÓ
-Òin this InfoQÓ to Òin an InfoQÓ
+â€œas well a coreâ€ to â€œas well as a coreâ€
+â€œin this InfoQâ€ to â€œin an InfoQâ€
 Perhaps the URL on this page could be a footnote instead of inline
 
 Page 9:
-Òare supported out of the boxÓ to Òare supported nativelyÓ
-Òin the concrete syntax!Ó remove exclamation
-ÒCurrently SDFÓ to ÒCurrently, SDFÓ
-ÒMonticore(Ò add space
-Òparser basedÓ hyphenate
-ÒRWTHÓ spell out
-Òto not have to regenerateÓ to Òto not regenerateÓ
-ÒSAP and the FZIÓ to ÒSAP and FZIÓ
-Òinto a retaining object identityÓ to Òinto retaining object identityÓ
-Òand then for example somethingÓ to Òand then somethingÓ
-ÒarenÕtÓ to Òare notÓ
-Òrecreated but reallyÓ to Òrecreated, but reallyÓ
+â€œare supported out of the boxâ€ to â€œare supported nativelyâ€
+â€œin the concrete syntax!â€ remove exclamation
+â€œCurrently SDFâ€ to â€œCurrently, SDFâ€
+â€œMonticore(â€œ add space
+â€œparser basedâ€ hyphenate
+â€œRWTHâ€ spell out
+â€œto not have to regenerateâ€ to â€œto not regenerateâ€
+â€œSAP and the FZIâ€ to â€œSAP and FZIâ€
+â€œinto a retaining object identityâ€ to â€œinto retaining object identityâ€
+â€œand then for example somethingâ€ to â€œand then somethingâ€
+â€œarenâ€™tâ€ to â€œare notâ€
+â€œrecreated but reallyâ€ to â€œrecreated, but reallyâ€
 
 Page 10:
-ÒUUIDÕsÓ to ÒUUIDsÓ
-Òapproach is possibleÓ to Òapproach, it is possibleÓ
-Òtables or diagrams or annotationsÓ to Òtables, diagrams, or annotationsÓ
-Òof the tool, and makesÓ remove comma
-ÒAs of June 2010Ó Ğ update date and numbers
-ÒHere is an example model.Ó This sentence seems out of place and could be removed
-Òtop levelÓ hyphenate
-Òdesign paper [?]Ó missing reference
-Òdefined via so-called conceptsÓ to Òdefined by conceptsÓ
+â€œUUIDâ€™sâ€ to â€œUUIDsâ€
+â€œapproach is possibleâ€ to â€œapproach, it is possibleâ€
+â€œtables or diagrams or annotationsâ€ to â€œtables, diagrams, or annotationsâ€
+â€œof the tool, and makesâ€ remove comma
+â€œAs of June 2010â€ â€“ update date and numbers
+â€œHere is an example model.â€ This sentence seems out of place and could be removed
+â€œtop levelâ€ hyphenate
+â€œdesign paper [?]â€ missing reference
+â€œdefined via so-called conceptsâ€ to â€œdefined by conceptsâ€
 
 Page 11:
-Òattributes, those haveÓ to Òattributes, which haveÓ
-Òan editor hence consistsÓ to Òan editor consistsÓ
-ÒThis is similar to what we know from math.Ó To ÒThis is similar to solving a set of equations mathematically.Ó
+â€œattributes, those haveâ€ to â€œattributes, which haveâ€
+â€œan editor hence consistsâ€ to â€œan editor consistsâ€
+â€œThis is similar to what we know from math.â€ To â€œThis is similar to solving a set of equations mathematically.â€
 
 Page 12:
-Òalso donÕt just contain equationsÓ to Òalso do not contain only equationsÓ
-ÒFinally the textgenÓ to ÒFinally, the textgenÓ
-Òtemplate basedÓ hyphenate
-Òtop levelÓ hyphenate (twice)
-Òand replace itÓ to Òand replaces itÓ
+â€œalso donâ€™t just contain equationsâ€ to â€œalso do not contain only equationsâ€
+â€œFinally the textgenâ€ to â€œFinally, the textgenâ€
+â€œtemplate basedâ€ hyphenate
+â€œtop levelâ€ hyphenate (twice)
+â€œand replace itâ€ to â€œand replaces itâ€
 
 Page 13:
-Òsuch as for example XpandÓto Òsuch as XpandÓ
-ÒThen so called macrosÓ to ÒMacrosÓ
-Òtypes defines asÓ to Òtypes defined asÓ
-Last word: ÒFinallyÓ to ÒFinally,Ó
+â€œsuch as for example Xpandâ€to â€œsuch as Xpandâ€
+â€œThen so called macrosâ€ to â€œMacrosâ€
+â€œtypes defines asâ€ to â€œtypes defined asâ€
+Last word: â€œFinallyâ€ to â€œFinally,â€
 
 Page 15:
-ÒThis means, thatÓ remove comma
-ÒHere is the definitionÓ to ÒBelow is the definitionÓ
-Footnote 2: Òuses or referesÓ to Òuses or refersÓ
+â€œThis means, thatâ€ remove comma
+â€œHere is the definitionâ€ to â€œBelow is the definitionâ€
+Footnote 2: â€œuses or referesâ€ to â€œuses or refersâ€
 
 Page 16:
-Òare dependent, they shareÓ to Òare dependent, because they shareÓ
-Òthe UI, it needsÓ to Òthe UI, because it needsÓ
-Òtransformation, the transitiveÓ to Òtransformation, such that the transitiveÓ
+â€œare dependent, they shareâ€ to â€œare dependent, because they shareâ€
+â€œthe UI, it needsâ€ to â€œthe UI, because it needsâ€
+â€œtransformation, the transitiveâ€ to â€œtransformation, such that the transitiveâ€
 
 Page 17:
-Òshows an ExampleÓ to Òshows an exampleÓ
+â€œshows an Exampleâ€ to â€œshows an exampleâ€
 Figure 7: Figure extends well beyond margin; true for most figures in this section
-Figure 7: ÒExpression block areÓ to ÒExpression blocks areÓ
-ÒThis is why an BlockExpressionÓ to ÒThis is why a BlockExpressionÓ
-Òbecause languages are mixedÓ to Òbecause the languages are mixedÓ
+Figure 7: â€œExpression block areâ€ to â€œExpression blocks areâ€
+â€œThis is why an BlockExpressionâ€ to â€œThis is why a BlockExpressionâ€
+â€œbecause languages are mixedâ€ to â€œbecause the languages are mixedâ€
 
 Page 18:
-Figure 8: Òmethod for thisÓ Explain what is ÒthisÓ
-Òcreates a a mappingÓ remove redundant ÒaÓ
-Òused insider method bodiesÓ to Òused inside method bodiesÓ
+Figure 8: â€œmethod for thisâ€ Explain what is â€œthisâ€
+â€œcreates a a mappingâ€ remove redundant â€œaâ€
+â€œused insider method bodiesâ€ to â€œused inside method bodiesâ€
 
 Page 19:
-Òhappens inside the -?$ macrosÓ Ğ something seems wrong here
-Òlanguage that has beenÓ to Òlanguage has beenÓ
-Òseparate of the codeÓ to Òseparate from the codeÓ
+â€œhappens inside the -?$ macrosâ€ â€“ something seems wrong here
+â€œlanguage that has beenâ€ to â€œlanguage has beenâ€
+â€œseparate of the codeâ€ to â€œseparate from the codeâ€
 
 Page 21:
-ÒSo the dependencyÓ to ÒThe dependencyÓ
-ÒdepdenciesÓ to ÒdependciesÓ
-ÒdedpendencyÓ to ÒdependencyÓ  (use spell checker for other cases of this word)
-Òthe name (andÓ to Òthe name andÓ (remove nested parens)
-Òabout the structure) ofÓ to Òabout the structure ofÓ (remove nested parens)
-ÒThe subclass, generatedÓ remove comma
-ÒSo the generatorÓ to ÒThe generatorÓ
-Òare dependent, the informationÓ to Òare dependent. The informationÓ
+â€œSo the dependencyâ€ to â€œThe dependencyâ€
+â€œdepdenciesâ€ to â€œdependciesâ€
+â€œdedpendencyâ€ to â€œdependencyâ€  (use spell checker for other cases of this word)
+â€œthe name (andâ€ to â€œthe name andâ€ (remove nested parens)
+â€œabout the structure) ofâ€ to â€œabout the structure ofâ€ (remove nested parens)
+â€œThe subclass, generatedâ€ remove comma
+â€œSo the generatorâ€ to â€œThe generatorâ€
+â€œare dependent, the informationâ€ to â€œare dependent. The informationâ€
 
 Page 22:
-ÒsublangugeÓ to ÒsublanguageÓ
+â€œsublangugeâ€ to â€œsublanguageâ€
 Perhaps move fragmented code at bottom of page to next page
 
 Page 23:
-Òwe donÕtÓ to Òwe do notÓ
-ÒBut it does not.Ó To ÒBut it does not work.Ó
-Òdependent, they haveÓ to Òdependent, because they haveÓ
+â€œwe donâ€™tâ€ to â€œwe do notâ€
+â€œBut it does not.â€ To â€œBut it does not work.â€
+â€œdependent, they haveâ€ to â€œdependent, because they haveâ€
 
 Page 24:
-Òwe donÕt haveÓ to Òwe do not haveÓ
-ÒSo when it encountersÓ to ÒWhen the code generator encountersÓ (several changes)
-Òi.e. a partialÓ to Òi.e., a partialÓ
+â€œwe donâ€™t haveâ€ to â€œwe do not haveâ€
+â€œSo when it encountersâ€ to â€œWhen the code generator encountersâ€ (several changes)
+â€œi.e. a partialâ€ to â€œi.e., a partialâ€
 
 Page 25:
-Òuispec, it is sublanguageÓ to Òuispec, which is a sublanguageÓ
-Òthe user has to useÓ to Òthe user has to provideÓ
-Figure 15: ÒLenghtOfÓ misspelled in actual figure
+â€œuispec, it is sublanguageâ€ to â€œuispec, which is a sublanguageâ€
+â€œthe user has to useâ€ to â€œthe user has to provideâ€
+Figure 15: â€œLenghtOfâ€ misspelled in actual figure
 
 Page 26:
-ÒLenghtOfÓ to ÒLengthOfÓ
-Òthose entities that usedÓ to Òthose entities that are usedÓ
-Òis no problem at all as a consequenceÓ to Òis not a problem becauseÓ (several changes)
-ÒSo the two setsÓ to ÒThe two setsÓ
-ÒHere are a couple of examples.Ó Perhaps ok to remove
+â€œLenghtOfâ€ to â€œLengthOfâ€
+â€œthose entities that usedâ€ to â€œthose entities that are usedâ€
+â€œis no problem at all as a consequenceâ€ to â€œis not a problem becauseâ€ (several changes)
+â€œSo the two setsâ€ to â€œThe two setsâ€
+â€œHere are a couple of examples.â€ Perhaps ok to remove
 
 Page 27:
-Òfor the expressions languagesÕsÓ to Òfor the expressions languageÕsÓ
-Òwe define so-called overloadedÓ to Òwe define overloadedÓ
-ÒHere is the codeÓ to ÒThe following is the codeÓ
+â€œfor the expressions languagesâ€™sâ€ to â€œfor the expressions languageâ€™sâ€
+â€œwe define so-called overloadedâ€ to â€œwe define overloadedâ€
+â€œHere is the codeâ€ to â€œThe following is the codeâ€
 
 Page 28:
-ÒJava TextÓ to ÒJava textÓ
-ÒEither we canÓ to ÒWe canÓ
-Òrules would get usedÓ to Òrules would be usedÓ
+â€œJava Textâ€ to â€œJava textâ€
+â€œEither we canâ€ to â€œWe canâ€
+â€œrules would get usedâ€ to â€œrules would be usedâ€
 
 Page 29:
-Figure 17: ÒtemplateÓ to ÒtemplateÓ
-Figure 17: Ò-?$Ó something wrong here?
-Òlanguage insider validationÓ to Òlanguage inside validationÓ
-ÒStructure and Syntax:Ó this paragraph was hard to follow, please reword
+Figure 17: â€œtemplateâ€ to â€œtemplateâ€
+Figure 17: â€œ-?$â€ something wrong here?
+â€œlanguage insider validationâ€ to â€œlanguage inside validationâ€
+â€œStructure and Syntax:â€ this paragraph was hard to follow, please reword
 
 Page 30:
 The code at the top is orphaned from the previous page
-ÒInstead we defineÓ to ÒInstead, we defineÓ
-Òrelmapping_annotations which extendsÓ to Òrelamapping_annotation which extendsÓ
-Òdefine a so-called annotation linkÓ to Òdefine an annotation linkÓ
-Òof the node it is annotated to.Ó to Òof the node it annotates.Ó
-ÒSo the AttributeÓ to ÒThe AtrributeÓ
-Òin [11] and [9]Ó to Òin [9] and [11]Ó
+â€œInstead we defineâ€ to â€œInstead, we defineâ€
+â€œrelmapping_annotations which extendsâ€ to â€œrelamapping_annotation which extendsâ€
+â€œdefine a so-called annotation linkâ€ to â€œdefine an annotation linkâ€
+â€œof the node it is annotated to.â€ to â€œof the node it annotates.â€
+â€œSo the Attributeâ€ to â€œThe Atrributeâ€
+â€œin [11] and [9]â€ to â€œin [9] and [11]â€
 
 Page 31:
-Òdescribed aboveÓ to Òdescribed previouslyÓ
-Òto the above exampleÓ to Òto the previous exampleÓ
-Òannotations introduced aboveÓ to Òannotations introduced earlierÓ
-Òuse of of annotationsÓ remove redundant ÒofÓ
-Òexplicit dependency anyÓ to Òexplicit dependency to anyÓ
+â€œdescribed aboveâ€ to â€œdescribed previouslyâ€
+â€œto the above exampleâ€ to â€œto the previous exampleâ€
+â€œannotations introduced aboveâ€ to â€œannotations introduced earlierâ€
+â€œuse of of annotationsâ€ remove redundant â€œofâ€
+â€œexplicit dependency anyâ€ to â€œexplicit dependency to anyâ€
 
 Page 33:
-ÒEvaluationÓ this is not an Evaluation in the Computer Science term, but rather a ÒDiscussionÓ
-ÒThe examples above showÓ to ÒThe previous examples showÓ
+â€œEvaluationâ€ this is not an Evaluation in the Computer Science term, but rather a â€œDiscussionâ€
+â€œThe examples above showâ€ to â€œThe previous examples showâ€
 Redefine LME&C on use here
-Òin MPS at all, sinceÓ to Òin MPS, becauseÓ
-ÒIn case of generatorsÓ to ÒIn the case of generatorsÓ
-Òdirectly, this is whyÓ to Òdirectly. This is whyÓ
-Òalthough this is supposed to changeÓ perhaps update if this has changed since writing
-Òbefore the the behaviorÓ remove redundant ÒtheÓ spell checkers can find things like this!
+â€œin MPS at all, sinceâ€ to â€œin MPS, becauseâ€
+â€œIn case of generatorsâ€ to â€œIn the case of generatorsâ€
+â€œdirectly, this is whyâ€ to â€œdirectly. This is whyâ€
+â€œalthough this is supposed to changeâ€ perhaps update if this has changed since writing
+â€œbefore the the behaviorâ€ remove redundant â€œtheâ€ spell checkers can find things like this!
 
 Page 34:
-Figure 22: Òdetermines which facetsÓ to Òdetermines which facetÓ
-ÒThis could be used for example to defineÓ to ÒFor example, this could be used to defineÓ
-Òbase language designedÓ to Òbase language designerÓ
-Ògroup his structuresÓ to Ògroup the structuresÓ
-Òrich adviseÓ to Òrich adviceÓ
+Figure 22: â€œdetermines which facetsâ€ to â€œdetermines which facetâ€
+â€œThis could be used for example to defineâ€ to â€œFor example, this could be used to defineâ€
+â€œbase language designedâ€ to â€œbase language designerâ€
+â€œgroup his structuresâ€ to â€œgroup the structuresâ€
+â€œrich adviseâ€ to â€œrich adviceâ€
 
 Page 35:
-ÒFirst ideas existÉÓ Not sure what is meant here, but perhaps could be ÒThere are initial ideas on how this can be done.Ó
+â€œFirst ideas existâ€¦â€ Not sure what is meant here, but perhaps could be â€œThere are initial ideas on how this can be done.â€
