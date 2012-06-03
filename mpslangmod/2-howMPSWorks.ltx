@@ -1,0 +1,224 @@
+
+\section{How MPS works}
+\label{HowMPSWorks}
+
+\subsection{Projectional Editing}
+
+The term Language Workbench has been coined by Martin Fowler in 2005
+\cite{Fowler2004}. In his article he defines it as a tool with the following characteristics:
+
+\begin{enumerate}   
+  \item Users can freely define languages which are fully integrated with
+  each other.
+
+  \item The primary source of information is a persistent abstract
+  representation.
+
+  \item A DSL is defined in three main parts: schema, editor(s), and
+  generator(s).
+
+  \item Language users manipulate a DSL through a projectional editor.
+
+  \item A language workbench can persist incomplete or contradictory
+  information.
+
+\end{enumerate}
+	
+Note how points 2, 3 and 4 imply projectional editing. In the meantime, Martin
+Fowler, and the community as a whole uses the term language workbench also for
+tools that use (modern) parsing techniques. MPS is a projectional editor. The
+most important characteristic of projectional editors is that all text,
+symbols, and graphics are projected. Projectional editing is well-known from
+graphical modeling tools (UML, ER, State Charts). The model is stored
+independent of its concrete syntax, only the model structure is persisted, often
+using XML or a database. For editing purposes this abstract syntax is projected
+using graphical shapes. Users use mouse gestures and keyboard actions tailored
+to graphical editing to modify the abstract model structure directly. While the
+concrete syntax of the model does not have to be stored because it is specified
+as part of language definition and hence known by the projection engine,
+graphical modeling tools usually also store information about the visual layout.
+
+
+Projectional editing can also be used for textual syntax. However, since the
+projection looks like text, users expect interaction patterns and gestures known
+from "real text" to work. For a projectional editor to be useful, it has to
+"simulate" interaction patterns known from real text. MPS achieves this quite
+well. How it does that is beyond the scope of this paper. The following is a
+list of benefits of the approach projectional editing:
+
+\begin{itemize}   
+  \item No grammar or parser is required. Editing directly changes the
+  underlying structure. Projectional editors can handle unparsable code.
+  Language composition is easily possible, because it cannot
+  result in ambiguous grammars [1].
+
+  \item Notations are more flexible than ASCII/ANSI/Unicode. Graphical,
+  semi-graphical and textual notations can be mixed and combined. For example, a
+  graphical tool for editing state machines can embed a textual expression
+  language for editing the guard conditions on transitions.
+
+  \item Because projectional languages by definition need an IDE for editing (it
+  has to do the projection!), language definition and extension always implies
+  IDE definition and extension. The IDE will provide code completion, error
+  checking and syntax highlighting for all languages, even when they are
+  composed.
+
+  \item Because the model is stored independent of its concrete notation, it is
+  possible to represent the same model in different ways simply by providing
+  several projections. Different viewpoints of the overall program can be
+  stored in one model, but editing can still be viewpoint-specific. It is also
+  possible to store out-of-band data, i.e. annotations on the core
+  model/program. Examples of this include documentation, pointers to
+  requirements (traceability) or feature dependencies in the context of
+  product lines.
+
+\end{itemize}
+
+As a side effect, language workbenches deliver on the promise of removing the
+difference between what is traditionally considered programming and what is
+traditionally considered modeling. This distinction is arbitrary anyway: as
+software developers we want to express different concerns of software systems with
+abstractions and notations suitable to that particular concern (graphical,
+textual, symbolic), formally enough for automatic processing or translation, and
+with good IDE support. Projectional language workbenches deliver on this goal.
+
+
+\subsection{JetBrains MPS}
+
+JetBrains� Meta Programming System is an open source projectional language
+workbench, so all the statements on projectional editing made earlier apply to
+MPS. Defining a language includes (a) defining the language concepts (abstract
+syntax), (b) defining the editor for the concepts and (c) defining a generator
+(compiler). For a language whose programs should be processed with a
+text-oriented tools (such as existing compilers or interpreters) the generator
+outputs text. For higher-level languages assimilation is used: the generator
+transforms a program expressed in $L_D$ (a language for the domain $D$, see
+\cite{VoelterVisserVoelterVisserVoelterVisser2011} for details on hierarchical
+domains and languages, and the $L_D$ notation) into a program at $L_{D-1}$ (a
+program at a lower domain). In this case, the generators are not text
+generators, they transform between abstract syntax trees (this process is
+explained in more detail below).
+
+
+Editing the tree as opposed to �real text� needs some getting used to. Without
+specific customization, every program element has to be selected from a
+drop-down list to be "instantiated". However, MPS provides editor customizations
+to enable editing that resembles modern IDEs that use automatically expanding
+code templates. This makes editing quite convenient and productive in all but
+the most exceptional cases. We will show in section \ref{entitiesLanguage} how
+to actually build a language woth MPS.
+
+\subsection{Real-World use of MPS}
+
+\paragraph{Web Development} JetBrains's YouTrack issue tracking system is an
+interactive web application with many UI features known from desktop
+applications. YouTrack is the first JetBrains product that was developed
+completely with MPS. The effort for building the necessary MPS-based languages
+will be repaid by future applications that build on the same web platform
+architecture and hence use the same set of languages. Language extension is used
+to add product-specifics to these languages.
+
+
+Web development involves many languages. In the browser, HTML, CSS, JavaScript
+and SVG are used. All these languages embed one another. On the Java-based
+server side, a set of descriptive languages is used, together with query
+languages (EQL, HBQL, SQL), template languages (JSP, Velocity) and of course the
+Java programming language at the core. JetBrains decided to wrap these
+platform-specific implementation languages with a set of Java language
+extensions. For the sake of the example, we focus on describing the extensions
+used in the Java-based backend. The most notable of the languages used in
+YouTrack are \emph{dnq} and \emph{webr}. \emph{dnq} is a Java language extension
+for working with persistent data and queries. Almost all modern web applications
+store data in a database. However, database manipulation is not very well
+supported in general purpose languages such as Java. Developers use object
+relational mapping frameworks such as Hibernate, JDO or JPA to alleviate this
+problem. These frameworks basically map database rows to Java classes. However,
+because authors of these frameworks cannot change the Java language, the
+integration is limited, hampering developer productivity. For example:
+
+
+\begin{itemize}   
+  \item Entity relations which are inherently bidirectional
+can�t be easily expressed in Java. Consider a program which models
+organizational structure, consisting of Departments and Employees. When an
+Employee is added to a Department, both, the references in Employee and
+Department must be updated consistently.
+  \item Relational databases optimize queries very aggressively. In order to accomplish these optimizations,
+queries should be expressed in SQL. However, it�s much more natural to use the
+programming language for querying database, especially if the query language
+were integrated with the host language and its type system. To enable this, the
+programming language must be extended with query constructs and these must be
+translated into SQL when the program is compiled.
+\end{itemize}
+
+
+
+ The \emph{dnq} language supports the
+expression of relations in a more natural way: unidirectional and bidirectional
+relationships can be declared, distinguishing between composition and
+references. Programmers can access them in a way similar to accessing fields in
+Java. \emph{dnq} also includes a collections language, a language which supports
+the manipulation of collections in a way similar to .NET�s LINQ. For example, �t
+supports code such as the following:
+
+
+
+\begin{code}
+aColl.where({it=> it.val < 20 && it.val > 10}).select({it=> it*it});
+\end{code}
+
+This code is more declarative than procedural collection manipulation code
+which allows MPS to optimize such queries to the database. 
+
+The \emph{webr} language is used for request handling in web applications. In
+web frameworks this tasks is typically accomplished by controller classes and
+HTML templates. To configure HTTP request handling, frameworks often use XML
+based descriptors. In order to process the HTML templates, template engines are
+used. Examples include JSP, Velocity or FreeMarker.  \emph{webr} supports this
+through Java language extension. Its template language combines XML and Java,
+relatively similar to JSP at first glance. However, based on MPS' ability to
+extend languages, \emph{webr} provides much more freedom of what templates can
+contain. For example, in many template engines, it�s impossible to add new
+constructs to the template language. In JSP it is possible using extension tags
+but the XML based syntax is quite verbose. In \emph{webr} templates, developers
+can choose whatever syntax they like by defining a suitable language extension.
+An example used in YouTrack is a UI components language that is not limited to
+XML syntax. \emph{webr} also provides first-class support for controllers. For
+example, controllers can declare actions and attach them directly to events of
+UI components. Parameters are specified in special entities called template
+controllers. \emph{webr} is well integrated with \emph{dnq}, so for example, it
+is possible to use a persistent entities as a parameter to a page. The database
+transaction is automatically managed during request processing. 
+
+  
+\paragraph{Embedded Development} Embedded systems are becoming more and more
+software intensive and the software becomes bigger and more complex. Traditional
+embedded system development approaches use a variety of tools for various
+aspects of the system, making tool integration a major headache. Some of the
+specific problems of embedded software development include the limited
+capability for meaningful abstraction in C, some of C's "dangerous" features
+(leading to various coding conventions such as Misra-C), the proprietary and
+closed nature of modeling tools, the integration of models and code,
+traceability to requirements, long build times as well as management of product
+line variability. To address these issues, we propose an alternative approach
+based on the incremental extension of C. We have implemented a proof-of-concept
+language (\url{http://mbeddr.com}) that contains a set of language extensions
+relevant to this embedded development. A larger-scale research project is
+starting in July 2011 to continue the development of this approach.
+ 
+For the proof-of-concept, the mbeddr project uses Lego mindstorms as the target
+platform together with the Osek operating system to ensure real-world relevance.
+The current showcase is a line follower robot. It uses a single light sensor to
+follow (one side of) a thick black line by changing the speed of motors that
+drive the two wheels. The current state of the prototype contains language
+modules for components, tasks, state machines, bit-level data structures,
+physical quantities, documentation annotations, as well a core module with
+basically all of C. There is a clearly defined dependency structure between
+those languages, with the core language at the root. We have also added a DSL
+for simplified control of the two-wheeled robot using commands such as
+accelerate, turn left, or stop. The implementation of this DSL is a model
+transformation down to the basic embedded languages: we generate tasks,
+procedures and state machines, which are then (automatically) transformed down
+to actual C and are compiled by GCC for the Osek target.
+
+

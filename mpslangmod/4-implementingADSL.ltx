@@ -1,0 +1,212 @@
+
+
+\section{Implementing a DSL with MPS}
+\label{entitiesLanguage}
+
+This section illustrates the definition of a language with JetBrains MPS. Like
+other language workbenches, MPS comes with a set of DSLs for language definition, a
+separate DSL for each language aspect. Language aspects include structure,
+editor, type systems, generators as well as things like quick fixes or
+refactorings. MPS is bootstrapped, so these DSLs are built with MPS itself.
+
+
+At the center of the language extensions we will build later, we use a simple
+entities language. Here is an example model. \emph{Modules} are so-called root
+nodes. They live as top level elements in \emph{models}. Referring back to the
+terminology introduced in the DSL design paper
+\cite{VoelterVisserVoelterVisserVoelterVisser2011}, root nodes (and their
+descendants) are considered \emph{fragments}, while the models are partitions
+(actually, they are XML files).
+
+
+
+\begin{minipage}[t]{120mm}
+\begin{code}
+module company          
+  entity Employee {     
+    id : int            
+    name : string       
+    role : string       
+    worksAt : Department
+    freelancer : boolean
+  }                     
+  entity Department {   
+    id : int            
+    description : string
+  }                     
+\end{code}
+\end{minipage}
+
+
+\phead{Structure and Syntax} Language definition starts with the abstract
+syntax. In MPS, this is defined via so-called \emph{concepts}. \fig{entities}
+shows a UML diagram of the structure of the entities language. Each box represents a
+language concept. 
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.4]{figures/entities.png}
+  \caption[labelInTOC]{The abstract syntax of the entities language. Entities
+  have attributes, those have types and names. \ct{EntityType} extends 
+  \ct{Type} and references \ct{Entity}. This "adapts" entities to types 
+  (cf. the Adapter pattern). Concepts like \ct{EntityType} which have 
+  exactly one reference are called smart references and are treated specially
+  by the IDE in code completion. }
+  \label{entities} 
+\end{center}
+\end{figure}
+
+The following code shows the definition of the \ct{Entity} concept\footnote{This
+is not the complete definition, concepts can have more characteristics. This is
+simplified to show the essentials.}. \ct{Entity} extends \ct{BaseConcept}, the
+root concept, similar to \ct{java.lang.Object} in Java. It implements the
+\ct{INamedConcept} interface to inherit a \ct{name} field. It declares a list of
+children of type \ct{Attribute} in the \ct{attributes} role. A concept may
+also have references to other concepts (as opposed to children).
+
+
+\begin{code}
+concept Entity extends BaseConcept implements INamedConcept        
+  is root:
+    true
+  properties:                                  
+    << ... >>                                    
+  children:                                     
+    Attribute attributes 0..n specializes: <none>
+  references:                                  
+    << ... >>                                    
+\end{code}                                               
+
+
+Editors in MPS are based on cells. Cells are the smallest unit relevant for
+projection. Defining an editor hence consists of arranging cells and defining
+their content. Different cell types are available to compose editors.
+\fig{editordefinition} explains the editor for \ct{Entity}. The editors for the
+other concepts are defined similarly.
+
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.6]{figures/editordefinition.png}
+  \caption[labelInTOC]{The editor for \ct{Entity}. The outermost cell is a
+  vertical list. In the first line, we use a horizontal list that contains
+  the "keyword" \ct{entity}, the value of the name property and an opening
+  curly brace. In the second line we use indentation and a vertical arrangements
+  of the contents of the \ct{attributes} collection. Finally, the third line
+  contains the closing curly.}
+  \label{editordefinition} 
+\end{center}
+\end{figure}
+
+\phead{Type System} The MPS type system engine uses unification. Language
+developers specify type equations and the unification engine tries to 
+assign values to the type variables so that all equations are satisfied.
+This is similar to what we know from math. Consider
+
+\begin{code}
+(1) 2 * x == 10
+(2) x + x == 10
+(3) x + y == 2 * x + 5
+\end{code}
+
+
+This set of equations can be solved by \verb#x := 5, y := 10#. The MPS type
+system engine works the same way, but the domain is types instead of integers.
+Type equations also don't just contain equations (:==:), but also equations
+with subtyping and other relationships.
+
+For the entities language, we specify two simple typing rules. The first one
+specifies that the type of the primitives (\ct{int}, \ct{string}) is a
+clone of themselves:
+
+\begin{minipage}[t]{120mm}
+\begin{code}
+rule typeof_Type {                     
+  applicable for concept = Type as type
+  overrides false                      
+  do {                                 
+    typeof(type) :==: type.copy;       
+  }                                    
+}                                      
+\end{code}
+\end{minipage}
+
+The only other typing rule is an equation that defines the type of the attribute
+as a whole to be the type of the attribute's \ct{type} property, defined as
+\verb#typeof(attribute) :==: typeof(attribute.type);#.
+
+
+\phead{Generator} From entity models we generate Java Beans. Since Java is
+available in MPS as the BaseLanguage, the generation is actually a
+model-to-model transformation: from the entities model we generate a Java model.
+MPS supports several kinds of transformations. The default case is the
+template-based transformation which uses the concrete syntax of the target
+language to specify model-to-model transformations. Alternatively, one can use
+the node API to manually construct the target tree. Finally the 
+textgen DSL is available to generate ASCII text (at the end of the
+transformation chain). Throughout this paper we use the template based
+approach.
+
+Template-based generators in MPS consist of two main building blocks: mapping
+configurations and templates. Mapping configurations define which elements are
+processed with which templates. For the entities language, we need a \emph{root
+mapping rule} and \emph{reduction rules}. Root mapping rules can be used to
+create new top level artifacts from existing top level artifacts (they map
+fragments to other fragments). In our case we generate a Java class from an
+entity. Reduction rules are in-place transformations. Whenever the engine
+encounters an instance of the specified source concept somewhere in a model
+tree, it removes that source node and replace it with the result of the
+associated template. In our case we have to reduce the various types (\ct{int},
+\ct{string}, etc.) to their Java counterparts. \fig{entitiesmc} shows a part of
+the mapping configuration for the entities language.
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.55]{figures/entitiesmc.png}
+  \caption[labelInTOC]{The mapping configuration for the entities language. The
+  root mapping rule for Entity specifies that instances of \ct{Entity} should
+  be transformed with the \ct{map\_Entity} template. The reduction rules use
+  inline templates. For example, the \ct{IntType} is replaced with the Java
+  \ct{int} and the \ct{EntityRefType} is reduced to a reference to the class
+  generated from the target entity. The arrow-dollar-symbol is a so-called
+  reference macro. It contains code (not shown) that "rewires" the reference to
+  \ct{Double} to a reference to the class generated from the target entity. }
+  \label{entitiesmc} 
+\end{center}
+\end{figure}
+
+MPS templates work differently from normal text generation templates such as for
+example Xpand, Jet or StringTemplate, since they are actually model-to-model
+transformations. Developers first write a structurally correct example model
+using the target language. Then so called macros are used to change the example
+model to reflect the input from which we generate. \fig{entitytemplate} shows
+the \ct{map\_Entity} template. It generates a complete Java class --- notice the
+complete structure of a Java class is present, because that is how BaseLanguage
+defines the editor for a Java class. We then generate a field for each entity
+\ct{Attribute}. To do this we first create a prototype field in the class
+(\verb+private int aField;+). Then we use macros to "transform" this prototype
+into an instance for each entity attribute. We first attach a \ct{LOOP} macro to
+the whole field. It contains an expression \verb+node.attributes;+ where
+\ct{node} refers to the input \ct{Entity}. This code is entered in the Inspector
+window and is not shown in the screenshot. We then use a \ct{COPY\_SRC} macro to
+transform the type. \ct{COPY\_SRC} copies the input node (the inspector
+specifies the current attribute's type as the input here) and applies reduction
+rules. So instances of the types defines as part of the entities language are
+transformed into a Java type using the reduction rules defined in the mapping
+configuration. Finally we use a property macro (the dollar sign) to change the
+\ct{name} property of the field we generate from the dummy value \ct{aField} to
+the name of the attribute we currently transform (once again via an expression
+in the inspector).
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.55]{figures/entitytemplate.png}
+  \caption[labelInTOC]{The template for creating a Java class from an entity.
+  The running text explains the details.}
+  \label{entitytemplate} 
+\end{center}
+\end{figure}
+
