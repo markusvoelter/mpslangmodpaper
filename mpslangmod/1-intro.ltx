@@ -12,58 +12,56 @@ design in \cite{VoelterVisserDimensions2011}, where we also introduce some of th
 terminology used in this paper. Traditionally, LME\&C, including the respective
 IDEs, has been hard for various reasons, including limited composability of
 grammars, non-modular IDEs as well as semantic interactions. Specifically,
-LME\&C, requires the following concerns to be considered:
+LME\&C requires the following concerns to be considered:
 
 
 \begin{itemize}
   \item The concrete and the abstract syntax have to be combined. Depending on
   the kind of composition, this requires the embedding of one syntax into
   another one. This, in turn, requires modular grammars.
-  \item The static semantics, i.e. the constraints and the type system have to
-  be integrated. For example in case of language extension, new types have to be
-  "made valid" for existing operators.
+  \item The static semantics (i.e., the constraints and the type system) have to
+  be integrated. For example, in the case of language extension, new types have
+  to be "made valid" for existing operators.
   \item The execution semantics have to be combined as well. In practice, this
   may mean mixing the code generated from the composed languages, or composing
   the generators.
   \item Finally, the IDE that provides code completion, syntax coloring, static
-  checks and other relevant services has to be extended and composed as well.
+  checks and other relevant services has to be extended and composed.
 \end{itemize}
 
 With JetBrains MPS two of these challenges --- composability of concrete syntax
 and modular IDEs --- are a completely solved problem, as this paper will show.
-Modular type systems are reasonably well supported. Semantic interactions are
+Modular type systems are reasonably well-supported. Semantic interactions are
 hard to solve in general, but can be handled reasonably in many relevant cases,
-as we show in this paper as well. However, as we will see, in many cases,
-languages have to be designed \emph{explicitly for reuse}, in order to make them
+as we show in this paper. However, as we will see, in many cases
+languages have to be designed \emph{explicitly for reuse} in order to make them
 reusable. After-the-fact reuse, without considering it during the design of the
 reusable language, is possible only in limited cases. However, this is true for
 reuse in software generally.
 
 The paper is structured as follows. In \sect{typesOfMod} we outline the various
-kinds of LME\&C as defined and explained in the \cite{VoelterVisserDimensions2011} paper.
-Then we describe how projectional editors work in general, and how MPS works specifically
-(\sect{HowMPSWorks}). Next we provide a brief overview over related tools and
-approaches to illustrate how MPS is different (\sect{Related}). Then we develop
+kinds of LME\&C as defined and explained in \cite{VoelterVisserDimensions2011}.
+Then, we describe how projectional editors work in general, and how MPS works
+specifically (\sect{HowMPSWorks}). Next, we provide a brief overview of
+related tools and approaches to illustrate how MPS is different (\sect{Related}). Then we develop
 the core language which acts as the basis for the extension and composition
-examples. We use the simplest possible language, entities, for this task. This
-section (\sect{entitiesLanguage}) also serves as a very brief tutorial on
+examples. We use the simplest possible language (one that supports the
+definition of data entities) for this task.
+This section (\sect{entitiesLanguage}) also serves as a very brief tutorial on
 language definition in MPS. The main part of the paper, the implementation of
-the various extension and composition approaches is discussed in
-\sect{extAndComp}. Finally, \sect{Eval} looks at what works well and at what
+the various extension and composition approaches, is discussed in
+\sect{extAndComp}. Finally, \sect{Eval} discusses what works well and at what
 could be improved in MPS with regards to extension and composition.
 
 
 \subsection{Additional Resources}
 
-The example code developed for this tutorial can be found at github.com:
+The example code developed for this tutorial can be found at github.com and
+works with MPS 2.0:
 
 \vspace{5pt}
 \verb#https://github.com/markusvoelter/MPS-Language-Composition-Demos---For-MPS-2.0#
 \vspace{5pt}
-
-\noindent It is developed with MPS 2.0 M6 and should run with the final version
-of MPS 2.0 as well. At the point of this writing, MPS 2.0 had not yet been released and
-hence I couldn't test it.
 
 A set of recorded demos (90 minutes in total) that walk through all the example
 code is available on Youtube. The initial video is here: 
@@ -76,9 +74,9 @@ code is available on Youtube. The initial video is here:
 searching for \emph{Language Modularization and Composition with MPS (Part X)}, where X is
 between 1 and 8.
 
-Note that this paper cannot be a complete MPS tutorial. MPS is very deep and
+Note that this paper is not a complete MPS tutorial. MPS is very deep and
 powerful, so we have to focus on those aspects that are essential for LME\&C. We
-refer to the LWC 11 MPS tutorial for a at detailed MPS tutorial:
+refer to the LWC 11 MPS tutorial for details:
 
 \vspace{5pt}
 \verb+http://code.google.com/p/mps-lwc11/wiki/GettingStarted+
@@ -100,7 +98,7 @@ specialize concepts in A. This means that in B programs, the specialized concept
 can be used wherever A programs expect only the more general one, effectively
 adapting the Liskov substitution principle to language concepts. An extended
 language may also restrict the base language, so certain concepts are not
-available in the sublanguge.
+available in the sublanguage.
 
 
 \phead{Combination} If a domain is structured along different concerns, and
@@ -132,7 +130,7 @@ extended.
 
 \vspace{8pt}
 In this paper we illustrate all of these approaches with MPS. At the center is a
-simple entities language. We then build additional language to illustrate
+simple entities language. We then build an additional language to illustrate
 LME\&C. \fig{languagestructure} illustrates these additional languages. The
 uispec language illustrates \emph{combination} with entities. relmapping is an
 example of \emph{reuse} with separated generated code. \emph{rbac} illustrates

@@ -6,7 +6,7 @@ MPS is not the only projectional workbench and projectional workbenches are not
 the only approach to language modularity and composition. For example, the
 Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
 editor that has been used in real projects. An impressive presentation about its
-capabilities can be found in this InfoQ presentation titled "Domain Expert DSL"
+capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
 (\verb+http://bit.ly/10BsWa+). IDW is conceptually very similar to MPS, although
 quite different in many details. We will not provide more details here, partly
 because Intentional Software is very sensitive about publishing information
@@ -34,7 +34,7 @@ be used together with any EMF-based model transformation and code generation
 tool (examples include Xpand, ATL, and Acceleo, all at
 \verb+http://eclipse.org/modeling+). Language combination is easily possible;
 Code completion for references into other models as well as cross-model and
-cross-language consistency checks in the editor are supported out of the box.
+cross-language consistency checks in the editor are supported natively.
 Language reuse, extension and embedding are quite limited, though. It is
 possible to make a language extend one other language. Concepts from the base
 language can be used in the sub language and it is possible to redefine grammar
@@ -55,44 +55,45 @@ inheritance and no delegation or traits.
 SDF \cite{HeeringHKR89} (\verb+http://strategoxt.org/Sdf+), developed by the
 University of Delft, uses scannerless parsers. Consequently, languages can be
 embedded within each other. Code generators are implemented via term rewriting
-on the abstract syntax, but rendered in the concrete syntax! Currently SDF is
+on the abstract syntax, but rendered in the concrete syntax. Currently, SDF is
 mainly a set of command-line tools, but IDE support (with automatically
 generated eclipse editors) is in progress as part of Spoofax \cite{KatsV10}
 \linebreak(\verb+http://strategoxt.org/Spoofax+).
 
 
 
-Monticore(\verb+http://monticore.org+) is another parser based
+Monticore (\verb+http://monticore.org+) is another parser-based
 language engineering environment that generates parsers, meta-models, and editors based on extended grammar.
-Currently, the group at RWTH works on modularizing languages \cite{KrahnRV10}.
+Currently, the group at RWTH Aachen university works on modularizing languages
+\cite{KrahnRV10}.
 Languages can extend each other and can be embedded within each other. An important idea is
-the ability to not have to regenerate the parsers or any of the related tools
+the ability to not regenerate the parsers or any of the related tools
 after a combined language has been defined. 
 
 
 FURCAS (\verb+http://www.furcas.org/+) is a tool that is developed by
-SAP and the FZI Karlsruhe. FURCAS stores models in an abstract structure. However, for editing it "projects" the model
+SAP and FZI Karlsruhe. FURCAS stores models in an abstract structure. However, for editing it "projects" the model
 into plain ASCII. So when editing the model, users actually edit ASCII text.
 Consequently, syntax definition also includes a definition of indentation and
 white space conventions, otherwise the projection could not work. Second, a lot
-of effort has to be put into a retaining object identity \cite{Goldschmidt08}.
-If an abstract structure is projected into text, and then for example something is moved around
+of effort has to be put into retaining object identity \cite{Goldschmidt08}.
+If an abstract structure is projected into text, and then something is moved around
 and saved back into the abstract structure, it has to be made sure the objects
-(identified by UUIDs) aren't deleted and re-created but really just moved. This
+(identified by UUIDs) are not deleted and recreated, but really just moved. This
 is important to make sure that references between models which are based on the
-UUID's and not (qualified) names remain valid. By using scannerless parsers it
+UUIDs and not (qualified) names remain valid. By using scannerless parsers it
 is possible to combine different languages, however a combined grammar has to be
 defined and the parser has to be regenerated to be able to use the composed
-language. As a consequence of the projectional approach is possible to define
-several syntaxes for the same abstract structure or define views and subsets for
+language. As a consequence of the projectional approach, it is possible to
+define several syntaxes for the same abstract structure or define views and subsets for
 a model. FURCAS also generates IDE-like editors (based on Eclipse).
 
 Note that while parser-based approach are becoming more flexible (as illustrated
 by some of the tools mentioned in this section), they will not be able to
-work with non-parseable code, inlined tables or diagrams or annotations. 
+work with non-parseable code, inlined tables, diagrams or annotations. 
 
 For a general overview of language workbenches, please refer to the Language
 Workbench Competition at \verb#http://languageworkbenches.net#. Participating
 tools have to implement a standardized language and document the implementation
-strategy. This serves as a good tutorial of the tool, and makes them comparable. 
-As of June 2010, the site contains 13 submissions.
+strategy. This serves as a good tutorial of the tool and makes them comparable. 
+As of June 2012, the site contains 15 submissions.

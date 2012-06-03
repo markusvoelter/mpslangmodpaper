@@ -59,23 +59,5 @@ REBERNAK, Damijan, MERNIK, Marjan, WU, Hui, GRAY, Jeffrey G. Domain-specific asp
 Typos:
 =======
 
-- Text on pages 2 and 18 are outside of page boundaries.
+-> they have all been fixed.
 
-- Page 6: // reference missing
-“(a language for the domain D, see [?] for details on hierarchical domains and languages, ...”
-
-- Page 6:
-“a language woth MPS.”
-->
-“a language with MPS.”
-
-- Page 9:
-“Monticore(http://monticore.org)”
-->
-“Monticore (http://monticore.org)”
-
-- Page 10: // reference missing
-“introduced in the DSL design paper [?],”
-
-- Page 19, Figure 10: // unknown character
-“happens inside the -?$”

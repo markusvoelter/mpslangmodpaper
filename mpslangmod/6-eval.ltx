@@ -1,10 +1,10 @@
 
-\section{Evaluation}
+\section{Discussion}
 \label{Eval}
 
-The examples above show that meaningful LME\&C is possible with MPS.
+The previous examples show that meaningful LME\&C is possible with MPS.
 Specifically, reuse and embedding of languages is possible. The challenge
-of grammar composition is not an issue in MPS at all, since no grammars and
+of grammar composition is not an issue in MPS, since no grammars and
 parsers are used. The fact that we hardly ever discuss syntactic issues in the
 above discussions is proof of this. 
 
@@ -12,10 +12,10 @@ However, extensibility regarding the other aspects is a bit less well
 structured:
 
 \begin{itemize}
-  \item In case of generators, language designers have to specify a partial
+  \item In the case of generators, language designers have to specify a partial
   ordering of mapping configurations using priorities. It is not easily possible
   to "override" an existing generator, but generators can run \emph{before}
-  existing ones. Generator extension is not possible directly, this is why we
+  existing ones. Generator extension is not possible directly. This is why we
   use the placeholders that are put in by earlier generators to be reduced by
   later ones.
   \item The concrete syntax for elements of the base language cannot be
@@ -48,7 +48,7 @@ component it wants to \emph{preempt}, \emph{enhance} or \emph{override}.
 \begin{center}
   \includegraphics[scale=0.45]{figures/gosi.png}
   \caption[labelInTOC]{Components contain facets. Facets come in different
-  kinds and the component type determines which facets types are available. The
+  kinds and the component type determines which facet types are available. The
   facets export the component's contribution to a language. Facets can
   declare relations to other facets (preempt, enhance, override) as a generic
   way to change the contributions exported by components of a base language.}
@@ -62,18 +62,18 @@ sublanguage:
 
 \begin{itemize}
   \item \emph{preemption} means that the respective behavior is contributed
-  before the the behavior from the base language. A generator may use this to reduce a
+  before the behavior from the base language. A generator may use this to reduce a
   construct before the original generator gets a chance to reduce the construct. 
   \item \emph{enhancement} means that the sublanguage component is executed
   after the advised component from the base language. Notice that for declarative aspects
   where ordering is irrelevant, preempt and enhance are exchangable.
   \item \emph{overriding} means that the original facet is completely
-  shadowed by the new one. This could be used for example to define a new editor for an existing
-  construct.
+  shadowed by the new one. For example, this could be used to
+  define a new editor for an existing construct.
 \end{itemize}
 
 To control the granularity at which preemption, enhancement or overriding is
-performed, the base language designed would have to group his structures or
+performed, the base language designer would have to group the structures or
 behaviors into suitably cut facets. This amount of preplanning is acceptable: it
 is just as in OO programming, where behavior that should be overridable has to
 be packaged into its own method.
@@ -87,7 +87,7 @@ as the base concept; this would make a language parametrizable regarding the
 base language it extends from.
 
 In essence, the suggested approach is a bit like object orientation (components
-== classes, facets == methods), with a rich advise framework (as in AOP).
+== classes, facets == methods), with a rich advice framework (as in AOP).
 Component parameters typed to language concepts are similar to generics. Using
 this approach, a powerful and consistent approach to language extensibility
 would be available.

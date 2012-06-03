@@ -45,10 +45,23 @@ grestore
 %
 \smartqed  % flush right qed marks, e.g. at end of proof
 %
-\usepackage{graphicx}
-\usepackage{amsmath}
+
 \usepackage{amssymb}
-\usepackage{soul}
+\usepackage{soul}  
+\usepackage[pdftex]{graphicx}
+\usepackage[utf8]{inputenc} 
+\usepackage{comment}
+%\usepackage{wrapfig}
+\usepackage{ae}
+\usepackage{sidecap}
+\usepackage{flushend}
+
+   
+\usepackage[T1]{fontenc} 
+
+\usepackage{verbatim}
+
+\usepackage{amsmath}
 \usepackage{multicol}
 
 \newcommand{\hilight}[1]{\hl{#1}}
@@ -60,8 +73,12 @@ grestore
 \newcommand{\fig}[1]{Fig.\;\ref{#1}}
 \newcommand{\sect}[1]{Section\;\ref{#1}}
 
+\newcommand{\changefont}[3]{\fontfamily{#1}\fontseries{#2}\fontshape{#3}\selectfont}
 
-\newcommand{\ct}[1]{\textit{{#1}}}
+\newcommand{\ct}[1]{\changefont{cmtt}{m}{n}{#1}\normalfont}  % inline code
+\newcommand{\ic}[1]{\changefont{cmtt}{m}{n}{#1}\normalfont}  % inline code
+
+
 
 \usepackage{verbatim}
 \newenvironment{code}
