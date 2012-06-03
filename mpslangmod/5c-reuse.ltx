@@ -1,0 +1,366 @@
+
+
+
+\subsection{Language Reuse} 
+
+Language reuse (\fig{langReuse}) enables \emph{homogenous} fragments with
+\emph{independent} languages. Given are two independent languages $l_2$ and
+$l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
+\begin{align}
+\exists r \in \mathit{Refs_{f_2}} \mid \; &\mathit{fo(r.from)} = 
+		f_2\; \wedge \nonumber \\ 
+	&\mathit{fo(r.to)} = (f_1 \vee f_2)
+\end{align}
+Since $l_2$ is independent, it cannot directly reference concepts in $l_1$. This
+makes $l_2$ reusable with different languages, in contrast to language
+referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
+the \emph{context} language and $l_1$ the \emph{reused} language.
+
+One way of realizing dependent fragments while retaining independent languages
+is using an adapter language (cf. the Adapter pattern) $l_A$ where $l_A$
+\emph{extends} $l_2$ and
+\begin{align}
+\exists r \in \mathit{Refs_{l_A}} \mid \mathit{lo(r.from)} =
+l_A\; \wedge \;\mathit{lo(r.to)} = l_1
+\end{align}    
+One could argue that in this case reuse is just a clever combination of
+referencing and extension. While this is true from an implementation
+perspective, it is worth describing as a separate approach, because it enables
+the combination of two \emph{independent languages} by adding an
+adapter \emph{after the fact}, so no pre-planning during the design of $l_1$ and
+$l_2$ is necessary.
+           
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=6cm]{figures/langReuse.png} 
+  \caption[labelInTOC]{Reuse: $l_1$ and $l_2$ are independent languages. Within
+  an $l_2$ fragment, we still want to be able to reference concepts in another
+  fragment expressed with $l_1$. To do this, an adapter language $l_A$ is
+  added that depends on both $l_1$ and $l_2$, using inheritance and
+  referencing to adapt $l_1$ to $l_2$.} 
+  \label{langReuse}  
+\end{center} 
+\end{figure} 
+
+Language reuse covers the case where a language has been developed
+independent of the context in which it should be reused. The respective
+fragments remain homogeneous. In this paper, we cover two alternative cases: the
+first case addresses a persistence mapping language. The generated code is
+separate from the code generated from the \ic{entities} language. The second case
+described a language for role-based access control. The generated code has to be
+"woven into" the \ic{entities} code to check permissions when setters are called.
+
+
+\subsubsection{Separated Generated Code}
+
+\phead{Structure and Syntax} relmapping is a reusable language for mapping
+arbitrary data to relational tables. The relmapping language supports the
+definition of relational table structures, but leaves the actual mapping to the
+source data unspecified. As you adapt the language to a specific reuse context,
+you have to specify this mapping. The following code shows the reusable part. A
+database is defined that contains tables with columns. Columns have
+(database-specific) data types.
+
+\begin{code}
+Database CompanyDB                          
+  table Departments                         
+    number id           
+    char descr    
+  table People                              
+    number id                
+    char name              
+    char role              
+    char isFreelancer
+\end{code}
+
+\fig{relmapping} shows the structure of the relmapping language. The abstract
+concept \ct{ColumnMapper} serves as a hook: if we reuse this language
+in a different context, we extend this hook by context-specific code. 
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.4]{figures/relmapping.png}
+  \caption[labelInTOC]{A \ct{Database} contains \ct{Tables} which contain
+  \ct{Columns}. A column has a name and a type. A column also has a
+  \ct{ColumnMapper}. This is an abstract concept that determines where the
+  column gets its data from. It is a hook intended to be specialized in
+  sublanguages that are context-specific.}
+  \label{relmapping} 
+\end{center}
+\end{figure}
+
+ 
+The \ic{relmapping\_entities} language extends relmapping and adapts it for reuse
+with the \ic{entities} language. To this end, it provides a subconcept
+of \ct{ColumnMapper}, the \ct{AttributeColMapper}, which references an
+\ct{Attribute} from the \ic{entities} language as a means of expressing the mapping from the
+attribute to the column. The column mapper is projected on the right of the
+field definition, resulting in the following (heterogeneous) code fragment:
+
+
+\begin{code}
+Database CompanyDB                          
+  table Departments                         
+    number id <- Department.id              
+    char descr <- Department.description    
+  table People                              
+    number id <- Employee.id                
+    char name <- Employee.name              
+    char role <- Employee.role              
+    char isFreelancer <- Employee.freelancer
+\end{code}
+
+
+\phead{Type System} The type of a column is the type of its \ct{type} property.
+In addition, the type of the column must also conform to the type of the column
+mapper, so the concrete subtype must provide a type mapping as well. This
+"typing hook" is implemented as an abstract behaviour method \ct{typeMappedToDB}
+on the \ct{ColumnMapper}. It is acceptable from a dependency perspective to have
+this typing hook, since relmapping is designed to be extensible. The typing
+rules then look as follows:
+
+
+\begin{code}
+typeof(column) :==: typeof(column.type);
+typeof(column.type) :==: typeof(column.mapper);
+typeof(columnMapper) :==: columnMapper.typeMappedToDB();
+\end{code}
+
+The \ct{AttributeColMapping} concept from the \ic{relmapping\_entities} implements
+this method by mapping ints to numbers, and everything else to chars.
+
+\begin{code}
+public node<> typeMappedToDB() 
+  overrides ColumnMapper.typeMappedToDB {                                                                          
+  node<> attrType = this.attribute.type.type; 
+  if (attrType.isInstanceOf(IntType)) { return new node<NumberType>(); } 
+  return new node<CharType>();
+}                                                                                                                                                  
+\end{code}
+
+
+\phead{Generator} The generated code is also separated into a reusable part (a
+class generated by the generator of the relmapping language) and a
+context-specific subclass of that class, generated by the \ic{relmapping\_entities}
+language. The generic base class contains code for creating the tables and for
+storing data in those tables. It contains abstract methods that are used to
+access the data to be stored in the columns. The dependency structure of the
+generated fragments, as well as the dependencies of the respective generators,
+resembles the dependency structure of the languages: the generated fragments
+are dependent, and the generators are dependent as well (they share the name
+and implicitly the knowledge about the structure of the class generated by the
+reusable relmapping generator). A relmapping fragment (without the concrete
+column mappers) is sufficient for generating the generic base class.
+
+
+\begin{code}
+public abstract class CompanyDBBaseAdapter {
+
+  private void createTableDepartments() {
+    // SQL to create the Departments table
+  }
+
+  private void createTablePeople() {
+    // SQL to create the People table
+  }
+
+  public void storeDepartments(Object applicationData) {
+    StringBuilder sql = new StringBuilder();
+    sql.append("insert into" + "Departments" + "(");
+    sql.append("" + "id");
+    sql.append(", " + "descr");
+    sql.append(") values (");
+    sql.append("" + "\"" + getValueForDepartments_id(applicationData) + "\"");
+    sql.append(", " + "\"" + getValueForDepartments_descr(applicationData) + "\"");
+    sql.append(")");
+  }
+
+  public void storePeople(Object applicationData) {
+    // like above
+  }
+
+  public abstract String getValueForDepartments_id(Object applicationData);
+
+  public abstract String getValueForDepartments_descr(Object applicationData);
+
+  // abstract getValue methods for the People table
+}
+\end{code}
+
+The subclass generated by the generator in the \ic{relmapping\_entities} language
+implements the methods defined by the generic superclass. The interface,
+represented by the \ct{applicationData} object, has to be kept generic  so any
+kind of user data can be passed in. Note how this class references the beans
+generated from the \ic{entities}. The generator for \ic{entities} and the generator
+for \ic{relmapping\_entities} are dependent. The information shared between the
+two generator is the names of the classes generated from the \ic{entities}.
+The code generated from the relmapping language is designed to be extended by
+code generated from a sublanguage (the abstract getValue methods). This is
+acceptable, since the relmapping language itself is intended to be extended to
+adapt it to a new reuse context.
+
+
+\begin{code}
+public class CompanyDBAdapter extends CompanyDBBaseAdapter {
+  public String getValueForDepartments_id(Object applicationData) {
+    Object[] arr = (Object[]) applicationData;
+    Department o = (Department) arr[0];
+    String val = o.getId() + "";
+    return val;
+  }
+  public String getValueForDepartments_descr(Object applicationData) {
+    Object[] arr = (Object[]) applicationData;
+    Department o = (Department) arr[0];
+    String val = o.getDescription() + "";
+    return val;
+  }
+}
+\end{code}
+ 
+
+
+\subsubsection{Interwoven generated code}
+
+\phead{Structure and Syntax} \ic{rbac} is a language for specifying role-based access
+control, to specify access permissions for the \ic{entities}.
+
+\begin{code}
+RBAC                           
+                               
+users:                         
+  user mv : Markus Voelter     
+  user ag : Andreas Graf       
+  user ke : Kurt Ebert         
+                               
+roles:                         
+  role admin : ke              
+  role consulting : ag, mv     
+                               
+permissions:                   
+  admin, W : Department        
+  consulting, R : Employee.name
+\end{code}
+
+The structure is shown in \fig{rbac}. Like relmapping, it provides a
+hook, in this case, \ct{Resource}, to adapt it to context languages. The
+sublanguge \ic{rbac\_entities} provides two subconcepts of \ct{Resource}, namely
+\ct{AttributeResource} to reference to an attribute, and \ct{EntityResource} to
+refer to an \ct{Entity}, to define permissions for \ic{entities} and their
+attributes.
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.45]{figures/rbac.png}
+  \caption[labelInTOC]{Language strucrure of the \ic{rbac} language. An \ct{RBACSpec}
+  contains \ct{Users}, \ct{Roles} and \ct{Permissions}. Users can be members 
+  in several roles. A permission assigns a right to a \ct{Resource}.}
+  \label{rbac}  
+\end{center}
+\end{figure}
+
+
+
+\phead{Type System} No type system rules apply here.
+
+\phead{Generator} What distinguishes this case from the relmapping case is that
+the code generated from the \ic{rbac\_entities} language is \emph{not} separated from
+the code generated from the \ic{entities}. Instead, inside the setters of the Java
+beans, a permission check is required. 
+
+
+\begin{code}
+  public void setName(String newValue) {
+    // check permissions (from rbac_entities) 
+    if (new RbacSpecEntities().currentUserHasWritePermission("Employee.name")) {
+      throw new RuntimeException("no permission");
+    }
+    this.name = newValue;
+  }
+\end{code}
+
+The generated fragment is homogeneous (it is all Java code), but it is
+\emph{multi-sourced}, since several generators contribute to the same fragment.
+To implement this, several approaches are possible:
+
+
+\begin{itemize}
+  \item We could use AspectJ (\ic{http://www.eclipse.org/aspectj/}). This way,
+  we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
+  However, we do not want to introduce AspectJ here, so we will not use this
+  approach. 
+  \item An interceptor (\ic{http://en.wikipedia.org/wiki/Interceptor\_pattern})
+  framework could be added to the generated Java Beans, with the generated
+  code contributing specific interceptors (effectively building a custom AOP
+  solution).  
+  We will not use this approach either, since it would require the addition of a 
+  whole interceptor framework to the entities. This seems like overkill.
+  \item We could "inject" additional code generation templates to the existing
+  \ic{entities} generator from the \ic{rbac\_entities} generator. This would make the
+  generators \emph{woven} as opposed to just dependent. Assuming this would work
+  in MPS, this would be the most elegant solution. But it does not work.
+  \item We could define a hook in the generated Java beans code and then have
+  the \ic{rbac\_entities} generator contribute code to this hook. This is the
+  approach we will use. The generators remain dependent because they share 
+  the way the hook works.
+\end{itemize}
+
+
+
+
+
+
+
+
+Notice that only the AspectJ solution can work without any pre-planning from the
+perspective of the \ic{entities} language, because it avoids mixing the generated
+code artifacts (it is handled "magically" by AspectJ). All other solutions
+require the original \ic{entities} generator to "expect" certain extensions.
+
+In our case, we have modified the original generator in the \ic{entities} language to
+contain a \ct{PlaceholderStatement} (\fig{placeholder}). In every setter, the
+placeholder acts as a hook at which subsequent generators can add statements.
+While we have to pre-plan \emph{that} we want to extend the generator in this
+place, we do not have to predefine \emph{how}. The placeholder contains a
+key into the session object that points to the currently processed attribute.
+This way, the subsequent generator can know from which attribute the method with
+the placeholder in it was generated.
+
+
+\begin{figure}[htp] 
+\begin{center}
+  \includegraphics[scale=0.55]{figures/placeholder.png}
+  \caption[labelInTOC]{This generator fragment creates a setter method for each
+  attribute of an entity. The LOOP iterates over all attributes. The \$ macro
+  computes the name of the method, and the COPY\_SRC macro on the argument type
+  computes the type. The placeholder is used later to insert the
+  permission check.}
+  \label{placeholder}  
+\end{center}
+\end{figure}
+
+The \ic{rbac\_entities} generator contains a reduction rule for
+\ct{PlaceholderStatement}s. So when the generator encounters a placeholder (that
+has been put there by the \ic{entities} generator) it removes it and inserts the code that
+checks for the permission (\fig{placeholderreduction}). To make this work we
+have to make sure that this generator runs \emph{after} the \ic{entities} generator
+(since the \ic{entities} generator has to create the placeholder) and \emph{before}
+the BaseLanguage generator (which transforms BaseLanguage code into Java text
+for compilation). We use generator priorities, i.e., a partial ordering, to
+achieve this.
+
+
+\begin{figure}[htp] 
+\begin{center}
+  \includegraphics[scale=0.50]{figures/placeholderreduction.png}
+  \caption[labelInTOC]{This reduction rule replaces \ct{PlaceholderStatement}s
+  with a permission check. Using the condition, we only match those
+  placeholders whose identifier is \ct{pre-set} (notice how we have defined
+  this identifier in \fig{placeholder}). The inserted code queries another
+  generated class that contains the actual permission check. A runtime
+  exception is thrown if the check fails.}
+  \label{placeholderreduction}  
+\end{center}
+\end{figure}
+
+

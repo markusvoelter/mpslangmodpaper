@@ -3,19 +3,47 @@
 
 
 
-\section{Implementing Language Extensions with MPS}
+\section{Language Composition with MPS}
 \label{extAndComp}
 
 
-\subsection{Language Combination}
+\subsection{Language Referencing}
 
-\phead{Structure and Syntax} We define a language \ic{uispec} for defining user
-interface forms for \ic{entities}. \fig{uispec} shows the abstract syntax
-and below is an example model. Note how the form is another, separate fragment.
-It is a \emph{dependent} fragment, since it references elements from another
-fragment (expressed in the \ic{entities} language). Both fragments are
-\emph{homogeneous} since they consist of sentences expressed in a single
-language.
+Language referencing  enables \emph{homogeneous} fragments with cross-references
+among them, using \emph{dependent} languages (\fig{langReferencing}).
+ 
+A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
+$l_2$ and $l_1$. The referencing language $l_2$ depends on the referenced
+language $l_1$ because at least one concept in the $l_2$ references a concept
+from $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
+\emph{referenced} language. While equations (2) and (3) continue to hold, (1)
+does not. Instead
+\begin{align}
+\forall r \in \mathit{Refs_{l_2}} \mid   
+   \mathit{lo(r.from)} = l_2\; \wedge \; \mathit{lo(r.to)} = (l_1 \vee  l_2)
+\end{align}
+                    
+\todo{remove the special notation!}              
+(we use $x=(a \vee b)$ as a shorthand for $x = a \vee x = b$).                            
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langReferencing.png} 
+  \caption[labelInTOC]{Referencing: Language $l_2$ depends on $l_1$, because
+  concepts in $l_2$ reference concepts in $l_1$. (We
+  use rectangles for languages, circles for language concepts, and UML
+  syntax for the lines: dotted = dependency, normal arrows = associations,
+  hollow-triangle-arrow for inheritance.)} 
+  \label{langReferencing}  
+\end{center} 
+\end{figure} 
+
+As an example, for language referencing we define a language \ic{uispec} for
+defining user interface forms for \ic{entities}. Below is an example.
+Note how the form is another, separate fragment. It is a \emph{dependent}
+fragment, since it references elements from another fragment (expressed in the
+\ic{entities} language). Both fragments are \emph{homogeneous} since they
+consist of sentences expressed in a single language.
 
 \begin{code}
 form CompanyStructure                                                                                                                                  
@@ -26,6 +54,31 @@ form CompanyStructure
   field Freelancer: checkbox -> Employee.freelancer
   field Office: textfield(20) -> Department.description                                                                                                
 \end{code}
+
+\todo{Did we say somewhere why we don't address concrete syntax challenges
+specifically?}
+
+\phead{Structure and Syntax} The abstract syntax for the \ic{uispec} language is
+shown in \fig{uispec}. The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
+definition of one language uses or refers to concepts defined in another
+language. This is not necessarily an example of language extension as defined in
+this paper.} the \ic{entities} language. This means that concepts from the \ic{entities}
+language can be used in the definition of language concepts in the \ic{uispec}
+language. A \ct{Form} owns a number of \ct{EntityReferences}, which in turn
+reference the \ct{Entity} concept. Also, \ct{Field}s refer to the \ct{Attribute}
+that shall be edited via the field. Below is the definition of the \ct{Field}
+concept. It owns a \ct{Widget} and refers to an \ct{Attribute}.
+
+
+\begin{code}
+concept Field extends BaseConcept implements <none>               
+  properties:                                 
+    label : string                              
+  children:                                   
+    Widget widget 0..1 specializes: <none>      
+  references:                                 
+    Attribute attribute 0..1 specializes: <none>
+\end{code} 
 
 \begin{figure}[htp]
 \begin{center}
@@ -39,26 +92,7 @@ form CompanyStructure
 \end{center}
 \end{figure}
 
-The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
-definition of one language uses or refers to concepts defined in another
-language. This is not necessarily an example of language extension as defined in
-this paper.} the \ic{entities} language. This means that concepts from the \ic{entities}
-language can be used in the definition of language concepts in the \ic{uispec}
-language. A \ct{Form} owns a number of \ct{EntityReferences}, which in turn
-reference the \ct{Entity} concept. Also, \ct{Field}s refer to the \ct{Attribute}
-that shall be edited via the field. Below is the definition of the \ct{Field}
-concept. It owns a \ct{Widget} and refers to an \ct{Attribute}.
-
- 
-\begin{code}
-concept Field extends BaseConcept implements <none>               
-  properties:                                 
-    label : string                              
-  children:                                   
-    Widget widget 0..1 specializes: <none>      
-  references:                                 
-    Attribute attribute 0..1 specializes: <none>
-\end{code}                                                                                            
+                                                                                           
 
 
 \phead{Type System} There are limitations regarding which widget can be used
@@ -83,7 +117,7 @@ non type system rule checkTypes {
 \end{code}
 
 
-\phead{Generation} The defining characteristic of language combination is that
+\phead{Generation} The defining characteristic of language referencing is that
 the two languages only reference each other, and the instance fragments are
 dependent, but homogeneous. No syntactic integration is necessary in this case.
 In this example, the generated code exhibits the same separation. From the form
@@ -121,6 +155,51 @@ the UI, because it needs the entity fragment. This is not surprising since
 transitive closure of all dependencies has to be made available.
 
 \subsection{Language Extension}
+
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langExtension.png} 
+  \caption[labelInTOC]{Extension: $l_2$ extends $l_1$. It provides additional
+  concepts $B3$ and $B4$. $B3$ extends $A3$, so it can be used as a child of
+  $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
+  $l_2$ depends on $l_2$.}
+  \label{langExtension}  
+\end{center}  
+\end{figure}
+
+Language extension  enables \emph{heterogeneous} fragments
+with \emph{dependent} languages (\fig{langExtension}). A language $l_2$
+extending $l_1$ adds additional language concepts to those of $l_1$. We call $l_2$ the
+\emph{extending} language, and $l_1$ the \emph{base} language. To allow the new
+concepts to be used in the context provided by $l_1$, some of them extend
+concepts in $l_1$. So, while $l_1$ remains independent, $l_2$ becomes dependent
+on $l_1$ since some of the concepts in $l_2$ will inherit from concepts in
+$l_1$:
+\begin{align}
+\exists i \in \mathit{Inh(l_2)} \mid \mathit{i.sub} = l_2\; \wedge \; 
+	\mathit{i.super} = l_1
+\end{align}
+Consequently, a fragment $f$ contains language concepts from both $l_1$ and
+$l_2$:
+\begin{align}
+\forall e \in E_f \mid \mathit{lo(e)} = (l_1 \vee  l_2)
+\end{align}  
+In other words, $C_f \subseteq (C_{l_1} \cup C_{l_2})$, so $f$ is
+\emph{heterogeneous}. For heterogeneous fragments (3) does not
+hold anymore, since
+\begin{align}  
+\forall c \in \mathit{Cdn_f} \mid\; &\mathit{lo(co(c.parent))} = 
+             (l_1 \vee  l_2)\; \wedge \; \nonumber \\ 
+     &\mathit{lo(co(c.child))} = (l_1 \vee  l_2)
+\end{align}
+Note that copying a Language definition and changing it does not constitute a
+case of language extension, because the extension is not modular, it is
+invasive. Also, a native interfaces that supports calling one language from
+another, like calling C from Perl or Java, is not language extension;
+rather it is a form of language referencing. The fragments remain homogeneous.
+
+
 
 We will revisit language extension later for more meaningful examples
 of extension. For now, we extend the MPS base language with expression blocks
@@ -268,6 +347,48 @@ location. It is a means to building extensible generators, as we will see later.
 
 
 \subsection{Language Reuse}
+
+
+\subsection{Language Reuse} 
+
+Language reuse (\fig{langReuse}) enables \emph{homogenous} fragments with
+\emph{independent} languages. Given are two independent languages $l_2$ and
+$l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
+\begin{align}
+\exists r \in \mathit{Refs_{f_2}} \mid \; &\mathit{fo(r.from)} = 
+		f_2\; \wedge \nonumber \\ 
+	&\mathit{fo(r.to)} = (f_1 \vee f_2)
+\end{align}
+Since $l_2$ is independent, it cannot directly reference concepts in $l_1$. This
+makes $l_2$ reusable with different languages, in contrast to language
+referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
+the \emph{context} language and $l_1$ the \emph{reused} language.
+
+One way of realizing dependent fragments while retaining independent languages
+is using an adapter language (cf. the Adapter pattern) $l_A$ where $l_A$
+\emph{extends} $l_2$ and
+\begin{align}
+\exists r \in \mathit{Refs_{l_A}} \mid \mathit{lo(r.from)} =
+l_A\; \wedge \;\mathit{lo(r.to)} = l_1
+\end{align}    
+One could argue that in this case reuse is just a clever combination of
+referencing and extension. While this is true from an implementation
+perspective, it is worth describing as a separate approach, because it enables
+the combination of two \emph{independent languages} by adding an
+adapter \emph{after the fact}, so no pre-planning during the design of $l_1$ and
+$l_2$ is necessary.
+           
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=6cm]{figures/langReuse.png} 
+  \caption[labelInTOC]{Reuse: $l_1$ and $l_2$ are independent languages. Within
+  an $l_2$ fragment, we still want to be able to reference concepts in another
+  fragment expressed with $l_1$. To do this, an adapter language $l_A$ is
+  added that depends on both $l_1$ and $l_2$, using inheritance and
+  referencing to adapt $l_1$ to $l_2$.} 
+  \label{langReuse}  
+\end{center} 
+\end{figure} 
 
 Language reuse covers the case where a language has been developed
 independent of the context in which it should be reused. The respective
@@ -593,6 +714,27 @@ achieve this.
 
 \subsection{Language Embedding}
 
+Language embedding enables \emph{heterogeneous} fragments with
+\emph{independent} languages (\fig{langReuse}, but with a containment link
+between $B5$ and $A3$). It is similar to reuse in that there are two independent
+languages $l_1$ and $l_2$, but instead of establishing references
+between two homogeneous fragments, we now embed instances of concepts from $l_2$
+in a fragment $f$ expressed with $l_1$, so
+\begin{align}
+\forall c \in \mathit{Cdn_f} \mid  \;
+	&\mathit{lo(co(c.parent))} = l_1 \; \wedge \nonumber \\
+	&\mathit{lo(co(c.child))} = (l_1 \vee l_2)
+\end{align}
+Unlike language extension, where $l_2$ depends on $l_1$ because concepts in
+$l_2$ extends concepts in $l_1$, there is no such dependency in this case. Both
+languages are independent. We call $l_2$ the \emph{embedded} language and $l_1$
+the \emph{host} language. Again, an adapter language $l_A$ that extends $l_1$
+can be used to achieve this, where
+\begin{align}
+\exists c \in \mathit{Cdn_{l_A}} \mid \mathit{lo(c.parent)} = 
+	l_A \wedge \mathit{lo(c.child)} = l_1
+\end{align}
+
 \phead{Structure and Syntax} \ic{uispec\_validation} extends \ic{uispec}, which is a
 sublanguage of the validation language. It supports writing code such as the
 following in the UI form specifications. Writing the expressions is supported by
@@ -805,7 +947,7 @@ project \ic{de.voelter.mps.expressions.blgen} and add reduction rules.
   the COPY\_SRC macro.}
   \label{expr2blgen}  
 \end{center}
-\end{figure}
+\end{figure} 
 
 In addition to these, we also need reduction rules for those new expressions
 that we have added specifically in the \ic{uispec\_validation} language

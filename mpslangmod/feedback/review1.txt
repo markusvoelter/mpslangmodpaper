@@ -1,14 +1,29 @@
 ----------------------- REVIEW 1 ---------------------
 PAPER: 2
-TITLE: Language and IDE Mo dularization, Extension and Comp osition with MPS
+TITLE: Language and IDE Modularization, Extension and Composition with MPS
 AUTHORS: Markus Voelter
 
-The paper discusses various language compositions using the MPS tool. Building languages, general-purpose and domain-specific, by composing them is a hard problem, which is not yet fully achieved since one needs to take composition of syntactic and semantic parts into account as well as integrated development environment (IDE) used for constructing programs in newly developed languages. Such IDE usually consists of editor, debugger, test engine, etc. In this respect the paper can be important contribution. However, this is no so since different types of composition at conceptual level are not well defined and explained. The other major shortcoming of this paper is author’s limited knowledge of related work already done in this area.
+The paper discusses various language compositions using the MPS tool. Building languages, general-purpose and 
+domain-specific, by composing them is a hard problem, which is not yet fully achieved since one needs to take 
+composition of syntactic and semantic parts into account as well as integrated development environment (IDE) 
+used for constructing programs in newly developed languages. Such IDE usually consists of editor, debugger, 
+test engine, etc. In this respect the paper can be important contribution. However, this is no so since different 
+types of composition at conceptual level are not well defined and explained. The other major shortcoming of this 
+paper is author’s limited knowledge of related work already done in this area.
 
-Detail comments:
-=================
+-> I have rewritten intro and related work. 
 
-- I don’t like the title of this paper too much. Is not “extension” treated as just one kind of “composition”? Moreover, the paper doesn’t deal with IDE modularization. Moreover, it is not clear to me, what is a relation between “composition” mentioned in the title and “combination” mentioned in Section 1.3? Anyway, the whole paper is fuzzy and so it is the title.
+- I don’t like the title of this paper too much. Is not “extension” treated as just one kind of “composition”? 
+  Moreover, the paper doesn’t deal with IDE modularization. Moreover, it is not clear to me, what is a relation 
+  between “composition” mentioned in the title and “combination” mentioned in Section 1.3? Anyway, the whole paper 
+  is fuzzy and so it is the title.
+  
+-> I have changed the title to "Language and IDE Modularization and Composition with MPS". 
+  This way, none of the four techniques is specifically mentioned in the title.
+
+-> The paper does deal with IDE modularization. Each language module comes with its own
+   "piece of IDE", and after language composition, the IDE provides support for the 
+   composed languages.
 
 - The paper is about language modularization, extension and composition. But, author didn’t provide clear definitions of these terms. Moreover, the paper is full of vague and imprecise statements. For example, page 2: “The concrete and the abstract syntax have to be combined”. It is unclear to me what author’s intention is here. Either, a language is designed starting with abstract or concrete syntax (after domain analysis where commonalities and variabilities are discovered) and a mapping from abstract syntax to concrete syntax is needed or vice verse. While combining concrete and abstract syntax I don’t think some meaningful artifact can be obtained. Is this abstract and concrete syntax combining needed when developing a single language or in language composition?
 

@@ -1,26 +1,55 @@
-
-
 \section{Introduction}
 \label{intro}
 
-\subsection{Approach and Structure of the paper}
+Traditionally, programmers use general purpose languages (GPLs) for developing
+software systems. "general-purpose" refers to the fact that they can be used for
+any programming task. They are Turing complete, and provide means to build
+custom abstractions using classes, higher-order functions, or logic predicates,
+depending on the particular language. Traditionally, a complete software system
+has been implemented using a single GPL, plus a number of configuration files.
+However, more recently this has started to change; systems are built using a
+multitude of languages.
 
-\todo{align terminology with other papers}
+One reason is the rising level of sophistication and complexity of execution
+infrastructures. For example, web applications consist of business logic on the
+server, a database backend, business logic on the client as well as presentation
+code on the client, most of these implemented with their own set of languages.
+A particular language stack could use Java, SQL, JavaScript and HTML.
+The second reason driving polyglot programming is increasing popularity of
+domain-specific languages (DSLs). These are specialized, often small languages
+that are optimized for expressing programs in a particular application domain. Such an
+application domain may be a technical domain (e.g. database querying with SQL)
+or a business domain (such as insurance contracts or refrigerator
+cooling algorithms or state-based programs in embedded systems). DSLs support
+these domains more effectively than GPLs because they provide linguistic
+abstractions for common idioms encountered in those domains. Using
+custom linguistic abstractions makes the code more concise, more accessible to
+formal analysis, verification, transformation and optimization, and possibly
+usable by non-programmer domain experts.
 
-Language modularization, extension and composition (LME\&C) is an important
-ingredient to the efficient use of DSLs, just like reuse in general is important
-to software development. We discuss the need for LME\&C in the context of DSL
-design in \cite{VoelterVisserDimensions2011}, where we also introduce some of the
-terminology used in this paper. Traditionally, LME\&C, including the respective
-IDEs, has been hard for various reasons, including limited composability of
-grammars, non-modular IDEs as well as semantic interactions. Specifically,
-LME\&C requires the following concerns to be considered:
+The use of polyglot programming raises the question how the syntax, semantics,
+and IDE support of the various languages can be integrated. Especially syntactic
+integration has traditionally been very hard \cite{KatsVW10} and hence is often
+not supported for a particular combination of languages. Program parts expressed
+in different languages reside in different files. References among "common"
+things in these different program parts are implemented by using agreed-upon
+identifiers that must be used consistently. For some combinations of languages,
+the IDE may be aware of the "integration by name" and check the consistency. In
+some rare cases, syntactic integration between specific pairs of languages has
+been built, for example, embedded SQL in Java~\cite{BravenboerDV07}.
 
+However, building specialized integrations between two languages is very
+expensive, especially if IDE support like code completion, syntax coloring,
+static error checking, refactoring or debugging is to be provided as well. So
+this is done only for combinations of very widely used languages, if at all.
+Building such an integration between Java and a company-specific DSL for
+financial calculations is infeasible. A more systematic approach for \lmrc is
+required. Such an approach has to address the following concerns:
 
 \begin{itemize}
   \item The concrete and the abstract syntax have to be combined. Depending on
   the kind of composition, this requires the embedding of one syntax into
-  another one. This, in turn, requires modular grammars.
+  another one. This, in turn, requires modular grammars \todo{ref}.
   \item The static semantics (i.e., the constraints and the type system) have to
   be integrated. For example, in the case of language extension, new types have
   to be "made valid" for existing operators.
@@ -31,30 +60,31 @@ LME\&C requires the following concerns to be considered:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
-With JetBrains MPS two of these challenges --- composability of concrete syntax
-and modular IDEs --- are a completely solved problem, as this paper will show.
-Modular type systems are reasonably well-supported. Semantic interactions are
-hard to solve in general, but can be handled reasonably in many relevant cases,
-as we show in this paper. However, as we will see, in many cases
-languages have to be designed \emph{explicitly for reuse} in order to make them
-reusable. After-the-fact reuse, without considering it during the design of the
-reusable language, is possible only in limited cases. However, this is true for
-reuse in software generally.
 
-The paper is structured as follows. In \sect{typesOfMod} we outline the various
-kinds of LME\&C as defined and explained in \cite{VoelterVisserDimensions2011}.
-Then, we describe how projectional editors work in general, and how MPS works
-specifically (\sect{HowMPSWorks}). Next, we provide a brief overview of
-related tools and approaches to illustrate how MPS is different (\sect{Related}). Then we develop
-the core language which acts as the basis for the extension and composition
-examples. We use the simplest possible language (one that supports the
-definition of data entities) for this task.
-This section (\sect{entitiesLanguage}) also serves as a very brief tutorial on
+\subsection{Contribution and Structure of the paper}
+
+
+The contribution of this paper is a systematic approach for characterizing
+modularized languages and their IDEs, as well as an example implementation based
+on MPS. We identify four different composition approaches: referencing,
+extension, reuse and embedding. For each of these approaches we provide a
+concise description and a formal definition. We then show how to implement these
+four approaches with JetBrains MPS.
+
+The paper is structured as follows. In \sect{terminology} we define a set of
+terms and concepts used in this paper. \sect{typesOfMod} outlines the various
+kinds of \lmrc discussed in this paper, and provides rationale why we discuss
+those kinds, and not others. Then, we describe how projectional editors work in
+general, and how MPS works specifically (\sect{HowMPSWorks}) and develop the
+core language which acts as the basis for the extension and composition examples
+(\sect{entitiesLanguage}). This section  also serves as a very brief tutorial on
 language definition in MPS. The main part of the paper, the implementation of
 the various extension and composition approaches, is discussed in
-\sect{extAndComp}. Finally, \sect{Eval} discusses what works well and at what
-could be improved in MPS with regards to extension and composition.
-
+\sect{extAndComp}. We look at other contemporary language workbenches as well as
+general related work in \sect{related}. Finally, \sect{Eval} discusses what
+works well and at what could be improved in MPS with regards to extension and
+composition.
+ 
 
 \subsection{Additional Resources}
 
@@ -62,83 +92,221 @@ The example code developed for this tutorial can be found at github.com and
 works with MPS 2.0:
 
 \vspace{5pt}
-\ic{https://github.com/markusvoelter/MPS-Language-Composition-Demos---For-MPS-2.0}
+\ic{https://github.com/markusvoelter/MPSLangComp-MPS2.0}
 \vspace{5pt}
 
-A set of recorded demos (90 minutes in total) that walk through all the example
-code is available on Youtube. The initial video is here: 
+\noindent A set of recorded demos (90 minutes in total) that walk through all
+the example code is available on Youtube. The initial video is here: 
 
 \vspace{5pt}
 \ic{http://www.youtube.com/watch?v=lNMRMZk8KBE}. 
 \vspace{5pt}
 
 \noindent The others are either suggested by Youtube, or you can find them by
-searching for \emph{Language Modularization and Composition with MPS (Part X)}, where X is
-between 1 and 8.
+searching for \emph{Language Modularization and Composition with MPS (Part X)},
+where X is between 1 and 8.
 
 Note that this paper is not a complete MPS tutorial. MPS is very deep and
-powerful, so we have to focus on those aspects that are essential for LME\&C. We
+powerful, so we have to focus on those aspects that are essential for \lmrc. We
 refer to the LWC 11 MPS tutorial for details:
-
+ 
 \vspace{5pt}
 \ic{http://code.google.com/p/mps-lwc11/wiki/GettingStarted}
+
+
+
+\subsection{Terminology}
+\label{terminology}
+
+Programs are represented in two ways: concrete syntax and abstract syntax. Users
+use the concrete syntax as they write or change programs. The abstract syntax is
+a data structure that contains all the data expressed with the concrete syntax,
+but without the notational details. The abstract syntax is used for analysis and
+downstream processing of programs. A language definition includes the concrete
+as well as the abstract syntax, as well as rules for mapping one to the other.
+\emph{Parser-based} systems map the concrete syntax to the abstract syntax.
+Users interact with a stream of characters, and a parser derives the abstract
+syntax by using a grammar. \emph{Projectional} editors go the other way round.
+User editing gestures directly change the abstract syntax, the concrete syntax
+being a mere projection that looks (and mostly feels) like text. MPS is
+a projectional editor.
+
+The abstract syntax of programs are primarily trees of program \emph{elements}.
+Every element (except the root) is contained by exactly one parent element.
+Syntactic nesting of the concrete syntax corresponds to a parent-child
+relationship in the abstract syntax. There may also be any number of
+non-containing cross-references between elements, established either directly
+during editing (in projectional systems) or by a linking phase that follows
+parsing.
+
+A program may be composed from several program \emph{fragments} that may
+reference each other. A Fragment $f$ is a standalone tree. $E_f$ is the set of
+program elements in a fragment.
+
+A language $l$ defines a set of language concepts $C_l$ and their relationships.
+We use the term concept to refer to concrete syntax, abstract syntax plus the
+associated type system rules and constraints as well as some definition of its
+semantics. In a fragment, each program element $e$ is an instance of a concept
+$c$ defined in some language $l$. We define the \emph{concept-of} function $co$
+to return the concept of which a program element is an instance: $co(element)
+\Rightarrow \mathit{concept}$. Similarly we define the \emph{language-of}
+function $lo$ to return the language in which a given concept is defined:
+$lo(conept) \Rightarrow \mathit{language}$. Finally, we define a
+\emph{fragment-of} function $fo$ that returns the fragment that contains a given
+program element: $fo(element) \Rightarrow \mathit{fragment}$.
+
+We also define the following sets of relations between program elements.
+$\mathit{Cdn_f}$ is the set of parent-child relationships in a fragment $f$.
+Each $c \in C$ has the properties $parent$ and $child$. $\mathit{Refs_f}$ is the
+set of non-containing cross-references between program elements in a fragment
+$f$. Each reference $r$ in $\mathit{Refs_f}$ has the properties $from$ and $to$,
+which refer to the two ends of the reference relationship. Finally, we define an
+inheritance relationship that applies the Liskov Substitution Principle
+\todo{ref} to language concepts. A concept $c_{sub}$ that extends another
+concept $c_{super}$ can be used in places where an instance of $c_{super}$ is
+expected. $\mathit{Inh_l}$ is the set of inheritance relationships for a
+language $l$. Each $i \in \mathit{Inh_l}$ has the properties $super$ and $sub$.
+
+An important concern in \lmrc{} is the notion of independence. An
+\emph{independent language} does not depend on other languages. An independent
+language $l$ can be defined as a language for which the following hold:
+\begin{align}
+\forall r \in \mathit{Refs_l} &\mid \mathit{lo(r.to)} = 
+	\mathit{lo(r.from)} = l
+\\ 
+\forall s \in \mathit{Inh_l} &\mid \mathit{lo(s.super)} = 
+	\mathit{lo(s.sub)} = l
+\\ 
+\forall c \in \mathit{Cdn_l} &\mid \mathit{lo(c.parent)} = 
+     \mathit{lo(c.child)} = l
+\end{align}
+An \emph{independent fragment} is one where all references stay within the
+fragment (4). 
+\begin{align}
+\forall r \in \mathit{Refs_f} &\mid \mathit{fo(r.to)} 
+	= \mathit{fo(r.from)} = f
+\end{align}
+We also distinguish \emph{homogeneous} and \emph{heterogeneous} fragments. A
+homogeneous fragment is one where all elements are expressed with the same
+language:
+\begin{align}
+\forall e \in E_f &\mid \mathit{lo(e)} = l \\
+\forall c \in \mathit{Cdn_f} &\mid \mathit{lo(c.parent)} = 
+	\mathit{lo(c.child)} = l
+\end{align}
+
+In this paper we consider the semantics of a language $l_1$ to be defined via a
+\emph{transformation} that maps a program expressed in $l_1$ to a program in
+another language $l_2$ which has the same \emph{observable behavior}. The
+observable behavior can be determined in various ways, for example using a
+sufficiently large set of test cases. A detailed discussion of alternative ways
+to define language semantics is beyond the scope of this paper.
+
+The paper emphasizes \emph{IDE} modularization and composition in addition to
+\emph{language} modularization and composition. In the context of this paper,
+when referring to IDE services, we mean syntax highlighting, code completion and
+static error checking. Other concerns are relevant in IDEs, including
+refactoring, quick fixes, support for testing, debugging and version control
+integration. While these are supported by MPS, they are not creating
+automatically from a language definition. \todo{discuss debugger stuff}
 
 
 \subsection{Types of Modularization}
 \label{typesOfMod}
 
 
-As we describe in the paper on DSL design dimensions
-\cite{VoelterVisserDimensions2011}, we distinguish language \emph{combination}, \emph{extension}, \emph{reuse} and
-\emph{embedding}.
+In this paper we have identify the following four modularization and composition
+approaches: referencing, extension, reuse and embedding. Below is an intuitive
+description of each approach; stricter definitions follow in the rest of the
+paper.
 
-
-\phead{Extension} A language B extends another language A if B contains
-additional language concepts. This means that for programs written in B, all
-concepts from A are available, plus those defined in B. Concepts in B may
-specialize concepts in A. This means that in B programs, the specialized concept
-can be used wherever A programs expect only the more general one, effectively
-adapting the Liskov substitution principle to language concepts. An extended
-language may also restrict the base language, so certain concepts are not
-available in the sublanguage.
-
-
-\phead{Combination} If a domain is structured along different concerns, and
+\begin{description}
+  \item[Referencing] If a domain is structured along different concerns, and
 these concerns should be implemented using separate viewpoints, then it is often
 useful to implement every concern as a separate DSL. When these DSL are
 developed from scratch, as a group, then dependencies between the concerns can
 be materialized as dependencies between the languages and the language concepts.
-A language B may depend on language A because a concept in language B references
-a concept in language A. The models remain separate, only cross-references
-connect the two.
- 
-\phead{Reuse} Reuse describes the case where a language has been developed
-explicitly to be used in contexts not known at the time of development of that
-language (this is in contrast to combination). So the language cannot have
-dependencies to other languages. To make it fit in with a new context, the
-reusable language has to be extended so it can reference concepts from languages
-in that context.
+A language \ic{B} may depend on language \ic{A} because a concept in language \ic{B} \emph{references}
+a concept in language \ic{A}. The fragments remain separate, only
+cross-references connect the two.
+
+  \item[Extension] A language \ic{B} extends another language \ic{A} if \ic{B} contains
+additional language concepts. This means that for programs written in \ic{B}, all
+concepts from \ic{A} are available, plus those defined in \ic{B}. Concepts in \ic{B} may
+\emph{specialize} concepts in \ic{A}. This means that in \ic{B} programs, the specialized concept
+can be used wherever \ic{A} programs expect only the more general one, effectively
+adapting the Liskov substitution principle to language concepts. An extended
+language may also restrict the base language, so certain concepts are not
+available in the sublanguage \todo{discuss how restriction is a form of
+extension}.
+
+  \item[Reuse] Reuse describes the case where a language has been developed
+explicitly to be used in contexts \emph{not known} at the time of development of
+that language (this is in contrast to referencing). So the language cannot have
+dependencies to other languages. As with referencing, the fragments of the two
+languages remain separate. To make a reusable language fit in with a new
+context, the reusable language often has to be extended so it can reference
+concepts from languages in that context.
+
+  \item[Embedding] Embedding is a special case of reuse, where the reused
+language is \emph{syntactically embedded} into languages from the context (i.e.
+the resulting fragment is heterogeneous). As in the case of language reuse, the
+composed language may have to be extended to "plug it into the context".
+
+\end{description}
+
+As can be seen from the above descriptions, we distinguish the four approaches
+regarding fragment structure and language dependencies, as illustrated in
+\fig{quadrants}. \fig{fragAndLang} shows the relationships between fragments and
+languages in these cases. We used these two criteria as the basis for this paper
+because we consider these two criteria to be essential for the following
+reasons.
+
+\emph{Language dependencies} capture whether a language has to be designed with
+knowledge about a particular composition partner in mind in order to be
+composable with that partner. It is desirable in many scenarios that languages
+be composable \emph{without} previous knowledge about all possible composition
+partners. \emph{Fragment Structure} captures whether the two composed languages
+can be syntactically mixed. Since modular concrete syntax can be a challenge,
+this is not always easily possible, though often desirable.
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/quadrants.png}
+  \caption[labelInTOC]{We distinguish the four modularization and composition
+  approaches regarding their consequences for fragment structure and language
+  dependencies.}
+  \label{quadrants} 
+\end{center}
+\end{figure} 
 
 
-\phead{Embedding} Embedding is a special case of reuse, where the reused
-language is syntactically embedded into languages from the context. If the host
-language is designed with an awareness of the composed language, the host
-language can simply depend on the composed language and embed concepts from it.
-As in the case of language reuse, the composed language may have to be extended
-to "plug it into the context". If both the host language and the composed
-language have been designed independent of each other and should be combined
-later, then both the host language and the composed language will have to be
-extended.
+\begin{figure}[t] 
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/fragAndLang.png}
+  \caption[labelInTOC]{The relationships between fragments and languages in the
+  four composition approaches. Boxes represent fragments, rounded boxes are
+  languages. Dotted lines are dependencies, solid lines
+  references/associations. The shading of the boxes represent the two
+  different languages.}
+  \label{fragAndLang} 
+\end{center}
+\end{figure}
 
-\vspace{8pt}
-In this paper we illustrate all of these approaches with MPS. At the center is a
-simple \ic{entities} language. We then build an additional language to illustrate
-LME\&C. \fig{languagestructure} illustrates these additional languages. The
-\ic{uispec} language illustrates \emph{combination} with \ic{entities}. \ic{relmapping} is an
-example of \emph{reuse} with separated generated code. \ic{rbac} illustrates
-reuse with intermixed generated code. \ic{uispec\_validation} demonstrates
-\emph{extension} (of the \ic{uispec} language) and \emph{embedding} with regards to
-the expressions language.
+
+
+
+\subsection{Case Study}
+
+In this paper we illustrate the \lmrc approaches with MPS. At the center is a
+simple \ic{entities} language. We then build an additional language to
+illustrate \lmrc. \fig{languagestructure} illustrates these additional
+languages. The \ic{uispec} language illustrates \emph{referencing} with
+\ic{entities}. \ic{relmapping} is an example of \emph{reuse} with separated
+generated code.
+\ic{rbac} illustrates reuse with intermixed generated code.
+\ic{uispec\_validation} demonstrates \emph{extension} (of the \ic{uispec}
+language) and \emph{embedding} with regards to the expressions language.
 
 
 \begin{figure}[htp]

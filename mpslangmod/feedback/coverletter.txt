@@ -1,6 +1,34 @@
+Based on the feedback there are two major shortcomings. The first one is that the way
+the paper is structured it is not an academic paper. The second shortcoming is a degree
+of sloppiness. I address these two major issues here in the cover letter. I will also 
+address the issues in the three reviews specifically.
+
+Academic Rigor:
+----------------------
+PROBLEMS: The paper does not introduce the various modularization and composition techniques
+well enough; it does not define them; it does not have enough related work and references.
+
+EXPLANATION: My understanding was that I had been invited to GTTSE primarily to
+give a tutorial and that the paper is accompanying material. I wrote it in a way that
+is appropriate for a *tutorial*, not as an academic paper. Obviously this was a mis-
+understanding on my part, and I could have avoided it by looking at earlier GTTSE papers.
+
+WHAT I DID: This revision addresses this problem by completely rewriting the introduction,
+the related work and the discussion section. In contrast to what some of the reviews suggest,
+I am aware of many of the related works (not all that were suggested). However, because of my
+misinterpretation of the goal of the paper, I did not include them. This revision changes this.
 
 
+Sloppiness:
+--------------------------
+PROBLEMS: Typos, Formulations, Various formatting issues  
 
+EXPLANATION: Another misunderstanding. The version I submitted before GTTSE was called a draft.
+I mistook this to mean that it's a rough writeup of what I will talk about in the tutorial. I was
+told that there would be a change to refine the draft after the conference, before the final submission
+to the proceedings. I was not aware that the *original* draft would be reviewed by three people! I am
+aware that the initial draft version was not at the point where it should have been reviewed. 
 
-Spelling, Typos etc. is really embarrassing.
-I was mislead by "it is a draft, you can update it after the conference".
+WHAT I DID: First of all: sorry to the reviewers for having to read a paper with so many typos and
+mistakes in the text. Obviously this is fixed now in the current release.
+

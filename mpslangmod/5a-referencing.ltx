@@ -1,0 +1,149 @@
+
+
+\subsection{Language Referencing}
+
+Language referencing  enables \emph{homogeneous} fragments with cross-references
+among them, using \emph{dependent} languages (\fig{langReferencing}).
+ 
+A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
+$l_2$ and $l_1$. The referencing language $l_2$ depends on the referenced
+language $l_1$ because at least one concept in the $l_2$ references a concept
+from $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
+\emph{referenced} language. While equations (2) and (3) continue to hold, (1)
+does not. Instead
+\begin{align}
+\forall r \in \mathit{Refs_{l_2}} \mid   
+   \mathit{lo(r.from)} = l_2\; \wedge \; \mathit{lo(r.to)} = (l_1 \vee  l_2)
+\end{align}
+                    
+\todo{remove the special notation!}              
+(we use $x=(a \vee b)$ as a shorthand for $x = a \vee x = b$).                            
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langReferencing.png} 
+  \caption[labelInTOC]{Referencing: Language $l_2$ depends on $l_1$, because
+  concepts in $l_2$ reference concepts in $l_1$. (We
+  use rectangles for languages, circles for language concepts, and UML
+  syntax for the lines: dotted = dependency, normal arrows = associations,
+  hollow-triangle-arrow for inheritance.)} 
+  \label{langReferencing}  
+\end{center} 
+\end{figure} 
+
+As an example, for language referencing we define a language \ic{uispec} for
+defining user interface forms for \ic{entities}. Below is an example.
+Note how the form is another, separate fragment. It is a \emph{dependent}
+fragment, since it references elements from another fragment (expressed in the
+\ic{entities} language). Both fragments are \emph{homogeneous} since they
+consist of sentences expressed in a single language.
+
+\begin{code}
+form CompanyStructure                                                                                                                                  
+  uses Department                                                                                                                                      
+  uses Employee                                                                                                                                        
+  field Name: textfield(30) -> Employee.name                                                                      
+  field Role: combobox(Boss, TeamMember) -> Employee.role                                                                                              
+  field Freelancer: checkbox -> Employee.freelancer
+  field Office: textfield(20) -> Department.description                                                                                                
+\end{code}
+
+\todo{Did we say somewhere why we don't address concrete syntax challenges
+specifically?}
+
+\phead{Structure and Syntax} The abstract syntax for the \ic{uispec} language is
+shown in \fig{uispec}. The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
+definition of one language uses or refers to concepts defined in another
+language. This is not necessarily an example of language extension as defined in
+this paper.} the \ic{entities} language. This means that concepts from the \ic{entities}
+language can be used in the definition of language concepts in the \ic{uispec}
+language. A \ct{Form} owns a number of \ct{EntityReferences}, which in turn
+reference the \ct{Entity} concept. Also, \ct{Field}s refer to the \ct{Attribute}
+that shall be edited via the field. Below is the definition of the \ct{Field}
+concept. It owns a \ct{Widget} and refers to an \ct{Attribute}.
+
+
+\begin{code}
+concept Field extends BaseConcept implements <none>               
+  properties:                                 
+    label : string                              
+  children:                                   
+    Widget widget 0..1 specializes: <none>      
+  references:                                 
+    Attribute attribute 0..1 specializes: <none>
+\end{code} 
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.5]{figures/uispec.png}
+  \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted lines
+  represent classes from another language (here: the \ic{entities} language). A
+  \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
+  form also contains \ct{Field}s, each referring to an \ct{Attribute} from an
+  \ct{Entity} and containing a \ct{Widget}.}
+  \label{uispec} 
+\end{center}
+\end{figure}
+
+                                                                                           
+
+
+\phead{Type System} There are limitations regarding which widget can be used
+with which attribute type. This typing rule is defined in the \ic{uispec} language
+and references types from the \ic{entities} language. The following is the code for
+the type check. We use a non-typesystem rule to illustrate how constraints can
+be written that do not use the inference engine introduced above.
+
+\begin{code}
+non type system rule checkTypes {                                                                                                                                                                                                                                                                                                                        
+  applicable for concept = Field as field                                                                                                                                                                                                                                                                                                                
+  overrides false                                                                                                                                                                                                                                                                                                                                        
+  do {                                                                                                                                                                                                                                                                                                                                                   
+    if (field.widget.isInstanceOf(CheckBoxWidget) 
+         && !(field.attribute.type.isInstanceOf(BooleanType))) { 
+      error "checkbox can only be used with booleans" -> field.widget; 
+    } 
+    if (field.widget.isInstanceOf(ComboWidget) 
+         && !(field.attribute.type.isInstanceOf(StringType))) { 
+      error "combobox can only be used with strings" -> field.widget; 
+} } }
+\end{code}
+
+
+\phead{Generation} The defining characteristic of language referencing is that
+the two languages only reference each other, and the instance fragments are
+dependent, but homogeneous. No syntactic integration is necessary in this case.
+In this example, the generated code exhibits the same separation. From the form
+definition, we generate a Java class that uses Java Swing to build the form. It
+\emph{uses} the beans generated from the \ic{entities}. The classes are instantiated,
+and the setters are called. The generators are separate but they are
+\emph{dependent}, they share information. Specifically, the forms generator
+knows about the names of the generated entity classes, as well as the names of
+the setters and getters. This is implemented by defining a couple of
+behaviour methods on the \ct{Attribute} concept that are called from both
+generators (the colon represents the node cast operator and binds tightly; the
+code below casts the attribute's parent to \ct{Entity} and then accesses the
+\ct{name} property).
+
+
+\begin{code}
+concept behavior Attribute {                                                 
+  public string qname() {                                                    
+    this.parent : Entity.name + "." + this.name;                             
+  }                                                                          
+  public string setterName() {                                               
+    "set" + this.name.substring(0, 1).toUpperCase() + this.name.substring(1);
+  }                                                                          
+  public string getterName() {                                               
+    "get" + this.name.substring(0, 1).toUpperCase() + this.name.substring(1);
+  }                                                                          
+}                                                                            
+\end{code}
+
+
+The original \ic{entities} fragment is still \emph{sufficient} for the transformation
+that generates the Java Bean. The form fragment is not sufficient for generating
+the UI, because it needs the entity fragment. This is not surprising since
+\emph{dependent} fragments can never be sufficient for a transformation: the
+transitive closure of all dependencies has to be made available.
+

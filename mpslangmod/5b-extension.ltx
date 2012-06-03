@@ -1,0 +1,192 @@
+
+\subsection{Language Extension}
+
+
+\begin{figure}[t]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langExtension.png} 
+  \caption[labelInTOC]{Extension: $l_2$ extends $l_1$. It provides additional
+  concepts $B3$ and $B4$. $B3$ extends $A3$, so it can be used as a child of
+  $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
+  $l_2$ depends on $l_2$.}
+  \label{langExtension}  
+\end{center}  
+\end{figure}
+
+Language extension  enables \emph{heterogeneous} fragments
+with \emph{dependent} languages (\fig{langExtension}). A language $l_2$
+extending $l_1$ adds additional language concepts to those of $l_1$. We call $l_2$ the
+\emph{extending} language, and $l_1$ the \emph{base} language. To allow the new
+concepts to be used in the context provided by $l_1$, some of them extend
+concepts in $l_1$. So, while $l_1$ remains independent, $l_2$ becomes dependent
+on $l_1$ since some of the concepts in $l_2$ will inherit from concepts in
+$l_1$:
+\begin{align}
+\exists i \in \mathit{Inh(l_2)} \mid \mathit{i.sub} = l_2\; \wedge \; 
+	\mathit{i.super} = l_1
+\end{align}
+Consequently, a fragment $f$ contains language concepts from both $l_1$ and
+$l_2$:
+\begin{align}
+\forall e \in E_f \mid \mathit{lo(e)} = (l_1 \vee  l_2)
+\end{align}  
+In other words, $C_f \subseteq (C_{l_1} \cup C_{l_2})$, so $f$ is
+\emph{heterogeneous}. For heterogeneous fragments (3) does not
+hold anymore, since
+\begin{align}  
+\forall c \in \mathit{Cdn_f} \mid\; &\mathit{lo(co(c.parent))} = 
+             (l_1 \vee  l_2)\; \wedge \; \nonumber \\ 
+     &\mathit{lo(co(c.child))} = (l_1 \vee  l_2)
+\end{align}
+Note that copying a Language definition and changing it does not constitute a
+case of language extension, because the extension is not modular, it is
+invasive. Also, a native interfaces that supports calling one language from
+another, like calling C from Perl or Java, is not language extension;
+rather it is a form of language referencing. The fragments remain homogeneous.
+
+
+
+We will revisit language extension later for more meaningful examples
+of extension. For now, we extend the MPS base language with expression blocks
+and placeholders. These concepts make writing generators \emph{that generate
+base language code} much simpler. \fig{expressionBlock} shows an example. We use
+a screenshot instead of text because we use non-textual notations (the big
+brackets) and color. 
+
+
+\phead{Structure and Syntax} An expression block is a block that can be used
+where an \ct{Expression} is expected \cite{BravenboerVVV05}. The block can
+contain any number of statements; \ct{yield} can be used to "return values" from
+within the block. So, in some sense, an expression block is an "inlined method",
+or a closure that is defined and called directly. The optional name property of
+an expression block is then used as the method name. The generator of the
+expression block transforms it into just this structure:
+
+
+\begin{code}
+okButton.addActionListener(new ActionListener() {
+  public void actionPerformed(ActionEvent p0) {
+    Employee aEmployee = new Employee();
+    aEmployee.setName(retrieve_name(aEmployee, widget0));
+  }
+  public String retrieve_name(Employee aEmployee, JComponent widget0) {
+    String newValue = ((JTextField) widget0).getText();
+    return newValue;
+  }
+}
+\end{code}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.6]{figures/expressionBlock.png}
+  \caption[labelInTOC]{Expression blocks (in blue) are basically anonymous
+  inline methods. Upon transformation, a method is generated that contains the
+  block content, and the expression block is replaced with a call to this
+  method. Expression blocks are used mostly when implementing generators; this
+  screenshot shows a generator that uses an expression block.}
+  \label{expressionBlock} 
+\end{center}
+\end{figure}
+
+
+The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS' BaseLanguage.
+The expression block is used in places where the base language
+expects an \ct{Expression}. This is why a \ct{BlockExpression} extends
+\ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language, can
+now use \ct{BlockExpression}s in addition to the concepts provided by the base
+language. The fragments become \emph{heterogeneous}, because the languages are
+mixed.
+
+\begin{code}
+concept BlockExpression extends Expression implements INamedConcept
+  children:                                     
+    StatementList body 1 specializes: <none>      
+\end{code}
+          
+\phead{Type System} The type of the \ct{yield} statement is the type of the
+expression that is yielded, specified by 
+\ic{typeof(yield) :==: typeof(yield.result);} (the type of /verb+yield 1;+
+would be \ct{int}). Since the \ct{BlockExpression} is used as an expression, it
+has to have a type as well. Since it is not explicitly specified, the type of
+the \ct{BlockExpression} is the common super type of the types of all the
+yields. The following typing rule computes this type:
+
+\begin{code}
+var resultType ; 
+for (node<BlockExpressionYield> y : 
+        blockExpr.descendants<concept = BlockExpressionYield>) { 
+  resultType :==: typeof(y.result); 
+} 
+typeof(blockExpr) :==: resultType;
+\end{code}
+          
+          
+\phead{Generator} The generator for \ct{BlockExpression}s reduces the new 
+concept to pure base
+language: it performs assimilation. It transforms a heterogeneous fragment
+(using BaseLanguage and \ic{exprblocks}) to a homogeneous fragment (using only
+BaseLanguage). The first step is the creation of the additional method 
+for the block expression (\fig{expressionBlockGenerator1}).
+
+
+
+% > 5.2 #Generator (Pg 12): AFAIK we have "extract method" instruction in
+% > code generator. This was designed exactly for use case you are trying
+% > to cover using weavings.
+
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.5]{figures/expressionBlockGenerator1.png}
+  \caption[labelInTOC]{We use a weaving rule to create an additional method for
+  this \todo{what is this?}. A weaving rule processes an input element
+  (\ct{BlockExpression}) by creating another node in a different place. The context function defines this
+  other place. In this case, it simply gets the class in which we have defined
+  the block expression.}
+  \label{expressionBlockGenerator1} 
+\end{center}
+\end{figure}
+ 
+
+The template shown in \fig{expressionBlockGenerator2} shows the creation of the
+method. It assigns a mapping label to the created method. The mapping label
+creates a mapping between the \ct{BlockExpression} and the created method. We
+will use this label to refer to this generated method when we generate the
+method call that replaces the \ct{BlockExpression}
+(\fig{expressionBlockGenerator3}).
+
+
+\begin{figure}[htp] 
+\begin{center}
+  \includegraphics[scale=0.5]{figures/expressionBlockGenerator2.png}
+  \caption[labelInTOC]{The generator creates a method from the block
+  expression. It uses COPY\_SRC macros to replace the \ct{string} type with the
+  computed return type of the block expression, inserts a computed name, adds a
+  parameter for each referenced variable outside the block, and inserts all the
+  statements from the block expression into the body of the method. The
+  \ct{blockExprToMethod} mapping label is used later in the method call.}
+  \label{expressionBlockGenerator2} 
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
+  \caption[labelInTOC]{Here we generate the call to the previously generated
+  method. We use the mapping label \ct{blockExprToMethod} to refer to the
+  correct method (not shown; happens inside the reference macro). We pass in
+  the environment variables as actual arguments.}
+  \label{expressionBlockGenerator3} 
+\end{center}
+\end{figure}
+
+A second concept introduced by the \ic{exprblocks} language is the
+\ct{PlaceholderStatement}. It extends \ct{Statement} so it can be used
+inside method bodies. It is used to mark locations at which subsequent
+generators want to add additional code. These subsequent generators will use a
+reduction rule to replace the placeholder with whatever they want to put at this
+location. It is a means to building extensible generators, as we will see later.
+

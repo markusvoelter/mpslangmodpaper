@@ -1,0 +1,274 @@
+
+\subsection{Language Embedding}
+
+Language embedding enables \emph{heterogeneous} fragments with
+\emph{independent} languages (\fig{langReuse}, but with a containment link
+between $B5$ and $A3$). It is similar to reuse in that there are two independent
+languages $l_1$ and $l_2$, but instead of establishing references
+between two homogeneous fragments, we now embed instances of concepts from $l_2$
+in a fragment $f$ expressed with $l_1$, so
+\begin{align}
+\forall c \in \mathit{Cdn_f} \mid  \;
+	&\mathit{lo(co(c.parent))} = l_1 \; \wedge \nonumber \\
+	&\mathit{lo(co(c.child))} = (l_1 \vee l_2)
+\end{align}
+Unlike language extension, where $l_2$ depends on $l_1$ because concepts in
+$l_2$ extends concepts in $l_1$, there is no such dependency in this case. Both
+languages are independent. We call $l_2$ the \emph{embedded} language and $l_1$
+the \emph{host} language. Again, an adapter language $l_A$ that extends $l_1$
+can be used to achieve this, where
+\begin{align}
+\exists c \in \mathit{Cdn_{l_A}} \mid \mathit{lo(c.parent)} = 
+	l_A \wedge \mathit{lo(c.child)} = l_1
+\end{align}
+
+\phead{Structure and Syntax} \ic{uispec\_validation} extends \ic{uispec}, which is a
+sublanguage of the validation language. It supports writing code such as the
+following in the UI form specifications. Writing the expressions is supported by
+embedding a reusable expressions language. \fig{uival} shows the structure. To
+be able to use the expressions, the user has to instantiate a
+\ct{ValidatedField} instead of a \ct{Field}. \ct{ValidatedField} is also defined
+in \ic{uispec\_validation} and is a subconcept of \ct{Field}.
+
+
+\begin{code}
+form CompanyStructure                                                                                                                                  
+  uses Department                                                                                                                                      
+  uses Employee                                                                                                                                        
+                                                                                                                                                       
+  field Name: textfield(30) -> Employee.name validate lengthOf(Employee.name) < 30                                                                     
+  field Role: combobox(Boss, TeamMember) -> Employee.role                                                                                              
+  field Freelancer: checkbox -> Employee.freelancer 
+        validate if (isSet(Employee.worksAt)) Employee.freelancer == true else
+                    Employee.freelancer == false 
+  field Office: textfield(20) -> Department.description                                                                                                
+\end{code}
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.50]{figures/uival.png}
+  \caption[labelInTOC]{The \ic{uispec\_validation} language defines a subtype of
+  \ct{uispec.Field} that contains an \ct{Expression} from a reusable expression
+  language. The language also defines a couple of additional expressions,
+  specifically the \ct{AttributeRefExpr}, which can be used to refer to
+  attributes of entities.}
+  \label{uival}  
+\end{center}
+\end{figure}
+
+To support the migration of existing models that use \ct{Field} instances, we
+provide an intention: the user can press Alt-Enter on a \ct{Field} and select
+"Make Validated Field". This transforms an existing \ct{Field} into a
+\ct{ValidatedField}, so that validation expressions can be entered. The core of
+the intention is the following script, which performs the actual transformation:
+
+\begin{code}
+execute(editorContext, node)->void { 
+    node<ValidatedField> vf = new node<ValidatedField>(); 
+    vf.widget = node.widget; 
+    vf.attribute = node.attribute; 
+    vf.label = node.label; 
+    node.replace with(vf); 
+}
+\end{code}
+
+
+The \ic{uispec\_validation} language extends the uispec language. We also extend the
+existing, reusable expressions language, so we can use \ct{Expressions} in the
+definition of our language. \ct{ValidatedField} has a property \ct{expr} that
+contains the actual expression. As a consequence of polymorphism, we can use any
+existing subconcept of \ct{Expression} here. So without doing anything else, we
+could write \ic{20 + 40 > 10}, since integer literals and the plus operator
+are defined as part of the composed expressions language. However, to write
+anything useful, we have to be able to reference entity attributes from within
+expressions. To achieve this, we create the \ct{AttributeRefExpr} as shown in
+\fig{uival}. We also create \ct{LengthOf} and \ct{IsSetExpression} as further
+examples of how to adapt an embedded language to its new context ---
+i.e. the \ic{uispec} and \ic{entities} languages.
+
+
+The \ct{AttributeRefExpr} may only reference those attributes of those
+entities that are used in the form within which we define the validation
+expression. The following is the code for the search scope:
+
+\begin{code}
+(model, scope, referenceNode, linkTarget, enclosingNode)
+                             ->join(ISearchScope | sequence<node< >>) { 
+  nlist<Attribute> res = new nlist<Attribute>; 
+  node<Form> form = enclosingNode.ancestor<concept = Form, +>; 
+  for (node<EntityReference> er : form.usedEntities) { 
+    res.addAll(er.entity.attributes); 
+  } 
+  res; 
+}
+\end{code}
+
+Notice that the actual syntactic embedding of the expressions in the
+\ic{uispec\_validation} language is not a problem because of how projectional editors
+work. We simply define \ct{Expression} to be a child of the \ct{ValidatedField}.
+
+
+\phead{Type System} The general challenge here is that primitive types such as
+\ct{int} and \ct{string} are defined in the \ic{entities} language and in the
+reusable expression language. Although they have the same names, they are not
+the same types. The two sets of types must be mapped. Here are a couple of
+examples. The type of the \ct{IsSetExpression} is by definition
+\ct{expressions.BooleanType}. The type of the \ct{LengthOf}, which takes an
+\ct{AttrRefExpression} as its argument, is \ct{expressions.IntType}.
+The type of an attribute reference is the type of the attribute's \ct{type} property, as in
+\ic{typeof(are) :==: typeof(are.attr.type);}. However, consider now the
+following code:
+
+\begin{code}
+  field Freelancer: checkbox -> Employee.freelancer 
+        validate if (isSet(Employee.worksAt)) Employee.freelancer == true else
+                    Employee.freelancer == false 
+\end{code}
+
+This code states that if the \ct{worksAt} attribute of an employee is set, then
+its \ct{freelancer} attribute must be \ct{true} else it must be \ct{false}. It
+uses the equals operator from the expressions language. However, that operator
+expects two \ct{expressions.BooleanType} arguments, but the type of the
+\ct{Employee.freelancer} is \ct{entities.BooleanType}. In effect, we have to
+override the typing rules for the expressions language's equals operator. Here
+is how we do it, using \ct{Equals} as an example.
+
+In the expressions language, we define overloaded operation rules. We specify
+the resulting type for an \ct{EqualsExpression} depending on its argument types.
+Below is the code in the expressions language that defines the resulting type to
+be \ct{boolean} if the two arguments are \ct{Equallable}:
+
+\begin{code}
+operation concepts: EqualsExpression                                                     
+  left operand type: new node<Equallable>() 
+  right operand type: new node<Equallable>() 
+operation type:                                                                          
+  (operation, leftOperandType, rightOperandType)->node< > { 
+    <boolean>; 
+  }               
+\end{code}
+
+In addition to this code, we have to specify that \ct{expressions.BooleanType}
+is a subtype of \ct{Equallable}, so this rule applies if we use equals with two 
+\ct{expressions.BooleanType} arguments. We have to tie this overloaded operation
+specification into a regular type inference rule.
+
+\begin{code}
+rule typeof_BinaryExpression {                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+  applicable for concept = BinaryExpression as binaryExpression                                                                                                                                                                                                                                                                                                                                                                                                                  
+  overrides false                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+  do {                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    when concrete (typeof(binaryExpression.left) as left) { 
+      when concrete (typeof(binaryExpression.right) as right) { 
+        node<> opType = operation type( binaryExpression , left , right ); 
+          if (opType != null) { 
+            typeof(binaryExpression) :==: opType; 
+          } else { 
+            error "operator " + binaryExpression.concept.name + 
+                  " cannot be applied to these operand types " + 
+                  left.concept.name + "/" + right.concept.name 
+               -> binaryExpression; } 
+}  }  }  } 
+\end{code}
+
+To override these typing rules to work with \ct{entities.BooleanType}, we simply
+provider another overloaded operation specification in the \ic{uispec\_validation}
+language:
+
+\begin{code}
+operation concepts: EqualsExpression                                       
+  one operand type: <boolean> // this is the entities.BooleanType!     
+operation type:                                                            
+  (operation, leftOperandType, rightOperandType)->node< > { 
+    <boolean>;  // this is the expressions.BooleanType 
+  } 
+\end{code}
+
+
+\phead{Generator} The generator has to create BaseLanguage code, which is then
+subsequently transformed into Java text. To deal with the transformation of the
+expressions language, we can do one of two things:
+
+% > - create own text gen (just like it's done for BaseLanguage
+% > constructions). This way of generating code looks more straight
+% > forward then "wrapping expressions into some kind of
+% > TextHolderStatement".
+% > - reduce expressions to a BaseLanguage constructions (the second
+% > choice proposed in paper).
+% >
+% > I think TextHolderStatement can be mentioned here as an option, but
+% > MPS textgen looks like a native way to produce textual output from the
+% > model.
+
+
+\begin{itemize}
+  \item We can use the expression's language existing to-text generator
+  and wrap the expressions in some kind of \ct{TextHolderStatement}. Remember
+  that we cannot simply embed text in BaseLanguage, since that would not work
+  structurally. A wrapper is necessary.
+  \item Alternatively, we can write a (reusable) transformation from expressions
+  code to BaseLanguage code; these rules would be used as part of the
+  transformation of \ic{uispec} and \ic{uispec\_validation} code to BaseLanguage.
+\end{itemize}
+
+Since many DSLs will map code to BaseLangauge, it is worth the effort to
+write a reusable generator from \ic{uispec\_validation} expressions to BaseLanguage
+expressions. We choose this second alternative. The generated Java code is
+multi-sourced, since it is generated by two independent code generators.
+
+
+Expression constructs from the reusable expr language and those of BaseLanguage
+are almost identical, so this generator is trivial. We create a new language
+project \ic{de.voelter.mps.expressions.blgen} and add reduction rules.
+\fig{expr2blgen} shows some of these reduction rules.
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.50]{figures/expr2blgen.png}
+  \caption[labelInTOC]{A number of reduction rules that map the reusable
+  expression language to BaseLanguage (Java). Since the languages are very
+  similar, the mapping is trivial. For example, a \ct{PlusExpression} is mapped
+  to a + in Java, the left and right arguments are reduced recursively through
+  the COPY\_SRC macro.}
+  \label{expr2blgen}  
+\end{center}
+\end{figure} 
+
+In addition to these, we also need reduction rules for those new expressions
+that we have added specifically in the \ic{uispec\_validation} language
+(\ct{AttrRefExpression, isSetExpression, LengthOf}). Those are defined in
+\ic{uispec\_validation}. As an example, \fig{reductionAttributeRef} shows the rule
+for handling the \ct{AttrRefExpression}. The validation code itself is
+"injected" into the UI form via the same placeholder reduction as in the case of
+the \ic{rbac\_entities} language.
+
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=0.50]{figures/reductionAttributeRef.png}
+  \caption[labelInTOC]{References to entity attributes are mapped to a call to
+  their getter method. The tempalte fragment (inside the TF) uses two reference
+  macros (->\$) to "rewire" the object reference to the Java bean instance, and
+  the \ct{toString} method call to a call to the getter.}
+  \label{reductionAttributeRef}  
+\end{center}
+\end{figure}
+ 
+Language extension can also be used to prohibit the use of certain concepts of
+the base language in the sublanguage, at least in certain contexts. As a simple
+(but admittedly relatively useless) example, we restrict the use of certain
+operators provided by the reusable expression language inside validation rules
+in \ic{uispec\_validation}. This can be achieved by implementing a 
+\ct{can be ancestor} constraint on \ct{ValidatedField}.
+
+\begin{code}
+can be ancestor:
+  (operationContext, scope, node, childConcept)->boolean { 
+    return !(childConcept == concept/GreateEqualsExpression/ || 
+             childConcept == concept/LessEqualsExpression/); 
+  }
+\end{code}
+
+

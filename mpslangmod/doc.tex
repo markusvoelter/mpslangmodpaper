@@ -69,7 +69,7 @@ grestore
 \newcommand{\mynote}[2]{
     {\bfseries\sffamily\scriptsize\hilight{#1}}
     {\small$\blacktriangleright$\hilight{#2}$\blacktriangleleft$}}
-\newcommand\todo[1]{\mynote{TODO}{#1}} 
+\newcommand\todo[1]{} 
 \newcommand{\fig}[1]{Fig.\;\ref{#1}}
 \newcommand{\sect}[1]{Section\;\ref{#1}}
 
@@ -79,6 +79,7 @@ grestore
 \newcommand{\ic}[1]{\changefont{cmtt}{m}{n}{#1}\normalfont}  % inline code
 
 
+\newcommand{\lmrc}{language and IDE modularization and composition}
 
 \usepackage{verbatim}
 \newenvironment{code}
@@ -104,7 +105,7 @@ grestore
 %
 \begin{document}
 
-\title{Language and IDE Modularization, Extension and Composition with MPS}
+\title{Language and IDE Modularization and Composition with MPS}
 
 %\titlerunning{Short form of title}        % if too long for running head
 
@@ -126,11 +127,11 @@ grestore
 \input{abstract.ltx}
 \input{1-intro.ltx}
 \input{2-howMPSWorks.ltx}
-\input{3-related.ltx}
 \input{4-implementingADSL.ltx}
-\input{5-modularization.ltx}
-\input{6-eval.ltx}
-\input{7-summary.ltx}
+\input{5_-modularization.ltx}
+\input{6-related.ltx}
+\input{7-eval.ltx}
+\input{8-summary.ltx}
 
 
 
