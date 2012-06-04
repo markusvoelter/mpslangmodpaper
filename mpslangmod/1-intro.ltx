@@ -47,9 +47,9 @@ financial calculations is infeasible. A more systematic approach for \lmrc is
 required. Such an approach has to address the following concerns:
 
 \begin{itemize}
-  \item The concrete and the abstract syntax have to be combined. Depending on
-  the kind of composition, this requires the embedding of one syntax into
-  another one. This, in turn, requires modular grammars \todo{ref}.
+  \item The concrete and the abstract syntax of the two languages have to be
+  composed. This may require the embedding of one syntax into another one.
+  This, in turn, requires modular grammars \todo{ref}.
   \item The static semantics (i.e., the constraints and the type system) have to
   be integrated. For example, in the case of language extension, new types have
   to be "made valid" for existing operators.
@@ -60,16 +60,16 @@ required. Such an approach has to address the following concerns:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
-
 \subsection{Contribution and Structure of the paper}
 
-
-The contribution of this paper is a systematic approach for characterizing
-modularized languages and their IDEs, as well as an example implementation based
-on MPS. We identify four different composition approaches: referencing,
-extension, reuse and embedding. For each of these approaches we provide a
-concise description and a formal definition. We then show how to implement these
-four approaches with JetBrains MPS.
+Language composition is the integration of language modules regarding syntax,
+static semantics, execution semantics and the IDE. The contribution of this
+paper is a systematic approach for characterizing a set of composition
+approaches, as well as an example implementation based on MPS. We identify four
+different composition approaches: referencing, extension, reuse and embedding.
+For each of these approaches we provide a concise description and a formal
+definition. We then show how to implement these four approaches with JetBrains
+MPS.
 
 The paper is structured as follows. In \sect{terminology} we define a set of
 terms and concepts used in this paper. \sect{typesOfMod} outlines the various
@@ -197,23 +197,31 @@ language:
 
 In this paper we consider the semantics of a language $l_1$ to be defined via a
 \emph{transformation} that maps a program expressed in $l_1$ to a program in
-another language $l_2$ which has the same \emph{observable behavior}. The
+another language $l_2$ that has the same \emph{observable behavior}. The
 observable behavior can be determined in various ways, for example using a
-sufficiently large set of test cases. A detailed discussion of alternative ways
-to define language semantics is beyond the scope of this paper.
+sufficiently large set of test cases. A discussion of alternative ways
+to define language semantics is beyond the scope of this paper. In particular,
+we also do not discuss interpreters as an alternative to transformations.
+However, in our experience, transformations are by far the most used approach
+for defining semantics, so the focus on transformations is not a significant
+limitation in practice.
 
 The paper emphasizes \emph{IDE} modularization and composition in addition to
 \emph{language} modularization and composition. In the context of this paper,
 when referring to IDE services, we mean syntax highlighting, code completion and
 static error checking. Other concerns are relevant in IDEs, including
 refactoring, quick fixes, support for testing, debugging and version control
-integration. While these are supported by MPS, they are not creating
-automatically from a language definition. \todo{discuss debugger stuff}
+integration. While all of these are supported by MPS in a modular and
+composable way, we do not discuss those aspects in this paper to keep the paper
+reasonable is length. \todo{discuss debugger stuff}
 
 
-\subsection{Types of Modularization}
+\subsection{Classification of Composition Approaches}
 \label{typesOfMod}
 
+
+\todo{Check all figures for: size (not in the margin), size (big enough) and
+non-use of essential color (in the captions!)}
 
 In this paper we have identify the following four modularization and composition
 approaches: referencing, extension, reuse and embedding. Below is an intuitive
@@ -221,37 +229,36 @@ description of each approach; stricter definitions follow in the rest of the
 paper.
 
 \begin{description}
-  \item[Referencing] If a domain is structured along different concerns, and
-these concerns should be implemented using separate viewpoints, then it is often
-useful to implement every concern as a separate DSL. When these DSL are
-developed from scratch, as a group, then dependencies between the concerns can
-be materialized as dependencies between the languages and the language concepts.
-A language \ic{B} may depend on language \ic{A} because a concept in language \ic{B} \emph{references}
-a concept in language \ic{A}. The fragments remain separate, only
-cross-references connect the two.
+  \item[Referencing] refers to the case where two languages are
+  composed by a language A referencing concepts defined in language B. The
+  programs expressed in A and B are kept in separate homogeneous fragments
+  (files), and only name-based references connect the programs. The referencing 
+  language has a direct dependency on the referenced language. An example
+  for this case is a language that defines user interface forms for data
+  structures defined by another language. The user interface language references
+  the data structures defined in a separate program.
+  
+  \item[Extension] also allows a dependency of the extending language
+  to the extended languages (also called base language). However, in this case
+  the code written in the two languages resides in a single, heterogeneous
+  fragments, i.e. syntactic composition is required. An example would be the
+  extension of Java or C with new types, operators or literals.
+  
+  \item[Reuse] is similar to referencing in that the respective programs
+  reside in separate fragments and only name-based references connect the
+  programs. However, in contrast to referencing, no direct dependencies between
+  the languages are allowed. An example would be a persistence mapping language
+  that can be used together with \emph{different} data structure definition
+  languages. To make this possible, it cannot depend on any particular data
+  definition language.
 
-  \item[Extension] A language \ic{B} extends another language \ic{A} if \ic{B} contains
-additional language concepts. This means that for programs written in \ic{B}, all
-concepts from \ic{A} are available, plus those defined in \ic{B}. Concepts in \ic{B} may
-\emph{specialize} concepts in \ic{A}. This means that in \ic{B} programs, the specialized concept
-can be used wherever \ic{A} programs expect only the more general one, effectively
-adapting the Liskov substitution principle to language concepts. An extended
-language may also restrict the base language, so certain concepts are not
-available in the sublanguage \todo{discuss how restriction is a form of
-extension}.
-
-  \item[Reuse] Reuse describes the case where a language has been developed
-explicitly to be used in contexts \emph{not known} at the time of development of
-that language (this is in contrast to referencing). So the language cannot have
-dependencies to other languages. As with referencing, the fragments of the two
-languages remain separate. To make a reusable language fit in with a new
-context, the reusable language often has to be extended so it can reference
-concepts from languages in that context.
-
-  \item[Embedding] Embedding is a special case of reuse, where the reused
-language is \emph{syntactically embedded} into languages from the context (i.e.
-the resulting fragment is heterogeneous). As in the case of language reuse, the
-composed language may have to be extended to "plug it into the context".
+  \item[Embedding] combines the syntactic integration introduced by
+  extension with not having dependencies introduced by reuse. So independent
+  languages can still be used in the same heterogeneour fragment. An examples
+  includes the embedding of a reusable expression language into a DLS. Since
+  neither of the two composed languages have direct dependencies, the same
+  expression language can be embedded into \emph{different} DSLs, and a specific DSL
+  could integrate \emph{different} expression languages.
 
 \end{description}
 

@@ -18,57 +18,243 @@ paper is author’s limited knowledge of related work already done in this area.
   between “composition” mentioned in the title and “combination” mentioned in Section 1.3? Anyway, the whole paper 
   is fuzzy and so it is the title.
   
--> I have changed the title to "Language and IDE Modularization and Composition with MPS". 
-  This way, none of the four techniques is specifically mentioned in the title.
+  -> I have changed the title to "Language and IDE Modularization and Composition with MPS". 
+    This way, none of the four techniques is specifically mentioned in the title.
 
--> The paper does deal with IDE modularization. Each language module comes with its own
-   "piece of IDE", and after language composition, the IDE provides support for the 
-   composed languages.
+  -> The paper does deal with IDE modularization. Each language module comes with its own
+     "piece of IDE", and after language composition, the IDE provides support for the 
+     composed languages.
 
-- The paper is about language modularization, extension and composition. But, author didn’t provide clear definitions of these terms. Moreover, the paper is full of vague and imprecise statements. For example, page 2: “The concrete and the abstract syntax have to be combined”. It is unclear to me what author’s intention is here. Either, a language is designed starting with abstract or concrete syntax (after domain analysis where commonalities and variabilities are discovered) and a mapping from abstract syntax to concrete syntax is needed or vice verse. While combining concrete and abstract syntax I don’t think some meaningful artifact can be obtained. Is this abstract and concrete syntax combining needed when developing a single language or in language composition?
+- The paper is about language modularization, extension and composition. But, author didn’t provide 
+  clear definitions of these terms. 
+  
+  -> I have provided these definitions now.   
+  
+  Moreover, the paper is full of vague and imprecise statements. 
+  For example, page 2: “The concrete and the abstract syntax have to be combined”. It is unclear to me 
+  what author’s intention is here. Either, a language is designed starting with abstract or concrete 
+  syntax (after domain analysis where commonalities and variabilities are discovered) and a mapping 
+  from abstract syntax to concrete syntax is needed or vice verse. While combining concrete and abstract 
+  syntax I don’t think some meaningful artifact can be obtained. Is this abstract and concrete syntax 
+  combining needed when developing a single language or in language composition?
+  
+  -> I think you're misunderstanding the sentence (an I have reformulated it to avoid such mis-
+    understandings). I was referring to the combination of each the concrete and abstract syntax of
+    two languages that are composed.
 
-- Combining languages means to achieve correct combination on syntax and semantic level. Semantic level can be further divided in static and dynamic semantics. But, author’s view is very limited since only type system is discussed on static semantic level, and only code generation is discussed on dynamic semantic level (e.g., “mixing the code generated from the composed languages”). This limitation should be clearly visible and explicitly mentioned.
+- Combining languages means to achieve correct combination on syntax and semantic level. Semantic level
+  can be further divided in static and dynamic semantics. But, author’s view is very limited since only 
+  type system is discussed on static semantic level, and only code generation is discussed on dynamic 
+  semantic level (e.g., “mixing the code generated from the composed languages”). This limitation should 
+  be clearly visible and explicitly mentioned.
+  
+  -> I have made this limitation explicit at the end of the subsection that defines the
+     terminology.  
 
-- Similarly, combining IDE is only discussed for editors (code completion, syntax coloring). But, not for other indispensable language-based tools like debugger, test engine, profile etc.
+- Similarly, combining IDE is only discussed for editors (code completion, syntax coloring). 
+  But, not for other indispensable language-based tools like debugger, test engine, profile etc.
+  
+  -> I have also made this limitation explicit at the end of the subsection that defines the
+     terminology.   
 
-- The author wrote on page 2: “With JetBrains MPS two of these challenges - composability of concrete syntax and modular IDEs - are a completely solved problem”. Since language composability is not well defined in this paper it is hard to see if above claim is really true. Language composition has many forms and is hard to see if all of them are supported by MPS. On the other hand, IDE is not just an editor. I don’t think debugging is already solved for different forms of language composition.
+- The author wrote on page 2: “With JetBrains MPS two of these challenges - composability of 
+  concrete syntax and modular IDEs - are a completely solved problem”. Since language composability 
+  is not well defined in this paper it is hard to see if above claim is really true. Language 
+  composition has many forms and is hard to see if all of them are supported by MPS. On the 
+  other hand, IDE is not just an editor. I don’t think debugging is already solved for different 
+  forms of language composition.
+  
+  -> I have defined more clearly what I mean by composability throughout the paper.
+  -> I have removed this claim from the beginning and moved it to the discussion at the end
+  -> I have also made this statement a bit more differentiated and I explain better which
+     aspects are solved, and which are not.
+  -> In particular, MPS does support integrated debugging for many of the composition
+     approaches. We do have a debugger for an extensible C language. It is described in detail
+     in \todo
 
-- Section 1.3 discusses about type of modularization. Title is misleading again since only language modularization is discussed. More importantly, I don’t think these are only types of language modularization. It is much closer to types of language composition. Even in the last case I don’t think that all types were covered (e.g., combination of mentioned approaches or reusing just a part of a language - piggyback). Since author didn’t define language modularization and composition this section is very fishy. Different types, extension, combination, reuse and embedding, are not well explained and many unanswered questions appear. Is not “embedding” just a special case of “extension”? But, in the paper it is mentioned that “embedding is just a special case of “reuse”. Or, in the case of combination it is written that “A language B may depend on language A because a concept in language B references a concept in language A”. Is this not true also for “e
-xtension”? Yet another example, “reuse” is defined as “Reuse describes the case where a language has been developed explicitly to be used in contexts not known at the time of development of that language (this is in contrast to combination)” and “embedding” as “If the host language is designed with an awareness of the composed language …”. In other words, “reuse” requires context non-awareness, while “embedding” context awareness. How “embedding” then can be a special case of “reuse”? On page 6 author starts talking about “language assimilation” which is not mentioned as a type of language modularity (composition). Hence, the obvious question remain unanswered is to which category “assimilation” is classified.  All these concepts are imprecisely defined and very vague. But, this section is crucial for the rest of the paper! Moreover, the structure of this section is not in line with introductory statement: “we distinguish languag!
- e combination, extension, reuse and embedding”. Descriptions in this section should be in the same order.
+- Section 1.3 discusses about type of modularization. Title is misleading again since only 
+  language modularization is discussed. More importantly, I don’t think these are only types 
+  of language modularization. It is much closer to types of language composition. 
+  
+  -> Right. Bad title. Changed.
+  
+  Even in the last case I don’t think that all types were covered (e.g., combination of 
+  mentioned approaches or reusing just a part of a language - piggyback). Since author 
+  didn’t define language modularization and composition this section is very fishy. 
+  Different types, extension, combination, reuse and embedding, are not well explained 
+  and many unanswered questions appear. Is not “embedding” just a special case of “extension”? 
+  
+  -> I think I have made the distinction clearer by discussing the dependencies and 
+     syntactic integration issues at the end of the Classification section. Embedding
+     is different from Extension in that the embedded language must not have any direct
+     dependencies on the language it is embedded in. For extension, this is different since
+     such a dependency is allowed.
+  
+  
+  But, in the paper it is mentioned that “embedding is just a special case of “reuse”. 
+  
+  -> yes, that's bad wording. 
+  
+  Or, in the case of combination it is written that “A language B may depend on language 
+  A because a concept in language B references a concept in language A”. Is this not true 
+  also for “extension”? Yet another example, “reuse” is defined as “Reuse describes the 
+  case where a language has been developed explicitly to be used in contexts not known at 
+  the time of development of that language (this is in contrast to combination)” and 
+  “embedding” as “If the host language is designed with an awareness of the composed 
+  language …”. In other words, “reuse” requires context non-awareness, while “embedding” 
+  context awareness. How “embedding” then can be a special case of “reuse”? 
+  
+  -> ... in the sense that it requires syntactic composition.
+  
+  -> I have reformulated these four paragraphs completely, emphasizing the
+     classification scheme based on dependencies and fragment structure.
+  
+  On page 6 author starts talking about “language assimilation” which is not mentioned 
+  as a type of language modularity (composition). Hence, the obvious question remain 
+  unanswered is to which category “assimilation” is classified.  
+    
+  -> assimilation only addresses the semantic integration in the sense that it
+     "transforms down" to the base language. I have added half a sentence to
+     clarify this.
+  
+  All these concepts are imprecisely defined and very vague. But, this section is crucial 
+  for the rest of the paper! 
+  
+  -> this is why I have provided a much more precise definition now, and also use a couple
+     of formulae in the rest of the paper to nail the differences down.
+  
+- The author should cite relevant work when particular concept, tool or system is mentioned. 
+  For example, I’m missing citation when Misra C, Lego mindstorms, Osek operating system are 
+  referred in the text. And there are many other examples.
+  
+  -> I have gone through the paper and added all these references. I had them
+     ready for my MoDELS 2010 paper, but decided not to put them into this paper
+     (cf. the "tutorial vs. academic" discussion in the cover letter)
 
-- The author should cite relevant work when particular concept, tool or system is mentioned. For example, I’m missing citation when Misra C, Lego mindstorms, Osek operating system are referred in the text. And there are many other examples.
+- Related work section is very weak. Seems that author are not aware of many similar 
+  systems (e.g., AbleJ, Cedalion, JastAdd, LISA, Modular denotational semantics, 
+  Polyglot, Tattoo, ...) 
+  
+  -> See the "tutorial vs. academic" discussion in the cover letter. I actually
+     do know many of these systems, I have discussed them in my recent Wavefront
+     paper. 
+  
+  where language composition on semantic level is possible. 
+  In many cases, only language composition on syntactic level is discussed 
+  (e.g., “By using scannerless parsers it is possible to combine different languages, ...”), 
+  It is mentioned on page 33: “The challenge of grammar composition is not an issue 
+  in MPS at all, since no grammars and parsers are used”. But, language composition is not 
+  just grammar composition! Semantics is much more important. 
+  
+  -> I don't agree to the "more important". Both are important, and many systems 
+    don't support the syntactic part, so the discussion of the semantics doesn't even
+    show up.  
+  
+  or it is mentioned that language combination in Xtext is easily possible. 
+  But, it is not clear if only on syntactic level or on semantic level, too.
+  
+  -> I have gone through all the related work systems and made sure I discuss 
+     not just syntax. 
+   
+  Description of systems which enable composition of languages on semantic level 
+  is very weak. For example, author should compare their work with
 
-- Related work section is very weak. Seems that author are not aware of many similar systems (e.g., AbleJ, Cedalion, JastAdd, LISA, Modular denotational semantics, Polyglot, Tattoo, ...) where language composition on semantic level is possible. In many cases, only language composition on syntactic level is discussed (e.g., “By using scannerless parsers it is possible to combine different languages, ...”), or it is mentioned that language combination in Xtext is easily possible. But, it is not clear if only on syntactic level or on semantic level, too. It is mentioned on page 33: “The challenge of grammar composition is not an issue in MPS at all, since no grammars and parsers are used”. But, language composition is not just grammar composition! Semantics is much more important. Description of systems which enable composition of languages on semantic level is very weak. For example, author should compare their work with
+    MERNIK, Marjan, ZUMER, Viljem. Incremental programming language development. 
+    Comput. syst. struct., 2005, Vol. 31, pp. 1-16
 
-MERNIK, Marjan, ZUMER, Viljem. Incremental programming language development. Comput. syst. struct., 2005, Vol. 31, pp. 1-16
+  -> todo
 
+- In all examples Language’s semantics is described with Java code. Hence, the 
+  meaning of language constructs is described with generated code and only 
+  translational semantics can be used. This limitation should be clearly 
+  emphasized in the paper.
+  
+  -> I have made this limitation (or rather, decision) clear in the section on 
+     terminology. However, that does not mean that only translational semantics 
+     *can* be used. I could have done the same with an interpreter or integrated
+     other semantics formalisms. However, in practice, using transformation to
+     a language with known semantics is the most practicable and widely used approach.
 
-- In all examples Language’s semantics is described with Java code. Hence, the meaning of language constructs is described with generated code and only translational semantics can be used. This limitation should be clearly emphasized in the paper.
+- Most of figures are too small and hard to read. Moreover, is this paper, if accepted, 
+  be printed in color? If not, some statements (e.g., “Expression blocks (in blue) 
+  are basically ...” will be odd.
+  
+  -> I have checked all figures for readability.
 
-- Most of figures are too small and hard to read. Moreover, is this paper, if accepted, be printed in color? If not, some statements (e.g., “Expression blocks (in blue) are basically ...” will be odd.
+- In Section 5.1 language combination is discussed. What if in both combined languages two 
+  concepts have the same name? That means that in both languages there is a same “non-terminal” 
+  which doesn’t represent the same concept. Seems that author assumed that by combining languages 
+  the same name means the same concept (non-terminal). Such an assumption may or may not be valid.
 
-- In Section 5.1 language combination is discussed. What if in both combined languages two concepts have the same name? That means that in both languages there is a same “non-terminal” which doesn’t represent the same concept. Seems that author assumed that by combining languages the same name means the same concept (non-terminal). Such an assumption may or may not be valid.
+  -> Combination (now called Referencing) does not support syntactic composoition. The referencing
+     language only uses simple or dotted names to establish the reference. So there is no problem
+     with same-named non-terminals. The issue does show up in extension and embedding. I discuss
+     the problem there.
 
-- I don’t understand the following statement on page 18: “(the type of /verb+yield 1;+ would be int)”. Please rephrase.
+- I don’t understand the following statement on page 18: “(the type of /verb+yield 1;+ would be int)”. 
+  Please rephrase.
+  
+  -> done.
+  
+  The type of the yield statement is the type of the
+  expression that is yield, specified by 
+  typeof(yield) :==: typeof(yield.result); (so the type of yield 1;
+  would be int, because the type of 1 is int). 
+  
+  
 
-- On page 23 the author wrote: “Assuming this would work in MPS, this would be the most elegant solution. But it does not”. Please include explanation why it is not working.
+- On page 23 the author wrote: “Assuming this would work in MPS, this would be the 
+  most elegant solution. But it does not”. Please include explanation why it is not working.
+
+  -> done:
+  However, weaving generators in MPS is not supported, so we cannot use this approach.
 
 - It is not clear from description on page 24 how generator priorities can be set.
 
-- On page 33 the author wrote: “The concrete syntax for elements of the base language cannot be overridden in the sublanguage, although this is supposed to change”. However, this feature was supported by LISA more than 10 years ago.
+  -> In a dialog box. I have rephrased it in the following way:
+  
+     To make this work we have to specify in the generator priorities that this 
+     generator runs strictly after the entities generator (since the entities generator 
+     has to create the placeholder) and striclty before the BaseLanguage generator 
+     (which transforms BaseLanguage code into Java text for compilation). 
+     Priorities specify a partial ordering (cf. the strictly before and strictly after) 
+     on generators and can be set in the generator priorities dialog (not shown). 
+     Note that we specifying the priorities does not introduce additional 
+     language dependencies, modularity is retained.
 
-- On page 34 the author wrote: “In essence, the suggested approach is a bit like object orientation (components == classes, facets == methods), with a rich advise framework (as in AOP)”. But, this approach was exactly already taken in LISA where languages act as classes. The lexical, syntax and semantics parts act as methods which can be overridden or inherited.
+- On page 33 the author wrote: “The concrete syntax for elements of the base language 
+  cannot be overridden in the sublanguage, although this is supposed to change”. 
+  However, this feature was supported by LISA more than 10 years ago.
 
-MERNIK, Marjan, LENIC, Mitja, AVDICAUSEVIC, Enis, ZUMER, Viljem. Multiple attribute grammar inheritance. Informatica, 2000, vol. 24, no. 2, pp. 319-328.
+  -> yes, but still it does not work in MPS at this point.
+     todo: what about the LISA stuff?
 
-Aspect-oriented extension of LISA has been described in:
+- On page 34 the author wrote: “In essence, the suggested approach is a bit like object 
+  orientation (components == classes, facets == methods), with a rich advise framework 
+  (as in AOP)”. But, this approach was exactly already taken in LISA where languages 
+  act as classes. The lexical, syntax and semantics parts act as methods which can 
+  be overridden or inherited.
 
-REBERNAK, Damijan, MERNIK, Marjan, HENRIQUES, Pedro Rangel, DA CRUZ, Daniela, VARANDO PEREIRA, Maria João. Specifying Languages Using Aspect-oriented Approach: AspectLISA. CIT. J. Comput. Inf. Technol., 2006, vol. 14, no. 4, pp. 343-350
+	MERNIK, Marjan, LENIC, Mitja, AVDICAUSEVIC, Enis, ZUMER, Viljem. Multiple attribute grammar inheritance. Informatica, 2000, vol. 24, no. 2, pp. 319-328.
+	-> todo	
+	
+	Aspect-oriented extension of LISA has been described in:
+	-> todo
+	
+	REBERNAK, Damijan, MERNIK, Marjan, HENRIQUES, Pedro Rangel, DA CRUZ, Daniela, VARANDO PEREIRA, Maria João. Specifying Languages Using Aspect-oriented Approach: AspectLISA. CIT. J. Comput. Inf. Technol., 2006, vol. 14, no. 4, pp. 343-350
+	-> todo
+	
+	REBERNAK, Damijan, MERNIK, Marjan, WU, Hui, GRAY, Jeffrey G. Domain-specific aspect languages for modularising crosscutting concerns in grammars. IET softw., Jun. 2009, vol. 3, iss. 3, pp. 184-200.
+    -> todo
+  
+  -> todo check LISA
 
-REBERNAK, Damijan, MERNIK, Marjan, WU, Hui, GRAY, Jeffrey G. Domain-specific aspect languages for modularising crosscutting concerns in grammars. IET softw., Jun. 2009, vol. 3, iss. 3, pp. 184-200.
 
-- Reference section is very weak and many related papers are omitted. Moreover, in many cases publisher/conference/TechnicalReport/WebPage and/or pages are simple omitted (e.g., [3, 9, 10, 11]).
+- Reference section is very weak and many related papers are omitted. Moreover, in many 
+  cases publisher/conference/TechnicalReport/WebPage and/or pages are simple omitted 
+  (e.g., [3, 9, 10, 11]).
+  
+  -> todo more related work, and check that all details are in 
 
 
 Typos:

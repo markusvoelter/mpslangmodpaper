@@ -1,6 +1,7 @@
 
 \subsection{Language Extension}
 
+\todo{Did we discuss the two flavors?}
 
 \begin{figure}[t]
 \begin{center}
@@ -104,10 +105,10 @@ concept BlockExpression extends Expression implements INamedConcept
 \end{code}
           
 \phead{Type System} The type of the \ct{yield} statement is the type of the
-expression that is yielded, specified by 
-\ic{typeof(yield) :==: typeof(yield.result);} (the type of /verb+yield 1;+
-would be \ct{int}). Since the \ct{BlockExpression} is used as an expression, it
-has to have a type as well. Since it is not explicitly specified, the type of
+expression that is \ic{yield}ed, specified by 
+\ic{typeof(yield) :==: typeof(yield.result);} (so the type of \ic{yield 1;}
+ would be \ct{int}, because the type of \ic{1} is \ic{int}). Since the
+ \ct{BlockExpression} is used as an expression, it has to have a type as well. Since it is not explicitly specified, the type of
 the \ct{BlockExpression} is the common super type of the types of all the
 yields. The following typing rule computes this type:
 

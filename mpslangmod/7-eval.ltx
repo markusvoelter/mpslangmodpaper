@@ -2,6 +2,9 @@
 \section{Discussion}
 \label{Eval}
 
+\todo{Discuss which aspects (debuggers, profilers, etc) are still missing in
+the composition story.}
+
 The previous examples show that meaningful \lmrc is possible with MPS.
 Specifically, reuse and embedding of languages is possible. The challenge
 of grammar composition is not an issue in MPS, since no grammars and
@@ -20,6 +23,7 @@ structured:
   later ones.
   \item The concrete syntax for elements of the base language cannot be
   overridden in the sublanguage, although this is supposed to change.
+  \todo{Reviewer says that this has worked in LISA 10 years ago. Check!}
   \item Overriding of scopes is not possible; a workaround exists by factoring
   the code into a virtual method (and calling it from the scope).
   \item Typing rules cannot be overridden unless an overloaded operation rules
@@ -175,6 +179,7 @@ controllers. \emph{webr} is well-integrated with \emph{dnq}, so for example, it
 is possible to use a persistent entity as a parameter to a page. The database
 transaction is automatically managed during request processing. 
 
+\todo{generally: more references for ``stuff'' and not just related work}
   
 \paragraph{Embedded Development} Embedded systems are becoming more 
 software intensive and the software becomes bigger and more complex. Traditional
@@ -182,8 +187,8 @@ embedded system development approaches use a variety of tools for various
 aspects of the system, making tool integration a major challenge. Some of the
 specific problems of embedded software development include the limited
 capability for meaningful abstraction in C, some of C's "dangerous" features
-(leading to various coding conventions such as Misra-C), the proprietary and
-closed nature of modeling tools, the integration of models and code,
+(leading to various coding conventions such as Misra-C \todo{ref}), the
+proprietary and closed nature of modeling tools, the integration of models and code,
 traceability to requirements, long build times as well as management of product
 line variability. To address these issues, we propose an alternative approach
 based on the incremental extension of C. We have implemented a proof-of-concept
@@ -191,9 +196,9 @@ language (\ic{http://mbeddr.com}) that contains a set of language extensions
 relevant to this embedded development. A larger-scale research project is
 starting in July 2011 to continue the development of this approach.
  
-For the proof-of-concept, the mbeddr project uses Lego Mindstorms as the target
-platform together with the OSEK operating system to ensure real-world relevance.
-The current showcase is a line follower robot. It uses a single light sensor to
+For the proof-of-concept, the mbeddr project uses Lego Mindstorms \todo{ref} as
+the target platform together with the OSEK operating system \todo{ref} to ensure
+real-world relevance. The current showcase is a line follower robot. It uses a single light sensor to
 follow (one side of) a thick black line by changing the speed of motors that
 drive the two wheels. The current state of the prototype contains language
 modules for components, tasks, state machines, bit-level data structures,

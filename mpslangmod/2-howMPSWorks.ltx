@@ -86,12 +86,13 @@ with good IDE support. Projectional language workbenches deliver on this goal.
 \subsection{JetBrains MPS}
 
 The JetBrains Meta Programming System is an open source projectional language
-workbench. All the statements on projectional editing made earlier apply to
-MPS. Defining a language includes (a) defining the language concepts (abstract
+workbench. All the statements on projectional editing made earlier apply to MPS.
+Defining a language includes (a) defining the language concepts (abstract
 syntax), (b) defining the editor for the concepts, and (c) defining a generator
-(compiler). For a language whose programs should be processed with 
-text-oriented tools (such as existing compilers or interpreters) the generator
-outputs text. For higher-level languages, assimilation is used: the generator
+(compiler). For a language whose programs should be processed with text-oriented
+tools (such as existing compilers or interpreters) the generator outputs text.
+For higher-level languages, assimilation is used as a means of integrating the
+semantics of the extended language with the base language: the generator
 transforms a program expressed in $L_D$ (a language for the domain $D$, see
 \cite{VoelterVisserVoelterVisserVoelterVisser2011} for details on hierarchical
 domains and languages, and the $L_D$ notation) into a program at $L_{D-1}$ (a
