@@ -6,19 +6,68 @@ AUTHORS: Markus Voelter
 The paper discusses MPS. The topic in itself is very interesting, MPS seems to be a powerful system.
 In that sense it is a valuable contribution to the GTTSE body of knowledge. However, my main concern
 with this paper is that it gives the impression of being written in a hurry and thus
-at quite a number of places it is sloppy. Furthermore, the scientific contribution of this paper is thin.
+at quite a number of places it is sloppy. 
+
+-> As I have discussed in the cover letter, I really considered it to be a draft in the
+   true sense of the word. I was not aware that this version would be the one to be reviewed.
+   I am sorry for the misunderstanding. These problems have been fixed now.
+
+Furthermore, the scientific contribution of this paper is thin.
 It quite a number of places claims are made, for instance on typing, that are not well motivated or
-references to related work are missing.  The paper takes the reader through a number of tricks to
+references to related work are missing.  
+
+-> See my remarks in the cover letter on "academic-vs-tutorial". I have made things much more
+   precise, added a lot of conceptual stuff and expanded the related work
+
+The paper takes the reader through a number of tricks to
 get things done. This means what will be valid of the work presented here in a few years time.
 These aspects have to be improved in order to make the paper acceptable for publication.
 
+-> I think there are three contributions (in the revised version):
+   1) classification of modualrization approaches
+   2) example with MPS, showing its power
+   3) implicitly via 2 showing the benefits of projectional editing in the
+      context of language composition.
+      
+   1) is not tool specific. 2) obviously is. 3) is specific to projectional editors,
+   which means that it is relevant beyond only MPS. 
+   
+   However, generally I was invited to write a tutorial on MPS. So this paper will
+   always be specific to MPS to some extent.  
+
 Detailed remarks:
 - The paper starts with discussing the structure of the paper. I would rather see a proper discussion
-  of the underlying philosophy of MPS. Next to that a discussion of alternative approaches. The way
-  the paper is presented now is a kind of sophisticated user manual. The introduction is in my opinion
-  messy, it discusses the structure of the paper (which actually tries to give some of the philosophy).
-  Example code, with a strange remark on not have been able to test the code! Type of modularization,
-  which is interesting but actually not well worked out. Why do we actually want DSLs, etc. are not
+  of the underlying philosophy of MPS. 
+  
+  -> I have completely rewritten the intro. It now contains a brief overview over MPS'
+     philosophy. Also, in the "How MPS works" I have highlighted the most important characterstics
+      of MPS' philosophy.
+  
+  Next to that a discussion of alternative approaches. 
+  
+  -> I have moved the alternative approaches back into the related work section.
+  
+  The way the paper is presented now is a kind of sophisticated user manual. 
+  
+  -> yes. See my discussion "academic-vs-tutorial" in teh cover letter. I think
+     I have changed this quite a bit.
+  
+  The introduction is in my opinion messy, it discusses the structure of the paper 
+  (which actually tries to give some of the philosophy).
+  
+  -> changed.
+  
+  Example code, with a strange remark on not have been able to test the code! 
+  
+  -> I don't understand this comment.
+  
+  Type of modularization, which is interesting but actually not well worked out. 
+  
+  -> I have elaborated on this in the intro, in the classification section, and,
+     via the formulae, in each of the sections for the various composition techniques.
+     I think it is a lot clearer now.
+  
+  Why do we actually want DSLs, etc. are not
   discussed at all.
   * The remark on "modular type systems" (page 2) should be supported by a reference, it is unclear
      whether it is meant in a general setting or MPS specific.

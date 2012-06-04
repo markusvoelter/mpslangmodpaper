@@ -60,16 +60,31 @@ required. Such an approach has to address the following concerns:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
+In this paper we focus on JetBrains MPS as a means of demonstrating language
+composition approaches. MPS is a projectional editor, so no grammars or parsers
+are used. As we discuss in \todo{ref}, this simplifies the syntactic aspect of
+language composition. Also, MPS been designed to be used for developing sets of
+integrated languages, and not just one or more standalone languages. This is
+exemplified by its extensible transformation and type checking frameworks. 
+
 \subsection{Contribution and Structure of the paper}
 
 Language composition is the integration of language modules regarding syntax,
 static semantics, execution semantics and the IDE. The contribution of this
 paper is a systematic approach for characterizing a set of composition
-approaches, as well as an example implementation based on MPS. We identify four
-different composition approaches: referencing, extension, reuse and embedding.
-For each of these approaches we provide a concise description and a formal
-definition. We then show how to implement these four approaches with JetBrains
-MPS.
+approaches, as well as an example implementation based on MPS. In particular, we
+make the following contributions: we identify four different composition
+approaches (referencing, extension, reuse and embedding) and classify them
+regarding dependencies and syntactic mising. Second, we show how to implement 
+these four approaches with JetBrains MPS. Third, we implicitly illustrate the
+benefits of using projectional editors in the context of language composition,
+since MPS is an example projectional editor.
+
+\todo{Mention that we do NOT claim that we are the first or only ones who can
+do lang comp. Merely we explain how it works with MPS and make clear why we
+think it is particularly useful.}
+
+\todo{Highlight the projectional benefits}
 
 The paper is structured as follows. In \sect{terminology} we define a set of
 terms and concepts used in this paper. \sect{typesOfMod} outlines the various
