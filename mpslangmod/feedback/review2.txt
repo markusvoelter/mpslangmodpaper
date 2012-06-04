@@ -67,28 +67,89 @@ Detailed remarks:
      via the formulae, in each of the sections for the various composition techniques.
      I think it is a lot clearer now.
   
-  Why do we actually want DSLs, etc. are not
-  discussed at all.
+  Why do we actually want DSLs, etc. are not discussed at all.
+  
+  -> I have added a little bit about this to the intro. In general, however, I don't
+     think I have enough space in this paper to introduce the whole notion of why 
+     DSLs are useful.
+  
   * The remark on "modular type systems" (page 2) should be supported by a reference, it is unclear
      whether it is meant in a general setting or MPS specific.
+     
+     -> I have removed this statement at this place and explained it in 
+        more detail at another location. FYI, it was meant to be MPS-specific.
+     
   * The remark on MPS2.0 is weak!
+  
+    -> I don't know which remark you are referring to. 
+  
   * What is the Liskov substitution principle, please add reference.
+  
+    -> done.
+  
   * Why only extension, I think that retraction is an issue as well.
+ 
+    -> Agree. The paper already contains an example of restriction (in the section
+       on embedding). In the intro, I have added the following paragraph:
+       
+       The [Mernik Paper] also discusses restriction of languages. In
+       the context of the classification proposed in this paper, restriction is a form
+       of extension in the following sense: to restrict a language, we
+       develop an extension that prohibits the use of some language concepts 
+       in certain contexts. We discuss this in ... 
+       
 - Section 2 discusses the workings of MPS. This section suffers from the fact that it is a kind of
-  company advertisement. A number of claims are made that are not supported by or related to
-  work of others. The combination of textual and graphical syntax can also be achieved in alternative
-  ways, see [EB2010].
-  * On page 6 a reference is missing (top of the page).
-  * woth -> with (page 6)
+  company advertisement. 
+  
+  
+  -> It is not an advertisement. It explains how the tool works from
+     the perspective of somebody who
+     a) is convinced the MPS is a good tool, and 
+     b) is not affiliated with JetBrains!
+  
+     To my knowledge there is no other projectional editor on the market that even closely
+     resembles what MPS can do, with the exception of the Intentional Domain Workbench, which
+     is not accessible. So it is hard to compare MPS to other, *similar* tools.  
+  
+  	 However, as you and the other reviewers suggested, I have added a lot
+  	 of additional related work in general.
+  
+  A number of claims are made that are not supported by or related to work of others.
+  
+  -> many of these things aren't claims, they are just facts about how MPS works. 
+     Unfortunately, there aren't many other publications (academic or otherwise) about
+     MPS, so it is hard to cite others to substantiate some of the claims. 
+  
+  The combination of textual and graphical syntax can also be achieved in alternative ways, see [EB2010].
+  
+  -> todo
+  
   * Last paragraph (page 6, before section 2.3), please look into the work on SmartTools [PCDFPFHA2002],
      or the ALOE of GANDALF [MF81].
+    
+  -> todo   
+    
   * In the discussion on web development (page 6) I would expect a reference to the work on WebDSL.
+  
+  -> this is not intended as a discussion of Web-DSLs. I could reference all kinds of 
+     DSLs that address web development. This is intended as an example of what MPS can do,
+     so I don't think it makes sense to reference all kinds of other DSLs that relate
+     to web development.
+  
   * Please add a reference to "hampering developer productivity" (bottom page 6).
-  * cant -> cannot
-  * Please add to the bullet on SQL (page 7) a reference to work performed by Ralf Laemmel and Erik Meijer.
-  * In the part on "dnq" please add a reference to the recent work on Rascal by Jurgen Vinju and Paul Klint.
-  * "a persistent entities" -> "a persistent entity"
-  * The sentence starting on page 7 and continuing on page 8 covers 6 lines, please split up.
+  
+  -> todo
+  
+  * Please add to the bullet on SQL (page 7) a reference to work performed by Ralf 
+    Laemmel and Erik Meijer.
+  
+  -> todo
+  
+  * In the part on "dnq" please add a reference to the recent 
+    work on Rascal by Jurgen Vinju and Paul Klint.
+    
+  -> todo
+    
 - Section 3 discusses related approaches. Unfortunately, some work on earlier and related language workbenches is
   is missing.
   * SmartTools is closer related than Xtext.
