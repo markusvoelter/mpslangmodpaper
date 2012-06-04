@@ -250,9 +250,8 @@ Detailed remarks:
   but maybe it is so perfect that this is not necessary.
   
   -> MPS does have drawbacks. It is a closed system, but I wrote an EMF exporter in one day,
-     so this is not a big deal. I have added a discussion about some of the drawbacks of MPS.
-     However, these do not concern the ability to compose modularized languages, this is why
-     I didn't add them originally --- this paper is not a full evaluation of MPS. 
+     so this is not a big deal. I have added a discussion about some of the drawbacks of MPS
+     in the How MPS Works section.  
   
 
 [EB2010] Engelen, L.J.P. & Brand, M.G.J. van den (2010). Integrating textual and graphical modelling languages.

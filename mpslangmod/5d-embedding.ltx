@@ -63,10 +63,14 @@ form CompanyStructure
 \end{figure}
 
 To support the migration of existing models that use \ct{Field} instances, we
-provide an intention: the user can press Alt-Enter on a \ct{Field} and select
-"Make Validated Field". This transforms an existing \ct{Field} into a
-\ct{ValidatedField}, so that validation expressions can be entered. The core of
-the intention is the following script, which performs the actual transformation:
+provide an intention. An intention (known as a quick fix in Eclipse) is an
+in-place model transformation that can be triggered by the user by selecting
+it from the intentions menu accessible via \ic{Alt-Enter}. This particular
+intention is defined for a \ct{Field}, so the user can press \ic{Alt-Enter} on a
+\ic{Field} and select \ic{Make Validated Field}. This transforms an existing
+\ct{Field} into a \ct{ValidatedField}, so that validation expressions can be
+entered. The core of the intention is the following script, which
+performs the actual transformation:
 
 \begin{code}
 execute(editorContext, node)->void { 

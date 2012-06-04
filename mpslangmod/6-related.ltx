@@ -7,7 +7,9 @@
 \todo{For all of those tools discuss syntax, type sys and semantics. And maybe
 remove one or two of them since I'll add all the other related work below? }
 
-\todo{comapre to parser-based stuff in general}
+\todo{comapre to parser-based stuff in general - references!}
+
+\todo{Mernik Paper; should be discussed in the lang comp paper related work.}
 
 MPS is not the only projectional workbench and projectional workbenches are not
 the only approach to language modularity and composition. For example, the
@@ -15,9 +17,8 @@ Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
 editor that has been used in real projects. An impressive presentation about its
 capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
 (\ic{http://bit.ly/10BsWa}). IDW is conceptually very similar to MPS, although
-quite different in many details. We will not provide more details here, partly
-because Intentional Software is very sensitive about publishing information
-about details of their technology.
+quite different in many details. The paper from OOPSLA ?? \todo{ref} provides
+details.
 
 
 MetaEdit+ (\ic{http://metacase.com}) is an example of a purely graphical
@@ -49,7 +50,7 @@ meta-model) of language elements in the base language is also possible. However,
 it is not possible to define different representations of the same element
 (except the concrete syntax of the reference) and it is not possible to embed
 arbitrary languages or language modules. This is mainly because the underlying
-parser technology is antlr (\ic{http://antlr.org}) which is a classical two
+parser technology is antlr \todo{ref to paper!} which is a classical two
 phase LL(*) parser which has problems  with grammar composition
 \cite{BravenboerV08}. While single inheritance is useful, and many interesting
 DSLs can be built with Xtext, single inheritance language extension is not

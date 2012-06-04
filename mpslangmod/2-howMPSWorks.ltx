@@ -2,8 +2,8 @@
 \section{How MPS works}
 \label{HowMPSWorks}
 
-The JetBrains Meta Programming System is a projectional language workbench
-available as Open Source software under the Apache 2.0
+The JetBrains Meta Programming System \todo{ref} is a projectional language
+workbench available as Open Source software under the Apache 2.0
 license. The term Language Workbench was coined by Martin Fowler in
 2005 \cite{Fowler2004}. In his article he defines a language workbench as a tool
 with the following characteristics:
@@ -30,15 +30,15 @@ its projectional editor. This means that all text,
 symbols, and graphics are projected, and not parsed. Projectional editing is
 well-known from graphical modeling tools (UML, ER, State Charts). The model is stored
 independent of its concrete syntax, only the model structure is persisted, often
-using XML or a database. For editing purposes this abstract syntax is projected
-using graphical shapes. Users use mouse gestures and keyboard actions tailored
+using XML or a database. For editing purposes, graphical editors project the
+abstract syntax using graphical shapes. Users use mouse gestures and keyboard actions tailored
 to graphical editing to modify the abstract model structure directly. While the
 concrete syntax of the model does not have to be stored because it is specified
 as part of the language definition and hence known by the projection engine,
 graphical modeling tools usually also store information about the visual layout.
 
 Projectional editing can also be used for textual syntax. However, since the
-projection looks like text, users expect interaction patterns and gestures known
+projection looks like text, users expect editing gestures known
 from "real text" to work. For a projectional editor to be useful, it has to
 "simulate" interaction patterns known from real text. MPS achieves this quite
 well. How it does that is beyond the scope of this paper. The following is a
@@ -53,7 +53,11 @@ list of benefits of the projectional editing approach:
   \item Notations are more flexible than ASCII/ANSI/Unicode. Graphical,
   semi-graphical and textual notations can be mixed and combined. For example, a
   graphical tool for editing state machines can embed a textual expression
-  language for editing the guard conditions on transitions.
+  language for editing the guard conditions on
+  transitions\footnote{Intentional's Domain Workbench has demonstrated this
+  repeatedly, for example in \todo{OOPSLA Paper}. As of 2012, MPS can do text,
+  symbols (such as big sum signs or fraction bars) and tables. Graphics will be
+  supported in 2013.}.
 
   \item Because projectional languages by definition need an IDE for editing (it
   has to do the projection!), language definition and extension always implies
@@ -82,7 +86,8 @@ cases. The second drawback is that models are not stored as readable text, but
 rather as a serialized abstract syntax tree (typically XML). Integrating XML
 files with an otherwise ASCII-based development infrastructure can be a
 challenge. MPS addresses the most critical aspect of this drawback: it supports
-diff and merge on the level of the projected concrete syntax.
+diff and merge on the level of the projected concrete syntax. \todo{Add the
+drawback of the closedness of MPS.}
 
 
 MPS has been designed from the start

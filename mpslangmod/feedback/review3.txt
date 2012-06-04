@@ -5,81 +5,241 @@ AUTHORS: Markus Voelter
 
 General Comments:
 
-The abstract and introduction talk about how the paper will introduce MPS in a “practically usable way.” Yet, the conclusions talk about how challenging the learning curve is for most adopters. These statements seem incongruous.
+The abstract and introduction talk about how the paper will introduce MPS in a 
+"practically usable way." Yet, the conclusions talk about how challenging the learning 
+curve is for most adopters. These statements seem incongruous.
 
-The conclusion states that MPS “scales to realistic program sizes” but there is no evidence either in the paper or references to support this. Please prove or remove the statement. Almost all of the statements in the conclusion are opinions and not backed by any evidence, so this should be more clearly mentioned as opinion in the paper’s current state and lack of empirical evidence.
+-> the "practically usable way" actually referred to MPS' ability to solve these
+   problems, not to the "I show how". I have cleared this up.  
 
-The paper lacks the level of citation that would be expected for a scholarly paper of 35 pages (more below). Just 8 non-self references is generally at the level of a workshop paper, not a paper at this length and depth. Paper seems to depend a lot on reference 10, but the citation details only list the author names, title, and year. Overall, links to literature and the citations used are rather weak.
+The conclusion states that MPS "scales to realistic program sizes" but there is no 
+evidence either in the paper or references to support this. Please prove or remove the 
+statement. Almost all of the statements in the conclusion are opinions and not backed 
+by any evidence, so this should be more clearly mentioned as opinion in the paper� 
+the current state and lack of empirical evidence.
 
-The paper mislabels “evaluation” for “discussion.” An evaluation is typically an empirical assessment based on experimentation. That is not provided in this paper. Please use a different word so as not to confuse those who use that word for a specific meaning in experimental software engineering.
+-> In the meantime there is published evidence regarding the size and complexity of
+   languages and programs. I have added some of that. One problem is, though, that a lot
+   of what JetBrains is using MPS for internally is not published. However, I have seen it
+   and it's real. There's just not anything I can cite!
 
-The paper talks a lot about “projectional editing” in the early parts of the paper, but never really defines what is meant until later. For readers new to the area, please provide a more concrete and definitive discussion early in the paper.
+The paper lacks the level of citation that would be expected for a scholarly paper of 35 pages 
+(more below). Just 8 non-self references is generally at the level of a workshop paper, 
+not a paper at this length and depth. Paper seems to depend a lot on reference 10, but the 
+citation details only list the author names, title, and year. Overall, links to literature 
+and the citations used are rather weak.
 
-I may have missed, but the idea of the base language actually evolving could be an important challenge. Can you say more to that (sorry if I missed this discussion, but it seems important to highlight)? If one DSL is derived from another, the idea of co-evolution seems real.
+-> agreed. As I discuss in the cover letter, there was a misunderstanding on my site what
+   a GTTSE tutorial is. I have fixed this.
 
-Page 4 mentions “For editing purposes … using graphical shapes.” This is true for MPS? It is in the paragraph mentioning MPS, but no examples of editing graphical shapes is presented in this paper for MPS. Perhaps some concepts are mixed and need to be clarified in the last paragraph.
+The paper mislabels "evaluation" for "discussion". An evaluation is typically an empirical 
+assessment based on experimentation. That is not provided in this paper. Please use a different 
+word so as not to confuse those who use that word for a specific meaning in experimental 
+software engineering.
 
-The idea of interaction patterns is introduced on page 5, but at that point not really explained what this means. Please elaborate at that point.
+-> done. It is called "discussion" now. 
+
+The paper talks a lot about "projectional editing" in the early parts of the paper, 
+but never really defines what is meant until later. For readers new to the area, 
+please provide a more concrete and definitive discussion early in the paper.
+
+-> done.
+
+I may have missed, but the idea of the base language actually evolving could be an 
+important challenge. Can you say more to that (sorry if I missed this discussion, 
+but it seems important to highlight)? If one DSL is derived from another, the idea 
+of co-evolution seems real.
+
+-> indeed. You hadn't missed it, I had not discussed it. I have added a section
+   in the discussion.
+
+Page 4 mentions "For editing purposes ... using graphical shapes" This is true for MPS? 
+It is in the paragraph mentioning MPS, but no examples of editing graphical shapes 
+is presented in this paper for MPS. Perhaps some concepts are mixed and need to 
+be clarified in the last paragraph.
+
+-> this was expressed misleadingly. The sentence referred to graphical modeling tools
+  (in the paragraph I introduce the idea of projection via graphical editors). MPS cannot
+  yet do graphics well, but will be able to in 2013. I clarified this.
+
+The idea of interaction patterns is introduced on page 5, but at that point not really 
+explained what this means. Please elaborate at that point.
+
+-> I removed the term and just used "editing gestures". There wasn't anything more behind
+   it except that the same mouse/keyboard actions known from text editors should also work
+   in a projectional editor.
 
 Perhaps some intro to section 2.3 would help, before jumping right into the examples.
 
+-> yes. I have also moved this section to the Discussion. 
+
 Page 8 mentions a project started in July 2011. Update in revision.
 
-Page 8 also mentions that mbeddr uses Lego Mindstorms for “real-world relevance” – this seems somewhat odd – how does what many consider to be a toy point to real-world relevance? The paragraph then mentions a line tracing robot – this example is taught to middle school children on a daily basis, so not sure why it is that motivating.
+-> done.
 
-The comment about Intentional Software on page 8 could easily be removed – seems a bit like a jab and perhaps not the place for this, or at least reworded (even if this is true).
+Page 8 also mentions that mbeddr uses Lego Mindstorms for "real-world relevance" 
+this seems somewhat odd. How does what many consider to be a toy point to 
+real-world relevance? The paragraph then mentions a line tracing robot. This 
+example is taught to middle school children on a daily basis, so not sure why it is 
+that motivating.
 
-Perhaps Figure 2 could also indicate “BaseConcept” on the figure.
+-> we have run the Osek embedded operating system on the Mindstorm, so we could
+   program it with the extendible C. Osek is used in all kinds of embedded applications,
+   hence the "real world relevance". However, we now have much more interesting applications
+   and I have updated this section accordingly.
 
-In footnote 1 on page 11, it is mentioned that the complete definition was not provided. Please provide a link or reference to where a complete definition may be available, if it exists.
+The comment about Intentional Software on page 8 could easily be removed. It seems a bit 
+like a jab and perhaps not the place for this, or at least reworded (even if this is true).
 
-When the first MPS templates are introduce around Figure 5, I felt that the accompanying text could have been much better written. This is an important part of the paper in terms of reader understandability – please try to give more details around page 13-14, and other figures that are early in the introduction of MPS. I also felt more detail was needed in Section 5.4.1, and on page 31. The discussion at the bottom of page 34 could also be expanded with more detail.
+-> It is true. I have reworded it.
+
+Perhaps Figure 2 could also indicate "BaseConcept" on the figure.
+
+-> No, BaseConcept is like java.lang.Object, the (implicit) super concept of all language
+   concept. I don't think this will help clarify the point.
+
+In footnote 1 on page 11, it is mentioned that the complete definition was not provided. 
+Please provide a link or reference to where a complete definition may be available, 
+if it exists.
+
+-> I have reworded this footnote. The definition is actually complete. But concepts can
+   have a load of other characteristics in addition to properties, children and references.
+   Adding those in the text would just show a load of "empty" slots and would not add anything. 
+
+When the first MPS templates are introduce around Figure 5, I felt that the accompanying 
+text could have been much better written. This is an important part of the paper in terms 
+of reader understandability. 
+
+-> I have added some details. Note that other reviewers suggested that there is way too much
+   detail in the paper :-)
+
+And please try to give more details around page 13-14,
+
+-> that is the same paragraph as the one referred to in your previous point about the templates.
+ 
+and other figures that are early in the introduction of MPS. 
+
+-> I have revisted them and added details where appropriate.
+
+I also felt more detail was needed in Section 5.4.1, 
+
+-> there is no section 5.4.1
 
 In Section 5.3, in examples where no type system applies, please explain why.
 
-The discussion about AspectJ on page 23 is a bit perplexing. The bottom of the page touts the advantages of the approach (in terms of preplanning), but the middle of the page just gives a weak justification for not using it as “”we don’t want to introduce AspectJ here” – why not, if that offers the advantages mentioned at the bottom of the paper? Better justification for not using it seems to be needed.
+-> done --- none of the new language concepts are typed, so there is nothing to type check.
 
-At the bottom of page 25, please explain what you mean by an “intention.”
+The discussion about AspectJ on page 23 is a bit perplexing. The bottom of the page 
+touts the advantages of the approach (in terms of preplanning), but the middle of the 
+page just gives a weak justification for not using it as "As we want to introduce AspectJ 
+here" "why not, if that offers the advantages mentioned at the bottom of the paper? 
+Better justification for not using it seems to be needed.
 
-The introduction seemed a bit oddly initiated. There is no initial section but jumps right to “1.1” – perhaps some intro text would be helpful.
+-> yes, agree. I have changed it:
 
-When acronyms are presented on first use (e.g., IDE in abstract, and other examples), please fully elaborate.
+  While this would be a simple approach in terms of MPS (because we only
+  generate singled-sourced artifacts), it fails to illustrate advanced MPS
+  generator concepts. So we don't use this approach here.
+
+At the bottom of page 25, please explain what you mean by an "intention".
+
+-> done.
+
+The introduction seemed a bit oddly initiated. There is no initial section but jumps 
+right to "1.1". Perhaps some intro text would be helpful.
+
+-> I have reworded the intro completely.
+
+When acronyms are presented on first use (e.g., IDE in abstract, and other examples), 
+please fully elaborate.
+
+-> fixed.
 
 
 
 References:
 
-The paper only has 8 non-self references for a 35-page paper. This suggests, as I found in this case, that the author has not set up the paper very well in terms of related work and expressing the content in the context of existing literature. It is understood that this is a tutorial paper, but I still expected the paper to have more of a scientific approach by placing the paper amid the related literature.
+The paper only has 8 non-self references for a 35-page paper. This suggests, 
+as I found in this case, that the author has not set up the paper very well in 
+terms of related work and expressing the content in the context of existing 
+literature. It is understood that this is a tutorial paper, but I still expected 
+the paper to have more of a scientific approach by placing the paper amid the 
+related literature.
 
-At the top of page 2, where various limitations are listed with current approaches (e.g., “limited composability”) please try to point to literature that also identifies this as a problem.
+-> As I have expressed in the cover letter, this was a misunderstanding. It 
+   is fixed in this edition. 
 
-Provide a reference to “JetBrains MPS” on first mention on page 2 and opening of section 2.2.
+At the top of page 2, where various limitations are listed with current 
+approaches (e.g., "limited composability") please try to point to 
+literature that also identifies this as a problem.
 
-On page 3, the types of modularization are presented as if they are new to this paper, but have been covered in the literature in many places by others. I am not sure why the author does not recognize these other works. The classic paper by Mernik, Heering and Sloane is missing in an obvious way to anyone working in this area.
+-> I have reworded the intro completely, but at the respective location
+   I have pointed to a relevant paper.
+
+Provide a reference to "JetBrains MPS" on first mention on page 2 
+and opening of section 2.2.
+
+-> done.
+
+On page 3, the types of modularization are presented as if they are new to 
+this paper, but have been covered in the literature in many places by others. 
+I am not sure why the author does not recognize these other works. 
+
+-> ... for the reason expressed in the cover letter.
+
+The classic paper by Mernik, Heering and Sloane is missing in an obvious 
+way to anyone working in this area.
+
+-> indeed. I read it, and I have analyzed it for another publication. I have
+   added a lot of conceptual stuff in this paper, and specifically discussed the
+   paper you mention.
 
 Please provide a reference to LSP as mentioned on page 3 (Liskov substitution).
 
-When mentioning modern parsing techniques on page 4, mention a few examples and provide references.
+-> done.
+
+When mentioning modern parsing techniques on page 4, mention a few examples 
+and provide references.
+
+-> I have removed this part of the paper, but I discuss parser-based tools
+   in more detail in related work.
 
 Perhaps some reference to Hibernate, JDO and JPA (also expand acronyms) is needed
 
+-> done.
+
 Cite references for JSP, Velocity and FreeMarker on page 7
+
+-> done.
 
 Ref for Misra-C, Osek, and Mindstorms on page 8
 
-On page 9, instead of the URL for Antlr, there are also books and papers about it that could be cited
+-> done.
+
+On page 9, instead of the URL for Antlr, there are also books and 
+papers about it that could be cited
+
+-> changed it.
 
 Refs for Xpand and Jet on page 13
 
-On page 33, component-based design has a URL to a Wikipedia entry. There are many good books and articles that would serve as better references and could be added to the bibliography.
+-> done.
+
+On page 33, component-based design has a URL to a Wikipedia entry. 
+There are many good books and articles that would serve as better 
+references and could be added to the bibliography.
+
+-> changed. 
 
 The details of reference 10 are missing! Not sure where this was published…
+
+-> that reference has changed to a better one. That better one is also correct.
 
 
 
 Spelling and Grammar:
 
-The following are suggestions about the grammar and writing style used in the paper – 
+The following are suggestions about the grammar and writing style used in the paper, 
 many of these are VERY minor:
 
 -> I have gone through all of them and accepted most. 
@@ -89,7 +249,7 @@ Some of the text extends far into the right margin.
 
 -> todo
 
-“meta models” and “meta-model” different spellings; perhaps just “metamodels”
+"meta models" and "meta-model" different spellings; perhaps just "metamodels"
 
 -> todo
 
@@ -102,7 +262,7 @@ Figure 7: Figure extends well beyond margin; true for most figures in this secti
 
 -> todo
 
-Figure 15: “LenghtOf” misspelled in actual figure
+Figure 15: "LenghtOf" misspelled in actual figure
 
 -> todo
 

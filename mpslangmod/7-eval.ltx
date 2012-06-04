@@ -7,6 +7,12 @@ the composition story.}
 
 \todo{drawbacks of MPS in general.}
 
+\todo{better explain how and why MPS scales. Point to wavefront paper and
+repeat some of the numbers. Also reemphasize JetBrains' internal work.}
+
+\todo{discuss evolution of the base/host/referenced languages and consequences
+for the composition techniques.}
+
 The previous examples show that meaningful \lmrc is possible with MPS.
 Specifically, reuse and embedding of languages is possible. The challenge
 of grammar composition is not an issue in MPS, since no grammars and
@@ -35,7 +41,7 @@ structured:
 In my opinion, a consistent approach for extending and overriding aspects of the
 original language is missing. I suggest an approach called \emph{Generic
 Outside, Specific Inside}. It is basically a variant of component-based design
-(\ic{http://en.wikipedia.org/wiki/CBD}). All
+(\todo{ref to a paper}). All
 language aspects use components as the core structural building block.
 Components have types. The type of the component determines the kinds of facets
 it has. A facet is a kind of interface that exposes the (externally visible)
@@ -123,11 +129,12 @@ YouTrack are \emph{dnq} and \emph{webr}. \emph{dnq} is a Java language extension
 for working with persistent data and queries. Almost all modern web applications
 store data in a database. However, database manipulation is not very well
 supported in general-purpose languages such as Java. Developers use object
-relational mapping frameworks such as Hibernate, JDO or JPA to alleviate this
-problem. These frameworks basically map database rows to Java classes. However,
-because authors of these frameworks cannot change the Java language, the
-integration is limited, hampering developer productivity \todo{provide a
-reference for the ``hampering'' claim}. For example:
+relational mapping frameworks such as Hibernate \todo{ref}, JDO \todo{ref} or
+JPA \todo{ref} to alleviate this problem. These frameworks basically map
+database rows to Java classes. However, because authors of these frameworks
+cannot change the Java language, the integration is limited, hampering developer
+productivity \todo{provide a reference for the ``hampering'' claim}. For
+example:
 
 
 \begin{itemize}   
@@ -167,24 +174,27 @@ The \emph{webr} language is used for request handling in web applications. In
 web frameworks this task is typically accomplished by controller classes and
 HTML templates. To configure HTTP request handling, frameworks often use XML
 based descriptors. In order to process the HTML templates, template engines are
-used. Examples include JSP, Velocity or FreeMarker.  \emph{webr} supports this
-through Java language extension. Its template language combines XML and Java,
-relatively similar to JSP at first glance. However, based on MPS' ability to
-extend languages, \emph{webr} provides much more freedom of what templates can
-contain. For example, in many template engines, it is impossible to add new
-constructs to the template language. In JSP it is possible using extension tags
-but the XML-based syntax is quite verbose. In \emph{webr} templates, developers
-can choose whatever syntax they like by defining a suitable language extension.
-An example used in YouTrack is a UI components language that is not limited to
-XML syntax. \emph{webr} also provides first-class support for controllers. For
-example, controllers can declare actions and attach them directly to events of
-UI components. Parameters are specified in special entities called template
-controllers. \emph{webr} is well-integrated with \emph{dnq}, so for example, it
-is possible to use a persistent entity as a parameter to a page. The database
-transaction is automatically managed during request processing. 
+used. Examples include JSP \todo{ref}, Velocity\todo{ref} or
+FreeMarker\todo{ref}. \emph{webr} supports this through Java language extension.
+Its template language combines XML and Java, relatively similar to JSP at first
+glance. However, based on MPS' ability to extend languages, \emph{webr} provides
+much more freedom of what templates can contain. For example, in many template
+engines, it is impossible to add new constructs to the template language. In JSP
+it is possible using extension tags but the XML-based syntax is quite verbose.
+In \emph{webr} templates, developers can choose whatever syntax they like by
+defining a suitable language extension. An example used in YouTrack is a UI
+components language that is not limited to XML syntax. \emph{webr} also provides
+first-class support for controllers. For example, controllers can declare
+actions and attach them directly to events of UI components. Parameters are
+specified in special entities called template controllers. \emph{webr} is
+well-integrated with \emph{dnq}, so for example, it is possible to use a
+persistent entity as a parameter to a page. The database transaction is
+automatically managed during request processing.
 
 \todo{generally: more references for ``stuff'' and not just related work}
   
+  
+\todo{Udpdate the mbeddr stuff.}  
 \paragraph{Embedded Development} Embedded systems are becoming more 
 software intensive and the software becomes bigger and more complex. Traditional
 embedded system development approaches use a variety of tools for various

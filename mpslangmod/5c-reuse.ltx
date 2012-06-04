@@ -261,7 +261,8 @@ attributes.
 
 
 
-\phead{Type System} No type system rules apply here.
+\phead{Type System} No type system rules apply here, because none of the
+concepts added by the \ic{rbac} language are typed.
 
 \phead{Generator} What distinguishes this case from the relmapping case is that
 the code generated from the \ic{rbac\_entities} language is \emph{not} separated from
@@ -287,13 +288,14 @@ To implement this, several approaches are possible:
 \begin{itemize}
   \item We could use AspectJ (\ic{http://www.eclipse.org/aspectj/}). This way,
   we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
-  However, we do not want to introduce AspectJ here, so we will not use this
-  approach. 
+  While this would be a simple approach in terms of MPS (because we only
+  generate singled-sourced artifacts), it fails to illustrate advanced MPS
+  generator concepts. So we don't use this approach here.
   \item An interceptor (\ic{http://en.wikipedia.org/wiki/Interceptor\_pattern})
   framework could be added to the generated Java Beans, with the generated
   code contributing specific interceptors (effectively building a custom AOP
-  solution). We will not use this approach either, since it would require the addition of a 
-  whole interceptor framework to the entities. This seems like overkill.
+  solution). We will not use this approach either, for the same reason we don't
+  chose AspectJ.
   \item We could "inject" additional code generation templates to the existing
   \ic{entities} generator from the \ic{rbac\_entities} generator. This would make the
   generators \emph{woven} as opposed to just dependent. However, weaving

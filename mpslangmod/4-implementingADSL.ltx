@@ -3,6 +3,8 @@
 \section{Implementing a DSL with MPS}
 \label{entitiesLanguage}
 
+\todo{Better figure captions in this section, and maybe the rest of the paper?}
+
 This section illustrates the definition of a language with JetBrains MPS. Like
 other language workbenches, MPS comes with a set of DSLs for language definition, a
 separate DSL for each language aspect. Language aspects include structure,
@@ -55,13 +57,16 @@ structure of the \ic{entities} language. Each box represents a language concept.
 \end{center}
 \end{figure}
 
-The following code shows the definition of the \ct{Entity} concept\footnote{This
-is not the complete definition, concepts can have more characteristics. This is
-simplified to show the essentials.}. \ct{Entity} extends \ct{BaseConcept}, the
-root concept, similar to \ct{java.lang.Object} in Java. It implements the
-\ct{INamedConcept} interface to inherit a \ct{name} field. It declares a list of
-children of type \ct{Attribute} in the \ct{attributes} role. A concept may
-also have references to other concepts (as opposed to children).
+The following code shows the definition of the \ct{Entity} concept\footnote{In
+addition to \ic{properties}, \ic{children} and \ic{references}, concept
+definition can have more characteristics such as \ic{concept properties} or
+\ic{concepts links}. However, these are not needed for this example, so we don't
+show them here. The code above shows all the characteristics used in this
+example}. This is simplified to show the essentials.}. \ct{Entity} extends
+\ct{BaseConcept}, the root concept, similar to \ct{java.lang.Object} in Java. It
+implements the \ct{INamedConcept} interface to inherit a \ct{name} field. It
+declares a list of children of type \ct{Attribute} in the \ct{attributes} role.
+A concept may also have references to other concepts (as opposed to children).
 
 
 \begin{code}
@@ -181,6 +186,7 @@ the mapping configuration for the \ic{entities} language.
 \end{center}
 \end{figure}
 
+\todo{Make sure that this paragraph is really understandable. Add more details.}
 MPS templates work differently from normal text generation templates such as
 Xpand \todo{ref}, Jet \todo{ref} or StringTemplate \todo{ref}, since they are
 actually model-to-model transformations. However, as a consequence of MPS'

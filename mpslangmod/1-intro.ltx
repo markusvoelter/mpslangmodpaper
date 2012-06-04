@@ -1,6 +1,8 @@
 \section{Introduction}
 \label{intro}
 
+\todo{Introduce all abbreviations.}
+
 Traditionally, programmers use general purpose languages (GPLs) for developing
 software systems. "general-purpose" refers to the fact that they can be used for
 any programming task. They are Turing complete, and provide means to build
@@ -60,12 +62,15 @@ required. Such an approach has to address the following concerns:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
-In this paper we focus on JetBrains MPS as a means of demonstrating language
-composition approaches. MPS is a projectional editor, so no grammars or parsers
-are used. As we discuss in \todo{ref}, this simplifies the syntactic aspect of
-language composition. Also, MPS been designed to be used for developing sets of
-integrated languages, and not just one or more standalone languages. This is
-exemplified by its extensible transformation and type checking frameworks. 
+In this paper we focus on JetBrains MPS \todo{ref} as a means of demonstrating
+language composition approaches. MPS is a projectional editor, so no grammars or parsers
+are used. Instead, editing gestures \emph{directly} modify the abstract syntax
+tree, and the representation on the screen is rendered, or projected, from the
+chainging tree. As we discuss in \todo{ref}, this simplifies the syntactic
+aspect of language composition. Also, MPS been designed to be used for
+developing sets of integrated languages, and not just one or more standalone
+languages. This is exemplified by its extensible transformation and type
+checking frameworks.
 
 \subsection{Contribution and Structure of the paper}
 
@@ -314,6 +319,8 @@ this is not always easily possible, though often desirable.
   \label{fragAndLang} 
 \end{center}
 \end{figure}
+
+\todo{Update Abstract (when finished)}
 
 \todo{Refer to Wavefront Paper where appropriate.}
 
