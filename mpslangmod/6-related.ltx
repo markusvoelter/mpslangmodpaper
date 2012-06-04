@@ -41,10 +41,9 @@ be used together with any EMF-based model transformation and code generation
 tool (examples include Xpand, ATL, and Acceleo, all at
 \ic{http://eclipse.org/modeling}). Language referencing is easily possible;
 Code completion for references into other models as well as cross-model and
-cross-language consistency checks in the editor are supported natively.
-Language reuse, extension and embedding are quite limited, though. It is
-possible to make a language extend one other language. Concepts from the base
-language can be used in the sub language and it is possible to redefine grammar
+cross-language consistency checks in the editor are supported natively. Just
+like with any other reference, scopes may have to be defined manually. Language
+reuse, extension and embedding are quite limited, though. It is possible to make a language extend one other language. Concepts from the base language can be used in the sub language and it is possible to redefine grammar
 rules defined in the base language. Creating new subtypes (in terms of the
 meta-model) of language elements in the base language is also possible. However,
 it is not possible to define different representations of the same element
@@ -68,6 +67,9 @@ generated eclipse editors) is in progress as part of Spoofax \cite{KatsV10}
 \linebreak(\ic{http://strategoxt.org/Spoofax}).
 \todo{Add some more detail, in particular the escape cahraceters in
 composition.}
+\todo{SDF is not developed in Delft, it is maintained there, it is the result of more than 
+    20 years research at the University of Amsterdam and CWI. Spoofax is just one of the 
+    SDF implementations, if you mention Spoofax why not mention the ASF+SDF Meta-Environment as well.}
 
 
 

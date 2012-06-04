@@ -26,8 +26,7 @@ PROBLEMS: Typos, Formulations, Various formatting issues
 EXPLANATION: Another misunderstanding. The version I submitted before GTTSE was called a draft.
 I mistook this to mean that it's a rough writeup of what I will talk about in the tutorial. I was
 told that there would be a change to refine the draft after the conference, before the final submission
-to the proceedings. I was not aware that the *original* draft would be reviewed by three people! I am
-aware that the initial draft version was not at the point where it should have been reviewed. 
+to the proceedings. 
 
 WHAT I DID: First of all: sorry to the reviewers for having to read a paper with so many typos and
 mistakes in the text. Obviously this is fixed now in the current release.

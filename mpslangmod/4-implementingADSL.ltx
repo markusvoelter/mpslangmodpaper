@@ -116,8 +116,8 @@ Type equations also do not just contain equations (:==:), but also equations
 with subtyping and other relationships.
 
 For the \ic{entities} language, we specify two simple typing rules. The first one
-specifies that the type of the primitives (\ct{int}, \ct{string}) is a
-clone of themselves:
+specifies that the type of a \ic{Type} (such as \ic{int} or \ic{string}) is a clone
+of themselves.
 
 \begin{minipage}[t]{120mm}
 \begin{code}
@@ -130,11 +130,15 @@ rule typeof_Type {
 }                                      
 \end{code}
 \end{minipage}
-\vspace{3mm}
 
 \noindent The only other typing rule is an equation that defines the type of the
 attribute as a whole to be the type of the attribute's \ct{type} property, defined as
-\ic{typeof(attribute) :==: typeof(attribute.type);}.
+\ic{typeof(attribute) :==: typeof(attribute.type);}. No other typing rules
+apply in this simple entities language. As we have said in \todo{ref}, language
+developers only have to specify typing rules. MPS type system engine applies the
+rules to all applicable program elements, solves the resulting set of type
+equations, and if equations run into contradictions, this is annotated on the
+offending program element as a type error.
 
 
 \phead{Generator} From entity models we generate Java Beans. Since Java is
@@ -177,27 +181,32 @@ the mapping configuration for the \ic{entities} language.
 \end{center}
 \end{figure}
 
-MPS templates work differently from normal text generation templates such as Xpand, Jet or StringTemplate, since they are actually model-to-model
-transformations. Developers first write a structurally correct example model
-using the target language. Then so called Macros are used to change the example
-model to reflect the input from which we generate. \fig{entitytemplate} shows
-the \ct{map\_Entity} template. It generates a complete Java class --- notice the
-complete structure of a Java class is present, because that is how BaseLanguage
-defines the editor for a Java class. We then generate a field for each entity
-\ct{Attribute}. To do this we first create a prototype field in the class
-(\ic{private int aField;}). Then we use macros to "transform" this prototype
-into an instance for each entity attribute. We first attach a \ct{LOOP} macro to
-the whole field. It contains an expression \ic{node.attributes;} where
-\ct{node} refers to the input \ct{Entity}. This code is entered in the Inspector
-window and is not shown in the screenshot. We then use a \ct{COPY\_SRC} macro to
-transform the type. \ct{COPY\_SRC} copies the input node (the inspector
-specifies the current attribute's type as the input here) and applies reduction
-rules. So instances of the types defined as part of the \ic{entities} language are
-transformed into a Java type using the reduction rules defined in the mapping
-configuration. Finally, we use a property macro (the dollar sign) to change the
-\ct{name} property of the field we generate from the dummy value \ct{aField} to
-the name of the attribute we currently transform (once again via an expression
-in the inspector).
+MPS templates work differently from normal text generation templates such as
+Xpand \todo{ref}, Jet \todo{ref} or StringTemplate \todo{ref}, since they are
+actually model-to-model transformations. However, as a consequence of MPS'
+language composition faciltiies, the concrete syntax of the target language is
+used in the template --- it is projected like any other program. However, this
+means that the \emph{template code itself} must be valid in terms of the target
+language. So to write a tempalte, developers first write a structurally correct
+example model in the target language. Then so called Macros are attached to
+those program elements that have to be replaced with data from the
+transformation input mdoel as the transformation executes. \fig{entitytemplate}
+shows the \ct{map\_Entity} template. It generates a complete Java class ---
+notice the complete structure of a Java class is present, because that is how
+BaseLanguage defines the editor for a Java class. We then generate a field for
+each entity \ct{Attribute}. To do this we first create a prototype field in the
+class (\ic{private int aField;}). Then we use macros to "transform" this
+prototype into an instance for each entity attribute. We first attach a
+\ct{LOOP} macro to the whole field. It contains an expression
+\ic{node.attributes;} where \ct{node} refers to the input \ct{Entity}. This code
+is entered in the Inspector window and is not shown in the screenshot. We then
+use a \ct{COPY\_SRC} macro to transform the type. \ct{COPY\_SRC} copies the
+input node (the inspector specifies the current attribute's type as the input
+here) and applies reduction rules. So instances of the concepts defined in the
+\ic{entities} language are transformed into a Java concepts using the
+reduction rules defined in the mapping configuration. Finally, we use a property macro (the dollar sign) to change the \ct{name} property of the field we generate from
+the dummy value \ct{aField} to the name of the attribute we currently transform
+(once again via an expression in the inspector).
 
 
 \begin{figure}[htp]

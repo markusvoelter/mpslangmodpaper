@@ -150,36 +150,110 @@ Detailed remarks:
     
   -> todo
     
-- Section 3 discusses related approaches. Unfortunately, some work on earlier and related language workbenches is
-  is missing.
+- Section 3 discusses related approaches. Unfortunately, some work on earlier and related 
+  language workbenches is is missing.
+  
+  -> yes, as I say in the cover letter, I didn't know I should
+     add this stuff. A lot of it has now been added.
+  
   * SmartTools is closer related than Xtext.
-  * The sentence "Code completion for references ... out of the box." is too cryptic to be understandable,
-     furthermore, I think this is a too positive view on the tooling.
-  * SDF is not developed in Delft, it is maintained there, it is the result of more than 20 years research at the
-    University of Amsterdam and CWI. Spoofax is just one of the SDF implementations, if you mention Spoofax
-    why not mention the ASF+SDF Meta-Environment as well.
-- Section 4 discusses the implementation of a DSL using MPS. Is the DSL used a real DSL? It looks more like
-  an data type.
-   * There is a unresolved reference "the DSL design paper". Furthermore, given the fact that this is a tutorial
-      paper, self-containedness is appreciated. So, please elaborate on the terminology.
-   * "Language definition" -> "Defining a language"
-   * On page 12, the type rules for the entities language are introduced, this is a very concise description.
-     Explain why this is enough to catch the type errors.
+  
+  -> todo
+  
+  * The sentence "Code completion for references ... out of the box." is too cryptic 
+    to be understandable, furthermore, I think this is a too positive view on the tooling.
+    
+    -> I have added that, just like with any other reference, a scope implementation
+       has to be added, but otherwise, cross-model references work essentially the same
+       way as intra-model references.
+    
+  * SDF is not developed in Delft, it is maintained there, it is the result of more than 
+    20 years research at the University of Amsterdam and CWI. Spoofax is just one of the 
+    SDF implementations, if you mention Spoofax why not mention the ASF+SDF Meta-Environment as well.
+    
+    -> the reason why I mentioned Spoofax is because I know it best. But I have elaborated 
+       on SDF, the Meta Environment and Rascal.
+    
+- Section 4 discusses the implementation of a DSL using MPS. Is the DSL used a real DSL? 
+  It looks more like an data type.
+  
+  -> well, it is certainly a DSL: it has syntax, constraints, type systems and generators. 
+     Of course it is a trivial DSL, as anyone that can be used in a paper like this. I have
+     included the Real World Use of MPS section to compensate for this.
+  
+   * There is a unresolved reference "the DSL design paper". 
+    
+     -> fixed.
+   
+     Furthermore, given the fact that this is a tutorial paper, self-containedness is
+     appreciated. So, please elaborate on the terminology.
+     
+     -> the new version of the paper actually contains almost all of the conceptual basics
+        referenced in the original draft.  
+     
+   * On page 12, the type rules for the entities language are introduced, this is a very 
+     concise description. Explain why this is enough to catch the type errors.
+     
+     -> done.
+     
   * On page 13, after figure 4, you mention Xpand, Jet and StringTemplate, please add references.
+  
+    -> done.
+  
   * The sentence "Developers first write ... we generate." is incomprehensible.
-  * The next part lacks abstraction and is a bulk of details, why do I need to read this? What is the point you
-    are trying to make. The paper suffers at more places at this point. A lot of details are given without
+  
+    -> I have provided more context and rephrased the sentences.
+  
+       MPS templates work differently from normal text generation templates such as 
+       Xpand , Jet or StringTemplate , since they are actually model-to- model transformations. 
+       However, as a consequence of MPSÕ language com- position faciltiies, the concrete 
+       syntax of the target language is used in the template Ñ it is projected like any 
+       other program. However, this means that the template code itself must be valid in 
+       terms of the target language. So to write a tempalte, developers first write a 
+       structurally correct example model in the target language. Then so called Macros 
+       are attached to those program elements that have to be replaced with data from 
+       the transformation input mdoel as the transformation executes. 
+  
+  
+  * The next part lacks abstraction and is a bulk of details, why do I need to read this? 
+  
+    -> because it is an MPS tutorial and I am trying to provide enough detail to 
+       explain how the tool actually works.
+  
+    The paper suffers at more places at this point. A lot of details are given without
     describing on a more abstract level what you are solving.
-  * The sentence "So instances of the types ... configuration." is grammatically wrong and hard to understand therefore.
-- Section 5 describes the various ways of implementing language extensions. This section suffers from a proper
-  introduction and setting of the scope. A bulk of implementation details are given. I fail to get the point. Are you
-  trying to solve the same problem in different ways, are you showing all features of MPS? I would expect that each
-  section draws some conclusions/lessons learnt.
-- Section 6 presents an evaluation and Section 7 a summary. I miss an evaluation of the drawbacks of MPS. The fact
-  that is a "closed" system. It has no real mechanisms for importing or exporting, but maybe it is so perfect that this
-  is not necessary.
-- Please check references a number of them are incomplete, eg. [10].
-
+    
+    -> I think we have a different understanding about what a tutorial for a specific
+       tool (MPS) is supposed to achieve. Remember that this is the introductory example
+       for building a language. At least in this one place I think I should provide enough
+       detail about how to implement the language that no more "magic" remains. In later
+       places where I explain details I think these are mostly necessary. But I have checked
+       this and removed a few things in a few places.  
+    
+    
+  * The sentence "So instances of the types ... configuration." is grammatically wrong 
+    and hard to understand therefore.
+    
+  -> fixed.  
+    
+- Section 5 describes the various ways of implementing language extensions. This section suffers
+  from a proper introduction and setting of the scope. A bulk of implementation details are given. 
+  I fail to get the point. Are you trying to solve the same problem in different ways, are you 
+  showing all features of MPS? I would expect that each section draws some conclusions/lessons learnt.
+  
+  -> I show different ways of composing languages. I hope that with the new introduction,   
+     and the added conceptual background in the intro and in each of the composition sections,
+     it is more clear what each of these sections try to achieve.
+  
+- Section 6 presents an evaluation and Section 7 a summary. I miss an evaluation of the drawbacks 
+  of MPS. The fact that is a "closed" system. It has no real mechanisms for importing or exporting, 
+  but maybe it is so perfect that this is not necessary.
+  
+  -> MPS does have drawbacks. It is a closed system, but I wrote an EMF exporter in one day,
+     so this is not a big deal. I have added a discussion about some of the drawbacks of MPS.
+     However, these do not concern the ability to compose modularized languages, this is why
+     I didn't add them originally --- this paper is not a full evaluation of MPS. 
+  
 
 [EB2010] Engelen, L.J.P. & Brand, M.G.J. van den (2010). Integrating textual and graphical modelling languages.
 In T. Ekman & J. Vinju (Eds.), Proceedings of the 9th Workshop on Language Descriptions, Tools and Applications,
