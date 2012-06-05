@@ -70,11 +70,14 @@ an intention ("quick fix" via Alt-Enter).
   \includegraphics[scale=0.55]{figures/annotationeditor.png}
   \caption[labelInTOC]{The editor for the \ct{AttrToColMapping} embeds the
   editor of the concept it is annotated to (using the \ct{attributed node}
-  cell). It then projects the reference to the referenced column.}
+  cell). It then projects the reference to the referenced column. This way the
+  editor of the annotation has control of if and how the editor annotated
+  element is projected.}
   \label{annotationeditor}  
 \end{center}
 \end{figure}
 
+\todo{Did I remove the stupid special or in the formulas?}
 
 Note that it is also possible to define the annotation source to be
 \ct{BaseConcept}, which means the annotation can be attached to any node. The
@@ -111,8 +114,9 @@ switch.
 \begin{center}
   \includegraphics[scale=0.50]{figures/requirementstrace.png}
   \caption[labelInTOC]{Requirements traces can be annotated to any arbitrary
-  program element. The annotation is targetted to \ct{BaseConcept}, which means
-  there is no explicit dependency to any specific language.}
+  program elements (the annotation is defined to target \ct{BaseConcept}).
+  Consequently, the language that defines the annotation has no dependency on
+  any of the languages whose concepts it can annotate.}
   \label{requirementstrace} 
 \end{center}
 \end{figure}
@@ -130,10 +134,10 @@ found in \cite{Voelter2010} and \cite{VoelterVisser2011}.
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.50]{figures/featuredependencies.png}
-  \caption[labelInTOC]{Feature dependency annotations are boolean expresssions
+  \caption[labelInTOC]{Feature dependency annotations are Boolean expresssions
   over configuration switches that determine whether the annotated program
   element is part of a program variant. The transformation removes all those
-  elements for which the annotation evaluates to false.}
+  elements for which the annotation evaluates to \ic{false}.}
   \label{featuredependencies}  
 \end{center}
 \end{figure}
@@ -141,9 +145,11 @@ found in \cite{Voelter2010} and \cite{VoelterVisser2011}.
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.50]{figures/featureCutDown.png}
-  \caption[labelInTOC]{This is the statemachine from \fig{featuredependencies},
-  customized to the variant where only the \emph{bumper} switch is turned on.
-  The \emph{bumper}-specific parts are highlighted.}
+  \caption[labelInTOC]{The variant customization of program code cannot just
+  be performed during code generation, but also in the editor. The figure
+  shows the state machine from \fig{featuredependencies}, customized to the 
+  variant where only the \emph{bumper} switch is turned on. The \emph{bumper}-specific 
+  parts are highlighted.}
   \label{featureCutDown}  
 \end{center}
 \end{figure}

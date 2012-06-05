@@ -240,8 +240,8 @@ project \ic{de.voelter.mps.expressions.blgen} and add reduction rules.
   \caption[labelInTOC]{A number of reduction rules that map the reusable
   expression language to BaseLanguage (Java). Since the languages are very
   similar, the mapping is trivial. For example, a \ct{PlusExpression} is mapped
-  to a + in Java, the left and right arguments are reduced recursively through
-  the COPY\_SRC macro.}
+  to a \ic{+} in Java, the left and right arguments are reduced recursively through
+  the \ic{COPY\_SRC} macro.}
   \label{expr2blgen}  
 \end{center}
 \end{figure} 
@@ -259,9 +259,9 @@ the \ic{rbac\_entities} language.
 \begin{center}
   \includegraphics[scale=0.50]{figures/reductionAttributeRef.png}
   \caption[labelInTOC]{References to entity attributes are mapped to a call to
-  their getter method. The tempalte fragment (inside the TF) uses two reference
-  macros (->\$) to "rewire" the object reference to the Java bean instance, and
-  the \ct{toString} method call to a call to the getter.}
+  their getter method. The template fragment (inside the \ic{<TF .. TF>}) uses
+  two reference macros (->\$) to "rewire" the reference to the Java bean instance, and
+  the dummy \ct{toString} method call to a call to the getter.}
   \label{reductionAttributeRef}  
 \end{center}
 \end{figure}

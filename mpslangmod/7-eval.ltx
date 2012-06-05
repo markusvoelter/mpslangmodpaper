@@ -13,6 +13,8 @@ repeat some of the numbers. Also reemphasize JetBrains' internal work.}
 \todo{discuss evolution of the base/host/referenced languages and consequences
 for the composition techniques.}
 
+\todo{Do I want to remove this facet stuff here??}
+
 The previous examples show that meaningful \lmrc is possible with MPS.
 Specifically, reuse and embedding of languages is possible. The challenge
 of grammar composition is not an issue in MPS, since no grammars and
@@ -87,8 +89,8 @@ sublanguage:
 To control the granularity at which preemption, enhancement or overriding is
 performed, the base language designer would have to group the structures or
 behaviors into suitably cut facets. This amount of preplanning is acceptable: it
-is just as in OO programming, where behavior that should be overridable has to
-be packaged into its own method.
+is just as in object-oriented programming, where behavior that should be
+overridable has to be packaged into its own method.
   
 The approach could be taken further. Components could be marked as
 \emph{abstract}, and define a set of parameters for which values need to be
@@ -120,18 +122,18 @@ to add product-specifics to these languages.
 Web development involves many languages. In the browser, HTML, CSS, JavaScript
 and SVG are used. All of these languages embed one another. On the Java-based
 server side, a set of descriptive languages is used, together with query
-languages (EQL, HBQL, SQL), template languages (JSP, Velocity) and of course the
-Java programming language at the core. JetBrains decided to wrap these
-platform-specific implementation languages with a set of Java language
+languages (EJB Query Language, Hibernate Query Language, SQL), template
+languages (Java Server Pages, Velocity) and of course the Java programming
+language at the core. JetBrains decided to wrap these platform-specific implementation languages with a set of Java language
 extensions. For the sake of the example, we focus on describing the extensions
 used in the Java-based backend. The most notable of the languages used in
 YouTrack are \emph{dnq} and \emph{webr}. \emph{dnq} is a Java language extension
 for working with persistent data and queries. Almost all modern web applications
 store data in a database. However, database manipulation is not very well
 supported in general-purpose languages such as Java. Developers use object
-relational mapping frameworks such as Hibernate \todo{ref}, JDO \todo{ref} or
-JPA \todo{ref} to alleviate this problem. These frameworks basically map
-database rows to Java classes. However, because authors of these frameworks
+relational mapping frameworks such as Hibernate \todoref{}, Java Data Objects
+\todoref{} or the Java Persistence API \todoref{} to alleviate this problem.
+These frameworks basically map database rows to Java classes. However, because authors of these frameworks
 cannot change the Java language, the integration is limited, hampering developer
 productivity \todo{provide a reference for the ``hampering'' claim}. For
 example:
@@ -158,7 +160,7 @@ expression of relations in a more natural way: unidirectional and bidirectional
 relationships can be declared, distinguishing between composition and
 references. Programmers can access them in a way similar to accessing fields in
 Java. \emph{dnq} also includes a collections language which supports
-the manipulation of collections in a way similar to .NET's LINQ. For example,
+the manipulation of collections in a way similar to .NET's Linq. For example,
 \emph{dnq} supports code such as the following:
 
 
@@ -174,8 +176,8 @@ The \emph{webr} language is used for request handling in web applications. In
 web frameworks this task is typically accomplished by controller classes and
 HTML templates. To configure HTTP request handling, frameworks often use XML
 based descriptors. In order to process the HTML templates, template engines are
-used. Examples include JSP \todo{ref}, Velocity\todo{ref} or
-FreeMarker\todo{ref}. \emph{webr} supports this through Java language extension.
+used. Examples include JSP \todoref{}, Velocity\todoref{} or
+FreeMarker\todoref{}. \emph{webr} supports this through Java language extension.
 Its template language combines XML and Java, relatively similar to JSP at first
 glance. However, based on MPS' ability to extend languages, \emph{webr} provides
 much more freedom of what templates can contain. For example, in many template
@@ -201,7 +203,7 @@ embedded system development approaches use a variety of tools for various
 aspects of the system, making tool integration a major challenge. Some of the
 specific problems of embedded software development include the limited
 capability for meaningful abstraction in C, some of C's "dangerous" features
-(leading to various coding conventions such as Misra-C \todo{ref}), the
+(leading to various coding conventions such as Misra-C \todoref{}), the
 proprietary and closed nature of modeling tools, the integration of models and code,
 traceability to requirements, long build times as well as management of product
 line variability. To address these issues, we propose an alternative approach
@@ -210,8 +212,8 @@ language (\ic{http://mbeddr.com}) that contains a set of language extensions
 relevant to this embedded development. A larger-scale research project is
 starting in July 2011 to continue the development of this approach.
  
-For the proof-of-concept, the mbeddr project uses Lego Mindstorms \todo{ref} as
-the target platform together with the OSEK operating system \todo{ref} to ensure
+For the proof-of-concept, the mbeddr project uses Lego Mindstorms \todoref{} as
+the target platform together with the OSEK operating system \todoref{} to ensure
 real-world relevance. The current showcase is a line follower robot. It uses a single light sensor to
 follow (one side of) a thick black line by changing the speed of motors that
 drive the two wheels. The current state of the prototype contains language
@@ -223,4 +225,4 @@ for simplified control of the two-wheeled robot using commands such as
 accelerate, turn left, or stop. The implementation of this DSL is a model
 transformation down to the basic embedded languages: we generate tasks,
 procedures and state machines, which are then (automatically) transformed down
-to actual C and are compiled by GCC for the OSEK target.
+to actual C and are compiled by \ic{gcc} for the OSEK target.

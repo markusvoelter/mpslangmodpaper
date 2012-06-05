@@ -2,7 +2,7 @@
 \section{How MPS works}
 \label{HowMPSWorks}
 
-The JetBrains Meta Programming System \todo{ref} is a projectional language
+The JetBrains Meta Programming System \todoref{} is a projectional language
 workbench available as Open Source software under the Apache 2.0
 license. The term Language Workbench was coined by Martin Fowler in
 2005 \cite{Fowler2004}. In his article he defines a language workbench as a tool
@@ -28,8 +28,8 @@ with the following characteristics:
 MPS exhibits all of these characteristics. MPS' most distinguishing feature is
 its projectional editor. This means that all text,
 symbols, and graphics are projected, and not parsed. Projectional editing is
-well-known from graphical modeling tools (UML, ER, State Charts). The model is stored
-independent of its concrete syntax, only the model structure is persisted, often
+well-known from graphical modeling tools (UML, Entity-Relationship, State
+Charts). The model is stored independent of its concrete syntax, only the model structure is persisted, often
 using XML or a database. For editing purposes, graphical editors project the
 abstract syntax using graphical shapes. Users use mouse gestures and keyboard actions tailored
 to graphical editing to modify the abstract model structure directly. While the
@@ -55,8 +55,8 @@ list of benefits of the projectional editing approach:
   graphical tool for editing state machines can embed a textual expression
   language for editing the guard conditions on
   transitions\footnote{Intentional's Domain Workbench has demonstrated this
-  repeatedly, for example in \todo{OOPSLA Paper}. As of 2012, MPS can do text,
-  symbols (such as big sum signs or fraction bars) and tables. Graphics will be
+  repeatedly, for example in \todoref{OOPSLA Paper}. As of 2012, MPS can do
+  text, symbols (such as big sum signs or fraction bars) and tables. Graphics will be
   supported in 2013.}.
 
   \item Because projectional languages by definition need an IDE for editing (it
@@ -76,18 +76,26 @@ list of benefits of the projectional editing approach:
 
 \end{itemize}
 
-Projectional editors also have drawbacks. The first one is that editing the tree
-as opposed to "real text" needs some time to get used to. Without specific
-customization, every program element has to be selected from a drop-down list to
-be "instantiated". However, MPS provides editor customizations to enable editing
-that resembles modern IDEs that use automatically expanding code templates. This
-makes editing quite convenient and productive in all but the most exceptional
-cases. The second drawback is that models are not stored as readable text, but
-rather as a serialized abstract syntax tree (typically XML). Integrating XML
-files with an otherwise ASCII-based development infrastructure can be a
-challenge. MPS addresses the most critical aspect of this drawback: it supports
-diff and merge on the level of the projected concrete syntax. \todo{Add the
-drawback of the closedness of MPS.}
+Projectional editors also have drawbacks. The first one is that editing the
+projected representation as opposed to "real text" needs some time to get used
+to. Without specific customization, every program element has to be selected
+from a drop-down list to be "instantiated". However, MPS provides editor
+customizations to enable an editing experience that resembles modern IDEs that
+use automatically expanding code templates. This makes editing quite convenient
+and productive in all but the most exceptional cases. The second drawback is
+that models are not stored as readable text, but rather as an XML-serialized
+abstract syntax tree. Integrating XML files with an otherwise ASCII-based
+development infrastructure can be a challenge. MPS addresses the most critical
+aspect of this drawback by supporting diff and merge on the level of the
+projected concrete syntax. Finally, MPS is proprietary in the sense that it is
+not based on any industry standards. For example, it does not rely on EMF or
+another widely used modeling formalism. However, since MPS' meta meta model is
+extremely close to EMF Ecore, it is trivial to build an exporter that exports
+ASTs as an EMF model. Also, all other language workbenches also do not support
+portability of the \emph{language definition} beyond the abstract syntax ---
+which is the simplest aspect in terms of implementation effort.
+
+
 
 
 MPS has been designed from the start
@@ -101,7 +109,7 @@ syntactic composition of the languages is required. In traditional, grammar-base
 independently developed grammars can be a problem: many grammar classes are not
 closed under composition, and various invasive changes (such as left-factoring
 or redefinition of terminals or non-terminals), or unwanted syntactic escape
-symbols are required \todo{ref}. As we will see, this is not the case in MPS.
+symbols are required \todoref{}. As we will see, this is not the case in MPS.
 Arbitrary languages can be combined syntactically.
 
 \item[Extensible Type Systems:] All of the composition techniques require some

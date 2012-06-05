@@ -27,14 +27,6 @@ pension calculations. We denote as $P_l$ the subset of $P$ that can be expressed
 in $l$. A translation $t$ between languages $l_1$ and $l_2$ maps programs from
 their $l_1$ encoding to their $l_2$ encoding, i.e. $t(p_{l_1}) = p_{l_2}$.
 
-% \begin{figureeee}[h]
-% \begin{center}
-%   \includegraphics[scale=0.55]{figures/domain.png}
-%   \caption[labelInTOC]{Programs, Languages, Domains}
-%   \label{domain} 
-% \end{center}
-% \end{figure}
-
 Now, what are domains? There are essentially two approaches to characterize
 domains. First, domains are often considered as a body of knowledge in the real
 world, i.e. outside the realm of software. For instance, pension policies are
@@ -185,7 +177,10 @@ this is not always that possible, though often desirable.
   \includegraphics[width=8.2cm]{figures/quadrants.png}
   \caption[labelInTOC]{We distinguish the four modularization and composition
   approaches regarding their consequences for fragment structure and language
-  dependencies.}
+  dependencies. The dependencies dimension captures whether the languages have
+  to be designed specifically for a specific composition partner or not.
+  Fragment structure captures whether the composition approach supports
+  mixing of the concrete syntax of the composed languages or not.}
   \label{quadrants} 
 \end{center}
 \end{figure} 
@@ -198,7 +193,7 @@ this is not always that possible, though often desirable.
   four composition approaches. Boxes represent fragments, rounded boxes are
   languages. Dotted lines are dependencies, solid lines
   references/associations. The shading of the boxes represent the two
-  different languages.}
+  composed languages.}
   \label{fragAndLang} 
 \end{center}
 \end{figure}

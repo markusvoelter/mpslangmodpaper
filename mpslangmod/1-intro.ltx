@@ -1,8 +1,6 @@
 \section{Introduction}
 \label{intro}
 
-\todo{Introduce all abbreviations.}
-
 Traditionally, programmers use general purpose languages (GPLs) for developing
 software systems. "general-purpose" refers to the fact that they can be used for
 any programming task. They are Turing complete, and provide means to build
@@ -30,15 +28,16 @@ formal analysis, verification, transformation and optimization, and possibly
 usable by non-programmer domain experts.
 
 The use of polyglot programming raises the question how the syntax, semantics,
-and IDE support of the various languages can be integrated. Especially syntactic
-integration has traditionally been very hard \cite{KatsVW10} and hence is often
-not supported for a particular combination of languages. Program parts expressed
-in different languages reside in different files. References among "common"
-things in these different program parts are implemented by using agreed-upon
-identifiers that must be used consistently. For some combinations of languages,
-the IDE may be aware of the "integration by name" and check the consistency. In
-some rare cases, syntactic integration between specific pairs of languages has
-been built, for example, embedded SQL in Java~\cite{BravenboerDV07}.
+and IDE (integrated development environment) support of the various languages
+can be integrated. Especially syntactic integration has traditionally been very
+hard \cite{KatsVW10} and hence is often not supported for a particular
+combination of languages. Program parts expressed in different languages reside
+in different files. References among "common" things in these different program
+parts are implemented by using agreed-upon identifiers that must be used
+consistently. For some combinations of languages, the IDE may be aware of the
+"integration by name" and check the consistency. In some rare cases, syntactic
+integration between specific pairs of languages has been built, for example,
+embedded SQL in Java~\cite{BravenboerDV07}.
 
 However, building specialized integrations between two languages is very
 expensive, especially if IDE support like code completion, syntax coloring,
@@ -51,7 +50,7 @@ required. Such an approach has to address the following concerns:
 \begin{itemize}
   \item The concrete and the abstract syntax of the two languages have to be
   composed. This may require the embedding of one syntax into another one.
-  This, in turn, requires modular grammars \todo{ref}.
+  This, in turn, requires modular grammars \todoref{}.
   \item The static semantics (i.e., the constraints and the type system) have to
   be integrated. For example, in the case of language extension, new types have
   to be "made valid" for existing operators.
@@ -62,11 +61,11 @@ required. Such an approach has to address the following concerns:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
-In this paper we focus on JetBrains MPS \todo{ref} as a means of demonstrating
+In this paper we focus on JetBrains MPS \todoref{} as a means of demonstrating
 language composition approaches. MPS is a projectional editor, so no grammars or parsers
 are used. Instead, editing gestures \emph{directly} modify the abstract syntax
 tree, and the representation on the screen is rendered, or projected, from the
-chainging tree. As we discuss in \todo{ref}, this simplifies the syntactic
+chainging tree. As we discuss in \todoref{}, this simplifies the syntactic
 aspect of language composition. Also, MPS been designed to be used for
 developing sets of integrated languages, and not just one or more standalone
 languages. This is exemplified by its extensible transformation and type
@@ -89,12 +88,10 @@ since MPS is an example projectional editor.
 do lang comp. Merely we explain how it works with MPS and make clear why we
 think it is particularly useful.}
 
-\todo{Highlight the projectional benefits}
-
 The paper is structured as follows. In \sect{terminology} we define a set of
 terms and concepts used in this paper. \sect{typesOfMod} outlines the various
 kinds of \lmrc discussed in this paper, and provides rationale why we discuss
-those kinds, and not others. Then, we describe how projectional editors work in
+those kinds, and not others. Then we describe how projectional editors work in
 general, and how MPS works specifically (\sect{HowMPSWorks}) and develop the
 core language which acts as the basis for the extension and composition examples
 (\sect{entitiesLanguage}). This section  also serves as a very brief tutorial on
@@ -128,7 +125,7 @@ where X is between 1 and 8.
 
 Note that this paper is not a complete MPS tutorial. MPS is very deep and
 powerful, so we have to focus on those aspects that are essential for \lmrc. We
-refer to the LWC 11 MPS tutorial for details:
+refer to the Language Workbench Competition (LWC 11) MPS tutorial for details:
  
 \vspace{5pt}
 \ic{http://code.google.com/p/mps-lwc11/wiki/GettingStarted}
@@ -182,7 +179,7 @@ set of non-containing cross-references between program elements in a fragment
 $f$. Each reference $r$ in $\mathit{Refs_f}$ has the properties $from$ and $to$,
 which refer to the two ends of the reference relationship. Finally, we define an
 inheritance relationship that applies the Liskov Substitution Principle
-\todo{ref} to language concepts. A concept $c_{sub}$ that extends another
+\todoref{} to language concepts. A concept $c_{sub}$ that extends another
 concept $c_{super}$ can be used in places where an instance of $c_{super}$ is
 expected. $\mathit{Inh_l}$ is the set of inheritance relationships for a
 language $l$. Each $i \in \mathit{Inh_l}$ has the properties $super$ and $sub$.
@@ -275,7 +272,7 @@ paper.
   \item[Embedding] combines the syntactic integration introduced by
   extension with not having dependencies introduced by reuse. So independent
   languages can still be used in the same heterogeneour fragment. An examples
-  includes the embedding of a reusable expression language into a DLS. Since
+  includes the embedding of a reusable expression language into a DSL. Since
   neither of the two composed languages have direct dependencies, the same
   expression language can be embedded into \emph{different} DSLs, and a specific DSL
   could integrate \emph{different} expression languages.
@@ -302,7 +299,10 @@ this is not always easily possible, though often desirable.
   \includegraphics[width=8.2cm]{figures/quadrants.png}
   \caption[labelInTOC]{We distinguish the four modularization and composition
   approaches regarding their consequences for fragment structure and language
-  dependencies.}
+  dependencies. The dependencies dimension captures whether the languages have
+  to be designed specifically for a specific composition partner or not.
+  Fragment structure captures whether the composition approach supports
+  mixing of the concrete syntax of the composed languages or not.}
   \label{quadrants} 
 \end{center}
 \end{figure} 
@@ -324,12 +324,18 @@ this is not always easily possible, though often desirable.
 
 \todo{Refer to Wavefront Paper where appropriate.}
 
-Other classification approaches have been proposed \todo{Mernik Paper}. This one
-in particular also discusses restriction \todo{Correct Term} of languages. In
-the context of the classification proposed in this paper, restriction is a form
-of extension in the following sense: to restrict a language, we
-develop an extension that \emph{prohibits the use of some language concepts in certain contexts}.
-We discuss this in \todo{}. 
+
+
+Other classification approaches have been proposed. In particular, in their
+paper "When and How to design DSLs" \cite{MernikHS05}, Mernik et. al. propose a
+number of modularization approaches, among them extension and restriction. In
+the context of the classification proposed in our paper, restriction is a form
+of extension in the following sense: to restrict a language, we develop an
+extension that \emph{prohibits the use of some language concepts in certain
+contexts}. We discuss this in \todo{}. Mernik et al. also propose Piggybacking
+and Pipelining as ways to reuse existing generators or interpreters. We don't
+include these approaches in our discussion here because they don't
+\emph{compose} languages --- they just chain their translation.
 
 
 \subsection{Case Study}
@@ -348,9 +354,9 @@ language) and \emph{embedding} with regards to the expressions language.
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.4]{figures/languagestructure.png}
-  \caption[labelInTOC]{\ic{entities} is the central language. \ic{uispec} defines UI
-  forms for the \ic{entities}. \ic{uispec\_validation} adds validation rules, and composes
-  a reusable expressions language. relmapping provides a reusable database
+  \caption[labelInTOC]{\ic{entities} is the central language. \ic{uispec}
+  defines user interface (UI) forms for the \ic{entities}.
+  \ic{uispec\_validation} adds validation rules, and composes a reusable expressions language. relmapping provides a reusable database
   mapping language, \ic{relmapping\_entities} adapts it to the \ic{entities} language.
   rbac is a reusable language for specifying permissions; \ic{rbac\_entities} adapts
   this language to the \ic{entities} language. }

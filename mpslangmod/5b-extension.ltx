@@ -48,20 +48,20 @@ rather it is a form of language referencing. The fragments remain homogeneous.
 
 
 We will revisit language extension later for more meaningful examples
-of extension. For now, we extend the MPS base language with expression blocks
+of extension. For now, we extend the MPS base language with block expressions
 and placeholders. These concepts make writing generators \emph{that generate
 base language code} much simpler. \fig{expressionBlock} shows an example. We use
 a screenshot instead of text because we use non-textual notations (the big
 brackets) and color. 
 
 
-\phead{Structure and Syntax} An expression block is a block that can be used
+\phead{Structure and Syntax} A block expression is a block that can be used
 where an \ct{Expression} is expected \cite{BravenboerVVV05}. The block can
 contain any number of statements; \ct{yield} can be used to "return values" from
-within the block. So, in some sense, an expression block is an "inlined method",
-or a closure that is defined and called directly. The optional name property of
-an expression block is then used as the method name. The generator of the
-expression block transforms it into just this structure:
+within the block. So, in some sense, a block expression is an "inlined
+method", or a closure that is defined and called directly. The optional name property of
+a block expression is then used as the method name. The generator of the
+block expression transforms it into just this structure:
 
 
 \begin{code}
@@ -80,18 +80,17 @@ okButton.addActionListener(new ActionListener() {
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.6]{figures/expressionBlock.png}
-  \caption[labelInTOC]{Expression blocks (in blue) are basically anonymous
-  inline methods. Upon transformation, a method is generated that contains the
-  block content, and the expression block is replaced with a call to this
-  method. Expression blocks are used mostly when implementing generators; this
-  screenshot shows a generator that uses an expression block.}
+  \caption[labelInTOC]{Block Expressions (rendered with a shaded background) are
+  basically anonymous inline methods. Upon transformation, an actual method is
+  generated that contains the block content, and the block expression is replaced with a call to this
+  generated method. Block expression are used mostly when implementing
+  generators; this screenshot shows a generator that uses a block expression.}
   \label{expressionBlock} 
 \end{center}
 \end{figure}
 
-
 The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS' BaseLanguage.
-The expression block is used in places where the base language
+The block expression is used in places where the base language
 expects an \ct{Expression}. This is why a \ct{BlockExpression} extends
 \ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language, can
 now use \ct{BlockExpression}s in addition to the concepts provided by the base
@@ -141,10 +140,11 @@ for the block expression (\fig{expressionBlockGenerator1}).
 \begin{center}
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator1.png}
   \caption[labelInTOC]{We use a weaving rule to create an additional method for
-  this \todo{what is this?}. A weaving rule processes an input element
+  a block expression. A weaving rule processes an input element
   (\ct{BlockExpression}) by creating another node in a different place. The context function defines this
-  other place. In this case, it simply gets the class in which we have defined
-  the block expression.}
+  other place. In this example, it simply gets the class in which we have
+  defined the particular block expression, so the additional method is generated
+  into that class.}
   \label{expressionBlockGenerator1} 
 \end{center}
 \end{figure}
@@ -161,12 +161,13 @@ method call that replaces the \ct{BlockExpression}
 \begin{figure}[htp] 
 \begin{center}
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator2.png}
-  \caption[labelInTOC]{The generator creates a method from the block
-  expression. It uses COPY\_SRC macros to replace the \ct{string} type with the
-  computed return type of the block expression, inserts a computed name, adds a
+  \caption[labelInTOC]{This generator template creates a method from the block
+  expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ct{string}
+  type with the computed return type of the block expression, inserts a computed name, adds a
   parameter for each referenced variable outside the block, and inserts all the
   statements from the block expression into the body of the method. The
-  \ct{blockExprToMethod} mapping label is used later in the method call.}
+  \ct{blockExprToMethod} mapping label is used later when generating the call to
+  this generated method (shown in \fig{expressionBlockGenerator3}).}
   \label{expressionBlockGenerator2} 
 \end{center}
 \end{figure}
@@ -181,7 +182,8 @@ blocks, because that won't work. This is an example of restriction.}
   \caption[labelInTOC]{Here we generate the call to the previously generated
   method. We use the mapping label \ct{blockExprToMethod} to refer to the
   correct method (not shown; happens inside the reference macro). We pass in
-  the environment variables as actual arguments.}
+  the environment variables as actual arguments using the \ic{LOOP} and
+  \ic{COPY\_SRC} macros.}
   \label{expressionBlockGenerator3} 
 \end{center}
 \end{figure}

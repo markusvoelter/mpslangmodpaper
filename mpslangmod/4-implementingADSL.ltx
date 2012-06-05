@@ -3,8 +3,6 @@
 \section{Implementing a DSL with MPS}
 \label{entitiesLanguage}
 
-\todo{Better figure captions in this section, and maybe the rest of the paper?}
-
 This section illustrates the definition of a language with JetBrains MPS. Like
 other language workbenches, MPS comes with a set of DSLs for language definition, a
 separate DSL for each language aspect. Language aspects include structure,
@@ -49,10 +47,12 @@ structure of the \ic{entities} language. Each box represents a language concept.
   \includegraphics[scale=0.4]{figures/entities.png}
   \caption[labelInTOC]{The abstract syntax of the entities language. Entities
   have attributes which have types and names. \ct{EntityType} extends 
-  \ct{Type} and references \ct{Entity}. This "adapts" entities to types 
-  (cf. the Adapter pattern). Concepts like \ct{EntityType} which have 
-  exactly one reference are called smart references and are treated specially
-  by the IDE in code completion. }
+  \ct{Type} and references \ct{Entity}. This adapts entities to types 
+  (cf. the Adapter pattern in \todoref{}). Concepts like \ct{EntityType} which
+  have exactly one reference are called smart references and are treated specially
+  by MPS: the code completion menu shows \emph{the possible targets} of the
+  reference directly, instead of first instantiating the reference concept and
+  then selecting the target.}
   \label{entities} 
 \end{center}
 \end{figure}
@@ -95,10 +95,10 @@ other concepts are defined similarly.
   \includegraphics[scale=0.6]{figures/editordefinition.png}
   \caption[labelInTOC]{The editor for \ct{Entity}. The outermost cell is a
   vertical list. In the first line, we use a horizontal list that contains
-  the "keyword" \ct{entity}, the value of the name property and an opening
+  the "keyword" \ct{entity}, the value of the \ic{name} property and an opening
   curly brace. In the second line we use indentation and a vertical arrangements
   of the contents of the \ct{attributes} collection. Finally, the third line
-  contains the closing curly.}
+  contains the closing curly brace.}
   \label{editordefinition} 
 \end{center}
 \end{figure}
@@ -139,7 +139,7 @@ rule typeof_Type {
 \noindent The only other typing rule is an equation that defines the type of the
 attribute as a whole to be the type of the attribute's \ct{type} property, defined as
 \ic{typeof(attribute) :==: typeof(attribute.type);}. No other typing rules
-apply in this simple entities language. As we have said in \todo{ref}, language
+apply in this simple entities language. As we have said in \todoref{}, language
 developers only have to specify typing rules. MPS type system engine applies the
 rules to all applicable program elements, solves the resulting set of type
 equations, and if equations run into contradictions, this is annotated on the
@@ -175,20 +175,23 @@ the mapping configuration for the \ic{entities} language.
 \begin{center}
   \includegraphics[scale=0.55]{figures/entitiesmc.png}
   \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
-  root mapping rule for Entity specifies that instances of \ct{Entity} should
-  be transformed with the \ct{map\_Entity} template. The reduction rules use
-  inline templates. For example, the \ct{IntType} is replaced with the Java
-  \ct{int} and the \ct{EntityRefType} is reduced to a reference to the class
-  generated from the target entity. The arrow-dollar-symbol is a so-called
-  reference macro. It contains code (not shown) that "rewires" the reference to
-  \ct{Double} to a reference to the class generated from the target entity. }
+  root mapping rule for \ic{Entity} specifies that instances of \ct{Entity} should
+  be transformed with the \ct{map\_Entity} template (which produces a Java
+  class). The reduction rules use inline templates, i.e. the template is
+  embedded in the mapping configuration. For example, the 
+  \ct{IntType} is replaced with the Java \ct{int} and the \ct{EntityRefType} is
+  reduced to a reference to the class generated from the target entity. The
+  \ic{->\$} is a so-called reference macro. It contains code (not
+  shown) that "rewires" the reference (that points to the 
+  \ct{Double} class \emph{in the template code}) to a reference to the class
+  generated from the target entity. }
   \label{entitiesmc} 
 \end{center}
 \end{figure}
 
 \todo{Make sure that this paragraph is really understandable. Add more details.}
 MPS templates work differently from normal text generation templates such as
-Xpand \todo{ref}, Jet \todo{ref} or StringTemplate \todo{ref}, since they are
+Xpand \todoref{}, Jet \todoref{} or StringTemplate \todoref{}, since they are
 actually model-to-model transformations. However, as a consequence of MPS'
 language composition faciltiies, the concrete syntax of the target language is
 used in the template --- it is projected like any other program. However, this
@@ -218,8 +221,10 @@ the dummy value \ct{aField} to the name of the attribute we currently transform
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.55]{figures/entitytemplate.png}
-  \caption[labelInTOC]{The template for creating a Java class from an entity.
-  The running text explains the details.}
+  \caption[labelInTOC]{The template for creating a Java class from an
+  \ic{Entity}. The generated class contains a field, a getter and a setter for
+  each of the \ic{Attribute}s of the \ic{Entity}. The running text explains the
+  details.}
   \label{entitytemplate} 
 \end{center}
 \end{figure}

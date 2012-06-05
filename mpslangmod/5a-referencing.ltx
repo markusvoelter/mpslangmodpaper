@@ -80,11 +80,11 @@ concept Field extends BaseConcept implements <none>
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.5]{figures/uispec.png}
-  \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted lines
-  represent classes from another language (here: the \ic{entities} language). A
-  \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
-  form also contains \ct{Field}s, each referring to an \ct{Attribute} from an
-  \ct{Entity} and containing a \ct{Widget}.}
+  \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted
+  boxes represent classes from another language (here: the \ic{entities}
+  language). A \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
+  \ic{Form} also contains \ct{Field}s, each referencing an \ct{Attribute} from
+  an \ct{Entity} and containing a \ct{Widget}.}
   \label{uispec} 
 \end{center}
 \end{figure}
@@ -147,7 +147,7 @@ concept behavior Attribute {
 
 The original \ic{entities} fragment is still \emph{sufficient} for the transformation
 that generates the Java Bean. The form fragment is not sufficient for generating
-the UI, because it needs the entity fragment. This is not surprising since
-\emph{dependent} fragments can never be sufficient for a transformation: the
+the user interface, because it needs the entity fragment. This is not surprising
+since \emph{dependent} fragments can never be sufficient for a transformation: the
 transitive closure of all dependencies has to be made available.
 

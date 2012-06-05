@@ -17,7 +17,7 @@ Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
 editor that has been used in real projects. An impressive presentation about its
 capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
 (\ic{http://bit.ly/10BsWa}). IDW is conceptually very similar to MPS, although
-quite different in many details. The paper from OOPSLA ?? \todo{ref} provides
+quite different in many details. The paper from OOPSLA ?? \todoref{} provides
 details.
 
 
@@ -37,8 +37,8 @@ extremely powerful text editors (with code completion, error checking and syntax
 coloring) from an enhanced EBNF-like grammar definition. It also generates a
 meta-model that represents the abstract syntax of the grammar as well as a
 parser that parses sentences of the language and builds an instance of the
-meta-model. Since it uses Eclipse EMF as the basis for its meta models, it can
-be used together with any EMF-based model transformation and code generation
+meta-model. Since it uses the Eclipse Modeling Framework (EMF) as the basis for
+its meta models, it can be used together with any EMF-based model transformation and code generation
 tool (examples include Xpand, ATL, and Acceleo, all at
 \ic{http://eclipse.org/modeling}). Language referencing is easily possible;
 Code completion for references into other models as well as cross-model and
@@ -91,8 +91,8 @@ white space conventions, otherwise the projection could not work. Second, a lot
 of effort has to be put into retaining object identity \cite{Goldschmidt08}.
 If an abstract structure is projected into text, and then something is moved around
 and saved back into the abstract structure, it has to be made sure the objects
-(identified by UUIDs) are not deleted and recreated, but really just moved. This
-is important to make sure that references between models which are based on the
+(identified by UUIDs) are not deleted and recreated, but really just
+moved. This is important to make sure that references between models which are based on the
 UUIDs and not (qualified) names remain valid. By using scannerless parsers it
 is possible to combine different languages, however a combined grammar has to be
 defined and the parser has to be regenerated to be able to use the composed
@@ -111,6 +111,10 @@ strategy. This serves as a good tutorial of the tool and makes them comparable.
 As of June 2012, the site contains 15 submissions.
 
 \subsection{Other Related Work}
+
+
+
+
 
 \todo{(e.g., AbleJ, Cedalion, JastAdd, LISA, Modular denotational semantics, 
   Polyglot, Tattoo, ...) }
