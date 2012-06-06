@@ -9,7 +9,7 @@ $l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
 \begin{align}
 \exists r \in \mathit{Refs_{f_2}} \mid \; &\mathit{fo(r.from)} = 
 		f_2\; \wedge \nonumber \\ 
-	&\mathit{fo(r.to)} = (f_1 \vee f_2)
+	&(\mathit{fo(r.to)} = f_1 \vee \mathit{fo(r.to)} = f_2)
 \end{align}
 Since $l_2$ is independent, it cannot directly reference concepts in $l_1$. This
 makes $l_2$ reusable with different languages, in contrast to language

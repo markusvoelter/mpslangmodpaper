@@ -2,9 +2,6 @@
 
 \subsection{Language Referencing}
 
-\todo{Explain how it is not problem if two langs define the name concepts.
-Explain how only (dotted) name strings are used as referneces - no syntax
-sharing. }
 
 Language referencing  enables \emph{homogeneous} fragments with cross-references
 among them, using \emph{dependent} languages (\fig{langReferencing}).
@@ -17,11 +14,10 @@ from $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
 does not. Instead
 \begin{align}
 \forall r \in \mathit{Refs_{l_2}} \mid   
-   \mathit{lo(r.from)} = l_2\; \wedge \; \mathit{lo(r.to)} = (l_1 \vee  l_2)
+   \mathit{lo(r.from)} = l_2\; \wedge \; (\mathit{lo(r.to)} = l_1 \vee 
+   \mathit{lo(r.to)} = l_2)
 \end{align}
                       
-\todo{remove the special notation!}              
-(we use $x=(a \vee b)$ as a shorthand for $x = a \vee x = b$).                            
 
 \begin{figure}[h]
 \begin{center}
@@ -52,9 +48,6 @@ form CompanyStructure
   field Office: textfield(20) -> Department.description                                                                                                
 \end{code}
 
-\todo{Did we say somewhere why we don't address concrete syntax challenges
-specifically?}
-
 \phead{Structure and Syntax} The abstract syntax for the \ic{uispec} language is
 shown in \fig{uispec}. The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
 definition of one language uses or refers to concepts defined in another
@@ -72,9 +65,9 @@ concept Field extends BaseConcept implements <none>
   properties:                                 
     label : string                              
   children:                                   
-    Widget widget 0..1 specializes: <none>      
+    Widget widget 0..1      
   references:                                 
-    Attribute attribute 0..1 specializes: <none>
+    Attribute attribute 0..1
 \end{code} 
 
 \begin{figure}[htp]
@@ -89,7 +82,9 @@ concept Field extends BaseConcept implements <none>
 \end{center}
 \end{figure}
 
-                                                                                           
+Note that there is no composition of concrete syntax, since the programs written
+in the two composed languages remain separated into their own fragments. No
+clashes between names of concepts may occur in this case. 
 
 
 \phead{Type System} There are limitations regarding which widget can be used

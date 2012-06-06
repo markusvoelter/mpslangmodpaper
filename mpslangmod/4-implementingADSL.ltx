@@ -62,7 +62,7 @@ addition to \ic{properties}, \ic{children} and \ic{references}, concept
 definition can have more characteristics such as \ic{concept properties} or
 \ic{concepts links}. However, these are not needed for this example, so we don't
 show them here. The code above shows all the characteristics used in this
-example}. This is simplified to show the essentials.}. \ct{Entity} extends
+example}. \ct{Entity} extends
 \ct{BaseConcept}, the root concept, similar to \ct{java.lang.Object} in Java. It
 implements the \ct{INamedConcept} interface to inherit a \ct{name} field. It
 declares a list of children of type \ct{Attribute} in the \ct{attributes} role.
@@ -76,7 +76,7 @@ concept Entity extends BaseConcept implements INamedConcept
   properties:                                  
     << ... >>                                    
   children:                                     
-    Attribute attributes 0..n specializes: <none>
+    Attribute attributes 0..n
   references:                                  
     << ... >>                                    
 \end{code}                                               
@@ -189,33 +189,59 @@ the mapping configuration for the \ic{entities} language.
 \end{center}
 \end{figure}
 
-\todo{Make sure that this paragraph is really understandable. Add more details.}
 MPS templates work differently from normal text generation templates such as
 Xpand \todoref{}, Jet \todoref{} or StringTemplate \todoref{}, since they are
 actually model-to-model transformations. However, as a consequence of MPS'
-language composition faciltiies, the concrete syntax of the target language is
+language composition facilities, the concrete syntax of the target language is
 used in the template --- it is projected like any other program. However, this
 means that the \emph{template code itself} must be valid in terms of the target
-language. So to write a tempalte, developers first write a structurally correct
-example model in the target language. Then so called Macros are attached to
-those program elements that have to be replaced with data from the
-transformation input mdoel as the transformation executes. \fig{entitytemplate}
-shows the \ct{map\_Entity} template. It generates a complete Java class ---
-notice the complete structure of a Java class is present, because that is how
-BaseLanguage defines the editor for a Java class. We then generate a field for
-each entity \ct{Attribute}. To do this we first create a prototype field in the
-class (\ic{private int aField;}). Then we use macros to "transform" this
-prototype into an instance for each entity attribute. We first attach a
-\ct{LOOP} macro to the whole field. It contains an expression
-\ic{node.attributes;} where \ct{node} refers to the input \ct{Entity}. This code
-is entered in the Inspector window and is not shown in the screenshot. We then
-use a \ct{COPY\_SRC} macro to transform the type. \ct{COPY\_SRC} copies the
-input node (the inspector specifies the current attribute's type as the input
-here) and applies reduction rules. So instances of the concepts defined in the
-\ic{entities} language are transformed into a Java concepts using the
-reduction rules defined in the mapping configuration. Finally, we use a property macro (the dollar sign) to change the \ct{name} property of the field we generate from
-the dummy value \ct{aField} to the name of the attribute we currently transform
-(once again via an expression in the inspector).
+language. 
+
+
+\fig{entitytemplate} shows the \ct{map\_Entity} template. It generates a complete 
+Java class from an input \ic{Entity}. To understand how templates work in MPS we
+discuss in more detail the generation of Java fields for each \ic{Entity}
+\ic{Attribute}. Writing this template proceeds in the following way:
+
+\begin{itemize}
+  \item Developers first write a structurally correct example code in the
+  target language. To generate a field into a class for each
+  \ic{Attribute} of an \ic{Entity}, one would first add a regular field to a
+  class: \ic{private int aField;} (as shown in \fig{entitytemplate}).
+ 
+  \item Then so called Macros are attached to
+  those program elements from the example code that have to be replaced with
+  data from the transformation input model as the transformation executes. In
+  the \ic{Attribute} example in \fig{entitytemplate} we first
+  attach a \ct{LOOP} macro to the whole field. It contains an expression
+  \ic{node.attributes;} where \ct{node} refers to the input \ct{Entity} (this
+  code is entered in the Inspector window and is not shown in the screenshot).
+  This expression returns the set of \ic{Attribute}s from the current
+  \ic{Entity}, so the \ic{LOOP} iterates over all attributes of the entity and
+  creates a field for each of them. 
+  
+  \item At this point, each created field would be \emph{identical}
+  to \ic{private int aField;}, the example code to which we attached the
+  \ic{LOOP} macro. To make the generated field specific to the particular
+  \ic{Attribute} we iterate over, we use more macros. A \ct{COPY\_SRC} macro is
+  used to transform the \ic{type}. \ct{COPY\_SRC} copies the input node (the
+  inspector specifies the current attribute's \ic{type} as the input here) 
+  and applies reduction rules (those defined in \fig{entitiesmc}) to map types
+  from the \ic{entities} language to Java types. We then use a property macro
+  (the \ic{\$} sign around \ic{aField}) to change the \ct{name} property of the
+  field we generate from the dummy value \ct{aField} to the name of the attribute 
+  we currently transform.
+  
+\end{itemize}
+
+So instead of mixing template code and target language code (and separating
+them with some kind of escape character) we use annotation attached to regular,
+valid target language code. These annotations can be attached to arbitrary
+program elemnts. This way, the target language code in templates \emph{is
+always structurally correct}, but it can still be annotated to control the
+transformation. Annotations are a geaneral MPS mechanism not specific to
+transformation templates and are discussed in \todoref{}
+
 
 
 \begin{figure}[htp]

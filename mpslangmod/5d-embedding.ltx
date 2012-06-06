@@ -1,11 +1,6 @@
 
 \subsection{Language Embedding}
 
-\todo{Discuss what happens if: two langs define the same-named concepts, same
-syntax, same alias. Explain how this is not a problem. ANd we don't need escape
-characters.}
-
-
 
 Language embedding enables \emph{heterogeneous} fragments with
 \emph{independent} languages (\fig{langReuse}, but with a containment link
@@ -13,10 +8,10 @@ between $B5$ and $A3$). It is similar to reuse in that there are two independent
 languages $l_1$ and $l_2$, but instead of establishing references
 between two homogeneous fragments, we now embed instances of concepts from $l_2$
 in a fragment $f$ expressed with $l_1$, so
-\begin{align}
+\begin{align} 
 \forall c \in \mathit{Cdn_f} \mid  \;
 	&\mathit{lo(co(c.parent))} = l_1 \; \wedge \nonumber \\
-	&\mathit{lo(co(c.child))} = (l_1 \vee l_2)
+	( &\mathit{lo(co(c.child))} = l_1 \vee \mathit{lo(co(c.child))} = l_2) )
 \end{align}
 Unlike language extension, where $l_2$ depends on $l_1$ because concepts in
 $l_2$ extends concepts in $l_1$, there is no such dependency in this case. Both
@@ -28,14 +23,12 @@ can be used to achieve this, where
 	l_A \wedge \mathit{lo(c.child)} = l_1
 \end{align}
 
-\phead{Structure and Syntax} \ic{uispec\_validation} extends \ic{uispec}, which is a
-sublanguage of the validation language. It supports writing code such as the
-following in the UI form specifications. Writing the expressions is supported by
-embedding a reusable expressions language. \fig{uival} shows the structure. To
-be able to use the expressions, the user has to instantiate a
-\ct{ValidatedField} instead of a \ct{Field}. \ct{ValidatedField} is also defined
-in \ic{uispec\_validation} and is a subconcept of \ct{Field}.
-
+As an example we embed an existing, embeddable \ic{expressions} language into
+the \ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
+language or the expression language, since, in case of embedding, none of them
+may have a dependency on the other. Here is an example program using the
+resulting language. Note the use of expressions behind the \ic{validate}
+keyword:
 
 \begin{code}
 form CompanyStructure                                                                                                                                  
@@ -50,11 +43,19 @@ form CompanyStructure
   field Office: textfield(20) -> Department.description                                                                                                
 \end{code}
 
+
+\phead{Structure and Syntax} We create a new \ic{uispec\_validation} that
+extends \ic{uispec} and it also extends \ic{expressions}. \fig{uival} shows the
+structure. To be able to use the expressions, the user has to instantiate a
+\ct{ValidatedField} instead of a \ct{Field}. \ct{ValidatedField} is also defined
+in \ic{uispec\_validation} and is a subconcept of \ct{Field}.
+
+
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.50]{figures/uival.png}
   \caption[labelInTOC]{The \ic{uispec\_validation} language defines a subtype of
-  \ct{uispec.Field} that contains an \ct{Expression} from a reusable expression
+  \ct{uispec.Field} that contains an \ct{Expression} from a reusable \ic{expressions}
   language. The language also defines a couple of additional expressions,
   specifically the \ct{AttributeRefExpr}, which can be used to refer to
   attributes of entities.}
@@ -83,23 +84,40 @@ execute(editorContext, node)->void {
 \end{code}
 
 
-The \ic{uispec\_validation} language extends the uispec language. We also extend the
-existing, reusable expressions language, so we can use \ct{Expressions} in the
-definition of our language. \ct{ValidatedField} has a property \ct{expr} that
-contains the actual expression. As a consequence of polymorphism, we can use any
-existing subconcept of \ct{Expression} here. So without doing anything else, we
-could write \ic{20 + 40 > 10}, since integer literals and the plus operator
-are defined as part of the composed expressions language. However, to write
-anything useful, we have to be able to reference entity attributes from within
-expressions. To achieve this, we create the \ct{AttributeRefExpr} as shown in
-\fig{uival}. We also create \ct{LengthOf} and \ct{IsSetExpression} as further
-examples of how to adapt an embedded language to its new context ---
-i.e. the \ic{uispec} and \ic{entities} languages.
+As mentioned, the \ic{uispec\_validation} language extends the \ic{uispec} and
+\ic{expressions} languages. \ct{ValidatedField} has a property \ct{expr} that
+contains the actual \ic{Expression}. As a consequence of polymorphism, we can
+use any existing subconcept of \ct{Expression} defined in the \ic{expressions}
+language here. So without doing anything else, we could write \ic{20 + 40 > 10},
+since integer literals and the \ic{+} operator are defined as part of the
+embedded \ic{expressions} language. However, to write anything useful, we have to be
+able to reference entity attributes from within expressions. To achieve this, we create
+the \ct{AttributeRefExpr} as shown in \fig{uival}. We also create
+\ct{LengthOfExpr} and \ct{IsSetExpression} as further examples of how to adapt
+an embedded language to its new context --- i.e. the \ic{uispec} and \ic{entities}
+languages. The following is the structure definition of the \ic{LengthOfExpr}.
+
+\begin{code}
+concept LengthOfExpr extends Expression        
+  properties:                                  
+    alias = lengthOf                                    
+  children:                                     
+    Expression  expr  1 
+\end{code}                                               
+
+Note how it defines an \ic{alias}. The \ic{alias} is used to pick the concept
+from the code completion menu. If the user is in expression context, he must
+type the \ic{alias} of a concept to pick it from the code completion menu.
+Typically, the alias is selected to match the leading keyword of the concept's
+projection. The \ct{LengthOfExpr} is projected as \ic{lengthOf(something)}, so
+by choosing the alias to also be \ic{lengthOf}, the concept can be entered
+naturally.
 
 
-The \ct{AttributeRefExpr} may only reference those attributes of those
-entities that are used in the form within which we define the validation
-expression. The following is the code for the search scope:
+The \ct{AttributeRefExpr} references entity attributes. However, it may only
+reference those attributes of those entities that are used in the form within
+which we define the validation expression. The following is the code for the
+search scope:
 
 \begin{code}
 (model, scope, referenceNode, linkTarget, enclosingNode)
@@ -115,7 +133,8 @@ expression. The following is the code for the search scope:
 
 Notice that the actual syntactic embedding of the expressions in the
 \ic{uispec\_validation} language is not a problem because of how projectional editors
-work. We simply define \ct{Expression} to be a child of the \ct{ValidatedField}.
+work. No ambiguities may arise. We simply define \ct{Expression} to be a child
+of the \ct{ValidatedField}.
 
 
 \phead{Type System} The general challenge here is that primitive types such as
@@ -267,20 +286,36 @@ the \ic{rbac\_entities} language.
 \end{figure}
  
  
-\todo{refer to the discussion of restriction in the intro and the mernik paper.}
-Language extension can also be used to prohibit the use of certain concepts of
-the base language in the sublanguage, at least in certain contexts. As a simple
-(but admittedly relatively useless) example, we restrict the use of certain
-operators provided by the reusable expression language inside validation rules
-in \ic{uispec\_validation}. This can be achieved by implementing a 
-\ct{can be ancestor} constraint on \ct{ValidatedField}.
+Just as in the discussion on extension \todoref{}, we may want to use
+constrains to restrict the embedded language in the context of a
+validation rule. Imagine we wouldn't embed a small, reusable expression
+language, but the expressions part of C. It defines all kinds of operators
+relating to pointers, bit shifting and other C-specific things that are not
+relevant in the validation of UI fields. In this case we may want to use a
+\ic{can be ancestor} constraint to restrict the use of those operators in the
+validation expressions.
 
-\begin{code}
-can be ancestor:
-  (operationContext, scope, node, childConcept)->boolean { 
-    return !(childConcept == concept/GreateEqualsExpression/ || 
-             childConcept == concept/LessEqualsExpression/); 
-  }
-\end{code}
+
+As a consequence of MPS' projectional editor, no ambiguities may arise if
+multiple independent languages are embedded. Let us consider the potential cases
+for ambiguity:
+
+\begin{description}
+  \item[Same Concpet Name:] Embedded languages may define concepts with the same
+  name as the host language. This will not lead to ambiguity because concepts
+  have a unqiue ID  as well. A program element will use this ID to refer to the
+  concept whose instance it represents.
+  \item[Same Concrete Syntax:] The projected representation of a concept is not
+  relevant to the functioning of the editor. The program would still be
+  unambiguous to MPS even if \emph{all elements had the same notation}. Of
+  course it would be confusing to the users.
+  \item[Same Alias:] If two concepts that are valid at the same location use the
+  same alias, then, as the user types the alias, it is not clear which of the
+  two concepts should be instantiated. This problem is solved by MPS opening the
+  code completion window and requiring the user to explicitly select which
+  alternative to choose. Once the user has made the decision, the unique ID is
+  used to create an unambiguous program tree. 
+\end{description}
+
 
 
