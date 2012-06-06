@@ -2,10 +2,38 @@
 \section{Discussion}
 \label{Eval}
 
-\todo{Discuss which aspects (debuggers, profilers, etc) are still missing in
-the composition story.}
+\phead{Syntax} The previous examples show that meaningful \lmrc is possible with
+MPS. Specifically, reuse and embedding of languages is possible. The challenge
+of grammar composition is not an issue in MPS, since no grammars and parsers are
+used. The fact that we hardly ever discuss syntactic issues in the above
+discussions is testament to this. Potential ambiguities are resolved by the user
+as he enter the program (discussed at the end of \sect{embedding}) --- once
+entered, a program is always unambiguous. The luxury of not running into
+syntactic composition issues comes at the price of the projectional editor and
+the XML-based storage (we have discussed the drawbacks of projectional editors
+in \sect{HowMPSWorks}).
 
-\todo{drawbacks of MPS in general.}
+\phead{IDE} This paper emphasizes IDE composition in addition to language
+composition. Regarding syntax highlghting, code completion, error marks on the
+program and intentions, all the composition approaches \emph{automatically}
+compose those IDE aspects. No additional work is necessary by the languge
+developer. However, there are additional concerns an IDE may address including
+version control ingegration, profiling and debugging. Regarding version control
+integration, MPS provides diff/merge for most of today's version control systems
+on the level of the projected syntax --- including for heterogeneous fragments.
+No support for profiling is provided. MPS comes with a debug framework that lets
+language developers create debggers for their languages. However, this framework
+is relatively low-level and does not provide specific support for language
+composition and heterogeneous fragments. However, as part of the mbeddr project
+that develops an extensible version of the C programming language (\todoref{})
+we have developed a framework for extensible C debuggers. Developers of C
+extensions can easily define the how the extension integrates into the C
+debugger so that debugging on the \emph{syntax of the extension} becomes
+possible for heterogeneous fragments. We describe this debugger framework in
+\todoref{}.
+
+\phead{Evolution}
+
 
 \todo{better explain how and why MPS scales. Point to wavefront paper and
 repeat some of the numbers. Also reemphasize JetBrains' internal work.}
@@ -14,12 +42,7 @@ repeat some of the numbers. Also reemphasize JetBrains' internal work.}
 for the composition techniques.}
 
 \todo{Do I want to remove this facet stuff here??}
-
-The previous examples show that meaningful \lmrc is possible with MPS.
-Specifically, reuse and embedding of languages is possible. The challenge
-of grammar composition is not an issue in MPS, since no grammars and
-parsers are used. The fact that we hardly ever discuss syntactic issues in the
-above discussions is proof of this. 
+ 
 
 However, extensibility regarding the other aspects is a bit less well
 structured:
