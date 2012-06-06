@@ -2,6 +2,16 @@
 \section{Discussion}
 \label{Eval}
 
+\subsection{Limitations}
+
+The paper has drawn a very positive picture about the capabilities of MPS
+regarding \lmrc. However, there are some limitations and shortcomings in the
+system. Most of them are not conceptual problems, but just missing features.
+However, it is clearly evident that MPS has been developed over a long time,
+different problems have been solved in different ways, as the problem arose,
+instead of implementing a consistent, unified approach. I propose such an
+approach in \sect{facets}.
+
 \phead{Syntax} The previous examples show that meaningful \lmrc is possible with
 MPS. Specifically, reuse and embedding of languages is possible. The challenge
 of grammar composition is not an issue in MPS, since no grammars and parsers are
@@ -11,7 +21,12 @@ as he enter the program (discussed at the end of \sect{embedding}) --- once
 entered, a program is always unambiguous. The luxury of not running into
 syntactic composition issues comes at the price of the projectional editor and
 the XML-based storage (we have discussed the drawbacks of projectional editors
-in \sect{HowMPSWorks}).
+in \sect{HowMPSWorks}). One particular shortcoming of MPS is that it is not
+possible to override the projection rule of a concept in a sublanguage (this
+feature is on the roadmap for MPS 3.0). If this were possible, ambiguities
+\emph{for the user} in terms of the concrete syntax could be solved by changing
+the notation (or color or font) of existing concepts if they are used together
+with a particular other language.
 
 \phead{IDE} This paper emphasizes IDE composition in addition to language
 composition. Regarding syntax highlghting, code completion, error marks on the
@@ -32,53 +47,121 @@ debugger so that debugging on the \emph{syntax of the extension} becomes
 possible for heterogeneous fragments. We describe this debugger framework in
 \todoref{}.
 
-\phead{Evolution}
-
-
-\todo{better explain how and why MPS scales. Point to wavefront paper and
-repeat some of the numbers. Also reemphasize JetBrains' internal work.}
-
-\todo{discuss evolution of the base/host/referenced languages and consequences
-for the composition techniques.}
-
-\todo{Do I want to remove this facet stuff here??}
- 
-
-However, extensibility regarding the other aspects is a bit less well
-structured:
-
-\begin{itemize}
-  \item In the case of generators, language designers have to specify a partial
-  ordering of mapping configurations using priorities. It is not easily possible
-  to "override" an existing generator, but generators can run \emph{before}
-  existing ones. Generator extension is not possible directly. This is why we
-  use the placeholders that are put in by earlier generators to be reduced by
-  later ones.
-  \item The concrete syntax for elements of the base language cannot be
-  overridden in the sublanguage, although this is supposed to change.
+\phead{Evolution} Composing languages leads to coupling. In the case of
+referencing and extension the coupling is direct, in the case of reuse and
+embedding the coupling is indirect via the adapter language. As a consequence of
+a change of the referenced/base/context/host language, the
+referencing/extensio/reused/embedded language may have to change as well. MPS,
+at this time, provides no automatic way of versioning and migrating languages,
+so co-evoluation has to be performed manually. In particular, a process
+discipline must be established in which dependent languages are migrated to new
+versions of a changed language. 
   \todo{Reviewer says that this has worked in LISA 10 years ago. Check!}
-  \item Overriding of scopes is not possible; a workaround exists by factoring
-  the code into a virtual method (and calling it from the scope).
-  \item Typing rules cannot be overridden unless an overloaded operation rules
-  container is used in the original language.
-\end{itemize}
+
+\phead{Type System} Regular typing rules cannot be overridden in a
+sublanguage. Only the overloaded operations container can be overloaded (as their name
+suggests) from a sublanguage. As a consequence it requires some thought when
+designing a language to make the type system extensible in meaningful ways. 
+
+\phead{Generators} In the case of generators, language designers have to specify
+a partial ordering of mapping configurations using priorities. It is not easily possible
+to "override" an existing generator, but generators can run \emph{before}
+existing ones. Generator extension is not possible directly. This is why we
+use the placeholders that are put in by earlier generators to be reduced by
+later ones. Obviously, this requires preplanning on the part of the developer of
+the generator that adds the placeholder.
+
+
+
+\subsection{Real-World use of MPS}
+
+The examples in this paper are toy examples --- the simplest possible languages
+to illustrate the composition approaches. However, MPS scales to realistically
+sized systems, both in terms of language complexity and in terms of program
+size. The composition techniques --- especially those involve syntactic
+composition --- are used in practice. We illustrate this with two examples:
+embedded software and web applications.
+
+
+
+\phead{Embedded Software} Embedded systems are becoming more 
+software intensive and the software becomes bigger and more complex. Traditional
+embedded system development approaches use a variety of tools for various
+aspects of the system, making tool integration a major challenge. Some of the
+specific problems of embedded software development include the limited
+capability for meaningful abstraction in C, some of C's "dangerous" features
+(leading to various coding conventions such as Misra-C \todoref{}), the
+proprietary and closed nature of modeling tools, the integration of models and code,
+traceability to requirements, long build times as well as management of product
+line variability. The mbeddr project (\todoref{web}) addresses the challenges
+with a different approach: incremental, modular extension of C with domain-specific language
+concepts.  
+
+mbeddr uses extension to add interfaces and components, state machines,
+measurement units to C. mbeddr is based on MPS, so users of mbeddr can build
+their own extensions. mbeddr implements all of C in less tha 10.000 lines of
+language implementation code. Scalability tests have shown that the system
+scales to at least 100.000 lines of equivalent C code.
+
+A detailed description, including more details on language and program sizes and
+implementation effort can be found in this paper \todoref{}.
+
+
+
+
+\phead{Web Development} JetBrains' YouTrack issue tracking system is an
+interactive web application with many UI features known from desktop
+applications. YouTrack is developed completely with MPS and comprises thousands
+of Java classes, web page templates and other artifacts. The effort for building
+the necessary MPS-based languages will be repaid by future applications that
+build on the same web platform architecture and hence use the same set of
+languages. Language extension and composition is used to provide an integrated
+web development environment.
+
+For example, the \ic{dnq} language extends Java class definitions with all the
+information necessary to persist instances in a database via an
+object-relational mapper. This includes real associations (specifying
+navigability and composition vs. reference) or length specifications for string
+properties. Developers can access these associations just like regular fields.
+\emph{dnq} also includes a collections language which supports the manipulation
+of collections in a way similar to .NET's Linq \todoref{}. Other languages
+include \emph{webr}, a language used for implementing interactions bwetwen the
+web page and the backend. It supports a unified programming model for
+application logic on the server and on the browser client. \emph{webr} also
+provides first-class support for controllers. For example, controllers can
+declare actions and attach them directly to events of UI components. \emph{webr}
+is well-integrated with \emph{dnq}, so for example, it is possible to use a
+persistent entity as a parameter to a page. The database transaction is
+automatically managed during request processing.\todoref{Can we point to code
+generation presentation here?}
+
+In email communication with the author, JetBrains reported significant
+improvements in developer productivity for web applications. In particular, the
+time for new team members to become productive on the Youtrack team is reported
+to have been reduced from months to a few weeks, mostly because of the very
+tight integration in a single language of the various aspect of web application
+development.
+
+
+\subsection{A unified approach}
+\label{facets}
 
 In my opinion, a consistent approach for extending and overriding aspects of the
 original language is missing. I suggest an approach called \emph{Generic
 Outside, Specific Inside}. It is basically a variant of component-based design
-(\todo{ref to a paper}). All
-language aspects use components as the core structural building block.
-Components have types. The type of the component determines the kinds of facets
-it has. A facet is a kind of interface that exposes the (externally visible)
-ingredients of the component. The kinds of ingredients depend on the component
-type: a component of type \emph{structure} exposes language concepts. A
-component of type \emph{editor} exposes editors, type \emph{type system} exposes
-type system rules, and so on. Each component type would use a different DSL for
-implementation. Here is the important point: a component (in a sublanguage) can
-specify an \emph{advises} relationship to another component (from a super
-language). Then each of the facets can determine which facets from the advised
-component it wants to \emph{preempt}, \emph{enhance} or \emph{override}.
-\fig{gosi} shows the meta model of the approach.
+(\todo{ref to a paper}). All language aspects use components as the core
+structural building block. Components have types. The type of the component
+determines the kinds of facets it has. A facet is a kind of interface that
+exposes the (externally visible) ingredients of the component. The kinds of
+ingredients depend on the component type: a component of type \emph{structure}
+exposes language concepts. A component of type \emph{editor} exposes editors,
+type \emph{type system} exposes type system rules, and so on. Each component
+type would use a different DSL for implementation. Here is the important point:
+a component (in a sublanguage) can specify an \emph{advises} relationship to
+another component (from a super language). Then each of the facets can determine
+which facets from the advised component it wants to \emph{preempt},
+\emph{enhance} or \emph{override}. \fig{gosi} shows the meta model of the
+approach.
 
 
 \begin{figure}[htp]
@@ -130,122 +213,3 @@ this approach, a powerful and consistent approach to language extensibility
 would be available.
 
 
-\subsection{Real-World use of MPS}
-
-\paragraph{Web Development} JetBrains' YouTrack issue tracking system is an
-interactive web application with many UI features known from desktop
-applications. YouTrack is the first JetBrains product that was developed
-completely with MPS. The effort for building the necessary MPS-based languages
-will be repaid by future applications that build on the same web platform
-architecture and hence use the same set of languages. Language extension is used
-to add product-specifics to these languages.
-
-\todo{refer to WebDSL}
-
-Web development involves many languages. In the browser, HTML, CSS, JavaScript
-and SVG are used. All of these languages embed one another. On the Java-based
-server side, a set of descriptive languages is used, together with query
-languages (EJB Query Language, Hibernate Query Language, SQL), template
-languages (Java Server Pages, Velocity) and of course the Java programming
-language at the core. JetBrains decided to wrap these platform-specific implementation languages with a set of Java language
-extensions. For the sake of the example, we focus on describing the extensions
-used in the Java-based backend. The most notable of the languages used in
-YouTrack are \emph{dnq} and \emph{webr}. \emph{dnq} is a Java language extension
-for working with persistent data and queries. Almost all modern web applications
-store data in a database. However, database manipulation is not very well
-supported in general-purpose languages such as Java. Developers use object
-relational mapping frameworks such as Hibernate \todoref{}, Java Data Objects
-\todoref{} or the Java Persistence API \todoref{} to alleviate this problem.
-These frameworks basically map database rows to Java classes. However, because authors of these frameworks
-cannot change the Java language, the integration is limited, hampering developer
-productivity \todo{provide a reference for the ``hampering'' claim}. For
-example:
-
-
-\begin{itemize}   
-  \item Entity relations which are inherently bidirectional
-cannot be easily expressed in Java. Consider a program which models
-organizational structure, consisting of Departments and Employees. When an
-Employee is added to a Department, both, the references in Employee and
-Department must be updated consistently.
-  \item Relational databases optimize queries very aggressively. In order to accomplish these optimizations,
-queries should be expressed in SQL. However, it is much more natural to use the
-programming language for querying a database, especially if the query language
-were integrated with the host language and its type system. To enable this, the
-programming language must be extended with query constructs and these must be
-translated into SQL when the program is compiled.
-\end{itemize}
-
-
-
- The \emph{dnq} language supports the
-expression of relations in a more natural way: unidirectional and bidirectional
-relationships can be declared, distinguishing between composition and
-references. Programmers can access them in a way similar to accessing fields in
-Java. \emph{dnq} also includes a collections language which supports
-the manipulation of collections in a way similar to .NET's Linq. For example,
-\emph{dnq} supports code such as the following:
-
-
-
-\begin{code}
-aColl.where({it=> it.val < 20 && it.val > 10}).select({it=> it*it});
-\end{code}
-
-This code is more declarative than procedural collection manipulation code
-which allows MPS to optimize such queries to the database. 
-
-The \emph{webr} language is used for request handling in web applications. In
-web frameworks this task is typically accomplished by controller classes and
-HTML templates. To configure HTTP request handling, frameworks often use XML
-based descriptors. In order to process the HTML templates, template engines are
-used. Examples include JSP \todoref{}, Velocity\todoref{} or
-FreeMarker\todoref{}. \emph{webr} supports this through Java language extension.
-Its template language combines XML and Java, relatively similar to JSP at first
-glance. However, based on MPS' ability to extend languages, \emph{webr} provides
-much more freedom of what templates can contain. For example, in many template
-engines, it is impossible to add new constructs to the template language. In JSP
-it is possible using extension tags but the XML-based syntax is quite verbose.
-In \emph{webr} templates, developers can choose whatever syntax they like by
-defining a suitable language extension. An example used in YouTrack is a UI
-components language that is not limited to XML syntax. \emph{webr} also provides
-first-class support for controllers. For example, controllers can declare
-actions and attach them directly to events of UI components. Parameters are
-specified in special entities called template controllers. \emph{webr} is
-well-integrated with \emph{dnq}, so for example, it is possible to use a
-persistent entity as a parameter to a page. The database transaction is
-automatically managed during request processing.
-
-\todo{generally: more references for ``stuff'' and not just related work}
-  
-  
-\todo{Udpdate the mbeddr stuff.}  
-\paragraph{Embedded Development} Embedded systems are becoming more 
-software intensive and the software becomes bigger and more complex. Traditional
-embedded system development approaches use a variety of tools for various
-aspects of the system, making tool integration a major challenge. Some of the
-specific problems of embedded software development include the limited
-capability for meaningful abstraction in C, some of C's "dangerous" features
-(leading to various coding conventions such as Misra-C \todoref{}), the
-proprietary and closed nature of modeling tools, the integration of models and code,
-traceability to requirements, long build times as well as management of product
-line variability. To address these issues, we propose an alternative approach
-based on the incremental extension of C. We have implemented a proof-of-concept
-language (\ic{http://mbeddr.com}) that contains a set of language extensions
-relevant to this embedded development. A larger-scale research project is
-starting in July 2011 to continue the development of this approach.
- 
-For the proof-of-concept, the mbeddr project uses Lego Mindstorms \todoref{} as
-the target platform together with the OSEK operating system \todoref{} to ensure
-real-world relevance. The current showcase is a line follower robot. It uses a single light sensor to
-follow (one side of) a thick black line by changing the speed of motors that
-drive the two wheels. The current state of the prototype contains language
-modules for components, tasks, state machines, bit-level data structures,
-physical quantities, documentation annotations, as well as core module with
-basically all of C. There is a clearly defined dependency structure between
-those languages, with the core language at the root. We have also added a DSL
-for simplified control of the two-wheeled robot using commands such as
-accelerate, turn left, or stop. The implementation of this DSL is a model
-transformation down to the basic embedded languages: we generate tasks,
-procedures and state machines, which are then (automatically) transformed down
-to actual C and are compiled by \ic{gcc} for the OSEK target.
