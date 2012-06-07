@@ -124,7 +124,7 @@ search scope:
 (model, scope, referenceNode, linkTarget, enclosingNode)
                              ->join(ISearchScope | sequence<node< >>) { 
   nlist<Attribute> res = new nlist<Attribute>; 
-  node<Form> form = enclosingNode.ancestor<concept = Form, +>; 
+  node<Form> form = enclosingNode.ancestor<Form, +>; 
   for (node<EntityReference> er : form.usedEntities) { 
     res.addAll(er.entity.attributes); 
   } 
@@ -150,9 +150,9 @@ The type of an attribute reference is the type of the attribute's \ct{type} prop
 following code:
 
 \begin{code}
-  field Freelancer: checkbox -> Employee.freelancer 
-        validate if (isSet(Employee.worksAt)) Employee.freelancer == true else
-                    Employee.freelancer == false 
+field Freelancer: checkbox -> Employee.freelancer 
+      validate if (isSet(Employee.worksAt)) Employee.freelancer == true else
+                  Employee.freelancer == false 
 \end{code}
 
 This code states that if the \ct{worksAt} attribute of an employee is set, then
@@ -172,10 +172,9 @@ be \ct{boolean} if the two arguments are \ct{Equallable}:
 operation concepts: EqualsExpression                                                     
   left operand type: new node<Equallable>() 
   right operand type: new node<Equallable>() 
-operation type:                                                                          
-  (operation, leftOperandType, rightOperandType)->node< > { 
-    <boolean>; 
-  }               
+operation type: (operation, leftOperandType, rightOperandType)->node< > { 
+  <boolean>; 
+}               
 \end{code}
 
 In addition to this code, we have to specify that \ct{expressions.BooleanType}
@@ -184,22 +183,17 @@ is a subtype of \ct{Equallable}, so this rule applies if we use equals with two
 specification into a regular type inference rule.
 
 \begin{code}
-rule typeof_BinaryExpression {                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-  applicable for concept = BinaryExpression as binaryExpression                                                                                                                                                                                                                                                                                                                                                                                                                  
-  overrides false                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-  do {                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-    when concrete (typeof(binaryExpression.left) as left) { 
-      when concrete (typeof(binaryExpression.right) as right) { 
-        node<> opType = operation type( binaryExpression , left , right ); 
-          if (opType != null) { 
-            typeof(binaryExpression) :==: opType; 
-          } else { 
-            error "operator " + binaryExpression.concept.name + 
-                  " cannot be applied to these operand types " + 
-                  left.concept.name + "/" + right.concept.name 
-               -> binaryExpression; } 
-}  }  }  } 
+rule typeof_BinaryExpression for BinaryExpression as binaryExpression {                                                                                                                                                                                                                                                                                                                                                                                                                   
+  node<> opType = operation type( binaryExpression , left , right ); 
+  if (opType != null) { 
+    typeof(binaryExpression) :==: opType; 
+  } else { 
+    error "operator " + binaryExpression.concept.name + 
+          " cannot be applied to these operand types " + 
+          left.concept.name + "/" + right.concept.name 
+               -> binaryExpression; 
+  } 
+} 
 \end{code}
 
 To override these typing rules to work with \ct{entities.BooleanType}, we simply
@@ -209,10 +203,9 @@ language:
 \begin{code}
 operation concepts: EqualsExpression                                       
   one operand type: <boolean> // this is the entities.BooleanType!     
-operation type:                                                            
-  (operation, leftOperandType, rightOperandType)->node< > { 
-    <boolean>;  // this is the expressions.BooleanType 
-  } 
+operation type: (operation, leftOperandType, rightOperandType)->node< > { 
+  <boolean>;  // this is the expressions.BooleanType 
+} 
 \end{code}
 
 
@@ -256,14 +249,14 @@ project \ic{de.voelter.mps.expressions.blgen} and add reduction rules.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.50]{figures/expr2blgen.png}
+  \includegraphics[width=120mm]{figures/expr2blgen.png}
   \caption[labelInTOC]{A number of reduction rules that map the reusable
   expression language to BaseLanguage (Java). Since the languages are very
   similar, the mapping is trivial. For example, a \ct{PlusExpression} is mapped
   to a \ic{+} in Java, the left and right arguments are reduced recursively through
   the \ic{COPY\_SRC} macro.}
   \label{expr2blgen}  
-\end{center}
+\end{center} 
 \end{figure} 
 
 In addition to these, we also need reduction rules for those new expressions
@@ -277,7 +270,7 @@ the \ic{rbac\_entities} language.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.50]{figures/reductionAttributeRef.png}
+  \includegraphics[width=120mm]{figures/reductionAttributeRef.png}
   \caption[labelInTOC]{References to entity attributes are mapped to a call to
   their getter method. The template fragment (inside the \ic{<TF .. TF>}) uses
   two reference macros (->\$) to "rewire" the reference to the Java bean instance, and

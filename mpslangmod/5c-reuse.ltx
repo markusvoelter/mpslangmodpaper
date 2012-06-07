@@ -121,8 +121,8 @@ rules then look as follows:
 
 
 \begin{code}
-typeof(column) :==: typeof(column.type);
-typeof(column.type) :==: typeof(column.mapper);
+typeof(column)       :==: typeof(column.type);
+typeof(column.type)  :==: typeof(column.mapper);
 typeof(columnMapper) :==: columnMapper.typeMappedToDB();
 \end{code}
 
@@ -225,20 +225,15 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 control, to specify access permissions for the \ic{entities}.
 
 \begin{code}
-RBAC                           
+users: user mv : Markus Voelter     
+       user ag : Andreas Graf       
+       user ke : Kurt Ebert         
                                
-users:                         
-  user mv : Markus Voelter     
-  user ag : Andreas Graf       
-  user ke : Kurt Ebert         
+roles: role admin : ke              
+       role consulting : ag, mv     
                                
-roles:                         
-  role admin : ke              
-  role consulting : ag, mv     
-                               
-permissions:                   
-  admin, W : Department        
-  consulting, R : Employee.name
+permissions:   admin, W : Department        
+               consulting, R : Employee.name
 \end{code}
 
 The structure is shown in \fig{rbac}. Like relmapping, it provides a
@@ -251,8 +246,8 @@ attributes.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.45]{figures/rbac.png}
-  \caption[labelInTOC]{Language strucrure of the \ic{rbac} language. An \ct{RBACSpec}
+  \includegraphics[width=120mm]{figures/rbac.png}
+  \caption[labelInTOC]{Language structure of the \ic{rbac} language. An \ct{RBACSpec}
   contains \ct{Users}, \ct{Roles} and \ct{Permissions}. Users can be members 
   in several roles. A permission assigns a role and right (read, write) to a
   \ct{Resource} (such as an \ic{Entity} or an \ic{Attribute}).}
@@ -292,7 +287,7 @@ To implement this, several approaches are possible:
   While this would be a simple approach in terms of MPS (because we only
   generate singled-sourced artifacts), it fails to illustrate advanced MPS
   generator concepts. So we don't use this approach here.
-  \item An interceptor (\ic{http://en.wikipedia.org/wiki/Interceptor\_pattern})
+  \item An interceptor (\todoref{interceptor pattern ref})
   framework could be added to the generated Java Beans, with the generated
   code contributing specific interceptors (effectively building a custom aspect
   oriented programming (AOP) solution). We will not use this approach either,
@@ -358,7 +353,7 @@ additional language dependencies, modularity is retained.
 
 \begin{figure}[htp] 
 \begin{center}
-  \includegraphics[scale=0.50]{figures/placeholderreduction.png}
+  \includegraphics[width=120mm]{figures/placeholderreduction.png}
   \caption[labelInTOC]{This reduction rule replaces \ct{PlaceholderStatement}s
   with a permission check. Using the condition, we only match those
   placeholders whose identifier is \ct{pre-set} (notice how we have defined

@@ -61,7 +61,7 @@ concept. It owns a \ct{Widget} and refers to an \ct{Attribute}.
 
 
 \begin{code}
-concept Field extends BaseConcept implements <none>               
+concept Field extends BaseConcept               
   properties:                                 
     label : string                              
   children:                                   
@@ -94,10 +94,7 @@ the type check. We use a non-typesystem rule to illustrate how constraints can
 be written that do not use the inference engine introduced above.
 
 \begin{code}
-non type system rule checkTypes {                                                                                                                                                                                                                                                                                                                        
-  applicable for concept = Field as field                                                                                                                                                                                                                                                                                                                
-  overrides false                                                                                                                                                                                                                                                                                                                                        
-  do {                                                                                                                                                                                                                                                                                                                                                   
+checking rule checkTypes for Field as field {                                                                                                                                                                                                                                                                                                                
     if (field.widget.isInstanceOf(CheckBoxWidget) 
          && !(field.attribute.type.isInstanceOf(BooleanType))) { 
       error "checkbox can only be used with booleans" -> field.widget; 
@@ -105,7 +102,7 @@ non type system rule checkTypes {
     if (field.widget.isInstanceOf(ComboWidget) 
          && !(field.attribute.type.isInstanceOf(StringType))) { 
       error "combobox can only be used with strings" -> field.widget; 
-} } }
+} }
 \end{code}
 
 

@@ -20,7 +20,6 @@ descendants) are considered \emph{fragments}, while the models are partitions
 
 
 
-\begin{minipage}[t]{120mm}
 \begin{code}
 module company          
   entity Employee {     
@@ -35,7 +34,6 @@ module company
     description : string
   }                     
 \end{code}
-\end{minipage}
 
 
 \phead{Structure and Syntax} Language definition starts with the abstract
@@ -71,10 +69,7 @@ A concept may also have references to other concepts (as opposed to children).
 
 \begin{code}
 concept Entity extends BaseConcept implements INamedConcept        
-  is root:
-    true
-  properties:                                  
-    << ... >>                                    
+  is root: true
   children:                                     
     Attribute attributes 0..n
   references:                                  
@@ -92,7 +87,7 @@ other concepts are defined similarly.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.6]{figures/editordefinition.png}
+  \includegraphics[scale=0.55]{figures/editordefinition.png}
   \caption[labelInTOC]{The editor for \ct{Entity}. The outermost cell is a
   vertical list. In the first line, we use a horizontal list that contains
   the "keyword" \ct{entity}, the value of the \ic{name} property and an opening
@@ -106,12 +101,11 @@ other concepts are defined similarly.
 \phead{Type System} The MPS type system engine uses unification. Language
 developers specify type equations and the unification engine tries to 
 assign values to the type variables so that all equations are satisfied.
-This is similar to solving a set of equations in mathematics. Consider
+This is similar to solving a set of equations in mathematics. Consider the
+following three equations:
 
 \begin{code}
-(1) 2 * x == 10
-(2) x + x == 10
-(3) x + y == 2 * x + 5
+(1) 2 * x == 10          (2) x + x == 10           (3) x + y == 2 * x + 5
 \end{code}
 
 
@@ -124,17 +118,11 @@ For the \ic{entities} language, we specify two simple typing rules. The first on
 specifies that the type of a \ic{Type} (such as \ic{int} or \ic{string}) is a clone
 of themselves.
 
-\begin{minipage}[t]{120mm}
 \begin{code}
-rule typeof_Type {                     
-  applicable for concept = Type as type
-  overrides false                      
-  do {                                 
-    typeof(type) :==: type.copy;       
-  }                                    
+rule typeof_Type for Type as t {
+    typeof(t) :==: t.copy;       
 }                                      
 \end{code}
-\end{minipage}
 
 \noindent The only other typing rule is an equation that defines the type of the
 attribute as a whole to be the type of the attribute's \ct{type} property, defined as
@@ -173,7 +161,7 @@ the mapping configuration for the \ic{entities} language.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.55]{figures/entitiesmc.png}
+  \includegraphics[width=80mm]{figures/entitiesmc.png}
   \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
   root mapping rule for \ic{Entity} specifies that instances of \ct{Entity} should
   be transformed with the \ct{map\_Entity} template (which produces a Java
@@ -246,7 +234,7 @@ transformation templates and are discussed in \todoref{}
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.55]{figures/entitytemplate.png}
+  \includegraphics[width=100mm]{figures/entitytemplate.png}
   \caption[labelInTOC]{The template for creating a Java class from an
   \ic{Entity}. The generated class contains a field, a getter and a setter for
   each of the \ic{Attribute}s of the \ic{Entity}. The running text explains the

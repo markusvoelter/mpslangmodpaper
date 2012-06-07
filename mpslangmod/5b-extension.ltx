@@ -56,10 +56,10 @@ brackets) and color.
 \phead{Structure and Syntax} A block expression is a block that can be used
 where an \ct{Expression} is expected \cite{BravenboerVVV05}. The block can
 contain any number of statements; \ct{yield} can be used to "return values" from
-within the block. So, in some sense, a block expression is an "inlined
-method", or a closure that is defined and called directly. The optional name property of
-a block expression is then used as the method name. The generator of the
-block expression transforms it into just this structure:
+within the block. So, in some sense, a block expression is an "inlined method",
+or a closure that is defined and called directly (an optional name property of a
+block expression is then used as the method name). The generator of the block
+expression transforms it into just this structure:
 
 
 \begin{code}
@@ -77,13 +77,13 @@ okButton.addActionListener(new ActionListener() {
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.6]{figures/expressionBlock.png}
+  \includegraphics[width=120mm]{figures/expressionBlock.png}
   \caption[labelInTOC]{Block Expressions (rendered with a shaded background) are
   basically anonymous inline methods. Upon transformation, an actual method is
   generated that contains the block content, and the block expression is replaced with a call to this
   generated method. Block expression are used mostly when implementing
   generators; this screenshot shows a generator that uses a block expression.}
-  \label{expressionBlock} 
+  \label{expressionBlock}  
 \end{center}
 \end{figure}
 
@@ -112,7 +112,7 @@ yields. The following typing rule computes this type:
 \begin{code}
 var resultType ; 
 for (node<BlockExpressionYield> y : 
-        blockExpr.descendants<concept = BlockExpressionYield>) { 
+        blockExpr.descendants<BlockExpressionYield>) { 
   resultType :==: typeof(y.result); 
 } 
 typeof(blockExpr) :==: resultType;
@@ -136,7 +136,7 @@ for the block expression (\fig{expressionBlockGenerator1}).
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.5]{figures/expressionBlockGenerator1.png}
+  \includegraphics[width=120mm]{figures/expressionBlockGenerator1.png}
   \caption[labelInTOC]{We use a weaving rule to create an additional method for
   a block expression. A weaving rule processes an input element
   (\ct{BlockExpression}) by creating another node in a different place. The context function defines this
@@ -158,14 +158,14 @@ method call that replaces the \ct{BlockExpression}
 
 \begin{figure}[htp] 
 \begin{center}
-  \includegraphics[scale=0.5]{figures/expressionBlockGenerator2.png}
+  \includegraphics[width=120mm]{figures/expressionBlockGenerator2.png}
   \caption[labelInTOC]{This generator template creates a method from the block
   expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ct{string}
   type with the computed return type of the block expression, inserts a computed name, adds a
   parameter for each referenced variable outside the block, and inserts all the
   statements from the block expression into the body of the method. The
-  \ct{blockExprToMethod} mapping label is used later when generating the call to
-  this generated method (shown in \fig{expressionBlockGenerator3}).}
+  \ct{b2M} (block-to-method) mapping label is used later when generating the
+  call to this generated method (shown in \fig{expressionBlockGenerator3}).}
   \label{expressionBlockGenerator2} 
 \end{center}
 \end{figure}
@@ -175,7 +175,7 @@ method call that replaces the \ct{BlockExpression}
 \begin{center}
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
   \caption[labelInTOC]{Here we generate the call to the previously generated
-  method. We use the mapping label \ct{blockExprToMethod} to refer to the
+  method. We use the mapping label \ct{b2M} to refer to the
   correct method (not shown; happens inside the reference macro). We pass in
   the environment variables as actual arguments using the \ic{LOOP} and
   \ic{COPY\_SRC} macros.}
@@ -201,13 +201,10 @@ statements). To achieve this, we add a \ic{can be ancestor} constraint to the
 
 \begin{code} 
 concept constraints for BlockExpression {
-
   can be ancestor:
     (operationContext, scope, node, childConcept, link)->boolean { 
       childConcept != concept/ReturnStatement/;  
-    }
-	  
-}
+}   }
 \end{code}
 
 The \ic{childConcept} variable represents the concept of which an instance is
