@@ -74,19 +74,18 @@ checking frameworks.
 \subsection{Contribution and Structure of the paper}
 
 Language composition is the integration of language modules regarding syntax,
-static semantics, execution semantics and the IDE. The contribution of this
-paper is a systematic approach for characterizing a set of composition
-approaches, as well as an example implementation based on MPS. In particular, we
-make the following contributions: we identify four different composition
-approaches (referencing, extension, reuse and embedding) and classify them
-regarding dependencies and syntactic mising. Second, we show how to implement 
-these four approaches with JetBrains MPS. Third, we implicitly illustrate the
-benefits of using projectional editors in the context of language composition,
-since MPS is an example projectional editor.
+static semantics, execution semantics and the IDE. 
 
-\todo{Mention that we do NOT claim that we are the first or only ones who can
-do lang comp. Merely we explain how it works with MPS and make clear why we
-think it is particularly useful.}
+
+In this paper we make the following contributions. First, we identify four
+different composition approaches (referencing, extension, reuse and embedding)
+and classify them regarding dependencies and syntactic mixing. Second, we
+demonstrate how to implement these four approaches with JetBrains MPS. 
+While other, parser-based approaches can do language composition to some extent as
+well, it is especially simple to do with projectional editors. So our third
+contrinbution is an illustration of the benefits of using projectional editors
+in the context of language composition, since MPS is an example projectional editor. 
+
 
 The paper is structured as follows. In \sect{terminology} we define a set of
 terms and concepts used in this paper. \sect{typesOfMod} outlines the various
@@ -230,7 +229,7 @@ static error checking. Other concerns are relevant in IDEs, including
 refactoring, quick fixes, support for testing, debugging and version control
 integration. While all of these are supported by MPS in a modular and
 composable way, we do not discuss those aspects in this paper to keep the paper
-reasonable is length. \todo{discuss debugger stuff}
+reasonable is length. 
 
 
 \subsection{Classification of Composition Approaches}

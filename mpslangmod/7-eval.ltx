@@ -146,39 +146,22 @@ development.
 \subsection{A unified approach}
 \label{facets}
 
-In my opinion, a consistent approach for extending and overriding aspects of the
-original language is missing. I suggest an approach called \emph{Generic
-Outside, Specific Inside}. It is basically a variant of component-based design
-(\todo{ref to a paper}). All language aspects use components as the core
-structural building block. Components have types. The type of the component
-determines the kinds of facets it has. A facet is a kind of interface that
-exposes the (externally visible) ingredients of the component. The kinds of
-ingredients depend on the component type: a component of type \emph{structure}
-exposes language concepts. A component of type \emph{editor} exposes editors,
-type \emph{type system} exposes type system rules, and so on. Each component
-type would use a different DSL for implementation. Here is the important point:
-a component (in a sublanguage) can specify an \emph{advises} relationship to
-another component (from a super language). Then each of the facets can determine
-which facets from the advised component it wants to \emph{preempt},
-\emph{enhance} or \emph{override}. \fig{gosi} shows the meta model of the
-approach.
-
-
-\begin{figure}[htp]
-\begin{center}
-  \includegraphics[scale=0.45]{figures/gosi.png}
-  \caption[labelInTOC]{Components contain facets. Facets come in different
-  kinds and the component type determines which facet types are available. The
-  facets export the component's contribution to a language. Facets can
-  declare relations to other facets (preempt, enhance, override) as a generic
-  way to change the contributions exported by components of a base language.}
-  \label{gosi}  
-\end{center}
-\end{figure}
-
-This approach would provide the same way of packaging behavior for all language
-aspects, as well as a single, consistent way of changing that behavior in a
-sublanguage:
+Looking at the \emph{different} mechanisms for extending and overriding
+structure, syntax, type system and generators, it is clear that a consistent
+approach for addressing all these aspects would be useful. I suggest to model
+the approach based on the principles of component-based design (\todoref{to
+a paper}). All language aspects use components as the core structural building
+block. Components have types. The type of the component determines the kinds of
+facets it has. A facet is a kind of interface that exposes the (externally
+visible) ingredients of the component. The kinds of ingredients depend on the
+component type: a component of type
+\emph{structure} exposes language concepts. A component of type \emph{editor}
+exposes editors, type \emph{type system} exposes type system rules, and so on.
+Each component type would use a different DSL for implementing the constructs it
+exposes. Here is the important point: a component (in a sublanguage) can specify
+an \emph{advises} relationship to another component (from a super language).
+Then each of the facets can determine which facets from the advised component it
+wants to \emph{preempt}, \emph{enhance} or \emph{override}: 
 
 \begin{itemize}
   \item \emph{preemption} means that the respective behavior is contributed
@@ -192,11 +175,27 @@ sublanguage:
   define a new editor for an existing construct.
 \end{itemize}
 
-To control the granularity at which preemption, enhancement or overriding is
-performed, the base language designer would have to group the structures or
-behaviors into suitably cut facets. This amount of preplanning is acceptable: it
-is just as in object-oriented programming, where behavior that should be
-overridable has to be packaged into its own method.
+
+% \fig{gosi} shows the meta model of the approach.
+% \begin{figure}[htp]
+% \begin{center}
+%   \includegraphics[scale=0.45]{figures/gosi.png}
+%   \caption[labelInTOC]{Components contain facets. Facets come in different
+%   kinds and the component type determines which facet types are available. The
+%   facets export the component's contribution to a language. Facets can
+%   declare relations to other facets (preempt, enhance, override) as a generic
+%   way to change the contributions exported by components of a base language.}
+%   \label{gosi}  
+% \end{center}
+% \end{figure}
+
+This approach would provide the \emph{same} way of packaging behavior for all
+language aspects, as well as a \emph{single} way of changing that behavior in a
+sublanguage. To control the granularity at which preemption, enhancement or
+overriding is performed, the base language designer would have to group the
+structures or behaviors into suitably cut facets. This amount of preplanning is
+acceptable: it is just as in object-oriented programming, where behavior that
+should be overridable has to be packaged into its own method.
   
 The approach could be taken further. Components could be marked as
 \emph{abstract}, and define a set of parameters for which values need to be
@@ -206,10 +205,10 @@ Component parameters could even be usable in structure definitions, for example
 as the base concept; this would make a language parametrizable regarding the
 base language it extends from.
 
-In essence, the suggested approach is a bit like object orientation (components
-== classes, facets == methods), with a rich advice framework (as in AOP).
-Component parameters typed to language concepts are similar to generics. Using
-this approach, a powerful and consistent approach to language extensibility
-would be available.
+% In essence, the suggested approach is a bit like object orientation (components
+% == classes, facets == methods), with a rich advice framework (as in AOP).
+% Component parameters typed to language concepts are similar to generics. Using
+% this approach, a powerful and consistent approach to language extensibility
+% would be available.
 
 
