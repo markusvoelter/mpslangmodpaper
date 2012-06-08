@@ -1,0 +1,73 @@
+soloway elliot
+
+
+smarttools:
+* xml schema to define AS
+* Editor with different views
+  structure editor is default
+* No Type Sys beyond schema structure
+  (only visitor is directly supported)
+  (it is generated; but still rest of the 
+   type check code is manual Java)
+* no convenient way for editing expressions etc.
+  friendly syntax via parsers! 
+  -> problem when modularized languages
+  -> and not automaticsally generated
+  -> extra syntax spec; not clear how to modularize
+  -> parser managager selects parser per file -> homo!
+* for trafo via xpp
+* custom views via Swning-Bean per AST class
+  -> not very good for real text editing -> parser
+* ast can also be defined with a custom DSL
+* Multi-View! Nice!
+* nobody talks about composition
+
+gandalf
+* generate IDE from editor
+* lang is defined via denotational semantics
+* It is not clear how sophisticated the editor is
+* nobody talks about composition
+=> ALOEGEN
+
+AbleP
+* Extensible Promela
+* Language Extensions, can be imported by the user
+* (arbitrary) extensions can be combined
+* parser-based
+* No IDE
+* COPPER and SILVER are the tools to do this. 
+* COPPER grammar, SILVER semantics
+* Context-aware scanning -> like SDF stuff
+* mostly extensions, since extension grammars must be certified relative to host lang gra
+* SILVER: extensible Attr Grammar 
+* Lang Extensions can attach new attributes to existing grammar elements
+  -> extensible type checking
+* embedding (e.g. C grammar in promela) is possible --- separated by LR state
+  (i.e. not in the same context)
+* Enhaned LR Parsing
+* Silver/Copper: need to write disambig functions for combinations,
+  so if A and B langs exts are cobined in a program, a disamb functione may be necessary
+  not so in MPS
+  
+=> SQL Embedding of Eelco's.
+=> AbleJ: Attribute grammar- based language extensions for Java
+
+
+Lisa
+-----------------
+* from lang -> editor (conc, structured), compiler/intp, other tools
+* they say something about modularity, but no details
+* multiple attribute grammar inheritance (TS, etc.)
+* inheritance, and possibly also embedding
+* AspectLisa uses Aspects to handle CCC
+* Still parsed; problem with composing grammars
+
+
+=> AspectG, AspectASF
+=> JastAdd
+
+Polyglott
+--------------------------
+* extensible parser generator PPG with grammar inheritance
+* add, modify, or remove productions and symbols of the base grammar.
+
