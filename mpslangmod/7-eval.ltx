@@ -28,8 +28,10 @@ feature is on the roadmap for MPS 3.0). If this were possible, ambiguities
 the notation (or color or font) of existing concepts if they are used together
 with a particular other language.
 
+\todo{clean up the bibliography. Also capitalization}
+
 \phead{IDE} This paper emphasizes IDE composition in addition to language
-composition. Regarding syntax highlghting, code completion, error marks on the
+composition. Regarding syntax highlighting, code completion, error marks on the
 program and intentions, all the composition approaches \emph{automatically}
 compose those IDE aspects. No additional work is necessary by the languge
 developer. However, there are additional concerns an IDE may address including
@@ -37,16 +39,16 @@ version control ingegration, profiling and debugging. Regarding version control
 integration, MPS provides diff/merge for most of today's version control systems
 on the level of the projected syntax --- including for heterogeneous fragments.
 No support for profiling is provided. MPS comes with a debug framework that lets
-language developers create debggers for their languages. However, this framework
-is relatively low-level and does not provide specific support for language
+language developers create debuggers for their languages. However, this
+framework is relatively low-level and does not provide specific support for language
 composition and heterogeneous fragments. However, as part of the mbeddr project
-that develops an extensible version of the C programming language (\todoref{})
-we have developed a framework for extensible C debuggers. Developers of C
+that develops an extensible version of the C programming language
+(\cite{Voelter2012}) we have developed a framework for extensible C debuggers. Developers of C
 extensions can easily define the how the extension integrates into the C
 debugger so that debugging on the \emph{syntax of the extension} becomes
-possible for heterogeneous fragments. We describe this debugger framework in
-\todoref{}.
-\todo{ref eelco's debugging paper?}
+possible for heterogeneous fragments. Visser et al. also describe debuggers for
+DSLs in \cite{Lindeman-GPCE-2011}.
+
 
 \todo{Do I reference sugarJ?}
 
@@ -93,11 +95,11 @@ embedded system development approaches use a variety of tools for various
 aspects of the system, making tool integration a major challenge. Some of the
 specific problems of embedded software development include the limited
 capability for meaningful abstraction in C, some of C's "dangerous" features
-(leading to various coding conventions such as Misra-C \todoref{}), the
+(leading to various coding conventions such as Misra-C \cite{Hatton04}), the
 proprietary and closed nature of modeling tools, the integration of models and code,
 traceability to requirements, long build times as well as management of product
-line variability. The mbeddr project (\todoref{web}) addresses the challenges
-with a different approach: incremental, modular extension of C with domain-specific language
+line variability. The mbeddr project (\footnote{http://mbeddr.com}) addresses
+the challenges with a different approach: incremental, modular extension of C with domain-specific language
 concepts.  
 
 mbeddr uses extension to add interfaces and components, state machines,
@@ -107,7 +109,7 @@ language implementation code. Scalability tests have shown that the system
 scales to at least 100.000 lines of equivalent C code.
 
 A detailed description, including more details on language and program sizes and
-implementation effort can be found in this paper \todoref{}.
+implementation effort can be found in \cite{Voelter2012}.
 
 
 
@@ -127,16 +129,15 @@ object-relational mapper. This includes real associations (specifying
 navigability and composition vs. reference) or length specifications for string
 properties. Developers can access these associations just like regular fields.
 \emph{dnq} also includes a collections language which supports the manipulation
-of collections in a way similar to .NET's Linq \todoref{}. Other languages
-include \emph{webr}, a language used for implementing interactions bwetwen the
+of collections in a way similar to .NET's Linq \cite{MeijerBB06}. Other
+languages include \emph{webr}, a language used for implementing interactions bwetwen the
 web page and the backend. It supports a unified programming model for
 application logic on the server and on the browser client. \emph{webr} also
 provides first-class support for controllers. For example, controllers can
 declare actions and attach them directly to events of UI components. \emph{webr}
 is well-integrated with \emph{dnq}, so for example, it is possible to use a
 persistent entity as a parameter to a page. The database transaction is
-automatically managed during request processing.\todoref{Can we point to code
-generation presentation here?}
+automatically managed during request processing.
 
 In email communication with the author, JetBrains reported significant
 improvements in developer productivity for web applications. In particular, the
@@ -152,19 +153,19 @@ development.
 Looking at the \emph{different} mechanisms for extending and overriding
 structure, syntax, type system and generators, it is clear that a consistent
 approach for addressing all these aspects would be useful. I suggest to model
-the approach based on the principles of component-based design (\todoref{to
-a paper}). All language aspects use components as the core structural building
-block. Components have types. The type of the component determines the kinds of
-facets it has. A facet is a kind of interface that exposes the (externally
-visible) ingredients of the component. The kinds of ingredients depend on the
-component type: a component of type
+the approach based on the principles of component-based design
+(\cite{0091742}). All language aspects use components as the core structural
+building block. Components have types. The type of the component determines the
+kinds of facets it has. A facet is a kind of interface that exposes the
+(externally visible) ingredients of the component. The kinds of ingredients
+depend on the component type: a component of type
 \emph{structure} exposes language concepts. A component of type \emph{editor}
 exposes editors, type \emph{type system} exposes type system rules, and so on.
 Each component type would use a different DSL for implementing the constructs it
 exposes. Here is the important point: a component (in a sublanguage) can specify
 an \emph{advises} relationship to another component (from a super language).
 Then each of the facets can determine which facets from the advised component it
-wants to \emph{preempt}, \emph{enhance} or \emph{override}: 
+wants to \emph{preempt}, \emph{enhance} or \emph{override}:
 
 \begin{itemize}
   \item \emph{preemption} means that the respective behavior is contributed

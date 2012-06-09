@@ -46,7 +46,7 @@ structure of the \ic{entities} language. Each box represents a language concept.
   \caption[labelInTOC]{The abstract syntax of the entities language. Entities
   have attributes which have types and names. \ct{EntityType} extends 
   \ct{Type} and references \ct{Entity}. This adapts entities to types 
-  (cf. the Adapter pattern in \todoref{}). Concepts like \ct{EntityType} which
+  (cf. the Adapter pattern \cite{GOF95}). Concepts like \ct{EntityType} which
   have exactly one reference are called smart references and are treated specially
   by MPS: the code completion menu shows \emph{the possible targets} of the
   reference directly, instead of first instantiating the reference concept and
@@ -127,9 +127,9 @@ rule typeof_Type for Type as t {
 \noindent The only other typing rule is an equation that defines the type of the
 attribute as a whole to be the type of the attribute's \ct{type} property, defined as
 \ic{typeof(attribute) :==: typeof(attribute.type);}. No other typing rules
-apply in this simple entities language. As we have said in \todoref{}, language
-developers only have to specify typing rules. MPS type system engine applies the
-rules to all applicable program elements, solves the resulting set of type
+apply in this simple entities language. As we have said in \sect{HowMPSWorks},
+language developers only have to specify the typing rules. MPS type system engine applies
+the rules to all applicable program elements, solves the resulting set of type
 equations, and if equations run into contradictions, this is annotated on the
 offending program element as a type error.
 
@@ -178,10 +178,10 @@ the mapping configuration for the \ic{entities} language.
 \end{figure}
 
 MPS templates work differently from normal text generation templates such as
-Xpand \todoref{}, Jet \todoref{} or StringTemplate \todoref{}, since they are
-actually model-to-model transformations. However, as a consequence of MPS'
-language composition facilities, the concrete syntax of the target language is
-used in the template --- it is projected like any other program. However, this
+Xpand \footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet
+\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate
+\footnote{http://www.stringtemplate.org/}, since they are actually
+model-to-model transformations. However, as a consequence of MPS' language composition facilities, the concrete syntax of the target language is used in the template --- it is projected like any other program. However, this
 means that the \emph{template code itself} must be valid in terms of the target
 language. 
 
@@ -227,8 +227,8 @@ them with some kind of escape character) we use annotation attached to regular,
 valid target language code. These annotations can be attached to arbitrary
 program elemnts. This way, the target language code in templates \emph{is
 always structurally correct}, but it can still be annotated to control the
-transformation. Annotations are a geaneral MPS mechanism not specific to
-transformation templates and are discussed in \todoref{}
+transformation. Annotations are a general MPS mechanism not specific to
+transformation templates and are discussed in \sect{annotations}.
 
 
 

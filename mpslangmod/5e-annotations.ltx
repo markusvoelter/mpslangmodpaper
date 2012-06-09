@@ -1,5 +1,6 @@
 
 \subsection{Language Annotations}
+\label{annotations}
 
 \phead{Structure and Syntax} In a projectional editor, the concrete syntax of a
 program is projected from the abstract syntax tree. A projectional system always
@@ -11,8 +12,8 @@ of parsers, is necessary). This has two consequences:
 \begin{itemize}
   \item A projection may be \emph{partial} in the sense that the AST contains data that
   is not shown in the program. The information may, for example, only be
-  changabe via intentions (discussed in \todoref{}), or the projection rule may
-  project some parts of the program only in some cases, controlled by some kind
+  changeable via intentions (discussed in \sect{embedding}), or the projection
+  rule may project some parts of the program only in some cases, controlled by some kind
   of configuration data.
   \item It is also possible to project \emph{additional} concrete syntax that is
   not part of the concrete syntax definition of the original language. Since the
@@ -83,7 +84,7 @@ While structurally the annotation is a child of the annotated node, in the
 editor the relationship is reversed: The editor for \ct{AttrToColMapping} wraps
 the editor for \ct{Attribute}, as \fig{annotationeditor} shows. Since the
 annotation is not part of the original language, it must be attached to nodes
-via an intention (intentions are discussed \todoref{}).
+via an intention.
 
 \begin{figure}[htp]
 \begin{center}
