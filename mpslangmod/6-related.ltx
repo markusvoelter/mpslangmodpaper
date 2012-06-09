@@ -4,36 +4,6 @@
 
 \subsection{Projectional}
 
-
-
-
-\subsection{Parser-Based, without IDE}
-
-
-
-
-\subsection{Parser-Based, including IDE}
-
-
-
-
-
-
-
-
-\subsection{Other}
-
-
-
-\subsection{Languages + IDE}
-
-\todo{For all of those tools discuss syntax, type sys and semantics. And maybe
-remove one or two of them since I'll add all the other related work below? }
-
-\todo{comapre to parser-based stuff in general - references: spoofax stuff: you
-need espace syntax to embed languages, and you have to define the ``composed
-lang'' explicitly.}
-
 MPS is not the only projectional workbench and projectional workbenches are not
 the only approach to language modularity and composition. For example, the
 Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
@@ -42,7 +12,28 @@ capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
 (\ic{http://bit.ly/10BsWa}). IDW is conceptually very similar to MPS, although
 quite different in many details. 
 
- 
+\label{cedalion} 
+Cedalion \cite{cedalion} is a host language for defining internal DSLs. It uses
+a projectional editor and semantics based on logic programming. Both Cedalion and
+language workbenches such as MPS aim at combining the best of both worlds from
+internal DSLs (combination and extension of languages, integration with a host
+language) and external DSLs (static validation, IDE support, flexible syntax).
+Cedalion starts out from internal DSLs and adds static validation and
+projectional editing, the latter avoiding ambiguities resulting from combined
+syntaxes. Language workbenches start from external DSLs and add modularization,
+and, as a consequence of implementing base languages with the same tool,
+optional tight integration with general purpose host languages. We could not
+have used Cedalion as the platform for mbeddr tough, since we implemented our
+own base language (C), and the logic-based semantics would not have been a good
+fit.
+
+
+\subsection{Parser-Based}
+
+
+
+
+
 Eclipse Xtext (\ic{http://eclipse.org/Xtext}) supports the creation of extremely
 powerful text editors (with code completion, error checking and syntax coloring)
 from an enhanced EBNF-like grammar definition. It also generates a meta-model
@@ -65,29 +56,6 @@ because the underlying parser technology is antlr \todo{ref to paper!} which is
 a classical two phase LL(*) parser which has problems with grammar composition
 \cite{BravenboerV08}. 
 
-
-SDF \cite{HeeringHKR89} (\ic{http://strategoxt.org/Sdf}), developed by the
-University of Amsterdam, uses scannerless parsers. Consequently, languages can
-be embedded within each other. However syntactic escapes (quotations and
-antiquotations) have to be defined in the adapter language. This is not
-necessary in MPS, which leads to a smoother integration among languages. 
-Several IDEs have been developed for SDF and the languages defined with it. The
-first one was the Meta Environment \todoref{}. More recent ones include Rascal
-\todoref{} and Spoofax \cite{KatsV10}. The latter two both provide Eclipse-based
-IDE support for languages defined via SDF. In both cases the IDE support for the
-composed languages is still limited (for example, at the time of this writing,
-Spoofax only provides syntax highlighting for an embedded language, but no code
-completion), but will be coming. Spoofax uses the Stratego \todoref{} term
-rewriting engine for expressing transformations. Spoofax also uses term
-rewriting for expressing typing rules (a rule \ic{type-of} rewrites an AST term
-to its type term), so type systems are modular and extensible as well.
-\todo{More details on Rascal's language composition?}
-\todo{More details on MetaEnv?}
-
-\todo{cite some more of eelco's work? Like the SQL-in-Java thing?}
-
-
-
 Monticore (\ic{http://monticore.org}) is another parser-based language
 engineering environment that generates parsers, meta-models, and editors based
 on extended grammar. Currently, the group at RWTH Aachen university works on
@@ -95,41 +63,6 @@ modularizing languages \cite{KrahnRV10}. Languages can extend each other and can
 be embedded within each other. An important idea is the ability to not
 regenerate the parsers or any of the related tools after a combined language has
 been defined.
-
-
-FURCAS (\ic{http://www.furcas.org/}) is a tool that is developed by SAP and FZI
-Karlsruhe. FURCAS stores models in an abstract structure. However, for editing
-it "projects" the model into plain ASCII. So when editing the model, users
-actually edit ASCII text. Consequently, syntax definition also includes a
-definition of indentation and white space conventions, otherwise the projection
-could not work. Second, a lot of effort has to be put into retaining object
-identity \cite{Goldschmidt08}. If an abstract structure is projected into text,
-and then something is moved around and saved back into the abstract structure,
-it has to be made sure the objects (identified by UUIDs) are not deleted and
-recreated, but really just moved. This is important to make sure that references
-between models which are based on the UUIDs and not (qualified) names remain
-valid. By using scannerless parsers it is possible to combine different
-languages, however a combined grammar has to be defined and the parser has to be
-regenerated to be able to use the composed language. As a consequence of the
-projectional approach, it is possible to define several syntaxes for the same
-abstract structure or define views and subsets for a model. FURCAS also
-generates IDE-like editors (based on Eclipse).
-
-
-\label{cedalion} 
-Cedalion \cite{cedalion} is a host language for defining internal DSLs. It uses
-a projectional editor and semantics based on logic programming. Both Cedalion and
-language workbenches such as MPS aim at combining the best of both worlds from
-internal DSLs (combination and extension of languages, integration with a host
-language) and external DSLs (static validation, IDE support, flexible syntax).
-Cedalion starts out from internal DSLs and adds static validation and
-projectional editing, the latter avoiding ambiguities resulting from combined
-syntaxes. Language workbenches start from external DSLs and add modularization,
-and, as a consequence of implementing base languages with the same tool,
-optional tight integration with general purpose host languages. We could not
-have used Cedalion as the platform for mbeddr tough, since we implemented our
-own base language (C), and the logic-based semantics would not have been a good
-fit.
 
 A particularly interesting comparison can be made with the Helvetia system by
 Renggli et al. \cite{2010_renggli_embedding_languages_without_breaking_tools}.
@@ -190,6 +123,76 @@ Workbench Competition at \ic{http://languageworkbenches.net}. Participating
 tools have to implement a standardized language and document the implementation
 strategy. This serves as a good tutorial of the tool and makes them comparable. 
 As of June 2012, the site contains 15 submissions.
+
+
+\subsection{Other}
+
+
+
+FURCAS (\ic{http://www.furcas.org/}) is a tool that is developed by SAP and FZI
+Karlsruhe. FURCAS stores models in an abstract structure. However, for editing
+it "projects" the model into plain ASCII. So when editing the model, users
+actually edit ASCII text. Consequently, syntax definition also includes a
+definition of indentation and white space conventions, otherwise the projection
+could not work. Second, a lot of effort has to be put into retaining object
+identity \cite{Goldschmidt08}. If an abstract structure is projected into text,
+and then something is moved around and saved back into the abstract structure,
+it has to be made sure the objects (identified by UUIDs) are not deleted and
+recreated, but really just moved. This is important to make sure that references
+between models which are based on the UUIDs and not (qualified) names remain
+valid. By using scannerless parsers it is possible to combine different
+languages, however a combined grammar has to be defined and the parser has to be
+regenerated to be able to use the composed language. As a consequence of the
+projectional approach, it is possible to define several syntaxes for the same
+abstract structure or define views and subsets for a model. FURCAS also
+generates IDE-like editors (based on Eclipse).
+
+
+\subsection{Languages + IDE}
+
+\todo{For all of those tools discuss syntax, type sys and semantics. And maybe
+remove one or two of them since I'll add all the other related work below? }
+
+\todo{comapre to parser-based stuff in general - references: spoofax stuff: you
+need espace syntax to embed languages, and you have to define the ``composed
+lang'' explicitly.}
+
+
+ 
+
+
+
+SDF \cite{HeeringHKR89} (\ic{http://strategoxt.org/Sdf}), developed by the
+University of Amsterdam, uses scannerless parsers. Consequently, languages can
+be embedded within each other. However syntactic escapes (quotations and
+antiquotations) have to be defined in the adapter language. This is not
+necessary in MPS, which leads to a smoother integration among languages. 
+Several IDEs have been developed for SDF and the languages defined with it. The
+first one was the Meta Environment \todoref{}. More recent ones include Rascal
+\todoref{} and Spoofax \cite{KatsV10}. The latter two both provide Eclipse-based
+IDE support for languages defined via SDF. In both cases the IDE support for the
+composed languages is still limited (for example, at the time of this writing,
+Spoofax only provides syntax highlighting for an embedded language, but no code
+completion), but will be coming. Spoofax uses the Stratego \todoref{} term
+rewriting engine for expressing transformations. Spoofax also uses term
+rewriting for expressing typing rules (a rule \ic{type-of} rewrites an AST term
+to its type term), so type systems are modular and extensible as well.
+\todo{More details on Rascal's language composition?}
+\todo{More details on MetaEnv?}
+
+\todo{cite some more of eelco's work? Like the SQL-in-Java thing?}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

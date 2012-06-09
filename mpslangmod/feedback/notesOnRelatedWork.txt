@@ -66,13 +66,21 @@ Lisa
 -----------------
 * from lang -> editor (conc, structured), compiler/intp, other tools
 * they say something about modularity, but no details
+  extend, override, remove
 * multiple attribute grammar inheritance (TS, etc.)
 * inheritance, and possibly also embedding
+* semantics via attribute grammars
+
+
+Domain-Specific Aspect Languages for Modularizing Crosscutting Concerns in Grammars-
+-------------------------
 * AspectLisa uses Aspects to handle CCC
-* Still parsed; problem with composing grammars
+* Still parsed; problem with composing independently developed  grammars
+* new rules (AG attributes) can be injected via pointcuts
+  -> add additional SEMANTIC (AG) rules
+* AspectG
+  also addresses aspects in the actions, not in the syntax
 
-
-=> AspectG, AspectASF
 => JastAdd
 
 Polyglott
@@ -81,6 +89,8 @@ Polyglott
 * add, modify, or remove productions and symbols of the base grammar.
 * multi-pass compilers.
 
+ age extensions that have been implemented for abc until now. Un- fortunately this is not a truly modular mechanism, since LALR grammars do not compose, which means that the user of PPG has to make sure that the composed grammar stays in the LALR sub- class of context-free grammars. 
+ 
 
 
 Weaving a Debugging Aspect into Domain-Specific Language Grammars
@@ -115,3 +125,41 @@ Semantics formally
 MetaEnv
 --------------------------
 Should be cited - Paper is concise summary
+
+
+An IncrementalProgrammingEnvironment
+-------------------------
+* Proj Editor, template selection -> not convenient
+* It has a *fixed* language, a variant of C!
+  -> and no emphasis on modularity
+* it incrementally compiles and debugs. 
+* good related work!
+* unparser is used; lang is specified via a grammar; so only parsabel stuff
+* several notations for the same program; partial!
+* Problem: Create in terms of tree; for i=2, first enter =
+
+
+
+
+Delcarative of AspectJ
+First, in a setting with a separate scanner such a combination would cause conflicts as has extensively been discussed in Sec- tion 4. However, in the scannerless SDF setting this does not pose a problem. Since lexical analysis is integrated with parsing, context- sensitive lexical analysis comes for free. For example, when pars- ing 1+1 as a Java expression the + will be seen as an addition oper- ator 11, but when parsing Foo+ in the context of a pointcut expres- sion, then the + will be interpreted as a subtype pattern 3
+Second, if LL, LR, or LALR grammars are used, then the com- bination of one or more languages is not guaranteed to be in the same subset, since these subsets of the context-free languages are not closed under composition. Indeed, if we combine method dec- larations from Java and advice declarations from aspects, then
+shift-reduce conflicts pop up since this combination is no longer LALR, as has been discussed in Section 4.2.3. Since SDF is im- plemented using generalized-LR parsing, SDF supports the full class of context-free grammars, which is closed under composi- tion. Hence, new combinations of languages will stay inside the same class of context-free grammars.
+
+Nevertheless, in some cases there will be ambiguities in the new combination of languages where there are actually two or more possible derivations for the same input. These ambiguities can be solved in a declarative way using one of the SDF disambiguation filters [14], such as reject, priorities, prefer, and associativity
+   For example, the Java expressions this and null would be ambiguous with the identifiers this and null if they would not be reserved. In SDF reserved keywords are defined using reject productions [39]
+-> It is not possible to have the same syntax mean different things in 
+the same place -> combinations of lang need a sep module that disambiguates or specifies
+escapes. Langages can not be combined ad hoc! This is different in MPS.
+Different variations, AJF, AJC, and ABC variants - different restrictions.
+-> In MPS, the *user* makes the disambiguation upon use.
+   (if diff lang concepts). 
+   Keyword vs. identifier is *never* a problem. 
+   typing it may be annoying.
+
+also, in MPS, there is no performance degradation resulting from look ahead or trackback
+etc. The tree is a tree.
+
+
+
+M. Bravenboer and E. Visser. Concrete syntax for objects. Domain- specific language embedding and assimilation without restrictions. In D. C. Schmidt, editor, Proc. of the 19th ACM SIGPLAN Conference on Object-Oriented Programing, Systems, Languages, and Applications (OOPSLA’04), pages 365–383. ACM Press, October 2004.
