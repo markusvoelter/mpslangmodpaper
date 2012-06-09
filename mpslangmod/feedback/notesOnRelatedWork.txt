@@ -49,6 +49,15 @@ AbleP
   so if A and B langs exts are cobined in a program, a disamb functione may be necessary
   not so in MPS
   
+* It seems that the semantic aspects (type sys) are relatively well solved
+  via attribute grammars and forwarding to make it extensible.  
+ 
+* in the extension part. silver_van_wyk page 4 nicely describe under which
+  circumstances extensions can be "generated down" easily: local
+* context aware scanning with copper; LALR(1)
+* Also have precedence and associativity declaratively
+* Silver is itself extensible
+  
 => SQL Embedding of Eelco's.
 => AbleJ: Attribute grammar- based language extensions for Java
 
@@ -70,4 +79,39 @@ Polyglott
 --------------------------
 * extensible parser generator PPG with grammar inheritance
 * add, modify, or remove productions and symbols of the base grammar.
+* multi-pass compilers.
 
+
+
+Weaving a Debugging Aspect into Domain-Specific Language Grammars
+----------------------
+* weave debug info into ANTLR grammars
+
+
+
+Verifiable Composition of Deterministic Grammars
+----------------------------------------------------
+Discusses how to detect early how grammars that are about to be composed if they
+are compatible. This problem does not exist in Proj Ed.
+
+
+Modular SOS: Differences from SOS
+------------------------------------------------
+Modular Structural Operatiojal Semantics
+
+
+Composing Programming Languages by Combining Action-Semantics Modules
+-------------------------
+* Semantics for ASF SDF languages; 
+* goal: realistic
+* modular
+* primitive actions, can be composed into more complex 
+  actions - those are integrated into ASF+SDF definitions;
+  the latter are modular, and so are the equations
+
+Semantics formally 
+
+
+MetaEnv
+--------------------------
+Should be cited - Paper is concise summary
