@@ -22,12 +22,6 @@ smarttools:
 * Multi-View! Nice!
 * nobody talks about composition
 
-gandalf
-* generate IDE from editor
-* lang is defined via denotational semantics
-* It is not clear how sophisticated the editor is
-* nobody talks about composition
-=> ALOEGEN
 
 AbleP
 * Extensible Promela
@@ -127,16 +121,6 @@ MetaEnv
 Should be cited - Paper is concise summary
 
 
-An IncrementalProgrammingEnvironment
--------------------------
-* Proj Editor, template selection -> not convenient
-* It has a *fixed* language, a variant of C!
-  -> and no emphasis on modularity
-* it incrementally compiles and debugs. 
-* good related work!
-* unparser is used; lang is specified via a grammar; so only parsabel stuff
-* several notations for the same program; partial!
-* Problem: Create in terms of tree; for i=2, first enter =
 
 
 
@@ -163,3 +147,39 @@ etc. The tree is a tree.
 
 
 M. Bravenboer and E. Visser. Concrete syntax for objects. Domain- specific language embedding and assimilation without restrictions. In D. C. Schmidt, editor, Proc. of the 19th ACM SIGPLAN Conference on Object-Oriented Programing, Systems, Languages, and Applications (OOPSLA’04), pages 365–383. ACM Press, October 2004.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gandalf
+----------------------------------------
+* generate IDE from editor
+* lang is defined via denotational semantics
+* It is not clear how sophisticated the editor is
+* nobody talks about composition
+=> ALOEGEN
+
+
+An IncrementalProgrammingEnvironment
+-------------------------
+* Proj Editor, template selection -> not convenient
+* It has a *fixed* language, a variant of C!
+  -> and no emphasis on modularity
+* it incrementally compiles and debugs. 
+* good related work!
+* unparser is used; lang is specified via a grammar; so only parsabel stuff
+* several notations for the same program; partial!
+* Problem: Create in terms of tree; for i=2, first enter =

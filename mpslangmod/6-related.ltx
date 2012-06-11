@@ -2,15 +2,77 @@
 \section{Related Work}
 \label{Related} 
 
-\subsection{Projectional}
+This paper addresses language modularity with MPS, a topic that concerns many
+different aspects. In this section we discuss related work focussing on
+projectional editing, as well as language modularity in terms of syntax, type
+systems, semantics and IDE.
 
-MPS is not the only projectional workbench and projectional workbenches are not
-the only approach to language modularity and composition. For example, the
-Intentional Domain Workbench (IDW) \cite{SimonyiCC06} is another projectional
-editor that has been used in real projects. An impressive presentation about its
-capabilities can be found in an InfoQ presentation titled "Domain Expert DSL"
-(\ic{http://bit.ly/10BsWa}). IDW is conceptually very similar to MPS, although
-quite different in many details. 
+
+
+\subsection{Modular Parsers}
+
+
+
+
+
+\subsection{Projectional Editing}
+
+Projectional editing (also known as structural editing) is not a new idea. An
+early example is the Incremental Programming Environment (IPE,
+\cite{Medina-MoraF81}). It uses a structure editor for users to interact wit the
+program and then incrementally compiles and executes the resulting program tree.
+It supports the definition of several notations for the same program as well as
+partial projections. However, the projectional editor forces users to build the
+program tree top-down. For examplec, to enter \ic{2 + 3} users first have to
+enter the \ic{+} and then fill in the two arguments. This is very tedious and
+forces users to understand the program structure. MPS in contrast goes a long
+way in supporting editing gestures that much more resemble text editing. The IPE
+also does not address language modularity. In fact it comes with a fixed, C-like
+language. The IPE does not come with a facility to easily define new languages.
+It is not bootstrapped. Another projectional system is GANDALF \cite{Notkin85}.
+Its ALOEGEN component generates projecitonal editors from a language
+specification. It has the same usability problems as described for IPE. This is
+nicely expressed in \cite{NPS}: \emph{Program editing time will be considerably
+slower than normal keyboard entry although actual time spent programming
+non-trivial programs should be reduced due to reduced error rates.}.
+
+The synthesizer generator described in \cite{RepsT84} also supports structural
+editing (also referred as template-based editing). However, at the fine-grained
+expression level, textual input and parsing is used. This removes many of the
+advantages of projectional editing in the first place, because simple language
+composition \emph{even at the expression level} is prohibited. MPS does not use
+this ``trick'', and instead supports projectional editing also on expression
+level. 
+
+Bagert and Friesen describe a multi-language syntax directed editor in
+\cite{BagertF87}. However, this tool supports only referencing, syntactic
+composition is not supported. 
+
+In terms of contemporary projectional editors, The Intentional Domain Workbench
+(IDW) \cite{SimonyiCC06} is another projectional editor that has been used in
+real projects. An impressive presentation about its capabilities can be found in
+an InfoQ presentation titled "Domain Expert DSL" (\ic{http://bit.ly/10BsWa}).
+IDW is conceptually very similar to MPS, although quite different in many
+details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \label{cedalion} 
 Cedalion \cite{cedalion} is a host language for defining internal DSLs. It uses
@@ -26,6 +88,26 @@ optional tight integration with general purpose host languages. We could not
 have used Cedalion as the platform for mbeddr tough, since we implemented our
 own base language (C), and the logic-based semantics would not have been a good
 fit.
+
+
+
+
+
+
+
+
+
+
+LISA \cite{MernikLAZ02} generates a structural editor (as well as other
+language tools) from a language specification. 
+
+
+
+
+
+
+
+
 
 
 \subsection{Parser-Based}
