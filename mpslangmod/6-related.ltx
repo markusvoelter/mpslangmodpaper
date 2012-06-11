@@ -11,6 +11,35 @@ systems, semantics and IDE.
 
 \subsection{Modular Parsers}
 
+Kats, Visser and Wachsmut in \cite{KatsVW10} describe nicely the problems with
+non-declarative grammar specifications and the resulting problems for
+composition of independently developed grammars. The biggest problem with
+grammar formalisms that cover only subsets of the class of context-free
+grammars is that these are not closed under composition: resulting grammars are
+likely to fall out of the respective grammar class. Composition (without
+invasive change) is prohibited. Grammar formalisms that implement the full set
+of context-free grammars do not have this problem and support composition much
+better. 
+
+For example, the Syntax Definition Formalism (SDF, \cite{HeeringHKR89}) is a
+scannerless GLR parser. Since it parses tokens and characters in a context-aware
+fashion, there will no ambiguities if grammars are composed that both define the
+same token or production \emph{in different contexts}. This allows, for example,
+to embed SQL into Java (as Bravenboer et al. discuss in \cite{BravenboerDV07}).
+However, if the same syntactic form is used by the composed grammars \emph{in
+the same location}, then some kind of disambiguation is necessary. Such
+disambiguations are typically called quotations and antiquotations and are
+defined in a third the grammar that describes the composition of two other
+independent grammars (discussed in \cite{BravenboerV04}). The SILVER/COPPER
+system described by van Wyk in \cite{WykBGK08}. It solves the ambiguities via
+disambiguation functions written specifically for each combination of ambiguosly
+composed grammars. Note that in MPS such disambiguation is never necessary. We
+discuss the potential for ambiguity and the way solves the problem in
+\todo{ref}.
+
+SILVER/COPPER 
+
+
 
 
 
