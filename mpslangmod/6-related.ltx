@@ -3,15 +3,15 @@
 \label{Related} 
 
 This paper addresses language modularity with MPS, a topic that concerns many
-different aspects. In this section we discuss related work focussing on
-projectional editing, as well as language modularity in terms of syntax, type
-systems, semantics and IDE.
-
+different aspects. In this section we discuss related work focusing on
+modular parsers, modular compilers, projectional editing and modular IDEs. 
 
 
 \subsection{Modular Parsers}
 
-\todo{First step: Parsing}
+As we have seen in this paper, modular composition of concrete syntax is the
+basis for many interesting approaches to language composition. Hence we start by
+discussing modularization and composition of grammars.
 
 Kats, Visser and Wachsmut in \cite{KatsVW10} describe nicely the problems with
 non-declarative grammar specifications and the resulting problems for
@@ -59,38 +59,11 @@ Polyglot uses LALR grammars, users must make sure \emph{manually} that the base
 language and the extension stays in the LALR subclass. 
 
  
- 
-
-
-\section{Modular Compilers}
-
-Modular compilers make use of modular parsers and add modular specification of
-semantics, including static semantics (constraints and type systems) as well as
-execution semantics.
-
-Most systems describe static semantics using attribute grammars. Attribute
-grammars associate attributes with AST elements. These attributes can capture
-arbitrary data about the element (such as its type). Attributes of one element
-can be computed from attributes of related elements (such as children). Example
-of systems that make use of attribute grammars for type computation and type
-checking include SILVER (mentioned above) JastAdd \cite{HedinM03} and LISA
-(discussed in more detail in the next section). Forwarding (introduced in
-\cite{WykMBK02}) is a mechanism that improves the modularity of attributed
-grammars by delegating the lookup of an attribute value to another element. 
-MPS' type system is different from attribute grammars. Attributes values are
-calculated (recursively) from attributes of other, references nodes. MPS' type
-system rules are declarative: users specify typing rules for language concepts
-and MPS then ``instantiates'' each rule for each AST node. A solver then solves
-all type equations in that AST. This way, the typing rules of elements
-contributed by languge extensions can \emph{implicitly} affect the overall
-typing of the program. 
-
-
-The execution semantics of MPS is defined via translation down to 
-
-
-
 \subsection{Projectional Editing}
+
+Projectional editing is an alternative approach for handling the relationship
+between the concrete syntax and the abstract syntax, i.e. it is an alternative
+to parsing. As we have seen, it simplifies modularization and composition.
 
 Projectional editing (also known as structural editing) is not a new idea. An
 early example is the Incremental Programming Environment (IPE,
@@ -129,6 +102,63 @@ real projects. An impressive presentation about its capabilities can be found in
 an InfoQ presentation titled "Domain Expert DSL" (\ic{http://bit.ly/10BsWa}).
 IDW is conceptually very similar to MPS, although quite different in many
 details.
+ 
+
+
+\subsection{Modular Compilers}
+
+Modular compilers make use of modular parsers and add modular specification of
+semantics, including static semantics (constraints and type systems) as well as
+execution semantics.
+
+Most systems describe static semantics using attribute grammars. Attribute
+grammars associate attributes with AST elements. These attributes can capture
+arbitrary data about the element (such as its type). Attributes of one element
+can be computed from attributes of related elements (such as children). Example
+of systems that make use of attribute grammars for type computation and type
+checking include SILVER (mentioned above) JastAdd \cite{HedinM03} and LISA
+(discussed in more detail in the next section). Forwarding (introduced in
+\cite{WykMBK02}) is a mechanism that improves the modularity of attributed
+grammars by delegating the lookup of an attribute value to another element. 
+MPS' type system is different from attribute grammars. Attributes values are
+calculated (recursively) from attributes of other, references nodes. MPS' type
+system rules are declarative: users specify typing rules for language concepts
+and MPS then ``instantiates'' each rule for each AST node. A solver then solves
+all type equations in that AST. This way, the typing rules of elements
+contributed by language extensions can \emph{implicitly} affect the overall
+typing of the program. 
+
+
+For language extension, the execution semantics is defined in MPS via
+transformation down to the base language. In \cite{WykBGK08}, van Wyk discusses
+under which circumstances such transformations are valid. In particular, the
+changes to the overall AST must be local. No global changes to the AST are
+allowed. This is to avoid unintended interactions between several independently
+developed extensions used in the same program. In MPS such purely local changes
+are called reduction rules. In our experience, it is also feasible to add
+additional elements to the AST \emph{in select places} based on the use of an
+extension. In MPS, this is achieved using weaving rules. However, in both cases
+(local reduction and selective adding) there is no way to detect in advance
+whether using two extensions in the same program will lead to conflicts.
+
+More formal ways to define semantics include denotational semantics, operational
+semantics and and a mapping to a formally defined action language. These have
+been modularized to make them composable. For example, Mosses describes modular
+structural operational semantics \cite{Mosses-JLAP-2004} and language
+composition by combining action semantics modules \cite{DohM03}. 
+
+Aspect orientation supports the modularization of cross-cutting concerns. This
+has also been applied to language development. For example, Rebernak el al.
+\cite{RebernakMWG09} discuss AspectLisa and AspectG. AspectLisa supports adding
+new, cross-cutting attribute grammar attributes into a Lisa language definition.
+AspectG allows weaving additional action code into ANTLR grammars. Note that
+both AspectLisa and AspectG address semantics and not the grammar itself. They
+do not support aspect-oriented extension of the concrete syntax. 
+
+
+\subsection{Extensible IDEs}
+
+
 
 
 
