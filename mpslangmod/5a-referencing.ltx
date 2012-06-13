@@ -2,9 +2,22 @@
 
 \subsection{Language Referencing}
 
+\todo{arrange figure locations}
 
 Language referencing  enables \emph{homogeneous} fragments with cross-references
 among them, using \emph{dependent} languages (\fig{langReferencing}).
+ 
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langReferencing.png} 
+  \caption[labelInTOC]{Referencing: Language $l_2$ depends on $l_1$, because
+  concepts in $l_2$ reference concepts in $l_1$. (We
+  use rectangles for languages, circles for language concepts, and UML
+  syntax for the lines: dotted = dependency, normal arrows = associations,
+  hollow-triangle-arrow for inheritance.)} 
+  \label{langReferencing}  
+\end{center} 
+\end{figure}  
  
 A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
 $l_2$ and $l_1$. The referencing language $l_2$ depends on the referenced
@@ -19,17 +32,7 @@ does not. Instead
 \end{align}
                       
 
-\begin{figure}[h]
-\begin{center}
-  \includegraphics[width=8.2cm]{figures/langReferencing.png} 
-  \caption[labelInTOC]{Referencing: Language $l_2$ depends on $l_1$, because
-  concepts in $l_2$ reference concepts in $l_1$. (We
-  use rectangles for languages, circles for language concepts, and UML
-  syntax for the lines: dotted = dependency, normal arrows = associations,
-  hollow-triangle-arrow for inheritance.)} 
-  \label{langReferencing}  
-\end{center} 
-\end{figure} 
+
 
 As an example, for language referencing we define a language \ic{uispec} for
 defining user interface forms for \ic{entities}. Below is an example.
