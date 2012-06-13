@@ -1,32 +1,22 @@
+\vspace{-3mm}
 
 \mvsubsec{Language Extension}
 \label{Extension}
 
-\begin{figure}[t]
-\begin{center}
-  \includegraphics[width=8.2cm]{figures/langExtension.png} 
-  \caption[labelInTOC]{Extension: $l_2$ extends $l_1$. It provides additional
-  concepts $B3$ and $B4$. $B3$ extends $A3$, so it can be used as a child of
-  $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
-  $l_2$ depends on $l_2$.}
-  \label{langExtension}  
-\end{center}  
-\end{figure}
+
 
 Language Extension  enables \emph{heterogeneous} fragments
 with \emph{dependent} languages (\fig{langExtension}). A language $l_2$
 extending $l_1$ adds additional language concepts to those of $l_1$. We call $l_2$ the
 \emph{extending} language, and $l_1$ the \emph{base} language. To allow the new
-concepts to be used in the context provided by $l_1$, some of them extend
-concepts in $l_1$. So, while $l_1$ remains independent, $l_2$ becomes dependent
-on $l_1$ since some of the concepts in $l_2$ will inherit from concepts in
+concepts to be used in the context of $l_1$, some of them typically extend
+concepts in $l_1$. While $l_1$ remains independent, $l_2$ is dependent on
 $l_1$:
 \begin{align}
 \exists i \in \mathit{Inh(l_2)} \mid \mathit{i.sub} = l_2\; \wedge \; 
 	\mathit{i.super} = l_1
 \end{align}
-Consequently, a fragment $f$ contains language concepts from both $l_1$ and
-$l_2$:
+A fragment $f$ contains language concepts from both $l_1$ and $l_2$:
 \begin{align}
 \forall e \in E_f \mid \mathit{lo(e)} = l_1 \vee \mathit{lo(e)} = l_2
 \end{align}  
@@ -45,23 +35,46 @@ invasive. Also, a native interfaces that supports calling one language from
 another, like calling C from Perl or Java, is not language Extension;
 rather it is a form of language Referencing. The fragments remain homogeneous.
 
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=8.2cm]{figures/langExtension.png} 
+  \caption[labelInTOC]{Extension: $l_2$ extends $l_1$. It provides additional
+  concepts $B3$ and $B4$. $B3$ extends $A3$, so it can be used as a child of
+  $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
+  $l_2$ depends on $l_2$.}
+  \label{langExtension}  
+  \vspace{-3mm}
+\end{center}  
+\end{figure}
 
-
-As an example, we extend the MPS base language with block expressions
+As an example we extend the MPS base language with block expressions
 and placeholders. These concepts make writing generators \emph{that generate
 base language code} much simpler. \fig{expressionBlock} shows an example. We use
-a screenshot instead of text because we use non-textual notations (the big
-brackets) and color. 
+a screenshot instead of text because we use non-textual notations and color. 
+
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[width=120mm]{figures/expressionBlock.png}
+  \caption[labelInTOC]{Block Expressions (rendered with a shaded background) are
+  basically anonymous inline methods. Upon transformation, an actual method is
+  generated that contains the block content, and the block expression is replaced with a call to this
+  generated method. Block expressions are used mostly when implementing
+  generators; this screenshot shows a generator that uses a block expression.}
+  \label{expressionBlock}  
+  \vspace{-8mm}
+\end{center}
+\end{figure}
 
 
-\phead{Structure and Syntax} A block expression is a block that can be used
+A block expression is a block that can be used
 where an \ct{Expression} is expected~\cite{BravenboerVVV05}. The block can
 contain any number of statements; \ct{yield} can be used to "return values" from
 within the block. So, in some sense, a block expression is an "inlined method",
-or a closure that is defined and called directly (an optional name property of a
-block expression is then used as the method name). The generator of the block
-expression transforms it into just this structure:
+or a closure that is defined and called directly. The generator of the block
+expression used in \fig{expressionBlock} transforms it into a method and a call
+to it:
 
+\pagebreak[4]
 
 \begin{code}
 okButton.addActionListener(new ActionListener() {
@@ -72,67 +85,57 @@ okButton.addActionListener(new ActionListener() {
   public String retrieve_name(Employee aEmployee, JComponent widget0) {
     String newValue = ((JTextField) widget0).getText();
     return newValue;
-  }
-}
+} }
 \end{code}
 
-\begin{figure}[htp]
-\begin{center}
-  \includegraphics[width=120mm]{figures/expressionBlock.png}
-  \caption[labelInTOC]{Block Expressions (rendered with a shaded background) are
-  basically anonymous inline methods. Upon transformation, an actual method is
-  generated that contains the block content, and the block expression is replaced with a call to this
-  generated method. Block expression are used mostly when implementing
-  generators; this screenshot shows a generator that uses a block expression.}
-  \label{expressionBlock}  
-\end{center}
-\end{figure}
 
-\noindent The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS'
-BaseLanguage.
-The block expression is used in places where the base language
-expects an \ct{Expression}. This is why a \ct{BlockExpression} extends
-\ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language, can
-now use \ct{BlockExpression}s in addition to the concepts provided by the base
-language. The fragments become \emph{heterogeneous}, because the languages are
-mixed.
+
+\phead{Structure and Syntax} The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS'
+BaseLanguage. The block expression is used in places where the base language
+expects an \ct{Expression}. This is why a \ct{BlockExpr- ession} extends
+\ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language,
+can now use \ct{BlockExpression}s in addition to the concepts provided by the
+base language. The fragments become \emph{heterogeneous}.
 
 \begin{code}
 concept BlockExpression extends Expression implements INamedConcept
   children:                                     
-    StatementList body 1      
+    StatementList   body   1      
 \end{code}
           
 \phead{Type System} The type of the \ct{yield} statement is the type of the
-expression that is \ic{yield}ed, specified by 
-\ic{typeof(yield) :==: typeof(yield.result);} (so the type of \ic{yield 1;}
- would be \ct{int}, because the type of \ic{1} is \ic{int}). Since the
- \ct{BlockExpression} is used as an expression, it has to have a type as well. Since it is not explicitly specified, the type of
-the \ct{BlockExpression} is the common super type of the types of all the
-yields. The following typing rule computes this type:
+expression that is \ic{yield}ed, specified by
+\ic{typeof(aYield) :==: typeof(aYield.result)} (so the type of \ic{yield 1;}
+would be \ct{int}, because the type of \ic{1} is \ic{int}). Since the
+\ct{BlockExpression} is used as an expression, it has to have a type as well.
+Since it is not explicitly specified, the type of the \ct{BlockExpression} is
+the common super type of the types of all the \ic{yield}s. The following rule
+implements this:
 
 \begin{code}
-var resultType ; 
-for (node<BlockExpressionYield> y : 
-        blockExpr.descendants<BlockExpressionYield>) { 
-  resultType :==: typeof(y.result); 
+var resultType; 
+for (node<BlockExpressionYield> y : blockExpr.descendants<BlockExpressionYield>) { 
+  resultType :>=: typeof(y.result); 
 } 
 typeof(blockExpr) :==: resultType;
 \end{code}
           
+This equation iterates over all \ic{yield} statements in a block expression and
+establishes an equation between the current \ic{yield}'s type and a type
+variable \ic{resultType}. It uses the \ic{:>=:} operator to express that the
+\ic{resultType} must be the same or a supertype of the type of each \ic{yield}.
+The only way to make \emph{all} of these equations true (which is what the type
+system solver attempts to do) is to assign the common supertype of all
+\ic{yield} types to \ic{resultType}. We then associate this \ic{resultType} with
+the type of the overall block expression.
           
-\phead{Generator} The generator for \ct{BlockExpression}s reduces the new 
-concept to pure base
-language: it performs assimilation. It transforms a heterogeneous fragment
-(using BaseLanguage and \ic{exprblocks}) to a homogeneous fragment (using only
-BaseLanguage). The first step is the creation of the additional method 
-for the block expression (\fig{expressionBlockGenerator1}).
 
-
-
-% > 5.2 #Generator (Pg 12): AFAIK we have "extract method" instruction in
-% > code generator. This was designed exactly for use case you are trying
-% > to cover using weavings.
+          
+\phead{Generator} The generator for \ct{BlockExpression}s reduces the new
+concept to pure base language. It transforms a heterogeneous fragment (using
+BaseLanguage and \ic{exprblocks}) to a homogeneous fragment (using only
+BaseLanguage). The first step is the creation of the additional method for the
+block expression as shown in \fig{expressionBlockGenerator1}.
 
 
 
@@ -141,25 +144,26 @@ for the block expression (\fig{expressionBlockGenerator1}).
   \includegraphics[width=120mm]{figures/expressionBlockGenerator1.png}
   \caption[labelInTOC]{We use a weaving rule to create an additional method for
   a block expression. A weaving rule processes an input element
-  (\ct{BlockExpression}) by creating another node in a different place. The context function defines this
-  other place. In this example, it simply gets the class in which we have
-  defined the particular block expression, so the additional method is generated
-  into that class.}
-  \label{expressionBlockGenerator1} 
+  (\ct{BlockExpression}) by creating another node \emph{in a different
+  location}. The \ic{context} function defines the target location. In this
+  example, it simply gets the class in which we have defined the particular 
+  block expression, so the additional method is generated into that same class.}
+  \label{expressionBlockGenerator1}
+  \vspace{-5mm} 
 \end{center}
 \end{figure}
  
 
 The template shown in \fig{expressionBlockGenerator2} shows the creation of the
-method. It assigns a mapping label to the created method. The mapping label
-creates a mapping between the \ct{BlockExpression} and the created method. We
-will use this label to refer to this generated method when we generate the
-method call that replaces the \ct{BlockExpression}
-(\fig{expressionBlockGenerator3}).
+method. The mapping label (\ic{b2M}) creates a mapping between the
+\ct{BlockExpression} and the created method. We will use this label to refer to
+this generated method when we generate the method call that replaces the
+\ct{BlockExpression} (\fig{expressionBlockGenerator3}).
 
 
 \begin{figure}[htp] 
 \begin{center}
+  \vspace{-3mm}
   \includegraphics[width=120mm]{figures/expressionBlockGenerator2.png}
   \caption[labelInTOC]{This generator template creates a method from the block
   expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ct{string}
@@ -175,31 +179,31 @@ method call that replaces the \ct{BlockExpression}
 
 \begin{figure}[htp]
 \begin{center}
+  \vspace{-10mm}
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
-  \caption[labelInTOC]{Here we generate the call to the previously generated
-  method. We use the mapping label \ct{b2M} to refer to the
-  correct method (not shown; happens inside the reference macro). We pass in
-  the environment variables as actual arguments using the \ic{LOOP} and
-  \ic{COPY\_SRC} macros.}
+  \caption[labelInTOC]{Here we generate the call to the method generated in
+  \fig{expressionBlockGenerator2}. We use the mapping label \ct{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
+  the variables from the call's environment as actual arguments using the
+  \ic{LOOP} and \ic{COPY\_SRC} macros.}
   \label{expressionBlockGenerator3} 
+  \vspace{-3mm}
 \end{center}
 \end{figure}
 
-A second concept introduced by the \ic{exprblocks} language is the
-\ct{PlaceholderStatement}. It extends \ct{Statement} so it can be used
+Another concept introduced by the \ic{exprblocks} language is the
+\ct{Placehol- derStatement}. It extends \ct{Statement} so it can be used
 inside method bodies. It is used to mark locations at which subsequent
-generators want to add additional code. These subsequent generators will use a
+generators can to add additional code. These subsequent generators will use a
 reduction rule to replace the placeholder with whatever they want to put at this
 location. It is a means to building extensible generators, as we will see later.
 
 
-In the classification section (\sect{typesOfMod}) we mentioned that we consider
-restriction as a form of Extension. To illustrate this point we restrict the
-block expression regarding the children it may have: we prevent the use of
-\ic{return} statements inside block expressions (the reason for this restriction
-is that the way we generate from the block expressions cannot handle return
-statements). To achieve this, we add a \ic{can be ancestor} constraint to the
-\ic{BlockExpression}:
+In the classification (\sect{typesOfMod}) we mentioned that we consider language
+restriction as a form of Extension. To illustrate this point we prevent the use
+of \ic{return} statements inside block expressions (the reason for this
+restriction is that the way we generate from the block expressions cannot handle
+return statements). To achieve this, we add a \ic{can be ancestor} constraint to
+the \ic{BlockExpression}:
 
 \begin{code} 
 concept constraints for BlockExpression {
@@ -210,27 +214,27 @@ concept constraints for BlockExpression {
 \end{code}
 
 \noindent The \ic{childConcept} variable represents the concept of which an
-instance is about to be added under a \ic{BloclExpression}. The constraint expression has to
-return \ic{true} if the respective \ic{childConcept} is valid in this location.
-We make sure the \ic{childConcept} is not a \ic{ReturnStatement}. Note how this
-constraint is written \emph{from the perspective of the ancestor} (the
-\ic{BlockExpression}). MPS also supports writing constraints from the
-perspective from the child. This is important to keep dependencies pointing in
-the right direction.
+instance is about to be added under a \ic{BlockExpression}. The constraint
+expression has to return \ic{true} if the respective \ic{childConcept} is valid
+in this location. We return true if the \ic{childConcept} is not a
+\ic{ReturnStatement}. Note how this constraint is written \emph{from the
+perspective of the ancestor} (the \ic{BlockExpression}). MPS also supports
+writing constraints from the perspective of the child. This is important to
+keep dependencies pointing in the right direction.
 
 
 Extension comes in two flavors. One really feels like Extension, and the other
-one feels more like Embedding. We have described the one that feels like
-Extension in this section: we provide (a little, local) additional syntax to an
+one feels more like Embedding. In this section we have described the one that
+feels like Extension: we provide (a little, local) additional syntax to an
 otherwise unchanged language (block expressions and placeholders). The programs
 still essentially look like Java programs, and in a few particular places,
 something is different. Extension with Embedding flavor is where we create a
-completely new language, but Reuse some of the syntax provided by a base
-language. For example, we could create a state machine language that Reuses
-Java's expression and types in guard conditions. This use case \emph{feels} like
-Embedding (we embed syntax from the base language in our new language), but in
-the classification according to syntactic integration and dependencies, it is
-still Extension. Embedding would prevent a dependency between the state machine
+completely new language, but use some of the syntax provided by a base language
+in that new language. For example, we could create a state machine language that
+reuses Java's expression and types in guard conditions. This use case
+\emph{feels} like Embedding (we embed syntax from the base language in our new
+language), but in terms of our classification (\sect{typesOfMod}) it is still
+Extension. Embedding would prevent a dependency between the state machine
 language and Java.
   
   

@@ -1,4 +1,5 @@
 
+\vspace{-5mm}
 \mvsubsec{Language Embedding}
 \label{Embedding}
 
@@ -15,21 +16,22 @@ in a fragment $f$ expressed with $l_1$, so
 	( &\mathit{lo(co(c.child))} = l_1 \vee \mathit{lo(co(c.child))} = l_2) )
 \end{align}
 Unlike language Extension, where $l_2$ depends on $l_1$ because concepts in
-$l_2$ extends concepts in $l_1$, there is no such dependency in this case. Both
+$l_2$ extend concepts in $l_1$, there is no such dependency in this case. Both
 languages are independent. We call $l_2$ the \emph{embedded} language and $l_1$
 the \emph{host} language. Again, an adapter language $l_A$ that extends $l_1$
-can be used to achieve this, where
+can be used to achieve this:
 \begin{align}
 \exists c \in \mathit{Cdn_{l_A}} \mid \mathit{lo(c.parent)} = 
 	l_A \wedge \mathit{lo(c.child)} = l_1
 \end{align}
 
-\noindent As an example we embed an existing, embeddable \ic{expressions}
-language into the \ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
+\noindent As an example we embed an existing \ic{expressions} language into the
+\ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
 language or the expression language, since, in case of Embedding, none of them
-may have a dependency on the other. Here is an example program using the
-resulting language. Note the use of expressions behind the \ic{validate}
-keyword:
+may have a dependency on the other. Below is an example program using the
+resulting language that uses expressions after the \ic{validate} keyword:
+
+\pagebreak[4]
 
 \begin{code}
 form CompanyStructure                                                                                                                                  
