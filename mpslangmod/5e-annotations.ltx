@@ -74,23 +74,23 @@ concept AttrToColMapping extends NodeAnnotation
 \ic{NodeAnnotation}, a special concept predefined by MPS. Concept that extend \ic{NodeAnnotation}
 have to provide a \ic{role} property and an \ic{annotated} concept link.
 Structurally, an annotation is a child of the node it annotates. So the
-\ct{Attribute} has a new child of type \ct{AttrToColMapping}, and the reference
-that contains the child is called \ct{@colMapping} --- the value of the
+\ic{Attribute} has a new child of type \ic{AttrToColMapping}, and the reference
+that contains the child is called \ic{@colMapping} --- the value of the
 \ic{role} property. The \ic{annotated} concept link points to the concept \emph{to
 which this annotation can be added}. \ic{AttrToColMapping}s can be annotated to
 intances of \ic{Attribute}. 
 
 While structurally the annotation is a child of the annotated node, in the
-editor the relationship is reversed: The editor for \ct{AttrToColMapping} wraps
-the editor for \ct{Attribute}, as \fig{annotationeditor} shows. Since the
+editor the relationship is reversed: The editor for \ic{AttrToColMapping} wraps
+the editor for \ic{Attribute}, as \fig{annotationeditor} shows. Since the
 annotation is not part of the original language, it must be attached to nodes
 via an intention.
 
 \begin{figure}[htp]
 \begin{center}
   \includegraphics[scale=0.55]{figures/annotationeditor.png}
-  \caption[labelInTOC]{The editor for the \ct{AttrToColMapping} embeds the
-  editor of the concept it is annotated to (using the \ct{attributed node}
+  \caption[labelInTOC]{The editor for the \ic{AttrToColMapping} embeds the
+  editor of the concept it is annotated to (using the \ic{attributed node}
   cell). It then projects the reference to the referenced column. This way the
   editor of the annotation has control of if and how the editor annotated
   element is projected.}
@@ -99,7 +99,7 @@ via an intention.
 \end{figure}
 
 Note that it is also possible to define the annotation source to be
-\ct{BaseConcept}, which means the annotation can be attached to \emph{any} node. The
+\ic{BaseConcept}, which means the annotation can be attached to \emph{any} node. The
 language that contains the annotation then has no dependency to any other
 language. This is useful for generic "metadata" such as documentation,
 requirements traces or presence conditions in product line engineering. We have

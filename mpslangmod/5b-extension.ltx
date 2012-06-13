@@ -67,8 +67,8 @@ a screenshot instead of text because we use non-textual notations and color.
 
 
 A block expression is a block that can be used
-where an \ct{Expression} is expected~\cite{BravenboerVVV05}. The block can
-contain any number of statements; \ct{yield} can be used to "return values" from
+where an \ic{Expression} is expected~\cite{BravenboerVVV05}. The block can
+contain any number of statements; \ic{yield} can be used to "return values" from
 within the block. So, in some sense, a block expression is an "inlined method",
 or a closure that is defined and called directly. The generator of the block
 expression used in \fig{expressionBlock} transforms it into a method and a call
@@ -92,9 +92,9 @@ okButton.addActionListener(new ActionListener() {
 
 \phead{Structure and Syntax} The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS'
 BaseLanguage. The block expression is used in places where the base language
-expects an \ct{Expression}. This is why a \ct{BlockExpr- ession} extends
-\ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language,
-can now use \ct{BlockExpression}s in addition to the concepts provided by the
+expects an \ic{Expression}. This is why a \ic{BlockExpr- ession} extends
+\ic{Expression}. Consequently, fragments that use the \ic{exprblocks} language,
+can now use \ic{BlockExpression}s in addition to the concepts provided by the
 base language. The fragments become \emph{heterogeneous}.
 
 \begin{code}
@@ -103,12 +103,12 @@ concept BlockExpression extends Expression implements INamedConcept
     StatementList   body   1      
 \end{code}
           
-\phead{Type System} The type of the \ct{yield} statement is the type of the
+\phead{Type System} The type of the \ic{yield} statement is the type of the
 expression that is \ic{yield}ed, specified by
 \ic{typeof(aYield) :==: typeof(aYield.result)} (so the type of \ic{yield 1;}
-would be \ct{int}, because the type of \ic{1} is \ic{int}). Since the
-\ct{BlockExpression} is used as an expression, it has to have a type as well.
-Since it is not explicitly specified, the type of the \ct{BlockExpression} is
+would be \ic{int}, because the type of \ic{1} is \ic{int}). Since the
+\ic{BlockExpression} is used as an expression, it has to have a type as well.
+Since it is not explicitly specified, the type of the \ic{BlockExpression} is
 the common super type of the types of all the \ic{yield}s. The following rule
 implements this:
 
@@ -131,7 +131,7 @@ the type of the overall block expression.
           
 
           
-\phead{Generator} The generator for \ct{BlockExpression}s reduces the new
+\phead{Generator} The generator for \ic{BlockExpression}s reduces the new
 concept to pure base language. It transforms a heterogeneous fragment (using
 BaseLanguage and \ic{exprblocks}) to a homogeneous fragment (using only
 BaseLanguage). The first step is the creation of the additional method for the
@@ -144,7 +144,7 @@ block expression as shown in \fig{expressionBlockGenerator1}.
   \includegraphics[width=120mm]{figures/expressionBlockGenerator1.png}
   \caption[labelInTOC]{We use a weaving rule to create an additional method for
   a block expression. A weaving rule processes an input element
-  (\ct{BlockExpression}) by creating another node \emph{in a different
+  (\ic{BlockExpression}) by creating another node \emph{in a different
   location}. The \ic{context} function defines the target location. In this
   example, it simply gets the class in which we have defined the particular 
   block expression, so the additional method is generated into that same class.}
@@ -156,9 +156,9 @@ block expression as shown in \fig{expressionBlockGenerator1}.
 
 The template shown in \fig{expressionBlockGenerator2} shows the creation of the
 method. The mapping label (\ic{b2M}) creates a mapping between the
-\ct{BlockExpression} and the created method. We will use this label to refer to
+\ic{BlockExpression} and the created method. We will use this label to refer to
 this generated method when we generate the method call that replaces the
-\ct{BlockExpression} (\fig{expressionBlockGenerator3}).
+\ic{BlockExpression} (\fig{expressionBlockGenerator3}).
 
 
 \begin{figure}[htp] 
@@ -166,11 +166,11 @@ this generated method when we generate the method call that replaces the
   \vspace{-3mm}
   \includegraphics[width=120mm]{figures/expressionBlockGenerator2.png}
   \caption[labelInTOC]{This generator template creates a method from the block
-  expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ct{string}
+  expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ic{string}
   type with the computed return type of the block expression, inserts a computed name, adds a
   parameter for each referenced variable outside the block, and inserts all the
   statements from the block expression into the body of the method. The
-  \ct{b2M} (block-to-method) mapping label is used later when generating the
+  \ic{b2M} (block-to-method) mapping label is used later when generating the
   call to this generated method (shown in \fig{expressionBlockGenerator3}).}
   \label{expressionBlockGenerator2} 
 \end{center}
@@ -182,7 +182,7 @@ this generated method when we generate the method call that replaces the
   \vspace{-10mm}
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
   \caption[labelInTOC]{Here we generate the call to the method generated in
-  \fig{expressionBlockGenerator2}. We use the mapping label \ct{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
+  \fig{expressionBlockGenerator2}. We use the mapping label \ic{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
   the variables from the call's environment as actual arguments using the
   \ic{LOOP} and \ic{COPY\_SRC} macros.}
   \label{expressionBlockGenerator3} 
@@ -191,7 +191,7 @@ this generated method when we generate the method call that replaces the
 \end{figure}
 
 Another concept introduced by the \ic{exprblocks} language is the
-\ct{Placehol- derStatement}. It extends \ct{Statement} so it can be used
+\ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
 inside method bodies. It is used to mark locations at which subsequent
 generators can to add additional code. These subsequent generators will use a
 reduction rule to replace the placeholder with whatever they want to put at this

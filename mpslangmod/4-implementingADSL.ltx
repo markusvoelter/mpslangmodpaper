@@ -36,15 +36,15 @@ module company                       // continued...
 \vspace{-2mm}
 \phead{Structure and Syntax} Language definition starts with the AS, called
 \emph{structure} in MPS. \fig{entities} shows a UML diagram of the \ic{entities}
-language AS. The following code shows the definition of the \ct{Entity}
+language AS. The following code shows the definition of the \ic{Entity}
 concept\footnote{In addition to \ic{properties}, \ic{children} and
 \ic{references}, concept definition can have more characteristics such as
 \ic{concept properties} or \ic{concepts links}. However, these are not needed
 for this example, so we don't show them here. The code above shows all the
-characteristics used in this example}. \ct{Entity} extends \ct{BaseConcept}, the
-root concept, similar to \ct{java.lang.Object} in Java. It implements the
-\ct{INamedConcept} interface to inherit a \ct{name} field. It declares a list of
-children of type \ct{Attribute} in the \ct{attributes} role.
+characteristics used in this example}. \ic{Entity} extends \ic{BaseConcept}, the
+root concept, similar to \ic{java.lang.Object} in Java. It implements the
+\ic{INamedConcept} interface to inherit a \ic{name} field. It declares a list of
+children of type \ic{Attribute} in the \ic{attributes} role.
 A concept may also have references to other concepts (as opposed to children).
 
 
@@ -60,9 +60,9 @@ concept Entity extends BaseConcept implements INamedConcept
 \begin{center}
   \includegraphics[scale=0.7]{figures/entities2.png}
   \caption[labelInTOC]{The abstract syntax of the entities language. Entities
-  have attributes which have types and names. \ct{EntityType} extends 
-  \ct{Type} and references \ct{Entity}. This adapts entities to types 
-  (cf. the Adapter pattern~\cite{GOF95}). Concepts like \ct{EntityType} which
+  have attributes which have types and names. \ic{EntityType} extends 
+  \ic{Type} and references \ic{Entity}. This adapts entities to types 
+  (cf. the Adapter pattern~\cite{GOF95}). Concepts like \ic{EntityType} which
   have exactly one reference are called smart references and are treated specially
   by MPS: the code completion menu shows \emph{the possible targets} of the
   reference directly, instead of first instantiating the reference concept and
@@ -76,7 +76,7 @@ concept Entity extends BaseConcept implements INamedConcept
 \noindent Editors in MPS are based on cells. Cells are the smallest unit
 relevant for projection. Consequently, defining an editor consists of arranging cells
 and defining their content. Different cell types are available to compose editors.
-\fig{editordefinition} explains the editor for \ct{Entity}. The editors for the
+\fig{editordefinition} explains the editor for \ic{Entity}. The editors for the
 other concepts are defined similarly.
 
 
@@ -85,11 +85,11 @@ other concepts are defined similarly.
 \begin{center}
   \vspace{-2mm}
   \includegraphics[scale=0.55]{figures/editordefinition.png}
-  \caption[labelInTOC]{The editor for \ct{Entity}. The outermost cell is a
+  \caption[labelInTOC]{The editor for \ic{Entity}. The outermost cell is a
   vertical list. In the first line, we use a horizontal list that contains
-  the keyword \ct{entity}, the \ic{name} property and an opening
+  the keyword \ic{entity}, the \ic{name} property and an opening
   curly brace. In the second line we use indentation and a vertical arrangements
-  of the contents of the \ct{attributes} collection. Finally, the third line
+  of the contents of the \ic{attributes} collection. Finally, the third line
   contains the closing curly brace.}
   \vspace{-4mm}
   \label{editordefinition} 
@@ -113,7 +113,7 @@ rule typeof_Type for Type as t {
 \end{code}
 
 \noindent The only other typing rule defines the type of the \ic{Attribute} as a
-whole to be the type of the attribute's \ct{type} property, defined as
+whole to be the type of the attribute's \ic{type} property, defined as
 \ic{typeof(attribute) :==: typeof(attribute.type)}. No other typing rules apply
 in this simple language. 
 
@@ -146,7 +146,7 @@ we generate a Java class from an \ic{Entity}. Reduction rules are in-place
 transformations. Whenever the engine encounters an instance of the specified
 source concept somewhere in a model tree, it removes that source node and
 replaces it with the result of the associated template. In our case we reduce
-the various types (\ct{int}, \ct{string}, etc.) to their Java counterparts.
+the various types (\ic{int}, \ic{string}, etc.) to their Java counterparts.
 \fig{entitiesmc} shows a part of the mapping configuration for the \ic{entities}
 language.
 
@@ -155,15 +155,15 @@ language.
 \begin{center}
   \includegraphics[width=80mm]{figures/entitiesmc.png}
   \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
-  root mapping rule for \ic{Entity} specifies that instances of \ct{Entity} should
-  be transformed with the \ct{map\_Entity} template (which produces a Java
+  root mapping rule for \ic{Entity} specifies that instances of \ic{Entity} should
+  be transformed with the \ic{map\_Entity} template (which produces a Java
   class and is shown in \fig{entitytemplate}). The reduction rules use inline
   templates, i.e. the template is embedded in the mapping configuration. For example, the 
-  \ct{IntType} is replaced with the Java \ct{int} and the \ct{EntityRefType} is
+  \ic{IntType} is replaced with the Java \ic{int} and the \ic{EntityRefType} is
   reduced to a reference to the class generated from the target entity. The
   \ic{->\$} is a so-called reference macro. It contains code (not
   shown) that "rewires" the reference (that points to the 
-  \ct{Double} class \emph{in the template code}) to a reference to the class
+  \ic{Double} class \emph{in the template code}) to a reference to the class
   generated from the target entity. }
   \vspace{-2mm}
   \label{entitiesmc} 
@@ -173,7 +173,7 @@ language.
 
 
 
-\fig{entitytemplate} shows the \ct{map\_Entity} template. It generates a complete 
+\fig{entitytemplate} shows the \ic{map\_Entity} template. It generates a complete 
 Java class from an input \ic{Entity}. To understand how templates work in MPS we
 discuss in more detail the generation of Java fields for each \ic{Entity}
 \ic{Attribute}:
@@ -188,8 +188,8 @@ discuss in more detail the generation of Java fields for each \ic{Entity}
   those program elements is the example code that have to be replaced with
   elements from the input model as the transformation executes.
   In the \ic{Attribute} example in \fig{entitytemplate} we first
-  attach a \ct{LOOP} macro to the whole field. It contains an expression
-  \ic{node.attributes;} where \ct{node} refers to the input \ct{Entity} (this
+  attach a \ic{LOOP} macro to the whole field. It contains an expression
+  \ic{node.attributes;} where \ic{node} refers to the input \ic{Entity} (this
   code is entered in the Inspector window and is not shown in the screenshot).
   This expression returns the set of \ic{Attribute}s from the current
   \ic{Entity}, making the \ic{LOOP} iterate over all attributes of the
@@ -198,12 +198,12 @@ discuss in more detail the generation of Java fields for each \ic{Entity}
   \item At this point, each created field would be \emph{identical} to the
   example code to which we attached the \ic{LOOP} macro (\ic{private int
   aField;}). To make the generated field specific to the particular
-  \ic{Attribute} we iterate over, we use more macros. A \ct{COPY\_SRC} macro is
-  used to transform the \ic{type}. \ct{COPY\_SRC} copies the input node (the
+  \ic{Attribute} we iterate over, we use more macros. A \ic{COPY\_SRC} macro is
+  used to transform the \ic{type}. \ic{COPY\_SRC} copies the input node (the
   inspector specifies the current attribute's \ic{type} as the input here) and
   applies reduction rules (those defined in \fig{entitiesmc}) to map types from
   the \ic{entities} language to Java types. We then use a property macro (the
-  \ic{\$} sign around \ic{aField}) to change the \ct{name} property of the field
+  \ic{\$} sign around \ic{aField}) to change the \ic{name} property of the field
   we generate to the name of the attribute we currently transform.
   
 \end{itemize}

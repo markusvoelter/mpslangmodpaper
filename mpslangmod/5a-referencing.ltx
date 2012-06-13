@@ -59,9 +59,9 @@ form CompanyStructure
   \includegraphics[scale=0.7]{figures/uispec2.png}
   \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted
   boxes represent classes from another language (here: the \ic{entities}
-  language). A \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
-  \ic{Form} also contains \ct{Field}s, each Referencing an \ct{Attribute} from
-  an \ct{Entity} and containing a \ct{Widget}.}
+  language). A \ic{Form} contains \ic{EntityReference}s that connect to an \ic{entities} model. A
+  \ic{Form} also contains \ic{Field}s, each Referencing an \ic{Attribute} from
+  an \ic{Entity} and containing a \ic{Widget}.}
   \label{uispec} 
   \vspace{-7mm}
 \end{center}
@@ -74,9 +74,9 @@ form CompanyStructure
 defined in another language. This is not necessarily an example of language
 Extension as defined in this paper.} the \ic{entities} language. This means that
 concepts from the \ic{entities} language can be used in the definition of the
-\ic{uispec} language. A \ct{Form} owns a number of \ct{EntityReferences}, which
-in turn reference an \ct{Entity}. Below is the definition of the \ct{Field}
-concept. It owns a \ct{Widget} and refers to the \ct{Attribute} it edits. 
+\ic{uispec} language. A \ic{Form} owns a number of \ic{EntityReferences}, which
+in turn reference an \ic{Entity}. Below is the definition of the \ic{Field}
+concept. It owns a \ic{Widget} and refers to the \ic{Attribute} it edits. 
 
 
 
@@ -129,9 +129,9 @@ instantiated, and the setters are called. The generators are separate but they
 are \emph{dependent}, since the \ic{uispec} generator knows about the names of
 the generated Java Beans, as well as the names of the setters and getters.
 This is implemented by defining a set of behaviour methods on the
-\ct{Attribute} concept that are called from both generators (the colon
+\ic{Attribute} concept that are called from both generators (the colon
 represents the node cast operator and binds tightly; the code below casts the
-attribute's parent to \ct{Entity} and then accesses the \ct{name} property).
+attribute's parent to \ic{Entity} and then accesses the \ic{name} property).
 
 
 \begin{code}
