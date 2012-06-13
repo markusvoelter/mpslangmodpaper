@@ -1,9 +1,9 @@
 
 
 
-\subsection{Language Reuse} 
+\mvsubsec{Language Reuse} 
 
-Language reuse (\fig{langReuse}) enables \emph{homogenous} fragments with
+Language Reuse (\fig{langReuse}) enables \emph{homogenous} fragments with
 \emph{independent} languages. Given are two independent languages $l_2$ and
 $l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
 \begin{align}
@@ -13,8 +13,8 @@ $l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
 \end{align}
 Since $l_2$ is independent, it cannot directly reference concepts in $l_1$. This
 makes $l_2$ reusable with different languages, in contrast to language
-referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
-the \emph{context} language and $l_1$ the \emph{reused} language.
+Referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
+the \emph{context} language and $l_1$ the \emph{Reused} language.
 
 One way of realizing dependent fragments while retaining independent languages
 is using an adapter language (cf. the Adapter pattern) $l_A$ where $l_A$
@@ -23,8 +23,8 @@ is using an adapter language (cf. the Adapter pattern) $l_A$ where $l_A$
 \exists r \in \mathit{Refs_{l_A}} \mid \mathit{lo(r.from)} =
 l_A\; \wedge \;\mathit{lo(r.to)} = l_1
 \end{align}    
-One could argue that in this case reuse is just a clever combination of
-referencing and extension. While this is true from an implementation
+One could argue that in this case Reuse is just a clever combination of
+Referencing and Extension. While this is true from an implementation
 perspective, it is worth describing as a separate approach, because it enables
 the combination of two \emph{independent languages} by adding an
 adapter \emph{after the fact}, so no pre-planning during the design of $l_1$ and
@@ -37,13 +37,13 @@ $l_2$ is necessary.
   an $l_2$ fragment, we still want to be able to reference concepts in another
   fragment expressed with $l_1$. To do this, an adapter language $l_A$ is
   added that depends on both $l_1$ and $l_2$, using inheritance and
-  referencing to adapt $l_1$ to $l_2$.} 
+  Referencing to adapt $l_1$ to $l_2$.} 
   \label{langReuse}  
 \end{center} 
 \end{figure} 
 
-Language reuse covers the case where a language has been developed
-independent of the context in which it should be reused. The respective
+Language Reuse covers the case where a language has been developed
+independent of the context in which it should be Reused. The respective
 fragments remain homogeneous. In this paper, we cover two alternative cases: the
 first case addresses a persistence mapping language. The generated code is
 separate from the code generated from the \ic{entities} language. The second case
@@ -56,7 +56,7 @@ described a language for role-based access control. The generated code has to be
 \phead{Structure and Syntax} relmapping is a reusable language for mapping
 arbitrary data to relational tables. The relmapping language supports the
 definition of relational table structures, but leaves the actual mapping to the
-source data unspecified. As you adapt the language to a specific reuse context,
+source data unspecified. As you adapt the language to a specific Reuse context,
 you have to specify this mapping. The following code shows the reusable part. A
 database is defined that contains tables with columns. Columns have
 (database-specific) data types.
@@ -74,7 +74,7 @@ Database CompanyDB
 \end{code}
 
 \noindent \fig{relmapping} shows the structure of the relmapping language. The
-abstract concept \ct{ColumnMapper} serves as a hook: if we reuse this language
+abstract concept \ct{ColumnMapper} serves as a hook: if we Reuse this language
 in a different context, we extend this hook by context-specific code. 
 
 \begin{figure}[htp]
@@ -84,13 +84,13 @@ in a different context, we extend this hook by context-specific code.
   \ct{Columns}. A column has a name and a type. A column also has a
   \ct{ColumnMapper}. This is an abstract concept that determines where the
   column gets its data from. It is a hook intended to be specialized in
-  sublanguages, specific to the particular reuse context.}
+  sublanguages, specific to the particular Reuse context.}
   \label{relmapping} 
 \end{center}
 \end{figure}
 
  
-The \ic{relmapping\_entities} language extends relmapping and adapts it for reuse
+The \ic{relmapping\_entities} language extends relmapping and adapts it for Reuse
 with the \ic{entities} language. To this end, it provides a subconcept
 of \ct{ColumnMapper}, the \ct{AttributeColMapper}, which references an
 \ct{Attribute} from the \ic{entities} language as a means of expressing the mapping from the
@@ -197,7 +197,7 @@ two generator is the names of the classes generated from the \ic{entities}.
 The code generated from the relmapping language is designed to be extended by
 code generated from a sublanguage (the abstract getValue methods). This is
 acceptable, since the relmapping language itself is intended to be extended to
-adapt it to a new reuse context.
+adapt it to a new Reuse context.
 
 
 \begin{code}
@@ -312,7 +312,7 @@ To implement this, several approaches are possible:
 \noindent Notice that only the AspectJ solution can work without any
 pre-planning from the perspective of the \ic{entities} language, because it avoids mixing the generated
 code artifacts (it is handled "magically" by AspectJ). All other solutions
-require the original \ic{entities} generator to "expect" certain extensions.
+require the original \ic{entities} generator to "expect" certain Extensions.
 
 In our case, we have modified the original generator in the \ic{entities} language to
 contain a \ct{PlaceholderStatement} (\fig{placeholder}). In every setter, the

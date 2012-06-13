@@ -1,10 +1,10 @@
 
 
-\subsection{Language Referencing}
+\mvsubsec{Language Referencing}
 
 \todo{arrange figure locations}
 
-Language referencing  enables \emph{homogeneous} fragments with cross-references
+Language Referencing  enables \emph{homogeneous} fragments with cross-references
 among them, using \emph{dependent} languages (\fig{langReferencing}).
  
 \begin{figure}[h]
@@ -20,9 +20,9 @@ among them, using \emph{dependent} languages (\fig{langReferencing}).
 \end{figure}  
  
 A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
-$l_2$ and $l_1$. The referencing language $l_2$ depends on the referenced
+$l_2$ and $l_1$. The Referencing language $l_2$ depends on the referenced
 language $l_1$ because at least one concept in the $l_2$ references a concept
-from $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
+from $l_1$. We call $l_2$ the \emph{Referencing} language, and $l_1$ the
 \emph{referenced} language. While equations (2) and (3) continue to hold, (1)
 does not. Instead
 \begin{align}
@@ -34,7 +34,7 @@ does not. Instead
 
 
 
-As an example, for language referencing we define a language \ic{uispec} for
+As an example, for language Referencing we define a language \ic{uispec} for
 defining user interface forms for \ic{entities}. Below is an example.
 Note how the form is another, separate fragment. It is a \emph{dependent}
 fragment, since it references elements from another fragment (expressed in the
@@ -52,9 +52,9 @@ form CompanyStructure
 \end{code}
 
 \phead{Structure and Syntax} The abstract syntax for the \ic{uispec} language is
-shown in \fig{uispec}. The \ic{uispec} language extends\footnote{MPS uses the term "extension" whenever the
+shown in \fig{uispec}. The \ic{uispec} language extends\footnote{MPS uses the term "Extension" whenever the
 definition of one language uses or refers to concepts defined in another
-language. This is not necessarily an example of language extension as defined in
+language. This is not necessarily an example of language Extension as defined in
 this paper.} the \ic{entities} language. This means that concepts from the \ic{entities}
 language can be used in the definition of language concepts in the \ic{uispec}
 language. A \ct{Form} owns a number of \ct{EntityReferences}, which in turn
@@ -79,7 +79,7 @@ concept Field extends BaseConcept
   \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted
   boxes represent classes from another language (here: the \ic{entities}
   language). A \ct{Form} contains \ct{EntityReference}s that connect to an \ic{entities} model. A
-  \ic{Form} also contains \ct{Field}s, each referencing an \ct{Attribute} from
+  \ic{Form} also contains \ct{Field}s, each Referencing an \ct{Attribute} from
   an \ct{Entity} and containing a \ct{Widget}.}
   \label{uispec} 
 \end{center}
@@ -109,7 +109,7 @@ checking rule checkTypes for Field as field {
 \end{code}
 
 
-\phead{Generation} The defining characteristic of language referencing is that
+\phead{Generation} The defining characteristic of language Referencing is that
 the two languages only reference each other, and the instance fragments are
 dependent, but homogeneous. No syntactic integration is necessary in this case.
 In this example, the generated code exhibits the same separation. From the form

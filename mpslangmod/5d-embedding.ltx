@@ -1,11 +1,11 @@
 
-\subsection{Language Embedding}
-\label{embedding}
+\mvsubsec{Language Embedding}
+\label{Embedding}
 
 
-Language embedding enables \emph{heterogeneous} fragments with
+Language Embedding enables \emph{heterogeneous} fragments with
 \emph{independent} languages (similar to \fig{langReuse}, but with a containment
-link between $B5$ and $A3$). It is similar to reuse in that there are two independent
+link between $B5$ and $A3$). It is similar to Reuse in that there are two independent
 languages $l_1$ and $l_2$, but instead of establishing references
 between two homogeneous fragments, we now embed instances of concepts from $l_2$
 in a fragment $f$ expressed with $l_1$, so
@@ -14,7 +14,7 @@ in a fragment $f$ expressed with $l_1$, so
 	&\mathit{lo(co(c.parent))} = l_1 \; \wedge \nonumber \\
 	( &\mathit{lo(co(c.child))} = l_1 \vee \mathit{lo(co(c.child))} = l_2) )
 \end{align}
-Unlike language extension, where $l_2$ depends on $l_1$ because concepts in
+Unlike language Extension, where $l_2$ depends on $l_1$ because concepts in
 $l_2$ extends concepts in $l_1$, there is no such dependency in this case. Both
 languages are independent. We call $l_2$ the \emph{embedded} language and $l_1$
 the \emph{host} language. Again, an adapter language $l_A$ that extends $l_1$
@@ -26,7 +26,7 @@ can be used to achieve this, where
 
 \noindent As an example we embed an existing, embeddable \ic{expressions}
 language into the \ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
-language or the expression language, since, in case of embedding, none of them
+language or the expression language, since, in case of Embedding, none of them
 may have a dependency on the other. Here is an example program using the
 resulting language. Note the use of expressions behind the \ic{validate}
 keyword:
@@ -132,7 +132,7 @@ search scope:
 }
 \end{code}
 
-\noindent Notice that the actual syntactic embedding of the expressions in the
+\noindent Notice that the actual syntactic Embedding of the expressions in the
 \ic{uispec\_validation} language is not a problem because of how projectional editors
 work. No ambiguities may arise. We simply define \ct{Expression} to be a child
 of the \ct{ValidatedField}.
@@ -280,7 +280,7 @@ the \ic{rbac\_entities} language.
 \end{figure}
  
  
-Just as in the discussion on extension (\sect{extension}), we may want to use
+Just as in the discussion on Extension (\sect{Extension}), we may want to use
 constrains to restrict the embedded language in the context of a
 validation rule. Imagine we wouldn't embed a small, reusable expression
 language, but the expressions part of C. It defines all kinds of operators

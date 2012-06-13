@@ -1,6 +1,6 @@
 
-\subsection{Language Extension}
-\label{extension}
+\mvsubsec{Language Extension}
+\label{Extension}
 
 \begin{figure}[t]
 \begin{center}
@@ -13,7 +13,7 @@
 \end{center}  
 \end{figure}
 
-Language extension  enables \emph{heterogeneous} fragments
+Language Extension  enables \emph{heterogeneous} fragments
 with \emph{dependent} languages (\fig{langExtension}). A language $l_2$
 extending $l_1$ adds additional language concepts to those of $l_1$. We call $l_2$ the
 \emph{extending} language, and $l_1$ the \emph{base} language. To allow the new
@@ -40,10 +40,10 @@ hold anymore, since
    &(\mathit{lo(co(c.child))} = l_1 \vee \mathit{lo(co(c.child))} = l_2 )
 \end{align} 
 Note that copying a Language definition and changing it does not constitute a
-case of language extension, because the extension is not modular, it is
+case of language Extension, because the Extension is not modular, it is
 invasive. Also, a native interfaces that supports calling one language from
-another, like calling C from Perl or Java, is not language extension;
-rather it is a form of language referencing. The fragments remain homogeneous.
+another, like calling C from Perl or Java, is not language Extension;
+rather it is a form of language Referencing. The fragments remain homogeneous.
 
 
 
@@ -194,7 +194,7 @@ location. It is a means to building extensible generators, as we will see later.
 
 
 In the classification section (\sect{typesOfMod}) we mentioned that we consider
-restriction as a form of extension. To illustrate this point we restrict the
+restriction as a form of Extension. To illustrate this point we restrict the
 block expression regarding the children it may have: we prevent the use of
 \ic{return} statements inside block expressions (the reason for this restriction
 is that the way we generate from the block expressions cannot handle return
@@ -219,18 +219,18 @@ perspective from the child. This is important to keep dependencies pointing in
 the right direction.
 
 
-Extension comes in two flavors. One really feels like extension, and the other
-one feels more like embedding. We have described the one that feels like
-extension in this section: we provide (a little, local) additional syntax to an
+Extension comes in two flavors. One really feels like Extension, and the other
+one feels more like Embedding. We have described the one that feels like
+Extension in this section: we provide (a little, local) additional syntax to an
 otherwise unchanged language (block expressions and placeholders). The programs
 still essentially look like Java programs, and in a few particular places,
-something is different. Extension with embedding flavor is where we create a
-completely new language, but reuse some of the syntax provided by a base
-language. For example, we could create a state machine language that reuses
+something is different. Extension with Embedding flavor is where we create a
+completely new language, but Reuse some of the syntax provided by a base
+language. For example, we could create a state machine language that Reuses
 Java's expression and types in guard conditions. This use case \emph{feels} like
-embedding (we embed syntax from the base language in our new language), but in
+Embedding (we embed syntax from the base language in our new language), but in
 the classification according to syntactic integration and dependencies, it is
-still extension. Embedding would prevent a dependency between the state machine
+still Extension. Embedding would prevent a dependency between the state machine
 language and Java.
   
   

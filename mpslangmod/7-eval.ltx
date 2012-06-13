@@ -2,7 +2,7 @@
 \section{Discussion}
 \label{Eval}
 
-\subsection{Limitations}
+\mvsubsec{Limitations}
 
 The paper has drawn a very positive picture about the capabilities of MPS
 regarding \lmrc. However, there are some limitations and shortcomings in the
@@ -12,12 +12,12 @@ different problems have been solved in different ways, as the problem arose,
 instead of implementing a consistent, unified approach. I propose such an
 approach in \sect{facets}.
 
-\phead{Syntax} The previous examples show that meaningful \lmrc is possible with
-MPS. Specifically, reuse and embedding of languages is possible. The challenge
+\phead{Syntax} The previous examples show that meaningful \lmrc\ is possible with
+MPS. Specifically, Reuse and Embedding of languages is possible. The challenge
 of grammar composition is not an issue in MPS, since no grammars and parsers are
 used. The fact that we hardly ever discuss syntactic issues in the above
 discussions is testament to this. Potential ambiguities are resolved by the user
-as he enter the program (discussed at the end of \sect{embedding}) --- once
+as he enter the program (discussed at the end of \sect{Embedding}) --- once
 entered, a program is always unambiguous. The luxury of not running into
 syntactic composition issues comes at the price of the projectional editor and
 the XML-based storage (we have discussed the drawbacks of projectional editors
@@ -44,17 +44,17 @@ framework is relatively low-level and does not provide specific support for lang
 composition and heterogeneous fragments. However, as part of the mbeddr project
 that develops an extensible version of the C programming language
 (\cite{Voelter2012}) we have developed a framework for extensible C debuggers. Developers of C
-extensions can easily define the how the extension integrates into the C
-debugger so that debugging on the \emph{syntax of the extension} becomes
+Extensions can easily define the how the Extension integrates into the C
+debugger so that debugging on the \emph{syntax of the Extension} becomes
 possible for heterogeneous fragments. Visser et al. also describe debuggers for
 DSLs in~\cite{Lindeman-GPCE-2011}.
 
 
 \phead{Evolution} Composing languages leads to coupling. In the case of
-referencing and extension the coupling is direct, in the case of reuse and
-embedding the coupling is indirect via the adapter language. As a consequence of
+Referencing and Extension the coupling is direct, in the case of Reuse and
+Embedding the coupling is indirect via the adapter language. As a consequence of
 a change of the referenced/base/context/host language, the
-referencing/extension/reused/embedded language may have to change as well. MPS,
+Referencing/Extension/Reused/embedded language may have to change as well. MPS,
 at this time, provides no automatic way of versioning and migrating languages,
 so co-evoluation has to be performed manually. In particular, a process
 discipline must be established in which dependent languages are migrated to new
@@ -68,14 +68,14 @@ designing a language to make the type system extensible in meaningful ways.
 \phead{Generators} In the case of generators, language designers have to specify
 a partial ordering of mapping configurations using priorities. It is not easily possible
 to "override" an existing generator, but generators can run \emph{before}
-existing ones. Generator extension is not possible directly. This is why we
+existing ones. Generator Extension is not possible directly. This is why we
 use the placeholders that are put in by earlier generators to be reduced by
 later ones. Obviously, this requires preplanning on the part of the developer of
 the generator that adds the placeholder.
 
 
 
-\subsection{Real-World use of MPS}
+\mvsubsec{Real-World use of MPS}
 
 The examples in this paper are toy examples --- the simplest possible languages
 to illustrate the composition approaches. However, MPS scales to realistically
@@ -96,12 +96,12 @@ capability for meaningful abstraction in C, some of C's "dangerous" features
 proprietary and closed nature of modeling tools, the integration of models and code,
 traceability to requirements, long build times as well as management of product
 line variability. The mbeddr project (\footnote{http://mbeddr.com}) addresses
-the challenges with a different approach: incremental, modular extension of C with domain-specific language
+the challenges with a different approach: incremental, modular Extension of C with domain-specific language
 concepts.  
 
-mbeddr uses extension to add interfaces and components, state machines,
+mbeddr uses Extension to add interfaces and components, state machines,
 measurement units to C. mbeddr is based on MPS, so users of mbeddr can build
-their own extensions. mbeddr implements all of C in less tha 10.000 lines of
+their own Extensions. mbeddr implements all of C in less tha 10.000 lines of
 language implementation code. Scalability tests have shown that the system
 scales to at least 100.000 lines of equivalent C code.
 
@@ -117,7 +117,7 @@ applications. YouTrack is developed completely with MPS and comprises thousands
 of Java classes, web page templates and other artifacts. The effort for building
 the necessary MPS-based languages will be repaid by future applications that
 build on the same web platform architecture and hence use the same set of
-languages. Language extension and composition is used to provide an integrated
+languages. Language Extension and composition is used to provide an integrated
 web development environment\footnote{Some details can be found in
 http://www.jetbrains.com/mps/docs/MPS\_YouTrack\_case\_study.pdf}.
 
@@ -145,7 +145,7 @@ tight integration in a single language of the various aspect of web application
 development.
 
 
-\subsection{A unified approach}
+\mvsubsec{A unified approach}
 \label{facets}
 
 Looking at the \emph{different} mechanisms for extending and overriding

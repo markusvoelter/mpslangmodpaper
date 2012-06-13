@@ -1,46 +1,62 @@
 
-
+\vspace{-3mm}
 \section{Implementing a DSL with MPS}
 \label{entitiesLanguage}
+\vspace{-1mm}
 
 This section illustrates the definition of a language with JetBrains MPS. Like
-other language workbenches, MPS comes with a set of DSLs for language definition, a
-separate DSL for each language aspect. Language aspects include structure,
-editor, type systems, generators as well as things like quick fixes or
-refactorings. MPS is bootstrapped, so these DSLs are built with MPS itself.
+other language workbenches, MPS comes with a set of DSLs for language
+definition, a separate DSL for each language aspect such as structure, editor,
+type systems, generators as well as things like quick fixes or refactorings. MPS
+is bootstrapped, so these DSLs are built with MPS itself.
 
 
-At the center of the language extensions we will build later, we use a simple
-\ic{entities} language (some example code is shown below). \emph{Modules} are
-root nodes. They live as top-level elements in \emph{models}.
-Referring back to the terminology introduced in the DSL design paper
-\cite{VoelterVisserVoelterVisserVoelterVisser2011}, root nodes (and their
-descendants) are considered \emph{fragments}, while the models are partitions
-(actually, they are XML files).
-
+We illustrate language definition with MPS based on a simple \ic{entities}
+language (some example code is shown below). \emph{Modules} are root nodes they
+live as top-level elements in \emph{models}. According to the terminology
+introduced in \sect{terminology} root nodes (and their descendants) are
+considered \emph{fragments}.
 
 
 \begin{code}
-module company          
-  entity Employee {     
-    id : int            
-    name : string       
-    role : string       
+module company                       // continued...
+  entity Employee {                  entity Department {  
+    id : int                           id : int      
+    name : string                      description : string
+    role : string                    } 
     worksAt : Department
     freelancer : boolean
-  }                     
-  entity Department {   
-    id : int            
-    description : string
   }                     
 \end{code}
 
 
-\phead{Structure and Syntax} Language definition starts with the abstract
-syntax, called \emph{concepts} in MPS. \fig{entities} shows a UML diagram of the
-structure of the \ic{entities} language. Each box represents a language concept.
 
-\begin{figure}[htp]
+
+
+\vspace{-2mm}
+\phead{Structure and Syntax} Language definition starts with the AS, called
+\emph{structure} in MPS. \fig{entities} shows a UML diagram of the \ic{entities}
+language AS. The following code shows the definition of the \ct{Entity}
+concept\footnote{In addition to \ic{properties}, \ic{children} and
+\ic{references}, concept definition can have more characteristics such as
+\ic{concept properties} or \ic{concepts links}. However, these are not needed
+for this example, so we don't show them here. The code above shows all the
+characteristics used in this example}. \ct{Entity} extends \ct{BaseConcept}, the
+root concept, similar to \ct{java.lang.Object} in Java. It implements the
+\ct{INamedConcept} interface to inherit a \ct{name} field. It declares a list of
+children of type \ct{Attribute} in the \ct{attributes} role.
+A concept may also have references to other concepts (as opposed to children).
+
+
+\vspace{-2mm}
+\begin{code}
+concept Entity extends BaseConcept implements INamedConcept        
+  is root: true
+  children:                                     
+    Attribute attributes 0..n
+\end{code}                                               
+
+\begin{figure}[h]
 \begin{center}
   \includegraphics[scale=0.7]{figures/entities2.png}
   \caption[labelInTOC]{The abstract syntax of the entities language. Entities
@@ -51,30 +67,10 @@ structure of the \ic{entities} language. Each box represents a language concept.
   by MPS: the code completion menu shows \emph{the possible targets} of the
   reference directly, instead of first instantiating the reference concept and
   then selecting the target.}
+  \vspace{-3mm}
   \label{entities} 
 \end{center}
 \end{figure}
-
-The following code shows the definition of the \ct{Entity} concept\footnote{In
-addition to \ic{properties}, \ic{children} and \ic{references}, concept
-definition can have more characteristics such as \ic{concept properties} or
-\ic{concepts links}. However, these are not needed for this example, so we don't
-show them here. The code above shows all the characteristics used in this
-example}. \ct{Entity} extends
-\ct{BaseConcept}, the root concept, similar to \ct{java.lang.Object} in Java. It
-implements the \ct{INamedConcept} interface to inherit a \ct{name} field. It
-declares a list of children of type \ct{Attribute} in the \ct{attributes} role.
-A concept may also have references to other concepts (as opposed to children).
-
-
-\begin{code}
-concept Entity extends BaseConcept implements INamedConcept        
-  is root: true
-  children:                                     
-    Attribute attributes 0..n
-  references:                                  
-    << ... >>                                    
-\end{code}                                               
 
 
 \noindent Editors in MPS are based on cells. Cells are the smallest unit
@@ -87,36 +83,28 @@ other concepts are defined similarly.
 
 \begin{figure}[htp]
 \begin{center}
+  \vspace{-2mm}
   \includegraphics[scale=0.55]{figures/editordefinition.png}
   \caption[labelInTOC]{The editor for \ct{Entity}. The outermost cell is a
   vertical list. In the first line, we use a horizontal list that contains
-  the "keyword" \ct{entity}, the value of the \ic{name} property and an opening
+  the keyword \ct{entity}, the \ic{name} property and an opening
   curly brace. In the second line we use indentation and a vertical arrangements
   of the contents of the \ct{attributes} collection. Finally, the third line
   contains the closing curly brace.}
+  \vspace{-4mm}
   \label{editordefinition} 
 \end{center}
 \end{figure}
 
-\phead{Type System} The MPS type system engine uses unification. Language
-developers specify type equations and the unification engine tries to 
-assign values to the type variables so that all equations are satisfied.
-This is similar to solving a set of equations in mathematics. Consider the
-following three equations:
 
-\begin{code}
-(1) 2 * x == 10          (2) x + x == 10           (3) x + y == 2 * x + 5
-\end{code}
-
-
-\noindent This set of equations can be solved by \ic{x := 5, y := 10}. The MPS
-type system engine works the same way, but the domain is types instead of integers.
-Type equations also do not just contain equations (:==:), but also equations
-with subtyping and other relationships.
-
-For the \ic{entities} language, we specify two simple typing rules. The first one
-specifies that the type of a \ic{Type} (such as \ic{int} or \ic{string}) is a clone
-of themselves.
+\phead{Type System} As we have explained in \sect{HowMPSWorks}, language
+developers only have to specify typing rules for language concepts.
+MPS' type system engine applies the rules to all applicable program elements,
+solves the resulting set of type equations, and if equations run into
+contradictions, this is annotated on the offending program element as a type
+error. For the \ic{entities} language, we specify two simple typing rules. The
+first one specifies that the type of a \ic{Type} (such as \ic{int} or
+\ic{string}) is a clone of itself.
 
 \begin{code}
 rule typeof_Type for Type as t {
@@ -124,39 +112,43 @@ rule typeof_Type for Type as t {
 }                                      
 \end{code}
 
-\noindent The only other typing rule is an equation that defines the type of the
-attribute as a whole to be the type of the attribute's \ct{type} property, defined as
-\ic{typeof(attribute) :==: typeof(attribute.type);}. No other typing rules
-apply in this simple entities language. As we have said in \sect{HowMPSWorks},
-language developers only have to specify the typing rules. MPS type system engine applies
-the rules to all applicable program elements, solves the resulting set of type
-equations, and if equations run into contradictions, this is annotated on the
-offending program element as a type error.
+\noindent The only other typing rule defines the type of the \ic{Attribute} as a
+whole to be the type of the attribute's \ct{type} property, defined as
+\ic{typeof(attribute) :==: typeof(attribute.type)}. No other typing rules apply
+in this simple language. 
 
 
-\phead{Generator} From entity models we generate Java Beans. Since Java is
-available in MPS as the BaseLanguage, the generation is actually a
-model-to-model transformation: from the \ic{entities} model we generate a Java model.
-MPS supports several kinds of transformations. The default case is the
-template-based transformation which uses the concrete syntax of the target
-language to specify model-to-model transformations. Alternatively, one can use
-the node API to manually construct the target tree. Finally, the 
-\ic{textgen} DSL is available to generate ASCII text (at the end of the
-transformation chain). Throughout this paper we use the template-based
-approach.
+\phead{Generator} From \ic{entities} models we generate Java Beans. Since Java
+is available in MPS as the BaseLanguage, the generation is actually a
+model-to-model transformation: from the \ic{entities} model we generate a Java
+model. MPS supports several kinds of transformations. The default case is the
+template-based transformation which maps ASTs onto other ASTs, so they are
+essentially model-to-model transformations. Alternatively, one can use an
+API to manually construct the target tree. Finally, the \ic{textgen} DSL is
+available to generate ASCII text (at the end of the transformation chain).
+Throughout this paper we use the template-based approach.
 
-Template-based generators in MPS consist of two main building blocks: mapping
-configurations and templates. Mapping configurations define which elements are
-processed with which templates. For the \ic{entities} language, we need a \emph{root
-mapping rule} and \emph{reduction rules}. Root mapping rules can be used to
-create new top-level artifacts from existing top-level artifacts (they map
-fragments to other fragments). In our case we generate a Java class from an
-entity. Reduction rules are in-place transformations. Whenever the engine
-encounters an instance of the specified source concept somewhere in a model
-tree, it removes that source node and replaces it with the result of the
-associated template. In our case we have to reduce the various types (\ct{int},
-\ct{string}, etc.) to their Java counterparts. \fig{entitiesmc} shows a part of
-the mapping configuration for the \ic{entities} language.
+MPS templates look like text generation templates known from tools such as
+Xpand\footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet
+\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate
+\footnote{http://www.stringtemplate.org/} since they use the CS of the target
+language in the template. However, the CS of the target language in the template
+is projected like any other program, and the IDE can provide support for the
+target language \emph{in the template}. However, this also means that the
+\emph{template code itself} must be valid in terms of the target language.
+
+Template-based generators consist of mapping configurations and templates.
+Mapping configurations define which elements are processed with which templates.
+For the \ic{entities} language, we need a \emph{root mapping rule} and
+\emph{reduction rules}. Root mapping rules can be used to create new root nodes
+from existing root nodes (so they map fragments to other fragments). In our case
+we generate a Java class from an \ic{Entity}. Reduction rules are in-place
+transformations. Whenever the engine encounters an instance of the specified
+source concept somewhere in a model tree, it removes that source node and
+replaces it with the result of the associated template. In our case we reduce
+the various types (\ct{int}, \ct{string}, etc.) to their Java counterparts.
+\fig{entitiesmc} shows a part of the mapping configuration for the \ic{entities}
+language.
 
 
 \begin{figure}[htp]
@@ -165,70 +157,64 @@ the mapping configuration for the \ic{entities} language.
   \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
   root mapping rule for \ic{Entity} specifies that instances of \ct{Entity} should
   be transformed with the \ct{map\_Entity} template (which produces a Java
-  class). The reduction rules use inline templates, i.e. the template is
-  embedded in the mapping configuration. For example, the 
+  class and is shown in \fig{entitytemplate}). The reduction rules use inline
+  templates, i.e. the template is embedded in the mapping configuration. For example, the 
   \ct{IntType} is replaced with the Java \ct{int} and the \ct{EntityRefType} is
   reduced to a reference to the class generated from the target entity. The
   \ic{->\$} is a so-called reference macro. It contains code (not
   shown) that "rewires" the reference (that points to the 
   \ct{Double} class \emph{in the template code}) to a reference to the class
   generated from the target entity. }
+  \vspace{-2mm}
   \label{entitiesmc} 
 \end{center}
 \end{figure}
 
-MPS templates work differently from normal text generation templates such as
-Xpand \footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet
-\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate
-\footnote{http://www.stringtemplate.org/}, since they are actually
-model-to-model transformations. However, as a consequence of MPS' language composition facilities, the concrete syntax of the target language is used in the template --- it is projected like any other program. However, this
-means that the \emph{template code itself} must be valid in terms of the target
-language. 
+
 
 
 \fig{entitytemplate} shows the \ct{map\_Entity} template. It generates a complete 
 Java class from an input \ic{Entity}. To understand how templates work in MPS we
 discuss in more detail the generation of Java fields for each \ic{Entity}
-\ic{Attribute}. Writing this template proceeds in the following way:
+\ic{Attribute}:
 
 \begin{itemize}
-  \item Developers first write a structurally correct example code in the
+  \item Developers first write structurally correct example code in the
   target language. To generate a field into a class for each
-  \ic{Attribute} of an \ic{Entity}, one would first add a regular field to a
-  class: \ic{private int aField;} (as shown in \fig{entitytemplate}).
+  \ic{Attribute} of an \ic{Entity}, one would first add a field to a
+  class (see \ic{aField;} in \fig{entitytemplate}).
  
-  \item Then so called Macros are attached to
-  those program elements from the example code that have to be replaced with
-  data from the transformation input model as the transformation executes. In
-  the \ic{Attribute} example in \fig{entitytemplate} we first
+  \item Then macros are attached to
+  those program elements is the example code that have to be replaced with
+  elements from the input model as the transformation executes.
+  In the \ic{Attribute} example in \fig{entitytemplate} we first
   attach a \ct{LOOP} macro to the whole field. It contains an expression
   \ic{node.attributes;} where \ct{node} refers to the input \ct{Entity} (this
   code is entered in the Inspector window and is not shown in the screenshot).
   This expression returns the set of \ic{Attribute}s from the current
-  \ic{Entity}, so the \ic{LOOP} iterates over all attributes of the entity and
-  creates a field for each of them. 
+  \ic{Entity}, making the \ic{LOOP} iterate over all attributes of the
+  entity and create a field for each of them. 
   
-  \item At this point, each created field would be \emph{identical}
-  to \ic{private int aField;}, the example code to which we attached the
-  \ic{LOOP} macro. To make the generated field specific to the particular
+  \item At this point, each created field would be \emph{identical} to the
+  example code to which we attached the \ic{LOOP} macro (\ic{private int
+  aField;}). To make the generated field specific to the particular
   \ic{Attribute} we iterate over, we use more macros. A \ct{COPY\_SRC} macro is
   used to transform the \ic{type}. \ct{COPY\_SRC} copies the input node (the
-  inspector specifies the current attribute's \ic{type} as the input here) 
-  and applies reduction rules (those defined in \fig{entitiesmc}) to map types
-  from the \ic{entities} language to Java types. We then use a property macro
-  (the \ic{\$} sign around \ic{aField}) to change the \ct{name} property of the
-  field we generate from the dummy value \ct{aField} to the name of the attribute 
-  we currently transform.
+  inspector specifies the current attribute's \ic{type} as the input here) and
+  applies reduction rules (those defined in \fig{entitiesmc}) to map types from
+  the \ic{entities} language to Java types. We then use a property macro (the
+  \ic{\$} sign around \ic{aField}) to change the \ct{name} property of the field
+  we generate to the name of the attribute we currently transform.
   
 \end{itemize}
 
-\noindent So instead of mixing template code and target language code (and
-separating them with some kind of escape character) we use annotation attached to regular,
-valid target language code. These annotations can be attached to arbitrary
-program elemnts. This way, the target language code in templates \emph{is
-always structurally correct}, but it can still be annotated to control the
-transformation. Annotations are a general MPS mechanism not specific to
-transformation templates and are discussed in \sect{annotations}.
+\noindent Instead of mixing template code and target language code (and
+separating them with some kind of escape character) we annotate macros to
+regular, valid target language code. Macros can be attached to
+arbitrary program elements. This way, the target language code in templates
+\emph{is always structurally correct}, but it can still be annotated to control
+the transformation. Annotations are a generic MPS mechanism not specific to
+transformation macros and are discussed in \sect{annotations}.
 
 
 
