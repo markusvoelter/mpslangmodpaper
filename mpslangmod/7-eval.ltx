@@ -2,63 +2,69 @@
 \section{Discussion}
 \label{Eval}
 
+In this section we discuss limitations of MPS in the context of \lmrc and
+discuss an approach for improving some of these shortcomings. We also look at
+real world use of MPS.
+
 \mvsubsec{Limitations}
 
-The paper has drawn a very positive picture about the capabilities of MPS
+The paper paints a very positive picture about the capabilities of MPS
 regarding \lmrc. However, there are some limitations and shortcomings in the
-system. Most of them are not conceptual problems, but just missing features.
+system. Most of them are not conceptual problems, but missing features.
 However, it is clearly evident that MPS has been developed over a long time,
 different problems have been solved in different ways, as the problem arose,
 instead of implementing a consistent, unified approach. I propose such an
 approach in \sect{facets}.
 
-\phead{Syntax} The previous examples show that meaningful \lmrc\ is possible with
-MPS. Specifically, Reuse and Embedding of languages is possible. The challenge
-of grammar composition is not an issue in MPS, since no grammars and parsers are
-used. The fact that we hardly ever discuss syntactic issues in the above
-discussions is testament to this. Potential ambiguities are resolved by the user
-as he enter the program (discussed at the end of \sect{Embedding}) --- once
-entered, a program is always unambiguous. The luxury of not running into
-syntactic composition issues comes at the price of the projectional editor and
-the XML-based storage (we have discussed the drawbacks of projectional editors
-in \sect{HowMPSWorks}). One particular shortcoming of MPS is that it is not
-possible to override the projection rule of a concept in a sublanguage (this
-feature is on the roadmap for MPS 3.0). If this were possible, ambiguities
-\emph{for the user} in terms of the concrete syntax could be solved by changing
-the notation (or color or font) of existing concepts if they are used together
-with a particular other language.
+\phead{Syntax} The examples in this paper show that meaningful \lmrc\ is
+possible with MPS. The challenge of grammar composition is not an issue in MPS,
+since no grammars and parsers are used. The fact that we hardly ever discuss
+syntactic issues in the above discussions is testament to this. Potential
+ambiguities are resolved by the user as he enter the program (discussed at the
+end of \sect{Embedding}) --- once entered, a program is always unambiguous. The
+luxury of not running into syntactic composition issues comes at the price of
+the projectional editor and the XML-based storage (we have discussed the
+drawbacks of projectional editors in \sect{HowMPSWorks}). 
+
+One particular shortcoming of MPS is that it is not possible to override the
+projection rule of a concept in a sublanguage (this feature is on the roadmap
+for MPS 3.0). If this were possible, ambiguities \emph{for the user} in terms of
+the CS could be solved by changing the notation (or color or font)
+of existing concepts if they are used together with a particular other language.
+Such a new CS would be defined in the respective adapter language.
 
 \todo{clean up the bibliography}
 
 \phead{IDE} This paper emphasizes IDE composition in addition to language
 composition. Regarding syntax highlighting, code completion, error marks on the
 program and intentions, all the composition approaches \emph{automatically}
-compose those IDE aspects. No additional work is necessary by the languge
+compose those IDE aspects. No additional work is necessary by the language
 developer. However, there are additional concerns an IDE may address including
-version control ingegration, profiling and debugging. Regarding version control
+version control integration, profiling and debugging. Regarding version control
 integration, MPS provides diff/merge for most of today's version control systems
 on the level of the projected syntax --- including for heterogeneous fragments.
-No support for profiling is provided. MPS comes with a debug framework that lets
-language developers create debuggers for their languages. However, this
-framework is relatively low-level and does not provide specific support for language
-composition and heterogeneous fragments. However, as part of the mbeddr project
-that develops an extensible version of the C programming language
-(\cite{Voelter2012}) we have developed a framework for extensible C debuggers. Developers of C
-Extensions can easily define the how the Extension integrates into the C
-debugger so that debugging on the \emph{syntax of the Extension} becomes
-possible for heterogeneous fragments. Visser et al. also describe debuggers for
-DSLs in~\cite{Lindeman-GPCE-2011}.
+No support for profiling is provided, although a profiler for language
+\emph{implementations} is on the roadmap. MPS comes with a debug framework that
+lets language developers create debuggers for languages defined in MPS. However,
+this framework is relatively low-level and does not provide specific support for
+language composition and heterogeneous fragments. However, as part of the mbeddr
+project that develops an extensible version of the C programming language
+(\cite{Voelter2012}) we have developed a framework for extensible C debuggers.
+Developers of C Extensions can easily define the how the Extension integrates
+into the C debugger so that debugging on the \emph{syntax of the Extension}
+becomes possible for heterogeneous fragments. Visser et al. also describe
+debuggers for DSLs in~\cite{Lindeman-GPCE-2011}.
 
 
 \phead{Evolution} Composing languages leads to coupling. In the case of
 Referencing and Extension the coupling is direct, in the case of Reuse and
 Embedding the coupling is indirect via the adapter language. As a consequence of
 a change of the referenced/base/context/host language, the
-Referencing/Extension/Reused/embedded language may have to change as well. MPS,
+referencing/extending/reused/embedded language may have to change as well. MPS,
 at this time, provides no automatic way of versioning and migrating languages,
-so co-evoluation has to be performed manually. In particular, a process
+so co-evolution has to be performed manually. In particular, a process
 discipline must be established in which dependent languages are migrated to new
-versions of a changed language. 
+versions of a changed language they depend on. 
 
 \phead{Type System} Regular typing rules cannot be overridden in a
 sublanguage. Only the overloaded operations container can be overloaded (as their name
@@ -66,101 +72,31 @@ suggests) from a sublanguage. As a consequence it requires some thought when
 designing a language to make the type system extensible in meaningful ways. 
 
 \phead{Generators} In the case of generators, language designers have to specify
-a partial ordering of mapping configurations using priorities. It is not easily possible
-to "override" an existing generator, but generators can run \emph{before}
-existing ones. Generator Extension is not possible directly. This is why we
-use the placeholders that are put in by earlier generators to be reduced by
-later ones. Obviously, this requires preplanning on the part of the developer of
-the generator that adds the placeholder.
+a partial ordering of mapping configurations using priorities. It is not easily
+possible to "override" an existing generator, but generators can run
+\emph{before} or \emph{after} existing ones. Generator extension is not possible
+directly. This is why we use the placeholders that are put in by earlier
+generators to be reduced by later ones. Obviously, this requires preplanning on
+the part of the developer of the generator that adds the placeholder.
 
 
-
-\mvsubsec{Real-World use of MPS}
-
-The examples in this paper are toy examples --- the simplest possible languages
-to illustrate the composition approaches. However, MPS scales to realistically
-sized systems, both in terms of language complexity and in terms of program
-size. The composition techniques --- especially those involve syntactic
-composition --- are used in practice. We illustrate this with two examples:
-embedded software and web applications.
-
-
-
-\phead{Embedded Software} Embedded systems are becoming more 
-software intensive and the software becomes bigger and more complex. Traditional
-embedded system development approaches use a variety of tools for various
-aspects of the system, making tool integration a major challenge. Some of the
-specific problems of embedded software development include the limited
-capability for meaningful abstraction in C, some of C's "dangerous" features
-(leading to various coding conventions such as Misra-C~\cite{Hatton04}), the
-proprietary and closed nature of modeling tools, the integration of models and code,
-traceability to requirements, long build times as well as management of product
-line variability. The mbeddr project (\footnote{http://mbeddr.com}) addresses
-the challenges with a different approach: incremental, modular Extension of C with domain-specific language
-concepts.  
-
-mbeddr uses Extension to add interfaces and components, state machines,
-measurement units to C. mbeddr is based on MPS, so users of mbeddr can build
-their own Extensions. mbeddr implements all of C in less tha 10.000 lines of
-language implementation code. Scalability tests have shown that the system
-scales to at least 100.000 lines of equivalent C code.
-
-A detailed description, including more details on language and program sizes and
-implementation effort can be found in~\cite{Voelter2012}.
-
-
-
-
-\phead{Web Development} JetBrains' YouTrack issue tracking system is an
-interactive web application with many UI features known from desktop
-applications. YouTrack is developed completely with MPS and comprises thousands
-of Java classes, web page templates and other artifacts. The effort for building
-the necessary MPS-based languages will be repaid by future applications that
-build on the same web platform architecture and hence use the same set of
-languages. Language Extension and composition is used to provide an integrated
-web development environment\footnote{Some details can be found in
-http://www.jetbrains.com/mps/docs/MPS\_YouTrack\_case\_study.pdf}.
-
-For example, the \ic{dnq} language extends Java class definitions with all the
-information necessary to persist instances in a database via an
-object-relational mapper. This includes real associations (specifying
-navigability and composition vs. reference) or length specifications for string
-properties. Developers can access these associations just like regular fields.
-\emph{dnq} also includes a collections language which supports the manipulation
-of collections in a way similar to .NET's Linq~\cite{MeijerBB06}. Other
-languages include \emph{webr}, a language used for implementing interactions bwetwen the
-web page and the backend. It supports a unified programming model for
-application logic on the server and on the browser client. \emph{webr} also
-provides first-class support for controllers. For example, controllers can
-declare actions and attach them directly to events of UI components. \emph{webr}
-is well-integrated with \emph{dnq}, so for example, it is possible to use a
-persistent entity as a parameter to a page. The database transaction is
-automatically managed during request processing.
-
-In email communication with the author, JetBrains reported significant
-improvements in developer productivity for web applications. In particular, the
-time for new team members to become productive on the Youtrack team is reported
-to have been reduced from months to a few weeks, mostly because of the very
-tight integration in a single language of the various aspect of web application
-development.
 
 
 \mvsubsec{A unified approach}
 \label{facets}
 
-Looking at the \emph{different} mechanisms for extending and overriding
-structure, syntax, type system and generators, it is clear that a consistent
-approach for addressing all these aspects would be useful. I suggest to model
-the approach based on the principles of component-based design
-(\cite{0091742}). All language aspects use components as the core structural
-building block. Components have types. The type of the component determines the
-kinds of facets it has. A facet is a kind of interface that exposes the
-(externally visible) ingredients of the component. The kinds of ingredients
-depend on the component type: a component of type
+Looking at the limitations discussed in the previous subsection it is clear that
+a consistent approach for addressing the modularization, extension and
+composition of \emph{all} language aspects would be useful. In this section we
+propose such a unified approach based on the principles of component-based
+design (\cite{0091742}). In this approach, all language aspects would use
+components as the core structural building block. Components have types. The
+type of the component determines the kinds of facets it has. A facet is a kind
+of interface that exposes the (externally visible) ingredients of the component.
+The kinds of ingredients depend on the component type: a component of type
 \emph{structure} exposes language concepts. A component of type \emph{editor}
 exposes editors, type \emph{type system} exposes type system rules, and so on.
-Each component type would use a different DSL for implementing the constructs it
-exposes. Here is the important point: a component (in a sublanguage) can specify
+To support modularization, a component (in a sublanguage) can specify
 an \emph{advises} relationship to another component (from a super language).
 Then each of the facets can determine which facets from the advised component it
 wants to \emph{preempt}, \emph{enhance} or \emph{override}:
@@ -192,25 +128,85 @@ wants to \emph{preempt}, \emph{enhance} or \emph{override}:
 % \end{figure}
 
 \noindent This approach would provide the \emph{same} way of packaging behavior
-for all language aspects, as well as a \emph{single} way of changing that behavior in a
-sublanguage. To control the granularity at which preemption, enhancement or
-overriding is performed, the base language designer would have to group the
-structures or behaviors into suitably cut facets. This amount of preplanning is
-acceptable: it is just as in object-oriented programming, where behavior that
-should be overridable has to be packaged into its own method.
+for all language aspects, as well as a \emph{single} way of changing that
+behavior in a sublanguage. To control the granularity at which preemption,
+enhancement or overriding is performed, the base language designer would have to
+group the structures or behaviors into suitably cut facets. This amount of
+preplanning is acceptable: it is just as in object-oriented programming, where
+behavior that should be overridable has to be packaged into its own method.
   
 The approach could be taken further. Components could be marked as
-\emph{abstract}, and define a set of parameters for which values need to be
+\emph{abstract} and define a set of parameters for which values need to be
 provided by non-abstract subcomponents. A language is abstract as long as it has
 at least one abstract component, for which no concrete subcomponent is provided.
 Component parameters could even be usable in structure definitions, for example
-as the base concept; this would make a language parametrizable regarding the
-base language it extends from.
+as the base concept; this would make a language parameterizable regarding the
+base language it extends.
 
-% In essence, the suggested approach is a bit like object orientation (components
-% == classes, facets == methods), with a rich advice framework (as in AOP).
-% Component parameters typed to language concepts are similar to generics. Using
-% this approach, a powerful and consistent approach to language extensibility
-% would be available.
 
+
+\mvsubsec{Real-World use of MPS}
+
+The examples in this paper are toy examples --- the simplest possible languages
+that can illustrate the composition approaches. However, MPS scales to
+realistically sized systems, both in terms of language complexity and in terms
+of program size. The composition techniques --- especially those involving
+syntactic composition --- are used in practice. We illustrate this with two
+examples: embedded software and web applications.
+
+
+
+\phead{Embedded Software} Embedded systems are becoming more software intensive
+and the software becomes bigger and more complex. Traditional embedded system
+development approaches use a variety of tools for various aspects of the system,
+making tool integration a major challenge. Some of the specific problems of
+embedded software development include the limited capability for meaningful
+abstraction in C, some of C's "dangerous" features (leading to various coding
+conventions such as Misra-C~\cite{Hatton04}), the proprietary and closed nature
+of modeling tools, the integration of models and code, traceability to
+requirements, long build times as well as management of product line
+variability. The mbeddr project (\footnote{http://mbeddr.com}) addresses the
+challenges with a different approach: incremental, modular extension of C with
+domain-specific language concepts. mbeddr uses Extension to add interfaces and
+components, state machines, and measurement units to C. mbeddr is based on MPS,
+so users of mbeddr can build their own Extensions. mbeddr implements all of C in
+less than 10.000 lines of code. Scalability tests have shown that the system
+scales to at least 100.000 lines of equivalent C code. A detailed description,
+including more details on language and program sizes and implementation effort
+can be found in~\cite{Voelter2012}.
+
+
+
+
+\phead{Web Development} JetBrains' YouTrack issue tracking system is an
+interactive web application with many UI features known from desktop
+applications. YouTrack is developed completely with MPS and comprises thousands
+of Java classes, web page templates and other artifacts. The effort for building
+the necessary MPS-based languages will be repaid by future applications that
+build on the same web platform architecture and hence use the same set of
+languages. Language Extension and Embedding is used to provide an integrated
+web development environment\footnote{Some details can be found in
+http://www.jetbrains.com/mps/docs/MPS\_YouTrack\_case\_study.pdf}.
+
+For example, the \ic{dnq} language extends Java class definitions with all the
+information necessary to persist instances in a database via an
+object-relational mapper. This includes real associations (specifying
+navigability and composition vs. reference) or length specifications for string
+properties. \emph{dnq} also includes a collections language which supports the
+manipulation of collections in a way similar to .NET's Linq~\cite{MeijerBB06}.
+Other languages include \emph{webr}, a language used for implementing
+interactions between the web page and the backend. It supports a unified
+programming model for application logic on the server and on the browser client.
+\emph{webr} also provides first-class support for controllers. For example,
+controllers can declare actions and attach them directly to events of UI
+components. \emph{webr} is well-integrated with \emph{dnq}. For example, it is
+possible to use a persistent entity as a parameter to a page. The database
+transaction is automatically managed during request processing.
+
+In email communication with the author, JetBrains reported significant
+improvements in developer productivity for web applications. In particular, the
+time for new team members to become productive on the Youtrack team is reported
+to have been reduced from months to a few weeks, mostly because of the very
+tight integration in a single language of the various aspect of web application
+development.
 

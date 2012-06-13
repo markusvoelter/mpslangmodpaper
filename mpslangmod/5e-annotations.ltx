@@ -2,34 +2,33 @@
 \mvsubsec{Language Annotations}
 \label{annotations}
 
-\phead{Structure and Syntax} In a projectional editor, the concrete syntax of a
-program is projected from the abstract syntax tree. A projectional system always
-goes from abstract to concrete, never from concrete to abstract (as parsers do).
-This has the important consequence that the concrete syntax does not have to
-contain all the data necessary to build the abstract syntax tree (which in case
-of parsers, is necessary). This has two consequences:
+In a projectional editor, the CS of a program is projected from the AST. A
+projectional system always goes from AS to CS, never from CS to AS (as parsers
+do). This has the important consequence that the CS does not have to contain all
+the data necessary to build the AST (which in case of parsers, is necessary).
+This has two consequences:
 
 \begin{itemize}
-  \item A projection may be \emph{partial} in the sense that the AST contains data that
-  is not shown in the program. The information may, for example, only be
+  \item A projection may be \emph{partial} in the sense that the AS contains
+  data that is not shown in the CS. The information may, for example, only be
   changeable via intentions (discussed in \sect{Embedding}), or the projection
   rule may project some parts of the program only in some cases, controlled by some kind
   of configuration data.
-  \item It is also possible to project \emph{additional} concrete syntax that is
-  not part of the concrete syntax definition of the original language. Since the
-  concrete syntax is never used as the information source, such additional
+  \item It is also possible to project \emph{additional} CS that is
+  not part of the CS definition of the original language. Since the
+  CS is never used as the information source, such additional
   syntax does not confuse the tool (in a parser-based tool the grammar would
   have to be changed to take into account this additional syntax to not derail
   the parser).
 \end{itemize}
 
 \noindent In this section we discuss the second alternative since it constitutes
-a form of language composition: the additional syntax is composed with the original syntax
-defined for the language. The mechanism MPS uses for this is called annotations.
-We have seen annotations when we discussed templates: an annotation is something
-that can be attached to arbitrary program elements and can be shown together
-with concrete syntax of the annotated element. In this section we use this
-approach to implement an alternative approach for the entity-to-database
+a form of language composition: the additional CS is composed with the original
+CS defined for the language. The mechanism MPS uses for this is called
+annotations. We have seen annotations when we discussed templates: an annotation
+is something that can be attached to arbitrary program elements and can be shown
+together with CS of the annotated element. In this section we use
+this approach to implement an alternative approach for the entity-to-database
 mapping. Using this approach, we can store the mapping from entity attributes to
 database columns directly in the \ic{Entity}, resulting in the following code:
 
@@ -50,15 +49,19 @@ module company
   }                                            
 \end{code}
 
-\noindent This is a heterogeneous fragment, consisting of code from the
-\ic{entities}, as well as the annotations (e.g. \ic{-> People.id}). From a concrete syntax perspective,
-the column mapping is "embedded" in the entity description. In the underlying persistent data
-structure, the mapping information is also actually stored in the entity model.
-However, the definition of the \ic{entities} language does not know that this additional
-information is stored and projected "inside" entities. No modification to the
-\ic{entities} language is necessary. Instead, we define an additional
-language \ic{relmapping\_annotations} which extends the \ic{entities} language as well as
-the \ic{relmapping} language. In this language we define the following concept:
+
+This is a heterogeneous fragment, consisting of code from \ic{entities}, as well
+as the annotations (e.g. \ic{-> People.id}). From a CS perspective, the column
+mapping is "embedded" in the \ic{Entity}. In the AST the mapping information is
+also actually stored in the \ic{entities} model. However, the definition of the
+\ic{entities} language does not know that this additional information is stored
+and projected "inside" entities. No modification to the \ic{entities} language
+is necessary.
+
+\phead{Structure and Syntax} We define an additional language 
+\ic{relmapping\_annotations} which extends the \ic{entities}
+language as well as the \ic{relmapping} language. In this language we define the
+following concept:
 
 \begin{code}
 concept AttrToColMapping extends NodeAnnotation  
@@ -70,24 +73,25 @@ concept AttrToColMapping extends NodeAnnotation
     annotated = Attribute
 \end{code}                                            
 
-\noindent Node how the \ic{AttrToColMapping} concept extends
-\ic{NodeAnnotation}, a special concept predefined by MPS. Concept that extend \ic{NodeAnnotation}
-have to provide a \ic{role} property and an \ic{annotated} concept link.
+\noindent \ic{AttrToColMapping} concept extends \ic{NodeAnnotation}, a concept
+predefined by MPS. Concepts that extend \ic{NodeAnnotation} have to provide a
+\ic{role} property and an \ic{annotated} concept link.
 Structurally, an annotation is a child of the node it annotates. So the
 \ic{Attribute} has a new child of type \ic{AttrToColMapping}, and the reference
 that contains the child is called \ic{@colMapping} --- the value of the
-\ic{role} property. The \ic{annotated} concept link points to the concept \emph{to
-which this annotation can be added}. \ic{AttrToColMapping}s can be annotated to
-intances of \ic{Attribute}. 
+\ic{role} property. The \ic{annotated} concept link points to the concept
+\emph{to which this annotation can be added}. \ic{AttrToColMapping}s can be
+annotated to instances of \ic{Attribute}.
 
 While structurally the annotation is a child of the annotated node, in the
-editor the relationship is reversed: The editor for \ic{AttrToColMapping} wraps
+CS the relationship is reversed: The editor for \ic{AttrToColMapping} wraps
 the editor for \ic{Attribute}, as \fig{annotationeditor} shows. Since the
 annotation is not part of the original language, it must be attached to nodes
 via an intention.
 
 \begin{figure}[htp]
 \begin{center}
+  \vspace{-2mm}
   \includegraphics[scale=0.55]{figures/annotationeditor.png}
   \caption[labelInTOC]{The editor for the \ic{AttrToColMapping} embeds the
   editor of the concept it is annotated to (using the \ic{attributed node}
@@ -95,19 +99,20 @@ via an intention.
   editor of the annotation has control of if and how the editor annotated
   element is projected.}
   \label{annotationeditor}  
+  \vspace{-4mm}
 \end{center}
 \end{figure}
 
-Note that it is also possible to define the annotation source to be
+It is also possible to define the annotation source to be
 \ic{BaseConcept}, which means the annotation can be attached to \emph{any} node. The
 language that contains the annotation then has no dependency to any other
 language. This is useful for generic "metadata" such as documentation,
-requirements traces or presence conditions in product line engineering. We have
-described this in~\cite{VoelterVisser2011} and~\cite{Voelter2010}.
+requirements traces or presence conditions in product line engineering. We 
+describe this in~\cite{VoelterVisser2011} and~\cite{Voelter2010}.
 
 \phead{Type System} The same typing rules are necessary as in the
-\ic{relmapping\_entities} language described previously. They reside in
-\ic{relmapping\_annotations}.
+\ic{relmapping\_ entities} language described previously. They reside in
+\ic{relmapping\_anno-} \\ \ic{tations}.
 
 \phead{Generator} The generator is also broadly similar to the previous example
 with \ic{relmapping\_entities}. It takes the \ic{entities} model as the input, and then
