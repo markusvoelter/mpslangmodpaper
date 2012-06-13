@@ -23,8 +23,8 @@ of parsers, is necessary). This has two consequences:
   the parser).
 \end{itemize}
 
-In this section we discuss the second alternative since it constitutes a form of
-language composition: the additional syntax is composed with the original syntax
+\noindent In this section we discuss the second alternative since it constitutes
+a form of language composition: the additional syntax is composed with the original syntax
 defined for the language. The mechanism MPS uses for this is called annotations.
 We have seen annotations when we discussed templates: an annotation is something
 that can be attached to arbitrary program elements and can be shown together
@@ -50,8 +50,8 @@ module company
   }                                            
 \end{code}
 
-This is a heterogeneous fragment, consisting of code from the \ic{entities}, as well
-as the annotations (e.g. \ic{-> People.id}). From a concrete syntax perspective,
+\noindent This is a heterogeneous fragment, consisting of code from the
+\ic{entities}, as well as the annotations (e.g. \ic{-> People.id}). From a concrete syntax perspective,
 the column mapping is "embedded" in the entity description. In the underlying persistent data
 structure, the mapping information is also actually stored in the entity model.
 However, the definition of the \ic{entities} language does not know that this additional
@@ -70,8 +70,8 @@ concept AttrToColMapping extends NodeAnnotation
     annotated = Attribute
 \end{code}                                            
 
-Node how the \ic{AttrToColMapping} concept extends \ic{NodeAnnotation}, a
-special concept predefined by MPS. Concept that extend \ic{NodeAnnotation}
+\noindent Node how the \ic{AttrToColMapping} concept extends
+\ic{NodeAnnotation}, a special concept predefined by MPS. Concept that extend \ic{NodeAnnotation}
 have to provide a \ic{role} property and an \ic{annotated} concept link.
 Structurally, an annotation is a child of the node it annotates. So the
 \ct{Attribute} has a new child of type \ct{AttrToColMapping}, and the reference

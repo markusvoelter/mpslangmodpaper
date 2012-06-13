@@ -88,7 +88,8 @@ okButton.addActionListener(new ActionListener() {
 \end{center}
 \end{figure}
 
-The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS' BaseLanguage.
+\noindent The \ic{jetbrains.mps.baselanguage.exprblocks} language extends MPS'
+BaseLanguage.
 The block expression is used in places where the base language
 expects an \ct{Expression}. This is why a \ct{BlockExpression} extends
 \ct{Expression}. Consequently, fragments that use the \ic{exprblocks} language, can
@@ -208,8 +209,8 @@ concept constraints for BlockExpression {
 }   }
 \end{code}
 
-The \ic{childConcept} variable represents the concept of which an instance is
-about to be added under a \ic{BloclExpression}. The constraint expression has to
+\noindent The \ic{childConcept} variable represents the concept of which an
+instance is about to be added under a \ic{BloclExpression}. The constraint expression has to
 return \ic{true} if the respective \ic{childConcept} is valid in this location.
 We make sure the \ic{childConcept} is not a \ic{ReturnStatement}. Note how this
 constraint is written \emph{from the perspective of the ancestor} (the

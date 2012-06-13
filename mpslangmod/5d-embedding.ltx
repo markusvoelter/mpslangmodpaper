@@ -24,8 +24,8 @@ can be used to achieve this, where
 	l_A \wedge \mathit{lo(c.child)} = l_1
 \end{align}
 
-As an example we embed an existing, embeddable \ic{expressions} language into
-the \ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
+\noindent As an example we embed an existing, embeddable \ic{expressions}
+language into the \ic{uispec} language. To do this, we \emph{do not} modify either the \ic{uispec}
 language or the expression language, since, in case of embedding, none of them
 may have a dependency on the other. Here is an example program using the
 resulting language. Note the use of expressions behind the \ic{validate}
@@ -54,7 +54,7 @@ in \ic{uispec\_validation} and is a subconcept of \ct{Field}.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.50]{figures/uival.png}
+  \includegraphics[scale=0.70]{figures/uival2.png}
   \caption[labelInTOC]{The \ic{uispec\_validation} language defines a subtype of
   \ct{uispec.Field} that contains an \ct{Expression} from a reusable \ic{expressions}
   language. The language also defines a couple of additional expressions,
@@ -85,8 +85,8 @@ execute(editorContext, node)->void {
 \end{code}
 
 
-As mentioned, the \ic{uispec\_validation} language extends the \ic{uispec} and
-\ic{expressions} languages. \ct{ValidatedField} has a property \ct{expr} that
+\noindent As mentioned, the \ic{uispec\_validation} language extends the
+\ic{uispec} and \ic{expressions} languages. \ct{ValidatedField} has a property \ct{expr} that
 contains the actual \ic{Expression}. As a consequence of polymorphism, we can
 use any existing subconcept of \ct{Expression} defined in the \ic{expressions}
 language here. So without doing anything else, we could write \ic{20 + 40 > 10},
@@ -106,8 +106,8 @@ concept LengthOfExpr extends Expression
     Expression  expr  1 
 \end{code}                                               
 
-Note how it defines an \ic{alias}. The \ic{alias} is used to pick the concept
-from the code completion menu. If the user is in expression context, he must
+\noindent Note how it defines an \ic{alias}. The \ic{alias} is used to pick the
+concept from the code completion menu. If the user is in expression context, he must
 type the \ic{alias} of a concept to pick it from the code completion menu.
 Typically, the alias is selected to match the leading keyword of the concept's
 projection. The \ct{LengthOfExpr} is projected as \ic{lengthOf(something)}, so
@@ -132,7 +132,7 @@ search scope:
 }
 \end{code}
 
-Notice that the actual syntactic embedding of the expressions in the
+\noindent Notice that the actual syntactic embedding of the expressions in the
 \ic{uispec\_validation} language is not a problem because of how projectional editors
 work. No ambiguities may arise. We simply define \ct{Expression} to be a child
 of the \ct{ValidatedField}.
@@ -155,8 +155,8 @@ field Freelancer: checkbox -> Employee.freelancer
                   Employee.freelancer == false 
 \end{code}
 
-This code states that if the \ct{worksAt} attribute of an employee is set, then
-its \ct{freelancer} attribute must be \ct{true} else it must be \ct{false}. It
+\noindent This code states that if the \ct{worksAt} attribute of an employee is
+set, then its \ct{freelancer} attribute must be \ct{true} else it must be \ct{false}. It
 uses the equals operator from the expressions language. However, that operator
 expects two \ct{expressions.BooleanType} arguments, but the type of the
 \ct{Employee.freelancer} is \ct{entities.BooleanType}. In effect, we have to
@@ -177,8 +177,8 @@ operation type: (operation, leftOperandType, rightOperandType)->node< > {
 }               
 \end{code}
 
-In addition to this code, we have to specify that \ct{expressions.BooleanType}
-is a subtype of \ct{Equallable}, so this rule applies if we use equals with two 
+\noindent In addition to this code, we have to specify that
+\ct{expressions.BooleanType} is a subtype of \ct{Equallable}, so this rule applies if we use equals with two 
 \ct{expressions.BooleanType} arguments. We have to tie this overloaded operation
 specification into a regular type inference rule.
 
@@ -196,8 +196,8 @@ rule typeof_BinaryExpression for BinaryExpression as binaryExpression {
 } 
 \end{code}
 
-To override these typing rules to work with \ct{entities.BooleanType}, we simply
-provider another overloaded operation specification in the \ic{uispec\_validation}
+\noindent To override these typing rules to work with \ct{entities.BooleanType},
+we simply provider another overloaded operation specification in the \ic{uispec\_validation}
 language:
 
 \begin{code}
@@ -235,8 +235,8 @@ expressions language, we can do one of two things:
   transformation of \ic{uispec} and \ic{uispec\_validation} code to BaseLanguage.
 \end{itemize}
 
-Since many DSLs will map code to BaseLangauge, it is worth the effort to
-write a reusable generator from \ic{uispec\_validation} expressions to BaseLanguage
+\noindent Since many DSLs will map code to BaseLangauge, it is worth the effort
+to write a reusable generator from \ic{uispec\_validation} expressions to BaseLanguage
 expressions. We choose this second alternative. The generated Java code is
 multi-sourced, since it is generated by two independent code generators.
 

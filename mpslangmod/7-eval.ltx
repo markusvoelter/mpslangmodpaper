@@ -28,7 +28,7 @@ feature is on the roadmap for MPS 3.0). If this were possible, ambiguities
 the notation (or color or font) of existing concepts if they are used together
 with a particular other language.
 
-\todo{clean up the bibliography. Also capitalization}
+\todo{clean up the bibliography}
 
 \phead{IDE} This paper emphasizes IDE composition in addition to language
 composition. Regarding syntax highlighting, code completion, error marks on the
@@ -50,18 +50,15 @@ possible for heterogeneous fragments. Visser et al. also describe debuggers for
 DSLs in \cite{Lindeman-GPCE-2011}.
 
 
-\todo{Do I reference sugarJ?}
-
 \phead{Evolution} Composing languages leads to coupling. In the case of
 referencing and extension the coupling is direct, in the case of reuse and
 embedding the coupling is indirect via the adapter language. As a consequence of
 a change of the referenced/base/context/host language, the
-referencing/extensio/reused/embedded language may have to change as well. MPS,
+referencing/extension/reused/embedded language may have to change as well. MPS,
 at this time, provides no automatic way of versioning and migrating languages,
 so co-evoluation has to be performed manually. In particular, a process
 discipline must be established in which dependent languages are migrated to new
 versions of a changed language. 
-  \todo{Reviewer says that this has worked in LISA 10 years ago. Check!}
 
 \phead{Type System} Regular typing rules cannot be overridden in a
 sublanguage. Only the overloaded operations container can be overloaded (as their name
@@ -194,8 +191,8 @@ wants to \emph{preempt}, \emph{enhance} or \emph{override}:
 % \end{center}
 % \end{figure}
 
-This approach would provide the \emph{same} way of packaging behavior for all
-language aspects, as well as a \emph{single} way of changing that behavior in a
+\noindent This approach would provide the \emph{same} way of packaging behavior
+for all language aspects, as well as a \emph{single} way of changing that behavior in a
 sublanguage. To control the granularity at which preemption, enhancement or
 overriding is performed, the base language designer would have to group the
 structures or behaviors into suitably cut facets. This amount of preplanning is

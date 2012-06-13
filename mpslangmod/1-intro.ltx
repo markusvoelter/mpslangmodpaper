@@ -61,8 +61,8 @@ required. Such an approach has to address the following concerns:
   checks and other relevant services has to be extended and composed.
 \end{itemize}
 
-In this paper we focus on JetBrains MPS \footnote{http://www.jetbrains.com/mps/}
-as a means of demonstrating language composition approaches. MPS is a projectional editor, so no grammars or parsers
+\noindent In this paper we focus on JetBrains MPS
+\footnote{http://www.jetbrains.com/mps/} as a means of demonstrating language composition approaches. MPS is a projectional editor, so no grammars or parsers
 are used. Instead, editing gestures \emph{directly} modify the abstract syntax
 tree, and the representation on the screen is rendered, or projected, from the
 changing tree. As we show in this paper, this simplifies the syntactic
@@ -211,8 +211,8 @@ language:
 	\mathit{lo(c.child)} = l
 \end{align}
 
-In this paper we consider the semantics of a language $l_1$ to be defined via a
-\emph{transformation} that maps a program expressed in $l_1$ to a program in
+\noindent In this paper we consider the semantics of a language $l_1$ to be
+defined via a \emph{transformation} that maps a program expressed in $l_1$ to a program in
 another language $l_2$ that has the same \emph{observable behavior}. The
 observable behavior can be determined in various ways, for example using a
 sufficiently large set of test cases. A discussion of alternative ways
@@ -275,10 +275,8 @@ paper.
 
 \end{description}
 
-\todo{noindents an den betreffenden Stellen}
-
-As can be seen from the above descriptions, we distinguish the four approaches
-regarding fragment structure and language dependencies, as illustrated in
+\noindent As can be seen from the above descriptions, we distinguish the four
+approaches regarding fragment structure and language dependencies, as illustrated in
 \fig{quadrants}. \fig{fragAndLang} shows the relationships between fragments and
 languages in these cases. We used these two criteria as the basis for this paper
 because we consider these two criteria to be essential for the following
@@ -320,9 +318,6 @@ this is not always easily possible, though often desirable.
 
 \todo{Update Abstract (when finished)}
 
-\todo{Refer to Wavefront Paper where appropriate.}
-
-
 
 Other classification approaches have been proposed. In particular, in their
 paper "When and How to design DSLs" \cite{MernikHS05}, Mernik et. al. propose a
@@ -330,12 +325,10 @@ number of modularization approaches, among them extension and restriction. In
 the context of the classification proposed in our paper, restriction is a form
 of extension in the following sense: to restrict a language, we develop an
 extension that \emph{prohibits the use of some language concepts in certain
-contexts}. We discuss this in \todo{}. Mernik et al. also propose Piggybacking
-and Pipelining as ways to reuse existing generators or interpreters. We don't
+contexts}. We discuss this at the end of \sect{extension}. Mernik et al. also
+propose Piggybacking and Pipelining as ways to reuse existing generators or interpreters. We don't
 include these approaches in our discussion here because they don't
 \emph{compose} languages --- they just chain their translation.
-
-\todo{Did I introduce and reference all API acronyms?}
 
 \subsection{Case Study}
 
@@ -352,7 +345,7 @@ language) and \emph{embedding} with regards to the expressions language.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.4]{figures/languagestructure.png}
+  \includegraphics[scale=0.7]{figures/languagestructure2.png}
   \caption[labelInTOC]{\ic{entities} is the central language. \ic{uispec}
   defines user interface (UI) forms for the \ic{entities}.
   \ic{uispec\_validation} adds validation rules, and composes a reusable expressions language. relmapping provides a reusable database

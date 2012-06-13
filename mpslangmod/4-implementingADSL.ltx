@@ -42,7 +42,7 @@ structure of the \ic{entities} language. Each box represents a language concept.
 
 \begin{figure}[htp]
 \begin{center}
-  \includegraphics[scale=0.4]{figures/entities.png}
+  \includegraphics[scale=0.7]{figures/entities2.png}
   \caption[labelInTOC]{The abstract syntax of the entities language. Entities
   have attributes which have types and names. \ct{EntityType} extends 
   \ct{Type} and references \ct{Entity}. This adapts entities to types 
@@ -77,8 +77,8 @@ concept Entity extends BaseConcept implements INamedConcept
 \end{code}                                               
 
 
-Editors in MPS are based on cells. Cells are the smallest unit relevant for
-projection. Consequently, defining an editor consists of arranging cells
+\noindent Editors in MPS are based on cells. Cells are the smallest unit
+relevant for projection. Consequently, defining an editor consists of arranging cells
 and defining their content. Different cell types are available to compose editors.
 \fig{editordefinition} explains the editor for \ct{Entity}. The editors for the
 other concepts are defined similarly.
@@ -109,8 +109,8 @@ following three equations:
 \end{code}
 
 
-This set of equations can be solved by \ic{x := 5, y := 10}. The MPS type
-system engine works the same way, but the domain is types instead of integers.
+\noindent This set of equations can be solved by \ic{x := 5, y := 10}. The MPS
+type system engine works the same way, but the domain is types instead of integers.
 Type equations also do not just contain equations (:==:), but also equations
 with subtyping and other relationships.
 
@@ -222,8 +222,8 @@ discuss in more detail the generation of Java fields for each \ic{Entity}
   
 \end{itemize}
 
-So instead of mixing template code and target language code (and separating
-them with some kind of escape character) we use annotation attached to regular,
+\noindent So instead of mixing template code and target language code (and
+separating them with some kind of escape character) we use annotation attached to regular,
 valid target language code. These annotations can be attached to arbitrary
 program elemnts. This way, the target language code in templates \emph{is
 always structurally correct}, but it can still be annotated to control the
