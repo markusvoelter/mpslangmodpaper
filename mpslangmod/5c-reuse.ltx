@@ -280,14 +280,14 @@ beans, a permission check is required.
 \emph{multi-sourced}, since several generators contribute to the same fragment.
 To implement this, several approaches are possible:
 
-
+ 
 \begin{itemize}
-  \item We could use AspectJ (\ic{http://www.eclipse.org/aspectj/}). This way,
-  we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
+  \item We could use AspectJ\footnote{http://www.eclipse.org/aspectj/}. This
+  way, we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
   While this would be a simple approach in terms of MPS (because we only
   generate singled-sourced artifacts), it fails to illustrate advanced MPS
   generator concepts. So we don't use this approach here.
-  \item An interceptor (see the Interceptor pattern in \cite{POSA}})
+  \item An interceptor (see the Interceptor pattern in~\cite{POSA})
   framework could be added to the generated Java Beans, with the generated
   code contributing specific interceptors (effectively building a custom aspect
   oriented programming (AOP) solution). We will not use this approach either,

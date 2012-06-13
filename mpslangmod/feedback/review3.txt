@@ -15,7 +15,7 @@ curve is for most adopters. These statements seem incongruous.
 The conclusion states that MPS "scales to realistic program sizes" but there is no 
 evidence either in the paper or references to support this. Please prove or remove the 
 statement. Almost all of the statements in the conclusion are opinions and not backed 
-by any evidence, so this should be more clearly mentioned as opinion in the paperâ 
+by any evidence, so this should be more clearly mentioned as opinion in the paperï¿½ 
 the current state and lack of empirical evidence.
 
 -> In the meantime there is published evidence regarding the size and complexity of
@@ -247,23 +247,23 @@ many of these are VERY minor:
 For some reason, all of the open quote symbols are printed backwards. Please fix.
 Some of the text extends far into the right margin.
 
--> todo
+-> fixed.
 
 "meta models" and "meta-model" different spellings; perhaps just "metamodels"
 
--> todo
+-> Everybody writes it differently, but it should be consistent, yes :-)
 
 Perhaps the URL on this page could be a footnote instead of inline
 
--> todo
+-> all URLs are footnotes now.
 
 
 Figure 7: Figure extends well beyond margin; true for most figures in this section
 
--> todo
+-> they are all fixed.
 
 Figure 15: "LenghtOf" misspelled in actual figure
 
--> todo
+-> figure redrawn to look better; typo fixed.
 
 

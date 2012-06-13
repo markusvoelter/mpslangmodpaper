@@ -5,7 +5,7 @@
 The JetBrains Meta Programming System \footnote{http://jetbrains.com/mps} is a
 projectional language workbench available as Open Source software under the Apache 2.0
 license. The term Language Workbench was coined by Martin Fowler in
-2004 \cite{Fowler2004}. In his article he defines a language workbench as a tool
+2004~\cite{Fowler2004}. In his article he defines a language workbench as a tool
 with the following characteristics:
 
 \begin{enumerate}   
@@ -51,13 +51,13 @@ list of benefits of the projectional editing approach:
   result in ambiguous grammars [1].
 
   \item Notations are more flexible than ASCII/ANSI/Unicode. Graphical,
-  semi-graphical and textual notations can be mixed and combined. For example, a
-  graphical tool for editing state machines can embed a textual expression
-  language for editing the guard conditions on
-  transitions\footnote{Intentional's Domain Workbench has demonstrated this
-  repeatedly, for example in \cite{SimonyiCC06}. As of 2012, MPS can do
-  text, symbols (such as big sum signs or fraction bars) and tables. Graphics will be
-  supported in 2013.}.
+  semi-graphical and textual notations can be mixed and combined, and defined
+  with the same formalism and approach. For example, a graphical tool for
+  editing state machines can embed a textual expression language for editing the
+  guard conditions on transitions\footnote{Intentional's Domain Workbench has
+  demonstrated this repeatedly, for example in~\cite{SimonyiCC06}. As of 2012,
+  MPS can do text, symbols (such as big sum signs or fraction bars) and tables.
+  Graphics will be supported in 2013.}.
 
   \item Because projectional languages by definition need an IDE for editing (it
   has to do the projection!), language definition and extension always implies
@@ -89,7 +89,7 @@ development infrastructure can be a challenge. MPS addresses the most critical
 aspect of this drawback by supporting diff and merge on the level of the
 projected concrete syntax. Finally, MPS is proprietary in the sense that it is
 not based on any industry standards. For example, it does not rely on EMF or
-another widely used modeling formalism. However, since MPS' meta meta model is
+another widely used modeling formalism. However, since MPS' meta-metamodel is
 extremely close to EMF Ecore, it is trivial to build an exporter that exports
 ASTs as an EMF model. Also, all other language workbenches also do not support
 portability of the \emph{language definition} beyond the abstract syntax ---
@@ -106,7 +106,7 @@ syntactic composition of the languages is required. In traditional, grammar-base
 independently developed grammars can be a problem: many grammar classes are not
 closed under composition, and various invasive changes (such as left-factoring
 or redefinition of terminals or non-terminals), or unwanted syntactic escape
-symbols are required \cite{KatsVW10}. As we will see, this is not the case in
+symbols are required~\cite{KatsVW10}. As we will see, this is not the case in
 MPS. Arbitrary languages can be combined syntactically.
 
 \item[Extensible Type Systems:] All of the composition techniques require some

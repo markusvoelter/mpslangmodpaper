@@ -69,8 +69,9 @@ paper is author’s limited knowledge of related work already done in this area.
   -> I have also made this statement a bit more differentiated and I explain better which
      aspects are solved, and which are not.
   -> In particular, MPS does support integrated debugging for many of the composition
-     approaches. We do have a debugger for an extensible C language. It is described in detail
-     in \todo
+     approaches. We do have a debugger for an extensible C language. It is not yet published,
+     however. Also, Eelco Visser has something in this space, I have referenced it in the 
+     paper.
 
 - Section 1.3 discusses about type of modularization. Title is misleading again since only 
   language modularization is discussed. More importantly, I don’t think these are only types 
@@ -162,7 +163,8 @@ paper is author’s limited knowledge of related work already done in this area.
     MERNIK, Marjan, ZUMER, Viljem. Incremental programming language development. 
     Comput. syst. struct., 2005, Vol. 31, pp. 1-16
 
-  -> todo
+  -> I have added LISA to the related work and also referred to this paper in 
+     particular.
 
 - In all examples Language’s semantics is described with Java code. Hence, the 
   meaning of language constructs is described with generated code and only 
@@ -227,7 +229,6 @@ paper is author’s limited knowledge of related work already done in this area.
   However, this feature was supported by LISA more than 10 years ago.
 
   -> yes, but still it does not work in MPS at this point.
-     todo: what about the LISA stuff?
 
 - On page 34 the author wrote: “In essence, the suggested approach is a bit like object 
   orientation (components == classes, facets == methods), with a rich advise framework 
@@ -236,25 +237,19 @@ paper is author’s limited knowledge of related work already done in this area.
   be overridden or inherited.
 
 	MERNIK, Marjan, LENIC, Mitja, AVDICAUSEVIC, Enis, ZUMER, Viljem. Multiple attribute grammar inheritance. Informatica, 2000, vol. 24, no. 2, pp. 319-328.
-	-> todo	
-	
-	Aspect-oriented extension of LISA has been described in:
-	-> todo
-	
 	REBERNAK, Damijan, MERNIK, Marjan, HENRIQUES, Pedro Rangel, DA CRUZ, Daniela, VARANDO PEREIRA, Maria João. Specifying Languages Using Aspect-oriented Approach: AspectLISA. CIT. J. Comput. Inf. Technol., 2006, vol. 14, no. 4, pp. 343-350
-	-> todo
-	
 	REBERNAK, Damijan, MERNIK, Marjan, WU, Hui, GRAY, Jeffrey G. Domain-specific aspect languages for modularising crosscutting concerns in grammars. IET softw., Jun. 2009, vol. 3, iss. 3, pp. 184-200.
-    -> todo
-  
-  -> todo check LISA
+
+	-> I have read it and referenced those.
+	
 
 
 - Reference section is very weak and many related papers are omitted. Moreover, in many 
   cases publisher/conference/TechnicalReport/WebPage and/or pages are simple omitted 
   (e.g., [3, 9, 10, 11]).
   
-  -> todo more related work, and check that all details are in 
+  -> I don't know how that came about, I just exported the bib file from
+     a web application. But I have fixed them. 
 
 
 Typos:

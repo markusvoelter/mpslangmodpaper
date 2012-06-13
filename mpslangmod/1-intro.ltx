@@ -1,6 +1,8 @@
 \section{Introduction}
 \label{intro}
 
+\todo{fix the right margin of text}
+
 Traditionally, programmers use general purpose languages (GPLs) for developing
 software systems. "general-purpose" refers to the fact that they can be used for
 any programming task. They are Turing complete, and provide means to build
@@ -30,7 +32,7 @@ usable by non-programmer domain experts.
 The use of polyglot programming raises the question how the syntax, semantics,
 and IDE (integrated development environment) support of the various languages
 can be integrated. Especially syntactic integration has traditionally been very
-hard \cite{KatsVW10} and hence is often not supported for a particular
+hard~\cite{KatsVW10} and hence is often not supported for a particular
 combination of languages. Program parts expressed in different languages reside
 in different files. References among "common" things in these different program
 parts are implemented by using agreed-upon identifiers that must be used
@@ -104,30 +106,17 @@ composition.
 
 \subsection{Additional Resources}
 
-The example code developed for this tutorial can be found at github.com and
-works with MPS 2.0:
-
-\vspace{5pt}
-\ic{https://github.com/markusvoelter/MPSLangComp-MPS2.0}
-\vspace{5pt}
-
-\noindent A set of recorded demos (90 minutes in total) that walk through all
-the example code is available on Youtube. The initial video is here: 
-
-\vspace{5pt}
-\ic{http://www.youtube.com/watch?v=lNMRMZk8KBE}. 
-\vspace{5pt}
-
-\noindent The others are either suggested by Youtube, or you can find them by
-searching for \emph{Language Modularization and Composition with MPS (Part X)},
-where X is between 1 and 8.
-
+The example code developed for this tutorial can be found at
+github.com\footnote{https://github.com/markusvoelter/MPSLangComp-MPS2.0} and
+works with MPS 2.0.
+A set of recorded demos (90 minutes in total) that walk through all the example
+code is available on
+Youtube\footnote{http://www.youtube.com/watch?v=lNMRMZk8KBE}.
 Note that this paper is not a complete MPS tutorial. MPS is very deep and
 powerful, so we have to focus on those aspects that are essential for \lmrc. We
-refer to the Language Workbench Competition (LWC 11) MPS tutorial for details:
- 
-\vspace{5pt}
-\ic{http://code.google.com/p/mps-lwc11/wiki/GettingStarted}
+refer to the Language Workbench Competition (LWC 11) MPS
+tutorial\footnote{http://code.google.com/p/mps-lwc11/wiki/GettingStarted} for
+details.
 
 
 
@@ -320,7 +309,7 @@ this is not always easily possible, though often desirable.
 
 
 Other classification approaches have been proposed. In particular, in their
-paper "When and How to design DSLs" \cite{MernikHS05}, Mernik et. al. propose a
+paper "When and How to design DSLs"~\cite{MernikHS05}, Mernik et. al. propose a
 number of modularization approaches, among them extension and restriction. In
 the context of the classification proposed in our paper, restriction is a form
 of extension in the following sense: to restrict a language, we develop an

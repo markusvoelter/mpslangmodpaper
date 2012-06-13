@@ -122,12 +122,12 @@ Detailed remarks:
   
   The combination of textual and graphical syntax can also be achieved in alternative ways, see [EB2010].
   
-  -> todo
+  -> I have discussed this. 
   
   * Last paragraph (page 6, before section 2.3), please look into the work on SmartTools [PCDFPFHA2002],
      or the ALOE of GANDALF [MF81].
     
-  -> todo   
+  -> I have added those as related work.   
     
   * In the discussion on web development (page 6) I would expect a reference to the work on WebDSL.
   
@@ -138,17 +138,18 @@ Detailed remarks:
   
   * Please add a reference to "hampering developer productivity" (bottom page 6).
   
-  -> todo
+  -> the paragraph that contains this expression is no longer in the paper.
   
   * Please add to the bullet on SQL (page 7) a reference to work performed by Ralf 
     Laemmel and Erik Meijer.
   
-  -> todo
+  -> I have added a reference to Linq, but it is not clear to me which papers
+     by Ralf and Erik you had in mind.
   
   * In the part on "dnq" please add a reference to the recent 
     work on Rascal by Jurgen Vinju and Paul Klint.
     
-  -> todo
+  -> I have added a reference to Rascal in the related work section.
     
 - Section 3 discusses related approaches. Unfortunately, some work on earlier and related 
   language workbenches is is missing.
@@ -158,7 +159,8 @@ Detailed remarks:
   
   * SmartTools is closer related than Xtext.
   
-  -> todo
+  -> I am not sure that I agree it is closer, but it is certainly related. 
+     I have discussed it in related work.
   
   * The sentence "Code completion for references ... out of the box." is too cryptic 
     to be understandable, furthermore, I think this is a too positive view on the tooling.
@@ -206,8 +208,8 @@ Detailed remarks:
   
        MPS templates work differently from normal text generation templates such as 
        Xpand , Jet or StringTemplate , since they are actually model-to- model transformations. 
-       However, as a consequence of MPSÕ language com- position faciltiies, the concrete 
-       syntax of the target language is used in the template Ñ it is projected like any 
+       However, as a consequence of MPSï¿½ language com- position faciltiies, the concrete 
+       syntax of the target language is used in the template ï¿½ it is projected like any 
        other program. However, this means that the template code itself must be valid in 
        terms of the target language. So to write a tempalte, developers first write a 
        structurally correct example model in the target language. Then so called Macros 
