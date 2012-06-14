@@ -294,13 +294,22 @@ As of June 2012, the site contains 15 submissions.
 
 We already discussed the language modularization and composition approaches
 proposed by Mernik et al.~\cite{MernikHS05} in \sect{classification}. In the
-Helvetia paper~\cite{2010_renggli_Embedding_languages_without_breaking_tools} 
-Renggli and his colleagues introduce three different flavors
-of language Extension. A \emph{pidgin} creatively bends the existing syntax of
-the host language to to extend its semantics. A \emph{creole} introduces
-completely new syntax and custom transformations back to the host language. An
-\emph{argot} reinterprets the semantics of valid host language code. In
-terms of this classification, both Extension and Embedding are creoles. 
+paper, they also introduce the terms Piggybacking and Pipelining. In those
+approches, a program expressed in language $l_1$ is translated into a program
+expressed in language $l_2$. Essentially this is what every code generator or
+compiler does; the languages themselves are not related in any way except
+through the transformation engine, which is why we don't consider this as an
+example of language modularization and composition.
+
+
+In the Helvetia
+paper~\cite{2010_renggli_Embedding_languages_without_breaking_tools} Renggli and
+his colleagues introduce three different flavors of language Extension. A
+\emph{pidgin} creatively bends the existing syntax of the host language to to
+extend its semantics. A \emph{creole} introduces completely new syntax and
+custom transformations back to the host language. An \emph{argot} reinterprets
+the semantics of valid host language code. In terms of this classification, both
+Extension and Embedding are creoles.
 
 
 The idea of incremental Extension of languages  was first popularized in the
@@ -326,14 +335,6 @@ OpenJava~\cite{TatsuboriCIK99}, the locations where macros can be added is
 limited. More fine-grained Extensions, such as adding a new operator, are not
 possible.
 
-Language Cascading refers to a form of language combination where a
-program expressed in language $l_1$ is translated into a program expressed in
-language $l_2$. Essentially this is what every code generator or compiler does;
-the languages themselves are not related in any way except through the
-transformation engine, which is why we don't consider this as an example of
-language modularization and composition. An example of this approach is KHEPERA
-\cite{FaithNP97}. Cascading is referred to as Piggybacking
-and Pipelining in Mernik et al.'s classification~\cite{MernikHS05}.
 
 
 A particular advantage of projectional editing is that it can combine several
