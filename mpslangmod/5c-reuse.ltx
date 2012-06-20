@@ -23,7 +23,7 @@ l_A\; \wedge \;\mathit{lo(r.to)} = l_1
 \end{align}    
 One could argue that in this case Reuse is just a clever combination of
 Referencing and Extension. While this is true from an implementation
-perspective, it is worth describing as a separate approach, because it enables
+perspective, it is worth describing as a separate approach because it enables
 the combination of two \emph{independent languages} by adding an
 adapter \emph{after the fact}, so no pre-planning during the design of $l_1$ and
 $l_2$ is necessary.
@@ -41,13 +41,13 @@ $l_2$ is necessary.
 \end{center} 
 \end{figure} 
 
-Language Reuse covers the case where a language has been developed
+Reuse covers the case where a language has been developed
 independent of its reuse context. The respective
-fragments remain homogeneous. In this paper, we cover two alternative cases: the
-first case addresses a persistence mapping language. The generated code is
-separate from the code generated from the \ic{entities} language. The second case
-describes a language for role-based access control. The generated code has to be
-"woven into" the \ic{entities} code to check permissions when setters are called.
+fragments remain homogeneous. We cover two alternative cases: in the
+first one (a persistence mapping language) the generated code is
+separate from the code generated from the \ic{entities} language. The second
+one (a language for role-based access control) describes the case where the
+generated code has to be "woven into" the \ic{entities} code.
 
 
 \subsubsection{Separated Generated Code}
@@ -56,23 +56,28 @@ describes a language for role-based access control. The generated code has to be
 \ic{relmapping} is a reusable language for mapping arbitrary data to relational
 tables. It supports the definition of relational table structures, but leaves
 the actual mapping to the source data unspecified. When the language is adapted
-to a specific context, one has to specify this mapping. The following code shows
-the reusable part. A database is defined that contains tables with columns.
-Columns have (database-specific) data types.
+to a specific context, this one mapping has to be provided. The left
+side if the code below shows the reusable part. A database is defined
+that contains tables with columns. Columns have (database-specific) data types.
+On the right side we show the database definition code when it is reused with
+the \ic{entities} language; each column is mapped to an entity attribute.
+
+\pagebreak[4]
 
 \begin{code}
-Database CompanyDB                          
-  table Departments                         
-    number id           
-    char descr    
-  table People                              
-    number id                
-    char name              
-    char role              
-    char isFreelancer
+Database CompanyDB                          Database CompanyDB             
+  table Departments                           table Departments   
+    number id                                   number id <- Department.id  
+    char descr                                  char descr <-Department.description 
+  table People                                table People    
+    number id                                   number id <- Employee.id 
+    char name                                   char name <- Employee.name
+    char role                                   char role <- Employee.role  
+    char isFreelancer                           char isFreelancer <- Employee.freelancer
 \end{code}
 
 
+                        
 \phead{Structure and Syntax} \fig{relmapping} shows the structure of the
 \ic{relmapping} language. The abstract concept \ic{ColumnMapper} serves as a hook: if we reuse this language
 in a different context, we extend this hook in a context-specific way. 
@@ -97,20 +102,8 @@ of \ic{ColumnMapper}, the \ic{AttributeColMapper}, which references an
 \ic{Attribute} from the \ic{entities} language as a means of expressing the mapping from the
 attribute to the column. The \ic{relmapping} language projects the column
 mapper --- and its context-specific subconcepts --- on the right of the
-field definition, resulting in the following (heterogeneous) code fragment:
+field definition, resulting in heterogeneous fragments.
 
-
-\begin{code}
-Database CompanyDB                          
-  table Departments                         
-    number id <- Department.id              
-    char descr <- Department.description    
-  table People                              
-    number id <- Employee.id                
-    char name <- Employee.name              
-    char role <- Employee.role              
-    char isFreelancer <- Employee.freelancer
-\end{code}
 
 
 \phead{Type System} The type of a column is the type of its \ic{type} property.
@@ -126,9 +119,10 @@ typeof(column.type)  :==: typeof(column.mapper);
 typeof(columnMapper) :==: columnMapper.typeMappedToDB();
 \end{code}
 
-\noindent The \ic{AttributeColMapping} concept from the
-\ic{relmapping\_entities} implements this method by mapping \ic{IntType} to
-\ic{Number}, and everything else to \ic{CharType}.
+\noindent The \ic{AttributeColMapping} concept implements this method by mapping
+\ic{IntType} to \ic{Number}, and everything else to \ic{CharType}:
+
+\pagebreak[4]
 
 \begin{code}
 public node<> typeMappedToDB() overrides ColumnMapper.typeMappedToDB {                                                                          
@@ -138,11 +132,11 @@ public node<> typeMappedToDB() overrides ColumnMapper.typeMappedToDB {
 }                                                                                                                                                  
 \end{code}
 
-\pagebreak[4]
+
 
 \phead{Generator} The generated code is also separated into a reusable base
 class generated by the generator of the \ic{relmapping} language and a
-context-specific subclass of that class, generated by 
+context-specific subclass, generated by 
 \ic{relmapping\_entities}. The generic base class contains code for
 creating the tables and for storing data in those tables. It contains abstract
 methods for accessing the data to be stored in the columns.
@@ -176,11 +170,8 @@ public abstract class CompanyDBBaseAdapter {
 \noindent The subclass generated by the generator (shown below) in the
 \ic{relmapping\_ entities} language implements the abstract methods defined by
 the generic superclass. The interface, represented by the \ic{applicationData}
-object, has to be kept generic so any kind of user data can be passed in. Note
-how this class references the Beans generated from the \ic{entities}. The
-generator for \ic{entities} and the generator for \ic{relmapping\_entities} are
-dependent. The information shared between the two generator is the names of the
-classes generated from the \ic{entities}.
+object, has to be generic so any kind of user data can be passed in. Note
+how this class references the Beans generated from the \ic{entities}.
 
 \begin{code}
 public class CompanyDBAdapter extends CompanyDBBaseAdapter {
