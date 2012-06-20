@@ -187,12 +187,14 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 } }
 \end{code}
  
-\vspace{-2mm}
+ 
+ 
 \subsubsection{Interwoven generated code}
-\vspace{-1mm}
 
 \ic{rbac} is a language for specifying role-based access
-control for \ic{entities}. The code below shows an example.
+control for \ic{entities}. The code below shows an example fragment. Note how it
+references entities (\ic{Depart- ment}) and attributes (\ic{Employee.name}) from
+an \ic{entities} fragment.
 
 \begin{code}
 users: user mv : Markus Voelter     
@@ -206,12 +208,14 @@ permissions:   admin, W : Department
                consulting, R : Employee.name
 \end{code}
 
+\vspace{-2mm}
 \phead{Structure and Syntax} The structure is shown in \fig{rbac}. Like
 \ic{relmapping}, \ic{rbac} provides a hook \ic{Resource} to adapt it to context
 languages. The sublanguge \ic{rbac\_entities} provides two subconcepts of
-\ic{Resource}, namely \ic{AttributeResource} to reference to an \ic{Attribute}, and
-\ic{EntityResource} to refer to an \ic{Entity}, to define permissions for
-\ic{entities} and their attributes.
+\ic{Resource}, namely \ic{Attribu- teResource} to reference to an
+\ic{Attribute}, and \ic{EntityResource} to refer to an \ic{Entity}, to define permissions for
+entities and their attributes.
+\vspace{-3mm}
 
 
 \begin{figure}[htp]
@@ -227,26 +231,29 @@ languages. The sublanguge \ic{rbac\_entities} provides two subconcepts of
 \end{figure}
 
 
-
+\vspace{-2mm}
 \phead{Type System} No type system rules apply here, because none of the
-concepts added by the \ic{rbac} language are typed.
+concepts added by the \ic{rbac} language are typed or require constraints
+regarding the types in the \ic{entities} language.
 
 \phead{Generator} What distinguishes this case from the relmapping case is that
 the code generated from the \ic{rbac\_entities} language is \emph{not} separated from
 the code generated from the \ic{entities} (we cannot use the convenient
 base class/subclass approach). Instead, a permission check is required \emph{inside}
 the setters of the Java Beans. Here is some example code:
+\vspace{-2mm}
 
 
 \begin{code}
-  public void setName(String newValue) {
-    // check permissions (from rbac_entities) 
-    if (new RbacSpecEntities().hasWritePermission("Employee.name")) {
-      throw new RuntimeException("no permission");
-    }
-    this.name = newValue;
-  }
+public void setName(String newValue) {
+  if (new RbacSpecEntities().hasWritePermission("Employee.name")) {  // check permission 
+    throw new RuntimeException("no permission");                     // from rbac_entities 
+  }                                                                  // language 
+  this.name = newValue;
+}
 \end{code}
+
+\pagebreak[4]
 
 \noindent The generated fragment is homogeneous (it is all Java code), but it is
 \emph{multi-sourced}, since several generators contribute to the same fragment.
@@ -276,16 +283,16 @@ To implement this, several approaches are possible:
 
 
 
-\noindent Notice that only the AspectJ solution would work without any
-pre-planning from the perspective of the \ic{entities} language, because it
-avoids mixing the generated code artifacts (it is handled "magically" by
+\noindent Notice that only the AspectJ solution would work \emph{without any
+pre-planning} from the perspective of the \ic{entities} language, because it
+avoids mixing the generated code artifacts (it is handled by
 AspectJ). All other solutions require the original \ic{entities} generator to
 "expect" extensions. In our case we have modified the \ic{entities} generator to
 generate a \ic{PlaceholderStatement} (\fig{placeholder}) into the setters. The
 placeholder acts as a hook at which subsequent generators can add statements.
 While we have to pre-plan \emph{that} we want to extend the generator in this
-location, we do not have to predefine \emph{how}. 
-
+location, we do not have to predefine \emph{how}.
+ 
 
 \begin{figure}[htp] 
 \begin{center}
@@ -303,20 +310,19 @@ location, we do not have to predefine \emph{how}.
 
 The \ic{rbac\_entities} generator contains a reduction rule for \ic{Placeholder-
 Statement}s. If the generator encounters a placeholder (that has been put there
-by the \ic{entities} generator) it removes it replaces it with code that checks
-for the permission (\fig{placeholderreduction}). To make this work we have to
-specify in the generator priorities that this generator runs
+by the \ic{entities} generator) it replaces it with code that checks for the
+permission (\fig{placeholderreduction}). To make this work we have to specify in
+the generator priorities that this generator runs
 \ic{strictly after} the \ic{entities} generator (since the \ic{entities}
-generator has to create the placeholder before this generator can replace it)
-and \ic{striclty before} the BaseLanguage generator (which transforms
-BaseLanguage code into Java text for compilation). Priorities specify a partial
-ordering (cf. the \ic{strictly before} and \ic{strictly after}) on generators
-and can be set in the generator priorities dialog (not shown). Note that
-specifying the priorities does not introduce additional language dependencies,
-modularity is retained.
+generator has to create the placeholder before it can be replaced) and
+\ic{striclty before} the BaseLanguage generator (which transforms BaseLanguage
+code into Java text for compilation). Priorities specify a partial ordering (cf.
+the \ic{strictly before} and \ic{strictly after}) on generators and can be set
+in a generator properties dialog. Note that specifying the priorities does not
+introduce additional language dependencies, modularity is retained.
 
 
-
+ 
 \begin{figure}[htp] 
 \begin{center}
   \vspace{-3mm}
