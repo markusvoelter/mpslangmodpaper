@@ -20,8 +20,8 @@ among them, using \emph{dependent} languages (\fig{langReferencing}).
 \end{figure}  
  
 A fragment $f_2$ depends on $f_1$. $f_2$ and $f_1$ are expressed with languages
-$l_2$ and $l_1$. We call $l_2$ the \emph{referencing} language, and $l_1$ the
-\emph{referenced} language. The referencing language $l_2$ depends on the
+$l_2$ and $l_1$, respectively. We call $l_2$ the \emph{referencing} language,
+and $l_1$ the \emph{referenced} language. The referencing language $l_2$ depends on the
 referenced language $l_1$ because at least one concept in the $l_2$ references a
 concept from $l_1$.  While equations (2) and (3) (from \sect{terminology})
 continue to hold, (1) does not. Instead
@@ -34,7 +34,7 @@ continue to hold, (1) does not. Instead
 
 
 
-\noindent As an example, for language Referencing we define a language
+\noindent As an example, for Referencing we define a language
 \ic{uispec} for defining UI forms for \ic{entities}. Below is an example.
 Note how the form is a separate fragment. It is a \emph{dependent}
 fragment, since it references elements from another fragment (expressed in the
@@ -53,12 +53,11 @@ form CompanyStructure
 
 \begin{figure}[htp]
 \begin{center}
-  \vspace{-3mm}
   \includegraphics[scale=0.7]{figures/uispec2.png}
   \caption[labelInTOC]{The abstract syntax of the \ic{uispec} language. Dotted
   boxes represent classes from another language (here: the \ic{entities}
   language). A \ic{Form} contains \ic{EntityReference}s that connect to an \ic{entities} model. A
-  \ic{Form} also contains \ic{Field}s, each Referencing an \ic{Attribute} from
+  \ic{Form} also contains \ic{Field}s, each referencing an \ic{Attribute} from
   an \ic{Entity} and containing a \ic{Widget}.}
   \label{uispec} 
   \vspace{-7mm}
@@ -74,9 +73,10 @@ Extension as defined in this paper.} the \ic{entities} language. This means that
 concepts from the \ic{entities} language can be used in the definition of the
 \ic{uispec} language. A \ic{Form} owns a number of \ic{EntityReferences}, which
 in turn reference an \ic{Entity}. Below is the definition of the \ic{Field}
-concept. It owns a \ic{Widget} and refers to the \ic{Attribute} it edits. 
+concept. It has a \ic{label} property, owns a \ic{Widget} and refers to the
+\ic{Attribute} it edits.
 
-
+\pagebreak[4]
 
 \vspace{-2mm}
 \begin{code}
@@ -84,18 +84,15 @@ concept Field extends BaseConcept
   properties:                                 
     label : string                              
   children:                                   
-    Widget widget 0..1      
+    Widget     widget     1      
   references:                                 
-    Attribute attribute 0..1
+    Attribute  attribute  1
 \end{code} 
 
 
-\pagebreak[4]
-
-
-Note that there is no composition of concrete syntax, since the programs written
-in the two composed languages remain separated into their own fragments. No
-clashes between names of concepts may occur in this case.
+\noindent Note that there is no composition of concrete syntax, since the
+programs written in the two composed languages remain separated into their own fragments. 
+No ambiguities or clashes between names of concepts may occur in this case.
 
 
 \phead{Type System} There are limitations regarding which widget can be used
@@ -116,20 +113,20 @@ checking rule checkTypes for Field as field {
 } }
 \end{code}
 
-
-\phead{Generator} The defining characteristic of language Referencing is that
-the two languages only \emph{reference} each other, and the instance fragments
-are dependent, but homogeneous. No syntactic integration is necessary in this
-case. In this example, the generated code exhibits the same separation. From a
-\ic{Form} we generate a Java class that uses Java Swing to build render the UI.
+\vspace{-3mm}
+\phead{Generator} The defining characteristic of Referencing is that the two
+languages only \emph{reference} each other, and the instance fragments are
+dependent, but homogeneous. No syntactic integration is necessary. In this
+example, the generated code exhibits the same separation. From a \ic{Form} we
+generate a Java class that uses Java Swing to render the UI.
 It \emph{uses} the Beans generated from the \ic{entities}: they are
 instantiated, and the setters are called. The generators are separate but they
 are \emph{dependent}, since the \ic{uispec} generator knows about the names of
 the generated Java Beans, as well as the names of the setters and getters.
-This is implemented by defining a set of behaviour methods on the
+This dependency is realized by defining a set of behaviour methods on the
 \ic{Attribute} concept that are called from both generators (the colon
-represents the node cast operator and binds tightly; the code below casts the
-attribute's parent to \ic{Entity} and then accesses the \ic{name} property).
+in the code below represents the node cast operator and binds tightly; the code
+casts the \ic{Attribute}'s parent to \ic{Entity} and then accesses the \ic{name} property).
 
 
 \begin{code}
