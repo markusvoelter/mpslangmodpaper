@@ -158,7 +158,7 @@ examples: embedded software and web applications.
 
 
 \phead{Embedded Software} Embedded systems are becoming more software intensive
-and the software becomes bigger and more complex. Traditional embedded system
+and the software becomes more complex. Traditional embedded system
 development approaches use a variety of tools for various aspects of the system,
 making tool integration a major challenge. Some of the specific problems of
 embedded software development include the limited capability for meaningful
@@ -166,12 +166,12 @@ abstraction in C, some of C's "dangerous" features (leading to various coding
 conventions such as Misra-C~\cite{Hatton04}), the proprietary and closed nature
 of modeling tools, the integration of models and code, traceability to
 requirements, long build times as well as management of product line
-variability. The mbeddr project (\footnote{http://mbeddr.com}) addresses the
-challenges with a different approach: incremental, modular extension of C with
+variability. The mbeddr project\footnote{http://mbeddr.com} addresses these
+challenges using incremental, modular extension of C with
 domain-specific language concepts. mbeddr uses Extension to add interfaces and
 components, state machines, and measurement units to C. mbeddr is based on MPS,
 so users of mbeddr can build their own Extensions. mbeddr implements all of C in
-less than 10.000 lines of code. Scalability tests have shown that the system
+less than 10.000 lines of MPS code. Scalability tests have shown that mbeddr
 scales to at least 100.000 lines of equivalent C code. A detailed description,
 including more details on language and program sizes and implementation effort
 can be found in~\cite{Voelter2012}.
@@ -186,8 +186,7 @@ of Java classes, web page templates and other artifacts. The effort for building
 the necessary MPS-based languages will be repaid by future applications that
 build on the same web platform architecture and hence use the same set of
 languages. Language Extension and Embedding is used to provide an integrated
-web development environment\footnote{Some details can be found in
-http://www.jetbrains.com/mps/docs/MPS\_YouTrack\_case\_study.pdf}.
+web development environment\footnote{http://www.jetbrains.com/mps/docs/MPS\_YouTrack\_case\_study.pdf}.
 
 For example, the \ic{dnq} language extends Java class definitions with all the
 information necessary to persist instances in a database via an
@@ -206,7 +205,7 @@ transaction is automatically managed during request processing.
 
 In email communication with the author, JetBrains reported significant
 improvements in developer productivity for web applications. In particular, the
-time for new team members to become productive on the Youtrack team is reported
+time for new team members to become productive on the YouTrack team is reported
 to have been reduced from months to a few weeks, mostly because of the very
 tight integration in a single language of the various aspect of web application
 development.

@@ -2,13 +2,13 @@
 \section{Related Work}
 \label{Related} 
 
-This paper addresses \lmrc\ with MPS, a topic that concerns
-many different aspects. In this section we discuss related work focusing on
-modular parsers, projectional editing, modular compilers and modular IDEs. We
-conclude with a section on related work that does not fit these categories.
+This paper addre sses \lmrc\ with MPS, a topic that touches on many different
+topics. In this section we discuss related work focusing on modular grammars and
+ parsers, projectional editing, modular compilers and modular IDEs. We conclude
+with a section on related work that does not fit these categories.
 
 
-\mvsubsec{Modular Parsers}
+\mvsubsec{Modular Grammars and Parsers}
 
 As we have seen in this paper, modular composition of concrete syntax is the
 basis for several of the approaches to language composition. Hence we start
@@ -22,15 +22,15 @@ composition: resulting grammars are likely to be outside of the respective
 grammar class. Composition (without invasive change) is prohibited. Grammar
 formalisms that implement the full set of context-free grammars do not have this
 problem and support composition much better. In \cite{SchwerdfegerW09}
-Schwerdtfeger and van Wyk also discuss the issues surrounding grammar
-composition. They also describe a way of verifying early (i.e. before
-the actual composition attempt) whether two grammars are composable or not .
+Schwerdtfeger and van Wyk also discuss the challenges in grammar composition.
+They also describe a way of verifying early (i.e. before the actual composition
+attempt) whether two grammars are composable or not.
 
-An example of a parser generator the supports the full set of context-free
-grammars is the Syntax Definition Formalism~\cite{HeeringHKR89}. SDF is a
-scannerless GLR parser. Since it parses tokens and characters in a context-aware
-fashion, there will no ambiguities if grammars are composed that both define the
-same token or production \emph{in different contexts}. This allows, for example,
+An example of a grammar formalism that supports the full set of context-free
+grammars is the Syntax Definition Formalism~\cite{HeeringHKR89}. SDF is
+implemented with scannerless GLR parsers. Since it parses tokens and characters
+in a context-aware fashion, there will be no ambiguities if grammars are
+composed that both define the same token or production \emph{in different contexts}. This allows, for example,
 to embed SQL into Java (as Bravenboer et al. discuss in~\cite{BravenboerDV07}).
 However, if the same syntactic form is used by the composed grammars \emph{in
 the same location}, then some kind of disambiguation is necessary. Such
@@ -45,18 +45,18 @@ end of \sect{Embedding}.
 
 Given a set of extensions for a language, SILVER/COPPER allows users to include
 a subset of these extensions into a program as needed (this has been implemented
-for Java (AbleJ~\cite{WykKBS07}) and and for SPIN's Promela language (AbleP
-\cite{MaliW11}). A similar approach is discussed for an SDF-based system in
+for Java in AbleJ~\cite{WykKBS07} and and for SPIN's Promela language in AbleP
+\cite{MaliW11}. A similar approach is discussed for an SDF-based system in
 \cite{BravenboerV07}. However, ad-hoc inclusion only works as long as the set of
 included extensions (which have presumably been developed independent from each
-other) are not ambiguous with regards toeach other. In case of ambiguities,
+other) are not ambiguous with regards to each other. In case of ambiguities,
 disambiguations have to be defined as described above.
 
 Polyglot, an extensible compiler framework for Java~\cite{NystromCM03} also
 uses an extensible grammar formalism and parser to supports adding, modifying or
 removing productions and symbols defined in a base grammar. However, since
 Polyglot uses LALR grammars, users must make sure \emph{manually} that the base
-language and the extension stays in the LALR subclass. 
+language and the extension remains in the LALR subclass. 
 
  
 \mvsubsec{Projectional Editing}
@@ -73,23 +73,26 @@ for the same program as well as partial projections. However, the projectional
 editor forces users to build the program tree top-down. For example, to enter
 \ic{2 + 3} users first have to enter the \ic{+} and then fill in the two
 arguments. This is very tedious and forces users to be aware of the language
-structure all the time. MPS in contrast goes a long way in supporting editing
-gestures that much more resemble text editing. The IPE also does not address
-language modularity. In fact it comes with a fixed, C-like language and does not
-come with a built-in facility to define new languages. It is not bootstrapped.
+structure at all times. MPS in contrast goes a long way in supporting editing
+gestures that much more resemble text editing, particularly for expressions. 
+IPE also does not address language modularity. In fact it comes with a fixed,
+C-like language and does not have a built-in facility to define new
+languages. It is not bootstrapped.
 Another projectional system is GANDALF~\cite{Notkin85}.
 Its ALOEGEN component generates projecitonal editors from a language
-specification. It has the same usability problems as described for IPE. This is
+specification. It has the same usability problems as IPE. This is
 nicely expressed in~\cite{NPS}: \emph{Program editing will be considerably
 slower than normal keyboard entry although actual time spent programming
 non-trivial programs should be reduced due to reduced error rates.}.
 
-The synthesizer generator described in~\cite{RepsT84} also supports structural
+The Synthesizer Generator described in~\cite{RepsT84} also supports structural
 editing. However, at the fine-grained expression level, textual input and
 parsing is used. This removes many of the advantages of projectional editing in
 the first place, because simple language composition \emph{at the expression
 level} is prohibited. MPS does not use this "trick", and instead supports
 projectional editing also on expression level, with convenient editing gestures.
+We have seen in this paper that extensions of expressions are particularly
+important to tightly integrate an embedded language with its host language.
 
 Bagert and Friesen describe a multi-language syntax directed editor in
 \cite{BagertF87}. However, this tool supports only Referencing, syntactic
@@ -98,8 +101,8 @@ composition is not supported.
 The Intentional Domain Workbench~\cite{SimonyiCC06} is another
 contemporary projectional editor that has been used in real projects. An
 impressive demonstration about its capabilities can be found in an InfoQ
-presentation titled "Domain Expert
-DSL"\footnote{http://www.infoq.com/presentations/DSL-Magnus-Christerson-Henk-Kolk}. 
+presentation titled Domain Expert
+DSL\footnote{http://www.infoq.com/presentations/DSL-Magnus-Christerson-Henk-Kolk}. 
  
 
 
@@ -109,22 +112,22 @@ Modular compilers make use of modular parsers and add modular specification of
 semantics, including static semantics (constraints and type systems) as well as
 execution semantics.
 
-Most systems describe static semantics using attribute grammars. Attribute
+Many systems describe static semantics using attribute grammars. Attribute
 grammars associate attributes with AST elements. These attributes can capture
-arbitrary data about the element (such as its type). Attributes of one element
-can be computed from attributes of related elements (often its children).
-Example of systems that make use of attribute grammars for type computation and type
-checking include SILVER (mentioned above) JastAdd~\cite{HedinM03} and LISA
-(discussed in more detail in the next section). Forwarding (introduced in
-\cite{WykMBK02}) is a mechanism that improves the modularity of attribute
-grammars by delegating the lookup of an attribute value to another element. 
+arbitrary data about the element (such as its type). Example of systems that
+make use of attribute grammars for type computation and type checking include
+SILVER (\cite{WykBGK08}, mentioned above), JastAdd~\cite{HedinM03} and LISA
+(\cite{MernikLAZ02}, discussed in more detail in the next section). Forwarding
+(introduced in \cite{WykMBK02}) is a mechanism that improves the modularity of
+attribute grammars by delegating the lookup of an attribute value to another
+element.
 
 While MPS' type system specification language can be seen as associating a type
 attribute with AST elements using the \ic{typeof} function, MPS' type system is
-different from attribute grammars. Attributes values are calculated by
-explicitly referring to the values of other attributes, often recursively MPS'
-type system rules are declarative: users specify typing rules for language
-concepts and MPS "instantiates" each rule for each AST node. A solver then
+different from attribute grammars. Attribute values are calculated by
+\emph{explicitly} referring to the values of other attributes, often
+recursively. MPS' type system rules are declarative: users specify typing rules for language
+concepts and MPS "instantiates" each rule for each AST element. A solver then
 solves all type equations in that AST. This way, the typing rules of elements
 contributed by language extensions can \emph{implicitly} affect the overall
 typing of the program.
@@ -134,11 +137,11 @@ transformation to the base language. In~\cite{WykBGK08}, van Wyk discusses under
 which circumstances such transformations are valid: the changes to the overall
 AST must be local. No global changes are allowed to avoid unintended
 interactions between several independently developed extensions used in the same
-program. In MPS such purely local changes are called reduction rules. In our
-experience, it is also feasible to add additional elements to the AST \emph{in
-select places}. In MPS, this is achieved using weaving rules. However, in both
-cases (local reduction and selective adding) there is no way to detect in
-advance whether using two extensions used in the same program will lead to
+program. In MPS such purely local changes are performed with reduction rules. In
+our experience, it is also feasible to \emph{add} additional elements to the AST
+\emph{in select places}. In MPS, this is achieved using weaving rules. However,
+in both cases (local reduction and selective adding) there is no way to detect
+in advance whether using two extensions in the same program will lead to
 conflicts.
 
 More formal ways of defining semantics include denotational semantics,
@@ -152,8 +155,8 @@ has also been applied to language development. For example, in
 \cite{RebernakMWG09} Rebernak el al. discuss AspectLISA and AspectG. AspectLISA
 supports adding new, cross-cutting attribute grammar attributes into a LISA
 language definition. AspectG allows weaving additional action code into ANTLR
-grammars. Note that both AspectLISA and AspectG address semantics do not support
-aspect-oriented extension of the concrete syntax.
+grammars. Note that both AspectLISA and AspectG address semantics and do not
+support aspect-oriented extension of the concrete syntax.
 
 % ^\s\stitle = \{(.*)\}
 %   title = \{\{$1\}\}
@@ -170,8 +173,8 @@ aspect-oriented extension of the concrete syntax.
  
 \mvsubsec{Modular IDEs}
 
-Based on the fundamentals that enable modular syntax we can take at tools
-that, from a language definition, also create a language aware-editor.
+Based on the fundamentals that enable modular syntax and semantics we now look
+at tools that, from a language definition, also create a language-aware editor.
 
 
 Among the early examples are the Synthesizer Generator~\cite{RepsT84}, mentioned
@@ -186,18 +189,18 @@ improved. For implementing semantics, Rascal uses a Java-like language that has
 been extended with features for program construction, transformation and
 analyses. Spoofax uses term rewriting based on the Stratego
 \cite{BravenboerKVV08} language. An interesting tool is SugarJ
-\cite{Erdweg-OOPSLA-2011} also based on SDF, which supports library based
-language extension.~\cite{Erdweg-GPCE-2011} adds Spoofax-based IDE support.
+\cite{2011_erdweg_sugarj} also based on SDF, which supports library based
+language extension. Spoofax-based IDE support is discussed in~\cite{Erdweg-GPCE-2011}.
 
 
 SmartTools~\cite{AttaliCDFPP01} supports generating editors for XML schemas.
-Based on assigning UI components to AS elements, it can project an editor for
+Based on assigning UI components to AS elements it can project an editor for
 programs. However, this projectional editor does not try to emulate text-like
 editing as MPS does, so there is no convenient way for editing expressions. To
 do this, a grammar-based concrete syntax can be associated with a the AS
 elements defined in the schema. Based on this definition, SmartTools then
 provides a text-based representation for the language. However, this prevents
-syntax composition (as in used in Extension and Embedding) and SmartTools only
+syntax composition and SmartTools only
 supports homogeneous files. Different UI components and grammars can be defined
 for the same AS, supporting multi-notation editing. Static semantics is
 implemented based on the Visitor pattern~\cite{GOF95}. SmartTools provides
@@ -206,36 +209,38 @@ transformation, SmartTools provides Xpp, a transformation language that provides
 a more concise syntax for XSLT-based XML transformations.
 
 LISA~\cite{MernikLAZ02} (mentioned earlier) supports the definition of language
-syntax in a BNF-like way and semantics via attribute grammars in one
-integrated specification language. It then then derives, among other things, a
-syntax-aware text editor for the language, as well as various graphical and
-structural viewing and editing facilities. Users can use inheritance and
-aspect-orientation to define sub-grammars. The use of this approach for
-incremental language development is detailed in~\cite{MernikZ05}. However, users
-have to make sure manually that those sub-grammars remain unambiguous.
+syntax and semantics (via attribute grammars) in one integrated specification
+language. It then derives, among other things, a syntax-aware text editor
+for the language, as well as various graphical and structural viewing and
+editing facilities. Users can use inheritance and aspect-orientation to define
+sub-grammars. The use of this approach for incremental language development is
+detailed in~\cite{MernikZ05}. However, users have to make sure manually that
+sub-grammars remain unambiguous with respect to the base grammar.
 Combination of independently developed grammars (or sub-grammars) is not
 supported. LISA supports interactive debugging and program state visualization
 based on interpreting programs based on the semantic parts of the language
 specification.
 
-Eclipse Xtext (\footnote{http://eclipse.org/Xtext}) generates sophisticated text
+Eclipse Xtext\footnote{http://eclipse.org/Xtext} generates sophisticated text
 editors from an EBNF-like language specification. Syntactic composition is
-limited since Xtext is based on antlr~\cite{ParrQ95} which is a two phase LL(*)
+limited since Xtext is based on antlr~\cite{ParrQ95} which is a two phase LL(k)
 parser. It is possible for a language to extend \emph{one} other language.
 Concepts from the base language can be used in the sub language and it is
 possible to redefine grammar rules defined in the base language. Combination of
 independently defined extensions or Embedding is not supported. Xtext's abstract
-syntax is based on EMF Ecore \footnote{http://eclipse.org/emf}, so it can be
+syntax is based on EMF Ecore\footnote{http://eclipse.org/emf}, so it can be
 used together with any EMF-based model transformation and code generation tool
 (examples include Xpand, ATL, and Acceleo, all located at the Eclipse Modeling
-site\footnote{http://eclipse.org/modeling}.
+site\footnote{http://eclipse.org/modeling}).
 Static semantics is based on constraints written in Java or on third-party 
 frameworks that support declarative description of type systems such as
-XTS\footnote{http://code.google.com/a/eclipselabs.org/p/xtext-typesystem/}.
+Xtext
+Typesystem\footnote{http://code.google.com/a/eclipselabs.org/p/xtext-typesystem/}
+or XSemantics\footnote{http://xsemantics.sourceforge.net/}.
 Xtext comes with Xbase, an expression language that can be used as the base
 language for custom DSL. Xbase also comes with an interpreter and compiler
-framework that makes creating interpreters and compilers for DSLs that extend
-Xbase relatively simple.
+framework that makes creating type systems, interpreters and compilers for DSLs
+that extend Xbase relatively simple.
 
 % Monticore (\footnote{http://monticore.org}) is another parser-based language
 % engineering environment that generates parsers, metamodels, and editors based
@@ -268,12 +273,12 @@ once the language is implemented in MPS.
 \label{cedalion} 
 Cedalion~\cite{1869576} is a host language for defining internal DSLs. It uses
 a projectional editor and semantics based on logic programming. Both Cedalion
-and MPS aim at combining the best of both worlds from internal DSLs (combination
+and MPS aim at combining the best of both internal DSLs (combination
 and extension of languages, integration with a host language) and external DSLs
 (static validation, IDE support, flexible syntax).
 Cedalion starts out from internal DSLs and adds static validation and
 projectional editing, the latter avoiding ambiguities resulting from composed
-syntaxes. MPS starts from external DSLs and add modularization, and, as a
+syntaxes. MPS starts from external DSLs and adds modularization, and, as a
 consequence of implementing base languages with the same tool, optional tight
 integration with general purpose host languages. 
 
@@ -281,55 +286,47 @@ integration with general purpose host languages.
 
 For a general overview of language workbenches, please refer to the Language
 Workbench Competition\footnote{http://languageworkbenches.net}. Participating
-tools have to implement a common example language and document the
-implementation strategy. This serves as a good tutorial of the tool and makes
+tools have implemented a common example language and document the
+implementation. This serves as a good tutorial of the tool and makes
 them comparable. As of June 2012, the site contains 15 submissions.
 
 
 \mvsubsec{Other Related Work}
 
 We already discussed the language modularization and composition approaches
-proposed by Mernik et al.~\cite{MernikHS05} in \sect{classification}. In the
-paper, they also introduce the terms Piggybacking and Pipelining. In those
-approches, a program expressed in language $l_1$ is translated into a program
-expressed in language $l_2$. Essentially this is what every code generator or
-compiler does; the languages themselves are not related in any way except
-through the transformation engine, which is why we do not consider this as an
-example of language modularization and composition.
+proposed by Mernik et al.~\cite{MernikHS05} in \sect{typesOfMod}. In the
+Helvetia paper~\cite{2010_renggli_Embedding_languages_without_breaking_tools}
+Renggli and his colleagues introduce three different flavors of language
+Extension. A \emph{pidgin} creatively bends the existing syntax of the host
+language to to extend its semantics. A \emph{creole} introduces completely new
+syntax and custom transformations back to the host language. An \emph{argot}
+reinterprets the semantics of valid host language code. In terms of this
+classification, both Extension and Embedding are creoles.
 
 
-In the Helvetia
-paper~\cite{2010_renggli_Embedding_languages_without_breaking_tools} Renggli and
-his colleagues introduce three different flavors of language Extension. A
-\emph{pidgin} creatively bends the existing syntax of the host language to to
-extend its semantics. A \emph{creole} introduces completely new syntax and
-custom transformations back to the host language. An \emph{argot} reinterprets
-the semantics of valid host language code. In terms of this classification, both
-Extension and Embedding are creoles.
-
-
-The idea of incremental Extension of languages  was first popularized in the
+The notion of incremental extension of languages  was first popularized in the
 context of Lisp, where definition of language extensions to solve problems in a
 given domain is a well-known approach. Guy Steele's Growing a Language keynote
 explains the idea well~\cite{Steele99}. Sergey Dmitriev discusses the idea of
-language and IDE Extension in his article on Language Oriented Programming
+language and IDE extension in his article on Language Oriented Programming
 \cite{lopnextprogrammingparadigm}, which uses MPS as the tool to achieve the
 goal.
 
-Macro Systems support the definition of additional syntax for
-existing languages. Macro expansion maps the new syntax to valid code in the
-extended language, and this mapping is expressed with host language code instead
-of a separate transformation language. They differ with regard to degree of
+Macro Systems support the definition of additional syntax for existing
+languages. Macro expansion maps the new syntax to valid base language code, and
+this mapping is expressed with special host language constructs instead of a
+separate transformation language. Macro systems differ with regard to degree of
 freedom they provide for the extension syntax, and whether they support
 extensions of type systems and IDEs. The most primitive macro system is the C
 preprocessor which performs pure text replacement during macro expansion. The
 Lisp macro system is more powerful because it is aware of the syntactic
 structure of Lisp code. An example of a macro system with limited syntactic
-freedom is the The Java Syntactic Extender~\cite{504285} where all macros have
-to begin with names, and a limited set of syntactic shapes is supported. In
-OpenJava~\cite{TatsuboriCIK99}, the locations where macros can be added is
+freedom is the The Java Syntactic Extender~\cite{504285} where each macro has to
+begin with a unique name, and only a limited set of syntactic shapes is
+supported. In OpenJava~\cite{TatsuboriCIK99}, the locations where macros can be added is
 limited. More fine-grained Extensions, such as adding a new operator, are not
-possible. SugarJ, discussed above, can be seen as a sophisticated macro system. 
+possible. SugarJ, discussed above, can be seen as a sophisticated macro system
+that avoids these limitations.
 
 
 A particular advantage of projectional editing is that it can combine several
@@ -338,20 +335,21 @@ notational styles in one fragment; examples include text, tables, symbols
 integrated in one fragment and can be \emph{defined with the same formalism, as
 part of the same language} (as mentioned earlier, MPS supports text, tables and
 syntax. Graphics will supported in 2013). Other approaches for integrating
-different notational styles exist. For example,~\cite{EngelenB10-0} integrates
-textual and graphical notations based on grammarware and Eclipse modeling
-technologies. However, such an approach requires dealing with \emph{separate}
-tools for the graphical and the textual aspects, leading to a high degree of
-accidental complexity in the resulting implementation and mismatches in the
-resulting tool, as the author knows from personal experience.
+different notational styles exist. For example, Engelen et
+al.~\cite{EngelenB10-0} discuss integrating textual and graphical notations
+based on grammar-based and Eclipse modeling technologies. However,
+such an approach requires dealing with \emph{separate} tools for the graphical and the
+textual aspects, leading to a high degree of accidental complexity in the
+resulting implementation and mismatches in the resulting tool, as the author
+knows from personal experience.
 
 
 Internal DSLs are languages embedded in general purpose host languages. Suitable
 host languages are those that provide a flexible syntax, as well as meta
 programming facilities to support the definition of new abstractions with a
-custom concrete syntax. For example~\cite{HoferORM08} describes Embedding DSLs
-in Scala. The landmark work of Hudak~\cite{1998_hudak_modular_dsl_and_tools}
-introduces embedded DSLs as language extensions of Haskell. While Haskell
+custom concrete syntax. For example, Hofer et al. describes
+Embedding DSLs in Scala~\cite{HoferORM08}. The landmark work of
+Hudak~\cite{1998_hudak_modular_dsl_and_tools} introduces embedded DSLs as language extensions of Haskell. While Haskell
 provides advanced concepts that enable such extensions, the new DSLs are
 essentially just libraries built with the host language and are not first class
 language entities: they do not define their own syntax, compiler errors are
