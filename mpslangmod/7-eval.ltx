@@ -1,20 +1,21 @@
 
 \section{Discussion}
 \label{Eval}
+\vspace{-2mm}
 
 In this section we discuss limitations of MPS in the context of \lmrc and
 discuss an approach for improving some of these shortcomings. We also look at
 real world use of MPS.
 
+\vspace{-1mm}
 \mvsubsec{Limitations}
+\vspace{-1mm}
 
-The paper paints a very positive picture about the capabilities of MPS
-regarding \lmrc. However, there are some limitations and shortcomings in the
-system. Most of them are not conceptual problems, but missing features.
-However, it is clearly evident that MPS has been developed over a long time,
-different problems have been solved in different ways, as the problem arose,
-instead of implementing a consistent, unified approach. I propose such an
-approach in \sect{facets}.
+The paper paints a very positive picture about the capabilities of MPS regarding
+\lmrc. However, there are some limitations and shortcomings in the system. Most
+of them are not conceptual problems, but missing features.
+and problems have been solved ad hoc as the they arose. A consistent, unified
+approach is sometimes missing. I propose such an approach in \sect{facets}.
 
 \phead{Syntax} The examples in this paper show that meaningful \lmrc\ is
 possible with MPS. The challenge of grammar composition is not an issue in MPS,
@@ -23,8 +24,8 @@ syntactic issues in the above discussions is testament to this. Potential
 ambiguities are resolved by the user as he enter the program (discussed at the
 end of \sect{Embedding}) --- once entered, a program is always unambiguous. The
 luxury of not running into syntactic composition issues comes at the price of
-the projectional editor and the XML-based storage (we have discussed the
-drawbacks of projectional editors in \sect{HowMPSWorks}). 
+the projectional editor (we have discussed the drawbacks of projectional editors
+in \sect{HowMPSWorks}).
 
 One particular shortcoming of MPS is that it is not possible to override the
 projection rule of a concept in a sublanguage (this feature is on the roadmap
@@ -35,23 +36,23 @@ Such a new CS would be defined in the respective adapter language.
 
 \phead{IDE} This paper emphasizes IDE composition in addition to language
 composition. Regarding syntax highlighting, code completion, error marks on the
-program and intentions, all the composition approaches \emph{automatically}
+program and Intentions, all the composition approaches \emph{automatically}
 compose those IDE aspects. No additional work is necessary by the language
 developer. However, there are additional concerns an IDE may address including
 version control integration, profiling and debugging. Regarding version control
 integration, MPS provides diff/merge for most of today's version control systems
 on the level of the projected syntax --- including for heterogeneous fragments.
 No support for profiling is provided, although a profiler for language
-\emph{implementations} is on the roadmap. MPS comes with a debug framework that
-lets language developers create debuggers for languages defined in MPS. However,
+\emph{implementations} is on the roadmap. MPS comes with a debugging framework
+that lets language developers create debuggers for languages defined in MPS. However,
 this framework is relatively low-level and does not provide specific support for
 language composition and heterogeneous fragments. However, as part of the mbeddr
-project that develops an extensible version of the C programming language
-(\cite{Voelter2012}) we have developed a framework for extensible C debuggers.
-Developers of C Extensions can easily define the how the Extension integrates
-into the C debugger so that debugging on the \emph{syntax of the Extension}
+project \cite{Voelter2012} that develops an extensible version of the C
+programming language we have developed a framework for extensible C debuggers.
+Developers of C extensions can easily specify how the extension integrates
+into the C debugger so that debugging on the \emph{syntax of the extension}
 becomes possible for heterogeneous fragments. Visser et al. also describe
-debuggers for DSLs in~\cite{Lindeman-GPCE-2011}.
+an approach for DSL debugging in~\cite{Lindeman-GPCE-2011}.
 
 
 \phead{Evolution} Composing languages leads to coupling. In the case of
@@ -69,9 +70,9 @@ sublanguage. Only the overloaded operations container can be overloaded (as thei
 suggests) from a sublanguage. As a consequence it requires some thought when
 designing a language to make the type system extensible in meaningful ways. 
 
-\phead{Generators} In the case of generators, language designers have to specify
-a partial ordering of mapping configurations using priorities. It is not easily
-possible to "override" an existing generator, but generators can run
+\phead{Generators} Language designers specify
+a partial ordering among generators using priorities. It is not
+easily possible to "override" an existing generator, but generators can run
 \emph{before} or \emph{after} existing ones. Generator extension is not possible
 directly. This is why we use the placeholders that are put in by earlier
 generators to be reduced by later ones. Obviously, this requires preplanning on
@@ -87,29 +88,31 @@ Looking at the limitations discussed in the previous subsection it is clear that
 a consistent approach for addressing the modularization, extension and
 composition of \emph{all} language aspects would be useful. In this section we
 propose such a unified approach based on the principles of component-based
-design (\cite{0091742}). In this approach, all language aspects would use
-components as the core structural building block. Components have types. The
-type of the component determines the kinds of facets it has. A facet is a kind
-of interface that exposes the (externally visible) ingredients of the component.
-The kinds of ingredients depend on the component type: a component of type
-\emph{structure} exposes language concepts. A component of type \emph{editor}
-exposes editors, type \emph{type system} exposes type system rules, and so on.
-To support modularization, a component (in a sublanguage) can specify
-an \emph{advises} relationship to another component (from a super language).
-Then each of the facets can determine which facets from the advised component it
-wants to \emph{preempt}, \emph{enhance} or \emph{override}:
+design~\cite{0091742}. In this approach, all language aspects would use
+components as the core structural building block. Components have facets and a
+type. The type of the component determines the kinds of facets it has. A facet
+is a kind of interface that exposes the (externally visible) ingredients of the
+component. A component of type \emph{structure} exposes language concepts. A
+component of type \emph{editor} exposes editors, type \emph{type system} exposes
+type system rules, and so on. To support modularization, a component (in a
+sublanguage) can specify an \emph{advises} relationship to another component
+(from a super language). Then each of the facets can determine which facets from
+the advised component it wants to \emph{preempt}, \emph{enhance} or
+\emph{override}:
 
+\vspace{-2mm}
 \begin{itemize}
   \item \emph{preemption} means that the respective behavior is contributed
-  before the behavior from the base language. A generator may use this to reduce a
-  construct before the original generator gets a chance to reduce the construct. 
+  before the behavior from the base language. A generator may use this to reduce
+  an element before the original generator gets a chance to reduce it.
   \item \emph{enhancement} means that the sublanguage component is executed
   after the advised component from the base language. Notice that for declarative aspects
-  where ordering is irrelevant, preempt and enhance are exchangable.
+  where ordering is irrelevant, preempt and enhance are exchangeable.
   \item \emph{overriding} means that the original facet is completely
-  shadowed by the new one. For example, this could be used to
-  define a new editor for an existing construct.
+  shadowed by the new one. This could be used to define a new editor for an
+  existing concept.
 \end{itemize}
+\vspace{-2mm}
 
 
 % \fig{gosi} shows the metamodel of the approach.
@@ -138,8 +141,8 @@ The approach could be taken further. Components could be marked as
 provided by non-abstract subcomponents. A language is abstract as long as it has
 at least one abstract component, for which no concrete subcomponent is provided.
 Component parameters could even be usable in structure definitions, for example
-as the base concept; this would make a language parameterizable regarding the
-base language it extends.
+as the base concept; this would make a language extension parameterizable
+regarding the base language it extends.
 
 
 
@@ -147,7 +150,7 @@ base language it extends.
 
 The examples in this paper are toy examples --- the simplest possible languages
 that can illustrate the composition approaches. However, MPS scales to
-realistically sized systems, both in terms of language complexity and in terms
+realistic systems, both in terms of language complexity and in terms
 of program size. The composition techniques --- especially those involving
 syntactic composition --- are used in practice. We illustrate this with two
 examples: embedded software and web applications.

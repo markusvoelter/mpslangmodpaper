@@ -1,7 +1,7 @@
 
 \mvsubsec{Language Reuse} 
 
-Language Reuse (\fig{langReuse}) enables \emph{homogenous} fragments with
+Language Reuse enables \emph{homogenous} fragments with
 \emph{independent} languages. Given are two independent languages $l_2$ and
 $l_1$ and two fragment $f_2$ and $f_1$. $f_2$ depends on $f_1$, so that
 \begin{align}
@@ -14,19 +14,15 @@ $l_1$. This makes $l_2$ reusable with different languages, in contrast to langua
 Referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
 the \emph{context} language and $l_1$ the \emph{reused} language.
 
-A way of realizing dependent fragments while retaining independent languages
-is with an adapter language (cf. \cite{GOF95}) $l_A$ that
-\emph{extends} $l_2$ and
-\begin{align}
-\exists r \in \mathit{Refs_{l_A}} \mid \mathit{lo(r.from)} =
-l_A\; \wedge \;\mathit{lo(r.to)} = l_1
-\end{align}    
-One could argue that in this case Reuse is just a clever combination of
-Referencing and Extension. While this is true from an implementation
-perspective, it is worth describing as a separate approach because it enables
-the combination of two \emph{independent languages} by adding an
-adapter \emph{after the fact}, so no pre-planning during the design of $l_1$ and
-$l_2$ is necessary.
+A way of realizing dependent fragments while retaining independent languages is
+using an adapter language $l_A$ (cf. \cite{GOF95}) that contains concepts that
+\emph{extend} concepts in $l_2$ and \emph{references} concepts in $l_1$
+(\fig{langReuse}). One could argue that in this case Reuse is just a clever
+combination of Referencing and Extension. While this is true from an
+implementation perspective, it is worth describing as a separate approach
+because it enables the combination of two \emph{independent languages} by adding
+an adapter \emph{after the fact}, so no pre-planning during the design of $l_1$
+and $l_2$ is necessary.
            
 \begin{figure}[h]
 \begin{center}
