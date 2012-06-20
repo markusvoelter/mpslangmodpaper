@@ -1,12 +1,13 @@
-
+\vspace{-8mm}
 \section{How MPS works}
+\vspace{-2mm}
 \label{HowMPSWorks}
 
 The JetBrains Meta Programming System\footnote{http://jetbrains.com/mps} is a
-projectional language workbench available as Open Source software under the
-Apache 2.0 license. The term Language Workbench was coined by Martin Fowler in
-2004. In~\cite{Fowler2004} he defines a language workbench as a tool with the
-following characteristics:
+projectional language workbench available as open source software under the
+Apache 2.0 license. The term Language Workbench was coined by Martin
+Fowler~\cite{Fowler2004}. He defines a language workbench as a tool with
+the following characteristics:
 
 \begin{enumerate}   
   \item Users can freely define languages which are fully integrated with
@@ -28,11 +29,11 @@ following characteristics:
 \noindent MPS exhibits all of these characteristics. MPS' most distinguishing
 feature is its projectional editor. This means that all text, symbols, and
 graphics are projected, and not parsed. Projectional editing is well-known from
-graphical modeling tools (UML, Entity-Relationship, State Charts): only the
-model structure is persisted, often using XML or a database. For editing
-purposes, graphical editors project the abstract syntax using graphical shapes.
-Users use mouse gestures and keyboard actions tailored to graphical editing to
-modify the abstract model structure directly. While the CS of the
+graphical modeling tools (UML, Entity-Relationship, State Charts). In those
+tools only the model structure is persisted, often using XML or a database. For
+editing purposes, graphical editors project the abstract syntax using graphical
+shapes. Users use mouse gestures and keyboard actions tailored to graphical
+editing to modify the model structure directly. While the CS of the
 model does not have to be stored because it is specified as part of the language
 definition and hence known by the projection engine, graphical modeling tools
 usually also store information about the visual layout.
@@ -40,8 +41,7 @@ usually also store information about the visual layout.
 Projectional editing can also be used for textual syntax. However, since the
 projection looks like text, users expect editing gestures known from "real text"
 to work. MPS achieves this quite well (it is beyond the scope of this paper to
-describe how MPS achieves this). The following is a list of benefits of the
-projectional editing approach:
+describe how). The following is a list of benefits of projectional editing:
 
 \begin{itemize}   
   \item No grammar or parser is required. Editing directly changes the
@@ -50,26 +50,26 @@ projectional editing approach:
   result in ambiguous grammars.
 
   \item Graphical, symbolic, tabular and textual notations can be mixed and
-  combined, and defined with the same formalism and approach. For example, a
-  graphical tool for editing state machines can embed a textual expression
+  combined, and they can be defined with the same formalism and approach. For
+  example, a graphical tool for editing state machines can embed a textual expression
   language for editing the guard conditions on
   transitions\footnote{Intentional's Domain Workbench has demonstrated this
   repeatedly, for example in~\cite{SimonyiCC06}. As of 2012, MPS can do text,
   symbols (such as big sum signs or fraction bars) and tables.
   Graphics will be supported in 2013.}.
 
-  \item Since projectionally defined languages by definition need an IDE for
-  editing (it has to do the projection!), language definition and extension
-  always implies IDE definition and extension. The IDE will provide code
-  completion, error checking and syntax highlighting for all languages, even
-  when they are composed.
+  \item Since projectionally defined languages always need an IDE for
+  editing (to do the projection), language definition and composition
+  always implies IDE definition and composition. The IDE provides code
+  completion, error checking and syntax highlighting for any valid language,
+  composed or not.
 
-  \item Because the model is stored independent of its concrete notation, it is
+  \item Since the model is stored independent of its concrete notation, it is
   possible to represent the same model in different ways simply by providing
   several projections. Different viewpoints of the overall program can be
   stored in one model, but editing can still be viewpoint-specific. It is also
   possible to store out-of-band data (i.e. annotations on the core
-  model/program). Examples of this include documentation, pointers to
+  model). Examples of the latter include documentation, pointers to
   requirements (traceability) or feature dependencies in the context of
   product lines.
 
@@ -86,18 +86,18 @@ drawback is that models are not stored as readable text, but rather as an
 XML-serialized AST. Integrating XML files with an otherwise ASCII-based
 development infrastructure can be a challenge. MPS addresses the most critical
 aspect of this drawback by supporting diff and merge on the level of the
-projected CS. A final drawback is that MPS is proprietary in the sense that it
-is not based on any industry standards. For example, it does not rely on
-EMF\footnote{http://eclipse.org/emf} or another widely used modeling formalism.
-However, since MPS' meta-metamodel is extremely close to EMF Ecore, it is
-trivial to build an EMF exporter. Also, all other language workbenches also do
-not support portability of the \emph{language definition} beyond the abstract
-syntax --- which is the simplest aspect in terms of implementation effort.
+projected CS. A final drawback is that MPS is not based on any industry
+standards. For example, it does not rely on EMF\footnote{http://eclipse.org/emf}
+or another widely used modeling formalism. However, since MPS' meta-metamodel is
+extremely close to EMF Ecore, it is trivial to build an EMF exporter. Also, all
+other language workbenches also do not support portability of the \emph{language
+definition} beyond the AS--- which is trivial in terms of implementation effort.
 
 MPS has been designed to work with sets of integrated languages.
 This makes MPS particularly well suited to demonstrate \lmrc\ techniques. In
 particular, the following three characteristics are important in this context:
 
+\vspace{-1.5mm}
 \phead{Composable Syntax} Depending on the particular composition approach,
 composition of the CS is required. In traditional, grammar-based systems,
 combining independently developed grammars can be a problem: many grammar
@@ -106,12 +106,14 @@ left-factoring or redefinition of terminals or non-terminals), or unwanted
 syntactic escape symbols are required~\cite{KatsVW10}. As we will see, this is
 not the case in MPS. Arbitrary languages can be combined syntactically.
 
-\phead{Extensible Type Systems} All of the composition techniques require some
-degree of type system extension or integration. MPS' type system specification
-is based on declarative type system rules that are executed by a solver. This
+\vspace{-1.5mm}
+\phead{Extensible Type Systems} All composition techniques require some
+degree of type system extension or composition. MPS' type system specification
+is based on declarative typing rules that are executed by a solver. This
 way, additional typing rules for additional language constructs can be defined
 without invasively changing the existing typing rules of the composed languages.
 
+\vspace{-1.5mm}
 \phead{Modular Transformation Framework} Transformations can be defined
 separately for each language concept. If a new language concept is added via a
 composition technique, the transformation for this new concept is modular. If
@@ -120,11 +122,12 @@ be treated specially, a separate transformation for these cases can be written,
 and, using generator priorities, it can be configured to run \emph{before} an
 existing transformation. 
 
+\vspace{-2mm}
 
 \vspace{3mm}
-The examples discussed in this paper will elaborate on these characteristics.
-This is why for each technique, we discuss structure and syntax, type system and
-transformation concerns.
+\noindent The examples discussed in this paper will elaborate on these
+characteristics. This is why for each technique, we discuss structure and
+syntax, type system and transformation concerns.
 
 
 

@@ -218,8 +218,6 @@ supported. LISA supports interactive debugging and program state visualization
 based on interpreting programs based on the semantic parts of the language
 specification.
 
-\todo{check all references for completeness and formatting}
-
 Eclipse Xtext (\footnote{http://eclipse.org/Xtext}) generates sophisticated text
 editors from an EBNF-like language specification. Syntactic composition is
 limited since Xtext is based on antlr~\cite{ParrQ95} which is a two phase LL(*)
@@ -296,7 +294,7 @@ paper, they also introduce the terms Piggybacking and Pipelining. In those
 approches, a program expressed in language $l_1$ is translated into a program
 expressed in language $l_2$. Essentially this is what every code generator or
 compiler does; the languages themselves are not related in any way except
-through the transformation engine, which is why we don't consider this as an
+through the transformation engine, which is why we do not consider this as an
 example of language modularization and composition.
 
 
@@ -361,6 +359,6 @@ expressed in terms of the host language, no custom semantic analyses are
 supported and no specific IDE-support is provided. Essentially all internal DSLs
 expressed with dynamic languages such as Ruby or Groovy, but also those embedded
 in static languages such as Scala suffer from these limitations. Since we
-consider IDE modularization and composition essential, we don't address internal
-DSLs in this paper.
+consider IDE modularization and composition essential, we do not address
+internal DSLs in this paper.
 

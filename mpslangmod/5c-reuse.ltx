@@ -267,12 +267,12 @@ To implement this, several approaches are possible:
   way, we could generate separate Java artifacts (all single-sourced) and then use the aspect weaver to "mix" them.
   While this would be a simple approach in terms of MPS (because we only
   generate singled-sourced artifacts), it fails to illustrate advanced MPS
-  generator concepts. So we don't use this approach here.
+  generator concepts. So we do not use this approach here.
   \item An interceptor framework (see the Interceptor pattern in~\cite{POSA})
   could be added to the generated Java Beans, with the generated
   code contributing specific interceptors (effectively building a custom aspect
   oriented programming (AOP) solution). We will not use this approach either,
-  for the same reason we don't use AspectJ in this paper.
+  for the same reason we do not use AspectJ in this paper.
   \item We could "inject" additional code generation templates to the existing
   \ic{entities} generator from the \ic{rbac\_entities} generator. This would make the
   generators \emph{woven} as opposed to just dependent. However, weaving
