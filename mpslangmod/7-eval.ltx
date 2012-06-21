@@ -75,7 +75,7 @@ a partial ordering among generators using priorities. It is not
 easily possible to "override" an existing generator, but generators can run
 \emph{before} or \emph{after} existing ones. Generator extension is not possible
 directly. This is why we use the placeholders that are put in by earlier
-generators to be reduced by later ones. Obviously, this requires preplanning on
+generators to be reduced by later ones. Obviously, this requires pre-planning on
 the part of the developer of the generator that adds the placeholder.
 
 
@@ -133,16 +133,16 @@ for all language aspects, as well as a \emph{single} way of changing that
 behavior in a sublanguage. To control the granularity at which preemption,
 enhancement or overriding is performed, the base language designer would have to
 group the structures or behaviors into suitably cut facets. This amount of
-preplanning is acceptable: it is just as in object-oriented programming, where
+pre-planning is acceptable: it is just as in object-oriented programming, where
 behavior that should be overridable has to be packaged into its own method.
   
 The approach could be taken further. Components could be marked as
 \emph{abstract} and define a set of parameters for which values need to be
-provided by non-abstract subcomponents. A language is abstract as long as it has
-at least one abstract component, for which no concrete subcomponent is provided.
-Component parameters could even be usable in structure definitions, for example
-as the base concept; this would make a language extension parameterizable
-regarding the base language it extends.
+provided by non-abstract sub-components. A language is abstract as long as it
+has at least one abstract component, for which no concrete sub-component is
+provided. Component parameters could even be usable in structure definitions,
+for example as the base concept; this would make a language extension
+parameterizable regarding the base language it extends.
 
 
 

@@ -37,7 +37,7 @@ and $l_2$ is necessary.
 \end{center} 
 \end{figure} 
 
-Reuse covers the case where a language has been developed
+\noindent Reuse covers the case where a language has been developed
 independent of its reuse context. The respective
 fragments remain homogeneous. We cover two alternative cases: in the
 first one (a persistence mapping language) the generated code is
@@ -92,12 +92,12 @@ in a different context, we extend this hook in a context-specific way.
 \end{figure}
 
  
-The \ic{relmapping\_entities} language extends \ic{relmapping} and adapts it for reuse
-with the \ic{entities} language. To this end, it provides a subconcept
+\noindent The \ic{relmapping\_entities} language extends \ic{relmapping} and
+adapts it for reuse with the \ic{entities} language. To this end, it provides a subconcept
 of \ic{ColumnMapper}, the \ic{AttributeColMapper}, which references an
 \ic{Attribute} from the \ic{entities} language as a means of expressing the mapping from the
 attribute to the column. The \ic{relmapping} language projects the column
-mapper --- and its context-specific subconcepts --- on the right of the
+mapper --- and its context-specific sub-concepts --- on the right of the
 field definition, resulting in heterogeneous fragments.
 
 
@@ -116,7 +116,7 @@ typeof(columnMapper) :==: columnMapper.typeMappedToDB();
 \end{code}
 
 \noindent The \ic{AttributeColMapping} concept implements this method by mapping
-\ic{IntType} to \ic{Number}, and everything else to \ic{CharType}:
+\ic{Int- Type} to \ic{NumberType}, and everything else to \ic{CharType}:
 
 \pagebreak[4]
 
@@ -207,8 +207,8 @@ permissions:   admin, W : Department
 \vspace{-2mm}
 \phead{Structure and Syntax} The structure is shown in \fig{rbac}. Like
 \ic{relmapping}, \ic{rbac} provides a hook \ic{Resource} to adapt it to context
-languages. The sublanguge \ic{rbac\_entities} provides two subconcepts of
-\ic{Resource}, namely \ic{Attribu- teResource} to reference to an
+languages. The sub-language \ic{rbac\_entities} provides two sub-concepts of
+\ic{Resource}, namely \ic{At- tributeResource} to reference to an
 \ic{Attribute}, and \ic{EntityResource} to refer to an \ic{Entity}, to define permissions for
 entities and their attributes.
 \vspace{-3mm}
@@ -304,14 +304,14 @@ location, we do not have to predefine \emph{how}.
 \end{center}
 \end{figure}
 
-The \ic{rbac\_entities} generator contains a reduction rule for \ic{Placeholder-
-Statement}s. If the generator encounters a placeholder (that has been put there
+\noindent The \ic{rbac\_entities} generator contains a reduction rule for
+\ic{Placeholder- Statement}s. If the generator encounters a placeholder (that has been put there
 by the \ic{entities} generator) it replaces it with code that checks for the
 permission (\fig{placeholderreduction}). To make this work we have to specify in
 the generator priorities that this generator runs
 \ic{strictly after} the \ic{entities} generator (since the \ic{entities}
 generator has to create the placeholder before it can be replaced) and
-\ic{striclty before} the BaseLanguage generator (which transforms BaseLanguage
+\ic{strictly before} the BaseLanguage generator (which transforms BaseLanguage
 code into Java text for compilation). Priorities specify a partial ordering (cf.
 the \ic{strictly before} and \ic{strictly after}) on generators and can be set
 in a generator properties dialog. Note that specifying the priorities does not

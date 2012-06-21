@@ -64,8 +64,8 @@ in \ic{uispec\_validation} and is a subconcept of \ic{Field}.
 \end{center}
 \end{figure}
 
-To support the migration of existing models that use \ic{Field} instances, we
-provide an intention. An Intention (known as a Quick Fix in Eclipse) is an
+\noindent To support the migration of existing models that use \ic{Field}
+instances, we provide an intention. An Intention (known as a Quick Fix in Eclipse) is an
 in-place model transformation that can be triggered by the user by selecting it
 from the Intentions menu accessible via \ic{Alt-Enter}. This particular
 intention is defined for a \ic{Field}, so the user can press \ic{Alt-Enter} on a
@@ -163,7 +163,7 @@ field Freelancer: checkbox -> Employee.freelancer
 set, then its \ic{freelancer} attribute must be \ic{false} else it must be
 \ic{true}. It uses the \ic{==} operator from the \ic{expressions} language.
 However, that operator expects two \ic{expressions.BooleanType} arguments, but
-the type of the \ic{Employee.freelancer} is \ic{entities.BooleanType}. In
+the type of the \ic{Employee.free- lancer} is \ic{entities.BooleanType}. In
 effect, we have to override the typing rules for the \ic{expressions} language's
 \ic{==} operator. In the expressions language, we define overloaded operation
 rules. We specify the resulting type for an \ic{EqualsExpression} depending on
@@ -240,7 +240,7 @@ language project \ic{expressions.blgen} and add reduction rules.
 \end{center} 
 \end{figure} 
 
-We also need reduction rules for the new expressions added in the
+\noindent We also need reduction rules for the new expressions added in the
 \ic{uispec\_ validation} language (\ic{AttrRefExpression}, \ic{isSetExpression},
 \ic{LengthOf-} \\ \ic{Expr}). Those rules are defined in
 \ic{uispec\_validation}.
@@ -265,23 +265,23 @@ form via the same placeholder reduction as in the case of the
  
 Just as in the discussion on Extension (\sect{Extension}), we may want to use
 constraints to restrict the embedded language in the context of a
-\ic{ValidatedField}. Consider the case where we wanted to embed the expressions
-part of C instead of the \ic{expressions} language. C comes with all kinds of
+\ic{Validated- Field}. Consider the case where we wanted to embed the
+expressions part of C instead of the \ic{expressions} language. C comes with all kinds of
 operators relating to pointers, bit shifting and other C-specifics that are not
 relevant in the validation of UI fields. In this case we may want to use a
 \ic{can be ancestor} constraint to restrict the use of those operators in the
 validation expressions.
 
 \vspace{-5mm}
-As a consequence of MPS' projectional editor, no ambiguities may arise if
-multiple independent languages are embedded (the same discussion applied to the
+\noindent As a consequence of MPS' projectional editor, no ambiguities may arise
+if multiple independent languages are embedded (the same discussion applied to the
 case where a base language is extended with \emph{several independently
 developed extensions} at the same time). Let us consider the potential cases:
 
 \begin{description}
   \item[Same Concpet Name:] Embedded languages may define concepts with the same
   name as the host language. This will not lead to ambiguity because concepts
-  have a unqiue ID  as well. A program element will use this ID to refer to the
+  have a unique ID  as well. A program element will use this ID to refer to the
   concept whose instance it represents.
   \item[Same Concrete Syntax:] The projected representation of a concept is not
   relevant to the functioning of the editor. The program would still be

@@ -131,9 +131,7 @@ one can use an API to manually construct the target tree. Finally, the
 transformation chain). Throughout this paper we use the template-based approach.
 
 MPS templates look like text generation templates known from tools such as
-Xpand\footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet
-\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate
-\footnote{http://www.stringtemplate.org/} since they use the CS of the target
+Xpand\footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate\footnote{http://www.stringtemplate.org/} since they use the CS of the target
 language in the template. However, that CS is projected like any other program,
 and the IDE can provide support for the target language \emph{in the template}.
 However, this also means that the \emph{template code itself} must be valid in
@@ -173,8 +171,8 @@ counterparts. \fig{entitiesmc} shows a part of the \ic{entities} mapping configu
 
 
 
-\fig{entitytemplate} shows the \ic{map\_Entity} template. It generates a complete 
-Java class from an input \ic{Entity}. To understand how templates work in MPS we
+\noindent \fig{entitytemplate} shows the \ic{map\_Entity} template. It
+generates a complete Java class from an input \ic{Entity}. To understand how templates work in MPS we
 discuss in more detail the generation of Java fields for each \ic{Entity}
 \ic{Attribute}:
 
