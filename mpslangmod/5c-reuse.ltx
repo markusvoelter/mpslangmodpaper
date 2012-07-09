@@ -47,7 +47,6 @@ generated code has to be "woven into" the \ic{entities} code.
 
 
 \subsubsection{Separated Generated Code}
-\vspace{-3mm}
 
 \ic{relmapping} is a reusable language for mapping arbitrary data to relational
 tables. It supports the definition of relational table structures, but leaves
@@ -58,7 +57,6 @@ that contains tables with columns. Columns have (database-specific) data types.
 On the right side we show the database definition code when it is reused with
 the \ic{entities} language; each column is mapped to an entity attribute.
 
-\pagebreak[4]
 
 \begin{code}
 Database CompanyDB                          Database CompanyDB             
@@ -117,8 +115,6 @@ typeof(columnMapper) :==: columnMapper.typeMappedToDB();
 
 \noindent The \ic{AttributeColMapping} concept implements this method by mapping
 \ic{Int- Type} to \ic{NumberType}, and everything else to \ic{CharType}:
-
-\pagebreak[4]
 
 \begin{code}
 public node<> typeMappedToDB() overrides ColumnMapper.typeMappedToDB {                                                                          
@@ -184,7 +180,7 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 \end{code}
  
  
- 
+\vspace{-3mm}
 \subsubsection{Interwoven generated code}
 
 \ic{rbac} is a language for specifying role-based access
@@ -249,8 +245,6 @@ public void setName(String newValue) {
 }
 \end{code}
 
-\pagebreak[4]
-
 \noindent The generated fragment is homogeneous (it is all Java code), but it is
 \emph{multi-sourced}, since several generators contribute to the same fragment.
 To implement this, several approaches are possible:
@@ -268,8 +262,8 @@ To implement this, several approaches are possible:
   oriented programming (AOP) solution). We will not use this approach either,
   for the same reason we do not use AspectJ in this paper.
   \item We could "inject" additional code generation templates to the existing
-  \ic{entities} generator from the \ic{rbac\_entities} generator. This would make the
-  generators \emph{woven} as opposed to just dependent. However, weaving
+  \ic{enti- ties} generator from the \ic{rbac\_entities} generator. This would
+  make the generators \emph{woven} as opposed to just dependent. However, weaving
   generators in MPS is not supported, so we cannot use this approach. 
   \item We could define a hook in the generated Java beans code and then have
   the \ic{rbac\_entities} generator contribute code to this hook. This is the
@@ -305,8 +299,8 @@ location, we do not have to predefine \emph{how}.
 \end{figure}
 
 \noindent The \ic{rbac\_entities} generator contains a reduction rule for
-\ic{Placeholder- Statement}s. If the generator encounters a placeholder (that has been put there
-by the \ic{entities} generator) it replaces it with code that checks for the
+\ic{PlaceholderState- ment}s. If the generator encounters a placeholder (that
+has been put there by the \ic{entities} generator) it replaces it with code that checks for the
 permission (\fig{placeholderreduction}). To make this work we have to specify in
 the generator priorities that this generator runs
 \ic{strictly after} the \ic{entities} generator (since the \ic{entities}

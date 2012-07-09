@@ -34,7 +34,7 @@ various languages can be integrated. Especially syntactic integration has
 traditionally been very hard~\cite{KatsVW10} and hence is often not supported
 for a particular combination of languages. Program parts expressed in different
 languages reside in different files. Relationships among "common" things in
-these different program parts are implemented with name-based references. For
+these different files are implemented with name references. For
 some combinations of languages, the IDE may be aware of the integration by name
 and check the consistency for the references. In some rare cases, syntactic
 integration between specific pairs of languages has been built, for example,
@@ -147,9 +147,9 @@ a fragment.
 
 A language $l$ defines a set of language \emph{concepts} $C_l$ and their relationships.
 We use the term concept to refer to CS, AS plus the
-associated type system rules and constraints as well as some definition of its
+associated type system rules and constraints as well as a definition of its
 semantics. In a fragment, each program element $e$ is an instance of a concept
-$c$ defined in some language $l$. We define  the \emph{concept-of} function $co$
+$c$ defined in a language $l$. We define  the \emph{concept-of} function $co$
 to return the concept of which a program element is an instance: $co(element)
 \Rightarrow \mathit{concept}$. Similarly we define the \emph{language-of}
 function $lo$ to return the language in which a given concept is defined:
@@ -259,7 +259,7 @@ the paper.
 \begin{center}
   \includegraphics[width=8.2cm]{figures/quadrants.png}
   \caption[labelInTOC]{We distinguish the four modularization and composition
-  approaches regarding their consequences for fragment structure and language
+  approaches regarding fragment structure and language
   dependencies. The dependencies dimension captures whether the languages have
   to be designed specifically for a specific composition partner or not.
   Fragment structure captures whether the composition approach supports
@@ -269,6 +269,7 @@ the paper.
 \end{center}
 \end{figure} 
 
+\vspace{2mm}
 \noindent As can be seen from the above descriptions, we distinguish the four
 approaches regarding fragment structure and language dependencies, as illustrated in
 \fig{quadrants}. \fig{fragAndLang} shows the relationships between fragments and
@@ -297,14 +298,14 @@ this is not always easily possible, though often desirable.
   references/associations. The shading of the boxes represent the two
   different languages.} 
   \label{fragAndLang} 
+  \vspace{-4mm}
 \end{center}
 \end{figure}
 
 
 
 
-
-Mernik et al. also propose a number of composition approaches
+\noindent Mernik et al. also propose a number of composition approaches
 in~\cite{MernikHS05}, among them Extension and Restriction. In the context of
 the classification proposed in our paper, Restriction is a form of Extension: to
 restrict a language, we create an Extension that \emph{prohibits the use of some

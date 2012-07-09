@@ -101,7 +101,6 @@ concept BlockExpression extends Expression implements INamedConcept
 \end{code}
           
           
-\vspace{-3mm}
 \phead{Type System} The type of the \ic{yield} statement is the type of the
 expression that is \ic{yield}ed, specified by
 \ic{typeof(aYield) :==: typeof(aYield.result)} (the type of \ic{yield 1;}
@@ -118,10 +117,9 @@ for (node<BlockExpressionYield> y : blockExpr.descendants<BlockExpressionYield>)
 typeof(blockExpr) :==: resultType;
 \end{code}
 
-\pagebreak[4]
           
-This equation iterates over all \ic{yield} statements in a block expression and
-establishes an equation between the current \ic{yield}'s type and a type
+\noindent This equation iterates over all \ic{yield} statements in a block
+expression and establishes an equation between the current \ic{yield}'s type and a type
 variable \ic{resultType}. It uses the \ic{:>=:} operator to express that the
 \ic{resultType} must be the same or a supertype of the type of each \ic{yield}.
 The only way to make \emph{all} of these equations true (which is what the type
@@ -192,7 +190,6 @@ this generated method when we generate the method call that replaces the
 \end{center}
 \end{figure}
 
-\vspace{-4mm}
 Another concept introduced by the \ic{exprblocks} language is the
 \ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
 in function bodies. It is used to mark locations at which subsequent
