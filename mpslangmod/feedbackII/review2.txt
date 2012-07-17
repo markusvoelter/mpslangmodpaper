@@ -1,0 +1,219 @@
+The paper is in better shape now. The author formalizes different kind
+of composition approaches and improves the related work section.
+However, there are still a lot of problems which need to be resolved
+prior to acceptance.
+
+1) The author classifies language composition according two orthogonal
+dimensions: the dependencies among languages (language
+dependent/independent) and whether syntactic composition is supported
+(fragment structure is homogenous/heterogeneous). In such way four
+different language compositions is obtained (referencing, extensions,
+reuse, embedding). They are at least two problems with this:
+a) In section 4.5 the author introduces another kind of composition Ð
+language annotations, which canÕt be classified using the proposed
+classification. This is very odd and immediately diminishes importance
+of such classification. Probably, author should be more explicit in
+stating that language annotations is just a special case of language
+semantic composition (if I understood properly) and that the proposed
+classification is taking into account only syntactic composition. Of
+course, this is a shortcoming of the classification which needs to be
+explicitly mentioned. To me, the semantic composition is equally, if
+not more, important than syntactic composition. As usually, syntactic
+level is easier than semantic level.
+a) Naming conventions Ð author picked the names (e.g., extension,
+embedding, reuse) which have already established terminology in
+software language engineering (SLE) and overload them with different
+meaning. This is not a good practice and will further bring additional
+confusion into SLE. A nice example is even contradiction with MPS
+itself (see footnote on page 14: ÒMPS uses the term "extension"
+whenever the definition of one language uses or refers to concepts
+defined in another language. This is not necessarily an example of
+language Extension as defined in this paper.Ó Not sure how to solved
+this problem. But, if author want that his classification is going to
+be accepted among SLE researchers these terms must be renamed.
+
+2) I donÕt agree with the statement on page 2: ÒEspecially syntactic
+integration has traditionally been very hard [23] and hence is often
+not supported for a particular combination of languages.Ó In fact,
+semantic combination of languages and IDE combination are even harder.
+If paper [23] is dealing only with syntactic composition this doesnÕt
+mean that is the hardest part of language/IDE composition. Syntactic
+language composition is only the first step. I donÕt see at which
+level language composition can be easier than on syntactic level,
+which comprises of lexical and syntactic language definitions.
+
+3) Description of fragments (program is composed of several fragments
+that may reference each other) and further explanation that fragment
+in a file-based tools corresponds to files (page
+4) is very confusing. Using this analogy I have hard times to see that
+the fragment on page 14 is homogenous, while the fragment on page 17
+is heterogeneous. Since the author didnÕt number fragments in the
+paper I canÕt be more precise about which fragments I am referring to.
+Looking to these fragments seems that analogy with files is not valid.
+Another explanation for fragment is that is standalone AST. But, how a
+standalone AST can be heterogeneous? I think better explanation is
+needed also providing an analogy with non-terminals, which represent
+language concept (e.g., declaration, expressions, commands).
+
+4) The author wrote on page 5: ÒIn our experience, transformations are
+the most widely used approach for defining semantics.Ó Although, this
+might be indeed authorÕs experience it doesnÕt mean that this is the
+best way to define the semantics. Readers might get an invalid
+impression that this is the correct approach. See the excellent paper
+on this issue: ÒMeaningful Modeling: What's the Semantics of
+"Semantics"?Ó by David Harel and Bernhard Rumpe, IEEE Computer, Volume
+37, Issue 10 (October 2004), Pages: 64 - 72.
+
+5) The author wrote on page 5: ÒOther concerns are relevant in IDEs,
+including refactoring, quick fixes, support for testing, debugging and
+version control integration. While all of these are supported by MPS
+in a modular and composable way, we do not discuss those aspects in
+this paper to keep the paper at a reasonable length.Ó This should be
+toned down since profiling is not supported in MPS (see page 33), or
+debugging is too low-level (see page 33). The reader might get an
+impression that everything is already solved in MPS.
+
+6) The author wrote on Page 7: Ò...also propose Piggybacking and
+Pipelining as ways of reusing existing generators or interpreters. We
+do not include these approaches in our discussion here because they do
+not compose languages - they just chain their transformations.Ó While
+this is true for pipelining, it is very wrong for piggybacking! Using
+piggyback approach a language L1 reuse ('reuse' is not necessary as
+defined in this paper) some parts of another language L2 (e.g., only
+Java assignment command). The language L1 is a combination of some
+concepts from the language L2 and other concepts from the language L1.
+
+7) All examples (fragments) must be numbered. Simply referring to
+fragments as Òbelow is an exampleÓ is odd when the example actually
+appears in next page (see pages 20-21, 25-26).
+
+8) I donÕt see how the following discussion on page 33 is relevant for
+MPS debuggers: ÒHowever, as part of the mbeddr project [49] that
+develops an extensible version of the C programming language we have
+developed a framework for extensible C debuggers. Developers of C
+extensions can easily specify how the extension integrates into the C
+debugger so that debugging on the syntax of the extension becomes
+possible for heterogeneous fragments. Visser et al. also describe an
+approach for DSL debugging in [26].Ó
+Moreover, DSL debuggers and test engines have been discussed also in:
+
+WU, Hui, GRAY, Jeffrey G., MERNIK, Marjan. Grammar-driven generation
+of domain-specific language debuggers. Softw. pract. exp., 2008, vol.
+38, iss. 10, pp. 1073-1103
+
+WU, Hui, GRAY, Jeffrey G., MERNIK, Marjan. Unit testing for
+domain-specific languages. Lect. notes comput. sci., 2009, vol. 5658,
+pp. 125-147
+
+9) The author wrote on page 40 regarding the LISA tool: ÒCombination
+of independently developed grammars (or sub-grammars) is not
+supported.Ó
+This claim is wrong! LISA supports such a combination using multiple
+attribute grammar inheritance. Below is a small example how
+independent grammars (and semantics) can be combined.
+
+// 1st grammar
+language Desk
+{
+... // some parts are deleted
+
+rule Start
+{
+PROGRAM ::= print EXPRESSION CONSTPART compute
+{
+PROGRAM.code = CONSTPART.ok ? EXPRESSION.code +
+"PRINT 0" + "\n" + "HALT 0" + "\n" :
+"\n" + "HALT 0" + "\n";
+EXPRESSION.envi = CONSTPART.envs;
+};
+}
+
+rule Constdef
+{
+CONSTDEF ::= CONSTNAME = #Number compute
+{
+CONSTDEF.name = CONSTNAME.name;
+CONSTDEF.value = Integer.parseInt(#Number.value());
+};
+}
+... // some parts are deleted
+
+}
+
+// 2nd grammar
+language Expr {
+
+attributes int *.val;
+
+rule Expression1 {
+EXPR ::= EXPR + TERM compute {
+EXPR[0].val = EXPR[1].val + TERM.val;
+};
+}
+rule Expression2 {
+EXPR ::= TERM compute {
+EXPR.val = TERM.val;
+};
+}
+rule Term1 {
+TERM ::= #Number compute {
+TERM.val = Integer.valueOf(#Number.value()).intValue();
+};
+}
+}
+
+// combining of 1st and 2nd grammar
+language DeskExpr extends Desk, Expr {
+rule extends Start {
+compute {}
+}
+rule overrides Constdef
+{
+CONSTDEF ::= CONSTNAME = EXPR compute
+{
+CONSTDEF.name = CONSTNAME.name;
+CONSTDEF.value = EXPR.val;
+};
+}
+}
+
+10) Discussion of homogenous approach in Helvetia and heterogeneous
+approach in MPS (section 6) is not the best since terms ÔhomogenousÕ
+and ÔheterogeneousÕ have been heavily used also for fragments in this
+paper. The reader will be confused.
+
+11) The name for Cdn (page 4) is not explained. What Cdn stands for?
+
+12) When domain-specific languages (DSLs) are referred for the first
+time (Introduction, page 2) the author should provide references and
+classification into internal and external DSLs. This classification is
+used in Section 6 without proper introduction in this paper.
+
+13) Overloaded terms come again to play when the author start
+discussion on DSL embedding. Will average reader be able to
+differentiate embedding presented in this paper with embedding in work
+of Hudak and Hofer? I donÕt think so.
+
+14) The author should compare their classification with the
+classification on language composition presented in the paper:
+
+S. Erdweg, P. G. Giarrusso, T. Rendel. Language Composition Untangled.
+Proceedings of Workshop on Language Descriptions, Tools and
+Applications (LDTA'12), 2012.
+
+
+15) Some problems in references still exist. In particular,
+a) 21. G. L. S. Jr. Growing a Language
+// Last name ?
+b) 29. Martin Bravenboer and Eelco Dolstra and Eelco Visser
+// Full first names appear only in this reference
+
+
+
+Typos:
+=======
+
+- Page 30:
+Concpet
+->
+Concept

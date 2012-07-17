@@ -1,0 +1,37 @@
+The paper discusses MPS. The topic in itself is very interesting, MPS
+seems to be a powerful system.
+In that sense it is a valuable contribution to the GTTSE body of
+knowledge. The paper has been completely
+rewritten and the author seriously addressed the concerns raised in my
+report and as far as I can judge also
+in the reports by the other reviewers. However, there are still a few
+concerns I would like to raise. The author
+managed to raise the scientific level of the paper and managed to make
+it less temporary. The readability
+and accessibility of Section 4 has been tremendously improved as well
+as the reflection in Section 5.
+
+The remark in the second paragraph (page 2) raises the question on
+semantics. Semantics is much harder
+than syntax and so far almost all language workbenches are syntax
+oriented, including MPS. This aspect
+returns on page 9, where the "Extensible Type Systems" are discussed.
+This discussion is too concise to
+really make sense, the same holds for page 11: "Type System".
+
+With respect to the discussion on templates, I would advice the author
+to have a look at the following two
+publications:
+Arnoldus, B.J., Brand, M.G.J. van den, Serebrenik, A. & Brunekreef,
+J.J. (2012). Code generation with templates. Amsterdam-Paris-Beijing:
+Atlantis Press.
+Arnoldus, B.J., Bijpost, J.W. & Brand, M.G.J. van den (2007). Repleo:
+a syntax-safe template engine. Proceedings of the 6th International
+Conference on Generative Programming and Component Engineering (GPCE
+2007) 1-3 October 2007, Salzburg, Austria. (pp. 25-32). New York, New
+York: ACM.
+These publications address a number of issues raised by the author.
+
+A few small issues:
+- The first sentence of the abstract is grammatically incorrect.
+- Reference 21 is strange wrt the name of the author.
