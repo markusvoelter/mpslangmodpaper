@@ -97,14 +97,20 @@ other concepts are defined similarly.
 \end{center}
 \end{figure}
 
+\todo{review}
 \phead{Type System} As we have explained in \sect{HowMPSWorks}, language
 developers only have to specify typing rules for language concepts.
-MPS' type system engine applies the rules to all applicable program elements,
-solves the resulting set of type equations, and if equations run into
-contradictions, this is annotated on the offending program element as a type
-error. For the \ic{entities} language, we specify two simple typing rules. The
-first one specifies that the type of a \ic{Type} (such as \ic{int} or
-\ic{string}) is a clone of itself.
+To calculate and check types for a program, MPS "instantiates" these 
+rules for each instance of the concept, resulting in a set of type equations for
+a program. These equations contain type values (such as \ic{int}) as well as
+type variables (for program elements whose type has not yet been calculated). 
+MPS' solves the set of type equations, trying to assign type values to all of
+the type variables in a way such that all the equations for a program are free
+of contradictions. If a contradition arises, this is flagged as a typing error. 
+For the \ic{entities} language, we specify two simple typing rules. The
+first one specifies the type of a \ic{Type} (so it answers the questions of
+what the type system type of should be for e.g. \ic{int} if it is used in an
+arttribute such as \ic{int age;}):
 
 \vspace{-1mm}
 \begin{code}
@@ -114,10 +120,63 @@ rule typeof_Type for Type as t {
 \end{code}
 \vspace{-1mm}
 
-\noindent Another typing rule defines the type of the \ic{Attribute} as a
-whole to be the type of the attribute's \ic{type} property: 
-\ic{typeof(attribute) :==: typeof( attribute.type)}. No other typing rules apply
-in this simple language. 
+\noindent This rule has the name \ic{typeof\_Type} and applies to the language
+concept \ic{Type} (\ic{int} or \ic{string} are subconcepts of the abstract
+\ic{Type} concept). The \ic{typeof(...)} operator creates a type variable
+associated with a program element, in this case, with an instance \ic{t} of
+\ic{Type}. We calculate that type by cloning \ic{t} itself. In other words, if
+the type system engine needs to find out the type of an \ic{int} program
+element, that type is \ic{int} as well. This may be a bit confusing, because
+instances of \ic{Type} (and its subconcepts) play two roles. First, they are
+part of the program itself if they are explicitly specified in attributes
+(\ic{int age;}). Second, they are also the objects with which the type system
+engine works. By cloning the program element, we express that types represent
+themselves in the type system engine (we need a clone since for technical
+reasons we cannot return the program element itself). Another typing rule
+defines the type of the \ic{Attribute} as a whole to be the type of the
+attribute's \ic{type} property:
+
+\vspace{-1mm}
+\begin{code}
+rule typeof_Attribute for Attribute as a {
+    typeof(a) :==: typeof(a.type);
+}                                      
+\end{code}
+\vspace{-1mm}
+
+This one answers the question of what the type system engine's type should be
+for instances of \ic{Attribute}. Note how this equation has two type variables
+and no type values. It simply propagates the type of the attribute's specified
+type (the \ic{int} in \ic{int age;}) to be the type of the overall attribute.
+Note how the two typing rules discussed in this section play together to
+calculate the type of the \ic{Attribute} from the type specified by the user: 
+First we calculate the type of the specified type (a clone of itself) and then
+we propagate this type to the type of the whole attribute. 
+
+There is one more rule we have to define. It is not strictly part of the type
+calculation. It is a constraint that checks the uniqueness of attribute names
+for any given \ic{Entity}:
+
+\begin{code}
+checking rule check_Entity for Entity as e {
+     set<string> names = new hashset<string>;
+     foreach a in e.attributes {
+         if (names.contains(a.name)) {
+             error "duplicate attribute name" -> a;
+         }
+         names.add(a.name);
+     }                                                                                                                                                                                                                                                                                                        
+}
+\end{code}
+
+This rule does \emph{not} establish typing equations, it just checks a property
+of the program (note the \emph{checking} in the rule header). It checks
+attribute name uniqueness based on a set of the names. It reports an error if it
+finds a duplicate. It annotates the error with the attribute \ic{a}, so the
+editor can highlight the respective program element. Note how in case of the
+typing rules shown above we don't have to perform the check and report an error
+outselves. This is done implicitly by the type system engine.
+
 
 
 \phead{Generator} From \ic{entities} models we generate Java Beans. Since Java
@@ -130,11 +189,14 @@ one can use an API to manually construct the target tree. Finally, the
 transformation chain). Throughout this paper we use the template-based approach.
 
 MPS templates look like text generation templates known from tools such as
-Xpand\footnote{http://www.eclipse.org/modeling/m2t/?project=xpand}, Jet\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or StringTemplate\footnote{http://www.stringtemplate.org/} since they use the CS of the target
-language in the template. However, that CS is projected like any other program,
-and the IDE can provide support for the target language \emph{in the template}.
-However, this also means that the \emph{template code itself} must be valid in
-terms of the target language.
+Xpand\footnote{http://www.eclipse.org/modeling/m2t/?project=xpand},
+Jet\footnote{http://www.eclipse.org/modeling/m2t/?project=jet} or
+StringTemplate\footnote{http://www.stringtemplate.org/} since they use the CS of
+the target language in the template. However, that CS is projected like any
+other program, and the IDE can provide support for the target language \emph{in
+the template} (we discuss details on support for the target language in
+templates in Related Work, \sect{Related}). This also means that the
+\emph{template code itself} must be valid in terms of the target language.
 
 Template-based generators consist of mapping configurations and templates.
 Mapping configurations define which elements are processed by which templates.

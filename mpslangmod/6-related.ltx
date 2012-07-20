@@ -59,6 +59,25 @@ removing productions and symbols defined in a base grammar. However, since
 Polyglot uses LALR grammars, users must make sure \emph{manually} that the base
 language and the extension remains in the LALR subclass. 
 
+\todo{review}
+In \sect{entitiesLanguage} we mentioned that MPS' template language provides IDE
+support for the target language \emph{in the template}. In traditional
+text-generation template languages this is typically not supported because it
+requires support for language composition: the target language must be embedded
+in the template language. However, there are exmaples of template languages that
+support this. Not surprisingly they are built on top of modular grammar
+formalisms. An example is the Repleo template language \cite{ArnoldusBB07} which
+is built on SDF. However, as explained in the discussion on SDF above, SDF
+requires the definition of an additional grammar that defines how the host
+grammar (template language in this case) and the embedded grammar (target
+language) fit together: for all target language non-terminals where template
+code should be allowed, a quotation has to be defined. MPS does not require
+this. Any target language can be marked up with template annotations. No
+separate language has to be defined for the combination of template language and
+target language.
+
+
+
  
 \mvsubsec{Projectional Editing}
 

@@ -1,37 +1,84 @@
 The paper discusses MPS. The topic in itself is very interesting, MPS
-seems to be a powerful system.
-In that sense it is a valuable contribution to the GTTSE body of
-knowledge. The paper has been completely
-rewritten and the author seriously addressed the concerns raised in my
-report and as far as I can judge also
-in the reports by the other reviewers. However, there are still a few
-concerns I would like to raise. The author
+seems to be a powerful system. In that sense it is a valuable contribution 
+to the GTTSE body of knowledge. The paper has been completely rewritten 
+and the author seriously addressed the concerns raised in my report and 
+as far as I can judge also in the reports by the other reviewers. 
+However, there are still a few concerns I would like to raise. The author
 managed to raise the scientific level of the paper and managed to make
-it less temporary. The readability
-and accessibility of Section 4 has been tremendously improved as well
-as the reflection in Section 5.
+it less temporary. The readability and accessibility of Section 4 has 
+been tremendously improved as well as the reflection in Section 5.
 
 The remark in the second paragraph (page 2) raises the question on
-semantics. Semantics is much harder
-than syntax and so far almost all language workbenches are syntax
-oriented, including MPS. This aspect
-returns on page 9, where the "Extensible Type Systems" are discussed.
-This discussion is too concise to
-really make sense, the same holds for page 11: "Type System".
+semantics. Semantics is much harder than syntax and so far almost all 
+language workbenches are syntax oriented, including MPS. 
+
+-> I really don't agree. Defining the semantics for a DSL has always 
+  been done by generating executable code in a lower-level language 
+  (or by running an interpreter). While the level of "formality" for 
+  this way of defining semantics may not be sufficient for everybody's
+  needs, it certainly does work. However, as can be seen from the related
+  work, syntactic aspects, especially the more fine-grained extension
+  (on expression level, for example) or embedding (without escape char-
+  acters) has not been easy in the past (unless you count specific,
+  invasive changes to a base language). MPS solves this problem to a
+  degree that has not been possible before.
+
+  Also I do not agree to the point that MPS is syntax oriented. Of course
+  MPS is *also* syntax oriented, because if you don't have the means for
+  meaningful syntactic extension and composition the semantic asepcts are
+  not really relevant. MPS supports powerful ways for defining type systems
+  based on a solver and multi-stage, extensible transformations.
+  
+  I do agree that MPS' main contribution is on syntactic level, exploiting
+  the benefits of the projectional editor. I will emphasize this more in the 
+  paper. TODO The other aspects mainly use established techniques or improve 
+  only slightly on them.   
+
+This aspect returns on page 9, where the "Extensible Type Systems" are 
+discussed. 
+
+-> I have added a footnote that better describes what is part of the 
+   type system and what is not. Maybe this helps to avoid misunderstandings.
+   In general, since this paragraph really is just a brief overview, I don't
+   want to add a lot here. I will however add to the one on page 11.
+
+This discussion is too concise to really make sense, the same 
+holds for page 11: "Type System".
+
+-> I have made the explanation more detailed and also provided an example
+   of a constraint check that is not involved with typing rules: checking
+   for unique names in entitites.
+
 
 With respect to the discussion on templates, I would advice the author
-to have a look at the following two
-publications:
+to have a look at the following two publications:
 Arnoldus, B.J., Brand, M.G.J. van den, Serebrenik, A. & Brunekreef,
 J.J. (2012). Code generation with templates. Amsterdam-Paris-Beijing:
 Atlantis Press.
+
 Arnoldus, B.J., Bijpost, J.W. & Brand, M.G.J. van den (2007). Repleo:
 a syntax-safe template engine. Proceedings of the 6th International
 Conference on Generative Programming and Component Engineering (GPCE
 2007) 1-3 October 2007, Salzburg, Austria. (pp. 25-32). New York, New
 York: ACM.
+
 These publications address a number of issues raised by the author.
+
+-> Thank you for the hint. I hadn't discussed template languages as an
+   example of language composition. I was aware of a related system by
+   Visser et. al., but not of the Repleo engine. I have added this as 
+   related work. Note however, that, since it is based on SDF, you still
+   have to define a combination grammar. MPS does not require this.
+
 
 A few small issues:
 - The first sentence of the abstract is grammatically incorrect.
+
+-> REally? Is it because of the two ands? Hm. Changed it to:
+   "Modularization and composition of languages and their IDEs is an important
+    building block for working efficiently with domain-specific languages.
+
+
 - Reference 21 is strange wrt the name of the author.
+
+-> Grr, yes, Latex got screwed up because of the Jr. behind Steele. Fixed it!

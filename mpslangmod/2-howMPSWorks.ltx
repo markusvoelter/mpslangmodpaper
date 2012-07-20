@@ -107,11 +107,14 @@ syntactic escape symbols are required~\cite{KatsVW10}. As we will see, this is
 not the case in MPS. Arbitrary languages can be combined syntactically.
 
 \vspace{-1.5mm}
-\phead{Extensible Type Systems} All composition techniques require some
-degree of type system extension or composition. MPS' type system specification
-is based on declarative typing rules that are executed by a solver. This
-way, additional typing rules for additional language concepts can be defined
-without invasively changing the existing typing rules of the composed languages.
+\phead{Extensible Type Systems} All composition techniques require some degree
+of type system extension or composition\footnote{Note that the term \emph{type
+system} really just refers to the actual type calculation and checks, as well as
+other constraints on the program. Resolution of symbol names is handled
+differently and not part of the type system.}. MPS' type system specification is
+based on declarative typing rules that are executed by a solver. This way,
+additional typing rules for additional language concepts can be defined without
+invasively changing the existing typing rules of the composed languages.
 
 \vspace{-1.5mm}
 \phead{Modular Transformation Framework} Transformations can be defined
