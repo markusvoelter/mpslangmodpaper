@@ -24,9 +24,6 @@ This has two consequences:
   the parser).
 \end{itemize}
 
-\todo{In the embedding case, discuss annotations as an example of E. without
-adapter lang}
-
 \noindent In this section we discuss the second alternative. It represents a
 variant of Embedding: no dependencies, but syntactic composition. The mechanism
 MPS uses for this is called annotations, which we have seen when
@@ -116,9 +113,9 @@ program element. This is useful for generic metadata such as documentation,
 requirements traces or presence conditions in product line engineering (we
 describe this in~\cite{VoelterVisser2011} and~\cite{Voelter2010}). MPS' template
 language uses this approach as well. Note that this is a way to support
-Embedding generically, \emph{without} use of an adapter language. The reason why
-this generic approach is useful mostly for metadata is related to semantics.
-Since the annotations can be composed \emph{with any other language} without an
+Embedding generically, \emph{without} the use of an adapter language. The reason
+why this generic approach is useful mostly for metadata is related to semantics:
+since the annotations can be composed \emph{with any other language} without an
 adapter, the semantics must be generic as well, i.e. not related to any
 particular target language. This is true for the generic metadata mentioned
 above.

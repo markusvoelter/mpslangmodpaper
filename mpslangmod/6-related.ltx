@@ -59,12 +59,11 @@ removing productions and symbols defined in a base grammar. However, since
 Polyglot uses LALR grammars, users must make sure \emph{manually} that the base
 language and the extension remains in the LALR subclass. 
 
-\todo{review}
 In \sect{entitiesLanguage} we mentioned that MPS' template language provides IDE
 support for the target language \emph{in the template}. In traditional
 text-generation template languages this is typically not supported because it
 requires support for language composition: the target language must be embedded
-in the template language. However, there are exmaples of template languages that
+in the template language. However, there are examples of template languages that
 support this. Not surprisingly they are built on top of modular grammar
 formalisms. An example is the Repleo template language \cite{ArnoldusBB07} which
 is built on SDF. However, as explained in the discussion on SDF above, SDF
@@ -313,18 +312,17 @@ them comparable. As of June 2012, the site contains 15 submissions.
 
 
 
-\todo{review}
 
 In this paper we classify language composition approaches based on syntactic
-mixing and language dependencies. Other classifications have been proposed,
-including Mernik et al. ~\cite{MernikHS05}. Among others, they propose Extension
-(concepts are added to a language, similar to Extension as defined in this
-paper) and Restriction (concepts are removed from a language). The latter can
-actually be seen as a form of Extension: to restrict a language, we create an
-Extension that \emph{prohibits the use of some language concepts in certain
+mixing and language dependencies. Other classifications have been proposed, for
+example by Mernik et al. ~\cite{MernikHS05}. Their classification includes
+Extension (concepts are added to a language, similar to Extension as defined in
+this paper) and Restriction (concepts are removed from a language). The latter
+can actually be seen as a form of Extension: to restrict a language, we create
+an Extension that \emph{prohibits the use of some language concepts in certain
 contexts}. We discuss this at the end of \sect{Extension}. Mernik et al. also
 propose Piggybacking and Pipelining. We do not discuss Pipelining in this paper,
-here because it does not \emph{compose} languages, it just chain their
+because it does not \emph{compose} languages, it just chain their
 transformations. Piggybacking refers to a language reusing concepts from an
 existing language. This corresponds to Extension with embedding flavor. In
 \cite{ErdwegGR12}, Erdweg et al. also propose a classification. Extension is the

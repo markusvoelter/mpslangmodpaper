@@ -28,9 +28,8 @@ the code more concise, more suitable for formal analysis, verification,
 transformation and optimization, and more accessible to non-programmer domain
 experts.
 
-\todo{review}
-The combined use of multiple languages in a single system raises the question
-how the syntax, semantics, and Integrated Development Environments (IDEs) of the
+The combined use of multiple languages in a single system raises the question of
+how the syntax, semantics, and the development environments (IDEs) of the
 various languages can be integrated. As we discuss in \sect{Related}, each of
 these aspects has its own challenges and has been addressed to various degrees.
 Syntactic composition has traditionally been hard~\cite{KatsVW10}. In
@@ -39,14 +38,9 @@ coloring, static error checking, refactoring or debugging) in the face of
 syntactically composed languages is a challenge and hence is often not supported
 for a particular combination of languages. In some rare cases, syntactic
 integration between \emph{specific} pairs of languages has been built, for
-example, embedded SQL in Java~\cite{BravenboerDV07}.
-
-However, building specialized integrations between two languages and their IDEs
-is very expensive  is to be provided as well. Consequently this is done only for
-combinations of very widely used languages, if at all. Building such an
-integration between Java and a company-specific DSL for financial calculations
-is infeasible. A more systematic approach for \lmrc\ is required. Language and
-IDE modularization and composition addresses the following concerns:
+example, embedded SQL in Java~\cite{BravenboerDV07}. A more systematic approach
+for \lmrc\ is required. Language and IDE modularization and composition
+addresses the following concerns:
 
 \begin{itemize}
   \item The concrete and the abstract syntax of the two languages have to be
@@ -198,22 +192,21 @@ language:
 	\mathit{lo(c.child)} = l
 \end{align}
 
-\todo{review}
 \noindent As elaborated by Harel and Rumpe in \cite{Semantics} the execution
-semantics of a language are defined by mapping the syntactic constructs of a
-language $L$ to concepts from the semantic domain $S$ of the language. Different
-representations of $S$ and the mapping $L \rightarrow S$ exist. Harel and Rumpe
+semantics of a language $l$ are defined by mapping the syntactic constructs of
+$l$ to concepts from the semantic domain $S$ of the language. Different
+representations of $S$ and the mapping $l \rightarrow S$ exist. Harel and Rumpe
 prefer to use mathematical formalisms as $S$ because their semantics is well
 known, but acknowledge that other formalisms are useful as well. In this paper
-we consider the semantics of a language $l_1$ to be defined via a
-\emph{transformation} that maps a program expressed in $l_1$ to a program in
+we consider the semantics of a language $l$ to be defined via a
+\emph{transformation} that maps a program expressed in $l$ to a program in
 another language $l_2$ that has the same \emph{observable behavior}.
 The observable behavior can be determined in various ways, for example using a
 sufficiently large set of test cases. A discussion of alternative ways to define
 language semantics is beyond the scope of this paper, and, in particular, we do
-not discuss interpreters as an alternative to transformations.
-In our experience, transformations are the most widely used approach for
-defining semantics.
+not discuss interpreters as an alternative to transformations. This decision is
+driven partly by the fact that, in our experience, transformations are the most
+widely used approach for defining execution semantics.
 
 The paper emphasizes \emph{IDE} modularization and composition in addition to
 \emph{language} modularization and composition. When referring to IDE services,

@@ -84,7 +84,7 @@ other concepts are defined similarly.
 
 \begin{figure}[htp]
 \begin{center}
-  \vspace{-3mm}
+  \vspace{-4mm}
   \includegraphics[scale=0.55]{figures/editordefinition.png}
   \caption[labelInTOC]{The editor for \ic{Entity}. The outermost cell is a
   vertical list \ic{[/ .. /]}. In the first line, we use a horizontal list
@@ -97,26 +97,25 @@ other concepts are defined similarly.
 \end{center}
 \end{figure}
 
-\todo{review}
+\vspace{-4mm}
 \phead{Type System} As we have explained in \sect{HowMPSWorks}, language
-developers only have to specify typing rules for language concepts.
-To calculate and check types for a program, MPS "instantiates" these 
-rules for each instance of the concept, resulting in a set of type equations for
-a program. These equations contain type values (such as \ic{int}) as well as
-type variables (for program elements whose type has not yet been calculated). 
-MPS' solves the set of type equations, trying to assign type values to all of
-the type variables in a way such that all the equations for a program are free
-of contradictions. If a contradition arises, this is flagged as a typing error. 
-For the \ic{entities} language, we specify two simple typing rules. The
-first one specifies the type of a \ic{Type} (so it answers the questions of
-what the type system type of should be for e.g. \ic{int} if it is used in an
-arttribute such as \ic{int age;}):
+developers specify typing rules for language concepts. To calculate and check
+types for a program, MPS "instantiates" these rules for each instance of the
+concept, resulting in a set of type equations for a program. These equations
+contain type values (such as \ic{int}) as well as type variables (for program
+elements whose type has not yet been calculated). MPS' then solves the set of
+type equations, trying to assign type values to the type variables in a way such
+that all the equations for a program are free of contradictions. If a
+contradiction arises, this is flagged as a typing error. For the \ic{entities}
+language, we specify two simple typing rules. The first one specifies the type
+of a \ic{Type} (it answers the questions of what the type system's type of
+should be for e.g. \ic{int} if it is used in an attribute such as \ic{int
+age;}):
 
 \vspace{-1mm}
 \begin{code}
-rule typeof_Type for Type as t {
-    typeof(t) :==: t.copy;       
-}                                      
+rule typeof_Type for Type as t { 
+    typeof(t) :==: t.copy; }                                       
 \end{code}
 \vspace{-1mm}
 
@@ -139,11 +138,11 @@ attribute's \ic{type} property:
 \vspace{-1mm}
 \begin{code}
 rule typeof_Attribute for Attribute as a {
-    typeof(a) :==: typeof(a.type);
-}                                      
+    typeof(a) :==: typeof(a.type); }                                      
 \end{code}
 \vspace{-1mm}
 
+\pagebreak[4]
 \noindent This rule answers the question of what the type system engine's type
 should be for instances of \ic{Attribute}. Note how this equation has two type variables
 and no type values. It simply propagates the type of the attribute's specified
