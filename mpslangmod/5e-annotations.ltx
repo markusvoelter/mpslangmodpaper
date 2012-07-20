@@ -24,11 +24,13 @@ This has two consequences:
   the parser).
 \end{itemize}
 
-\noindent In this section we discuss the second alternative since it constitutes
-a form of language composition: the additional CS is composed with the original
-CS defined for the language. The mechanism MPS uses for this is called
-annotations. We have seen annotations when we introduced templates
-(\sect{entitiesLanguage}): an annotation can be attached to
+\todo{In the embedding case, discuss annotations as an example of E. without
+adapter lang}
+
+\noindent In this section we discuss the second alternative. It represents a
+variant of Embedding: no dependencies, but syntactic composition. The mechanism
+MPS uses for this is called annotations. We have seen annotations when we
+introduced templates (\sect{entitiesLanguage}): an annotation can be attached to
 arbitrary program elements and can be shown together with CS of the annotated
 element. In this section we use this approach to implement an alternative
 approach for the entity-to-database mapping. Using this approach, we can store
@@ -107,12 +109,21 @@ in", instead it must be attached to nodes via an Intention.
 \end{center}
 \end{figure}
 
+\todo{review}
 \noindent It is possible to define the annotation target to be
 \ic{BaseConcept}, which means the annotation can be attached to \emph{any}
-program element. This is useful for generic metadata such as
-documentation, requirements traces or presence conditions in product line
-engineering. We describe this in~\cite{VoelterVisser2011}
-and~\cite{Voelter2010}.
+program element. This is useful for generic metadata such as documentation,
+requirements traces or presence conditions in product line engineering (we
+describe this in~\cite{VoelterVisser2011} and~\cite{Voelter2010}). MPS' template
+language uses this approach as well. Note that this is a way to support
+Embedding generically, \emph{without} use of an adapter language. The reason why
+this generic approach is useful mostly for metadata is related to semantics.
+Since the annotations can be composed \emph{with any other language} without an
+adapter, the semantics must be generic as well, i.e. not related to any
+particular target language. This is true for the generic metadata mentioned
+above.
+
+ 
 
 \phead{Type System} The same typing rules are necessary as in 
 \ic{relmapping\_enti- ties} described previously. They reside in

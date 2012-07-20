@@ -30,16 +30,21 @@ continue to hold, (1) does not. Instead
    \mathit{lo(r.from)} = l_2\; \wedge \; (\mathit{lo(r.to)} = l_1 \vee 
    \mathit{lo(r.to)} = l_2)
 \end{align}
-                      
+
+\todo{review}                      
+\noindent From a CS perspective, such a reference is a simple identifier,
+possibly with dots. This terminal can easily be redefined in the referencing language and does
+not require reusing and embedding non-terminals from the referenced language.
+Hence no syntactic composition is required in this case. 
 
 
-
-\noindent As an example, for Referencing we define a language
-\ic{uispec} for defining UI forms for \ic{entities}. Below is an example.
-Note how the form is a separate fragment. It is a \emph{dependent}
-fragment, since it references elements from another fragment (expressed in the
-\ic{entities} language). Both fragments are \emph{homogeneous} since they
-consist of sentences expressed in a single language.
+As an example, for Referencing we define a language \ic{uispec} for defining UI
+forms for \ic{entities}. Below is an example. This is a \emph{homogeneous}
+fragment, expressed only in the \ic{uispec} language. Only the identifiers of
+the referenced elements (such as \ic{Employee.name}) have been added to the
+referencing language as discussed in the previous paragraph. However, the
+fragment is \emph{dependent}, since it references elements from another fragment
+(expressed in the \ic{entities} language). 
 
 \begin{code}
 form CompanyStructure                                                                                                                                  

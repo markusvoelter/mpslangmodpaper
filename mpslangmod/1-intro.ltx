@@ -28,26 +28,25 @@ the code more concise, more suitable for formal analysis, verification,
 transformation and optimization, and more accessible to non-programmer domain
 experts.
 
+\todo{review}
 The combined use of multiple languages in a single system raises the question
 how the syntax, semantics, and Integrated Development Environments (IDEs) of the
-various languages can be integrated. Especially syntactic integration has
-traditionally been very hard~\cite{KatsVW10} and hence is often not supported
-for a particular combination of languages. Program parts expressed in different
-languages reside in different files. Relationships among "common" things in
-these different files are implemented with name references. For
-some combinations of languages, the IDE may be aware of the integration by name
-and check the consistency for the references. In some rare cases, syntactic
-integration between specific pairs of languages has been built, for example,
-embedded SQL in Java~\cite{BravenboerDV07}.
+various languages can be integrated. As we discuss in \sect{Related}, each of
+these aspects has its own challenges and has been addressed to various degrees.
+Syntactic composition has traditionally been hard~\cite{KatsVW10}. In
+particular, retaining decent IDE support (such as code completion, syntax
+coloring, static error checking, refactoring or debugging) in the face of
+syntactically composed languages is a challenge and hence is often not supported
+for a particular combination of languages. In some rare cases, syntactic
+integration between \emph{specific} pairs of languages has been built, for
+example, embedded SQL in Java~\cite{BravenboerDV07}.
 
-However, building specialized integrations between two languages is very
-expensive, especially if IDE support (such as code completion, syntax coloring,
-static error checking, refactoring or debugging) is to be provided as well.
-Consequently this is done only for combinations of very widely used languages,
-if at all. Building such an integration between Java and a company-specific DSL
-for financial calculations is infeasible. A more systematic approach for \lmrc\
-is required. Language and IDE modularization and composition addresses the
-following concerns:
+However, building specialized integrations between two languages and their IDEs
+is very expensive  is to be provided as well. Consequently this is done only for
+combinations of very widely used languages, if at all. Building such an
+integration between Java and a company-specific DSL for financial calculations
+is infeasible. A more systematic approach for \lmrc\ is required. Language and
+IDE modularization and composition addresses the following concerns:
 
 \begin{itemize}
   \item The concrete and the abstract syntax of the two languages have to be
@@ -64,14 +63,14 @@ following concerns:
 \end{itemize}
 
 \noindent In this paper we focus on JetBrains
-MPS\footnote{http://www.jetbrains.com/mps/} as to demonstrate language
+MPS\footnote{http://www.jetbrains.com/mps/} to demonstrate language
 composition approaches. MPS is a projectional editor and no grammars or parsers
 are used. Instead, editing gestures \emph{directly} modify the abstract syntax
 tree (AST), and the representation on the screen is projected from the changing
-AST. As we show in this paper, this simplifies the syntactic aspect of language
-composition. Also, MPS been designed to be used for developing sets of
-integrated languages, and not just one or more standalone languages. This is
-exemplified by its extensible transformation and type checking frameworks.
+AST. Consequently, MPS' main contribution to language composition addresses the
+syntax and IDE aspects. However, MPS also provides good support for composing
+the static semantics and execution semantics of languages. 
+
 
 \mvsubsec{Contribution and Structure of the paper}
 \vspace{-1mm}
@@ -80,11 +79,12 @@ exemplified by its extensible transformation and type checking frameworks.
 In this paper we make the following contributions. First, we identify four
 different composition approaches (Referencing, Extension, Reuse and Embedding)
 and classify them regarding dependencies and syntactic mixing. Second, we
-demonstrate how to implement these four approaches with JetBrains MPS.
+demonstrate how to implement these four approaches with JetBrains MPS. We
+emphasize syntax and IDE, but also discuss type systems and transformation.
 While other, parser-based approaches can do language composition to some extent
 as well, it is especially simple to do with projectional editors. So our third
 contribution is an implicit illustration of the benefits of using projectional
-editors in the context of language composition, based on the MPS example. 
+editors in the context of language composition, based on the MPS example.
 
  
 The paper is structured as follows. In \sect{terminology} we define terms and

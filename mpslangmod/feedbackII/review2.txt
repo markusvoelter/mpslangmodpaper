@@ -1,25 +1,48 @@
-The paper is in better shape now. The author formalizes different kind
-of composition approaches and improves the related work section.
-However, there are still a lot of problems which need to be resolved
-prior to acceptance.
-
 1) The author classifies language composition according two orthogonal
 dimensions: the dependencies among languages (language
 dependent/independent) and whether syntactic composition is supported
 (fragment structure is homogenous/heterogeneous). In such way four
 different language compositions is obtained (referencing, extensions,
 reuse, embedding). They are at least two problems with this:
+
 a) In section 4.5 the author introduces another kind of composition Ð
 language annotations, which canÕt be classified using the proposed
 classification. This is very odd and immediately diminishes importance
 of such classification. Probably, author should be more explicit in
 stating that language annotations is just a special case of language
 semantic composition (if I understood properly) and that the proposed
-classification is taking into account only syntactic composition. Of
-course, this is a shortcoming of the classification which needs to be
-explicitly mentioned. To me, the semantic composition is equally, if
-not more, important than syntactic composition. As usually, syntactic
-level is easier than semantic level.
+classification is taking into account only syntactic composition. 
+Of course, this is a shortcoming of the classification which needs to be
+explicitly mentioned.
+ 
+-> thank you for raising this issue. Annotations are actually a clear
+   example of embedding: no dependencies, but syntactic mixing. In fact,
+   it is an example of embedding that can work *without* an adapter
+   language. I have clarified this in the introduction to Annotations.
+   With this change, I think it strengthens the classification.
+
+To me, the semantic composition is equally, if not more, important than 
+syntactic composition. As usually, syntactic level is easier than semantic level.
+
+-> I really don't agree. Defining the semantics for a DSL has always 
+   been done by generating executable code in a lower-level language 
+   (or by running an interpreter). While the level of "formality" for 
+   this way of defining semantics may not be sufficient for everybody's
+   needs, it certainly does work. However, as can be seen from the related
+   work, syntactic aspects, especially the more fine-grained extension
+   (on expression level, for example) or embedding (without escape char-
+   acters) has not been easy in the past (unless you count specific,
+   invasive changes to a base language). MPS solves this problem to a
+   degree that has not been possible before.
+
+   I do agree that MPS' main contribution is on syntactic level, exploiting
+   the benefits of the projectional editor. I will emphasize this more in the 
+   paper. TODO The other aspects mainly use established techniques or improve 
+   only slightly on them.   
+
+   TODO do more here?
+
+
 a) Naming conventions Ð author picked the names (e.g., extension,
 embedding, reuse) which have already established terminology in
 software language engineering (SLE) and overload them with different
@@ -32,6 +55,24 @@ language Extension as defined in this paper.Ó Not sure how to solved
 this problem. But, if author want that his classification is going to
 be accepted among SLE researchers these terms must be renamed.
 
+-> Terms such as extension, embedding and reuse are used all over the place.
+   It is very hard to come up with "unused" terms. In fact, I have spent
+   a long time discussing these terms with others, and had also used other
+   terms earlier. I don't think I can come up with something better.
+   
+   Also, I do define the terms very clearly in this paper, so a mis-
+   understanding in the context of this paper is unlikely. I think that
+   more unique terms (such as Piggybacking in the Mernik
+   paper) are not much help either, since, in order for them to be under-
+   stood by the reader, one has to refer to the paper and explain the term
+   as well -- just from the word, it is not clear what it means. 
+
+   Finally, the fact that MPS uses the term extends in another way is
+   unfortunate, but, again, it is almost impossible to find terms that
+   are not used by somebody in some other way. I only use the MPS term
+   once in the paper, and through the footnote, I make clear the distinction
+   in this specific place.
+
 2) I donÕt agree with the statement on page 2: ÒEspecially syntactic
 integration has traditionally been very hard [23] and hence is often
 not supported for a particular combination of languages.Ó In fact,
@@ -42,18 +83,58 @@ language composition is only the first step. I donÕt see at which
 level language composition can be easier than on syntactic level,
 which comprises of lexical and syntactic language definitions.
 
+-> See my comment above. 
+
+   I have rewritten this paragraph to not downplay semantics as much
+   as before. I have also emphasized IDE support in the context of
+   syntactic composition.
+
 3) Description of fragments (program is composed of several fragments
 that may reference each other) and further explanation that fragment
 in a file-based tools corresponds to files (page
 4) is very confusing. Using this analogy I have hard times to see that
-the fragment on page 14 is homogenous, while the fragment on page 17
-is heterogeneous. Since the author didnÕt number fragments in the
+the fragment on page 14 is homogenous, 
+
+-> ... because it only contains code from one language. I have added 
+   a discussion that clarifies that adding a name-based reference to
+   an element in a different fragment/language does not make the frag-
+   ment heterogeneous, because the reference is just a identifier (a
+   terminal). No reuse/embedding of non-terminals from the referenced
+   language is required.
+
+while the fragment on page 17 is heterogeneous. 
+
+-> here we have embedded a new, non-trivial (i.e. non-terminal) language
+   concept (block expression) into an otherwise unchanged language (Java).
+
+Since the author didnÕt number fragments in the
 paper I canÕt be more precise about which fragments I am referring to.
+
+-> well, the one on page 17 is in a numbered figure... 
+
 Looking to these fragments seems that analogy with files is not valid.
+
+-> The first of the two examples is a complete fragment. There is also
+   no reason why this could not be a file. I cannot see how the analogy 
+   from fragments to files (in a file-based tool) is a problem.
+   
+   The second one is quite obviously a part of a fragment/file. I think
+   it is accepted practice to only show parts of files in papers. Also, 
+   I don't claim anywhere that the second one is a full fragment.
+
 Another explanation for fragment is that is standalone AST. But, how a
-standalone AST can be heterogeneous? I think better explanation is
-needed also providing an analogy with non-terminals, which represent
-language concept (e.g., declaration, expressions, commands).
+standalone AST can be heterogeneous? 
+
+-> Why not? If I have a file with code expressed in several languages,
+   then the the overall AST is standalone (i.e. there is a node that
+   has no parent) but still the nodes in the AST are instances of 
+   concepts from different languages. I cannot see how this is a problem.
+
+I think better explanation is needed also providing an analogy with 
+non-terminals, which represent language concept (e.g., declaration, 
+expressions, commands).
+
+-> I do not understand this comment. 
 
 4) The author wrote on page 5: ÒIn our experience, transformations are
 the most widely used approach for defining semantics.Ó Although, this
@@ -63,6 +144,8 @@ impression that this is the correct approach. See the excellent paper
 on this issue: ÒMeaningful Modeling: What's the Semantics of
 "Semantics"?Ó by David Harel and Bernhard Rumpe, IEEE Computer, Volume
 37, Issue 10 (October 2004), Pages: 64 - 72.
+
+
 
 5) The author wrote on page 5: ÒOther concerns are relevant in IDEs,
 including refactoring, quick fixes, support for testing, debugging and
