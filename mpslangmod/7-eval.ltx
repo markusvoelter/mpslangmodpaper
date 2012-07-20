@@ -44,15 +44,19 @@ integration, MPS provides diff/merge for most of today's version control systems
 on the level of the projected syntax --- including for heterogeneous fragments.
 No support for profiling is provided, although a profiler for language
 \emph{implementations} is on the roadmap. MPS comes with a debugging framework
-that lets language developers create debuggers for languages defined in MPS. However,
-this framework is relatively low-level and does not provide specific support for
-language composition and heterogeneous fragments. However, as part of the mbeddr
-project \cite{Voelter2012} that develops an extensible version of the C
-programming language we have developed a framework for extensible C debuggers.
-Developers of C extensions can easily specify how the extension integrates
-into the C debugger so that debugging on the \emph{syntax of the extension}
-becomes possible for heterogeneous fragments. Visser et al. also describe
-an approach for DSL debugging in~\cite{Lindeman-GPCE-2011}.
+that lets language developers create debuggers for languages defined in MPS.
+However, this framework is relatively low-level and does not provide specific
+support for language composition and heterogeneous fragments. However, as part
+of the mbeddr project \cite{Voelter2012} that develops an extensible version of
+the C programming language on top of MPS we have developed a framework for
+extensible C debuggers. Developers of C extensions can easily specify how the
+extension integrates into the C debugger so that debugging on the \emph{syntax
+of the extension} becomes possible for heterogeneous fragments. We are currently
+in discussions with JetBrains to make the underlying extensible debugging
+framework part of MPS. Debuggers for DSLs also been discussed by Visser et al.
+in~\cite{Lindeman-GPCE-2011} and by Wu et. al. in~\cite{WuGM08}. 
+
+\todo{review oben!}
 
 
 \phead{Evolution} Composing languages leads to coupling. In the case of

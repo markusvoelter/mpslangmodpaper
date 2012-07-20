@@ -145,7 +145,14 @@ on this issue: ÒMeaningful Modeling: What's the Semantics of
 "Semantics"?Ó by David Harel and Bernhard Rumpe, IEEE Computer, Volume
 37, Issue 10 (October 2004), Pages: 64 - 72.
 
-
+-> I read the paper. The authors explain that semantics is to be defined  
+   by a mapping of the syntactic constructs of a language L to a formalism
+   F whose semantics is known - the semantic domain. They acknowledge that
+   different degrees of formality can be used for F and the mapping L -> F.
+   In that sense, transformation and code generation are valid means of
+   defining semantics, although the authors of the reference above suggest
+   mathematics as maybe the best appraoch. I will reference the paper, 
+   but I don't think it invalidates fundamentally what I say in the paper.
 
 5) The author wrote on page 5: ÒOther concerns are relevant in IDEs,
 including refactoring, quick fixes, support for testing, debugging and
@@ -155,6 +162,8 @@ this paper to keep the paper at a reasonable length.Ó This should be
 toned down since profiling is not supported in MPS (see page 33), or
 debugging is too low-level (see page 33). The reader might get an
 impression that everything is already solved in MPS.
+
+-> agreed. I have changed it.
 
 6) The author wrote on Page 7: Ò...also propose Piggybacking and
 Pipelining as ways of reusing existing generators or interpreters. We
@@ -166,9 +175,19 @@ defined in this paper) some parts of another language L2 (e.g., only
 Java assignment command). The language L1 is a combination of some
 concepts from the language L2 and other concepts from the language L1.
 
+-> ok, my mistake. I have changed this.  
+
+
 7) All examples (fragments) must be numbered. Simply referring to
 fragments as Òbelow is an exampleÓ is odd when the example actually
 appears in next page (see pages 20-21, 25-26).
+
+-> I strongly disagree. Having all these numbers in the text doesn't make 
+   them easier to find, in particular, if they are moved to other pages.
+   I have taken great care to put the code examples close to the place where
+   they are referenced. In very few places are they on the next page. I think
+   it is acceptable to expect the user, to flip to the next page if he reads
+   "below" and there's no code "below" on the same page. 
 
 8) I donÕt see how the following discussion on page 33 is relevant for
 MPS debuggers: ÒHowever, as part of the mbeddr project [49] that
@@ -178,6 +197,11 @@ extensions can easily specify how the extension integrates into the C
 debugger so that debugging on the syntax of the extension becomes
 possible for heterogeneous fragments. Visser et al. also describe an
 approach for DSL debugging in [26].Ó
+
+-> I have clarified the connection to MPS: it is likely that the 
+   extensible debugger framework underlying mbeddr will be moved
+   into MPS.
+
 Moreover, DSL debuggers and test engines have been discussed also in:
 
 WU, Hui, GRAY, Jeffrey G., MERNIK, Marjan. Grammar-driven generation
@@ -188,6 +212,8 @@ WU, Hui, GRAY, Jeffrey G., MERNIK, Marjan. Unit testing for
 domain-specific languages. Lect. notes comput. sci., 2009, vol. 5658,
 pp. 125-147
 
+-> I have added a reference to the first of the two.
+
 9) The author wrote on page 40 regarding the LISA tool: ÒCombination
 of independently developed grammars (or sub-grammars) is not
 supported.Ó
@@ -195,82 +221,30 @@ This claim is wrong! LISA supports such a combination using multiple
 attribute grammar inheritance. Below is a small example how
 independent grammars (and semantics) can be combined.
 
-// 1st grammar
-language Desk
-{
-... // some parts are deleted
+-> Thank you for the example. I had the feeling that it should be
+   possible but hadn't found any example in the literature I found
+   on LISA. I have removed the respective statement.
 
-rule Start
-{
-PROGRAM ::= print EXPRESSION CONSTPART compute
-{
-PROGRAM.code = CONSTPART.ok ? EXPRESSION.code +
-"PRINT 0" + "\n" + "HALT 0" + "\n" :
-"\n" + "HALT 0" + "\n";
-EXPRESSION.envi = CONSTPART.envs;
-};
-}
-
-rule Constdef
-{
-CONSTDEF ::= CONSTNAME = #Number compute
-{
-CONSTDEF.name = CONSTNAME.name;
-CONSTDEF.value = Integer.parseInt(#Number.value());
-};
-}
-... // some parts are deleted
-
-}
-
-// 2nd grammar
-language Expr {
-
-attributes int *.val;
-
-rule Expression1 {
-EXPR ::= EXPR + TERM compute {
-EXPR[0].val = EXPR[1].val + TERM.val;
-};
-}
-rule Expression2 {
-EXPR ::= TERM compute {
-EXPR.val = TERM.val;
-};
-}
-rule Term1 {
-TERM ::= #Number compute {
-TERM.val = Integer.valueOf(#Number.value()).intValue();
-};
-}
-}
-
-// combining of 1st and 2nd grammar
-language DeskExpr extends Desk, Expr {
-rule extends Start {
-compute {}
-}
-rule overrides Constdef
-{
-CONSTDEF ::= CONSTNAME = EXPR compute
-{
-CONSTDEF.name = CONSTNAME.name;
-CONSTDEF.value = EXPR.val;
-};
-}
-}
 
 10) Discussion of homogenous approach in Helvetia and heterogeneous
 approach in MPS (section 6) is not the best since terms ÔhomogenousÕ
 and ÔheterogeneousÕ have been heavily used also for fragments in this
 paper. The reader will be confused.
 
+-> good point. I have removed the two terms from this discussion.
+   I have kept the discussion in place, though.
+
 11) The name for Cdn (page 4) is not explained. What Cdn stands for?
+
+-> it stands for Children. I hoped this would be clear from the context.
+   I have added an explanation (also for Refs and Inh).
 
 12) When domain-specific languages (DSLs) are referred for the first
 time (Introduction, page 2) the author should provide references and
 classification into internal and external DSLs. This classification is
 used in Section 6 without proper introduction in this paper.
+
+
 
 13) Overloaded terms come again to play when the author start
 discussion on DSL embedding. Will average reader be able to
@@ -288,15 +262,14 @@ Applications (LDTA'12), 2012.
 15) Some problems in references still exist. In particular,
 a) 21. G. L. S. Jr. Growing a Language
 // Last name ?
+
+-> yes, unfortuntely Latex was confused by the Jr. after Steele. Fixed.
+
 b) 29. Martin Bravenboer and Eelco Dolstra and Eelco Visser
 // Full first names appear only in this reference
 
+-> fixed.
 
+- Page 30: Concpet -> Concept
 
-Typos:
-=======
-
-- Page 30:
-Concpet
-->
-Concept
+-> fixed.

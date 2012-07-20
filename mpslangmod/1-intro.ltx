@@ -158,16 +158,17 @@ $lo(concept) \Rightarrow \mathit{language}$. Finally, we define a
 program element: $fo(element) \Rightarrow \mathit{fragment}$.
 
 We also define the following sets of relations between program elements.
-$\mathit{Cdn_f}$ is the set of parent-child relationships in a fragment $f$.
-Each $c \in Cdn$ has the properties $parent$ and $child$. $\mathit{Refs_f}$ is
-the set of non-containing cross-references between program elements in a fragment
-$f$. Each reference $r \in \mathit{Refs_f}$ has the properties $from$ and
-$to$, which refer to the two ends of the reference relationship. Finally, we define an
+$\mathit{Cdn_f}$ (short for \emph{children}) is the set of parent-child
+relationships in a fragment $f$. Each $c \in Cdn$ has the properties $parent$
+and $child$. $\mathit{Refs_f}$ (short for \emph{references}) is the set of
+non-containing cross-references between program elements in a fragment $f$. Each
+reference $r \in \mathit{Refs_f}$ has the properties $from$ and $to$, which
+refer to the two ends of the reference relationship. Finally, we define an
 inheritance relationship that applies the Liskov Substitution
 Principle~\cite{LiskovW94} to language concepts: a concept $c_{sub}$ that
 extends another concept $c_{super}$ can be used in places where an instance of
-$c_{super}$ is expected. $\mathit{Inh_l}$ is the set of inheritance
-relationships for a language $l$. 
+$c_{super}$ is expected. $\mathit{Inh_l}$ (short for \emph{inheritances}) is the
+set of inheritance relationships for a language $l$.
 
 An important concern in \lmrc\ is the notion of independence. An
 \emph{independent language} does not depend on other languages. It can be
@@ -197,9 +198,16 @@ language:
 	\mathit{lo(c.child)} = l
 \end{align}
 
-\noindent In this paper we consider the semantics of a language $l_1$ to be
-defined via a \emph{transformation} that maps a program expressed in $l_1$ to a
-program in another language $l_2$ that has the same \emph{observable behavior}.
+\todo{review}
+\noindent As elaborated by Harel and Rumpe in \cite{Semantics} the execution
+semantics of a language are defined by mapping the syntactic constructs of a
+language $L$ to concepts from the semantic domain $S$ of the language. Different
+representations of $S$ and the mapping $L \rightarrow S$ exist. Harel and Rumpe
+prefer to use mathematical formalisms as $S$ because their semantics is well
+known, but acknowledge that other formalisms are useful as well. In this paper
+we consider the semantics of a language $l_1$ to be defined via a
+\emph{transformation} that maps a program expressed in $l_1$ to a program in
+another language $l_2$ that has the same \emph{observable behavior}.
 The observable behavior can be determined in various ways, for example using a
 sufficiently large set of test cases. A discussion of alternative ways to define
 language semantics is beyond the scope of this paper, and, in particular, we do
@@ -211,9 +219,11 @@ The paper emphasizes \emph{IDE} modularization and composition in addition to
 \emph{language} modularization and composition. When referring to IDE services,
 we mean syntax highlighting, code completion and static error checking. Other
 concerns are relevant in IDEs, including refactoring, quick fixes, support for
-testing, debugging and version control integration. While all of these are
-supported by MPS in a modular and composable way, we do not discuss those
-aspects in this paper to keep the paper at a reasonable length.
+testing, debugging and version control integration. Most of these are supported
+by MPS in a modular and composable way (the exceptions are profiling, which is
+not supported, and debugging, which is supported but on a too low-level of
+abstraction), we do not discuss those aspects in this paper to keep the paper at
+a reasonable length.
 
 
 \mvsubsec{Classification of Composition Approaches}
@@ -304,16 +314,19 @@ this is not always easily possible, though often desirable.
 
 
 
+\todo{review}
 
 \noindent Mernik et al. also propose a number of composition approaches
 in~\cite{MernikHS05}, among them Extension and Restriction. In the context of
 the classification proposed in our paper, Restriction is a form of Extension: to
 restrict a language, we create an Extension that \emph{prohibits the use of some
 language concepts in certain contexts}. We discuss this at the end of
-\sect{Extension}. Mernik et al. also propose Piggybacking and Pipelining as ways
-of reusing existing generators or interpreters. We do not include these
-approaches in our discussion here because they do not \emph{compose} languages
---- they just chain their transformations.
+\sect{Extension}. Mernik et al. also propose Piggybacking and Pipelining.
+We do not discuss Pipelining in this paper, here because it does not
+\emph{compose} languages, it just chain their transformations. Piggybacking
+refers to a language reusing concepts from an existing language. As we will
+see in this paper, this corresponds to Extension with embedding flavor. 
+
 
 \mvsubsec{Case Study}
 

@@ -230,16 +230,15 @@ a more concise syntax for XSLT-based XML transformations.
 
 LISA~\cite{MernikLAZ02} (mentioned earlier) supports the definition of language
 syntax and semantics (via attribute grammars) in one integrated specification
-language. It then derives, among other things, a syntax-aware text editor
-for the language, as well as various graphical and structural viewing and
-editing facilities. Users can use inheritance and aspect-orientation to define
+language. It then derives, among other things, a syntax-aware text editor for
+the language, as well as various graphical and structural viewing and editing
+facilities. Users can use inheritance and aspect-orientation to define
 sub-grammars. The use of this approach for incremental language development is
 detailed in~\cite{MernikZ05}. However, users have to make sure manually that
 sub-grammars remain unambiguous with respect to the base grammar.
-Combination of independently developed grammars (or sub-grammars) is not
-supported. LISA supports interactive debugging and program state visualization
-based on interpreting programs based on the semantic parts of the language
-specification.
+The same is true for the combination of independently developed grammars. LISA
+supports interactive debugging and program state visualization based on
+interpreting programs based on the semantic parts of the language specification.
 
 Eclipse Xtext\footnote{http://eclipse.org/Xtext} generates sophisticated text
 editors from an EBNF-like language specification. Syntactic composition is
@@ -274,19 +273,18 @@ that extend Xbase relatively simple.
 
 The Helvetia system
 \cite{2010_renggli_Embedding_languages_without_breaking_tools} by Renggli et al.
-supports language extension of Smalltalk using a
-\emph{homogeneous} approach, which means that the host language (Smalltalk) is
-also used for \emph{defining} the extensions. The authors argue that the
-approach is independent of the host language and could be used with other host
-languages as well. While this is true in principle, the implementation strategy
-heavily relies on aspects of the Smalltalk system that are not present for other
-languages. Also, since extensions are defined in the host language, the complete
-implementation would have to be redone if the approach were to be used with
-another host language. This is particularly true for IDE support, where the
-Smalltalk IDE is extended using this IDE's APIs. MPS uses a \emph{heterogeneous}
-approach which does not have these limitations: MPS provides a language-agnostic
-framework for language and IDE extension that can be used with any language,
-once the language is implemented in MPS.
+supports language extension of Smalltalk with an approach where the host
+language (Smalltalk) is also used for defining the extensions. The
+authors argue that the approach is independent of the host language and could be
+used with other host languages as well. While this is true in principle, the
+implementation strategy heavily relies on aspects of the Smalltalk system that
+are not present for other languages. Also, since extensions are defined in the
+host language, the complete implementation would have to be redone if the
+approach were to be used with another host language. This is particularly true
+for IDE support, where the Smalltalk IDE is extended using this IDE's APIs. 
+The approach discussed in this paper does not have these limitations: MPS
+provides a language-agnostic framework for language and IDE extension that can
+be used with any language, once the language is implemented in MPS.
   
 
  
