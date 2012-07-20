@@ -136,8 +136,7 @@ is the creation of the additional method for the block expression as shown in
 \fig{expressionBlockGenerator1} and \fig{expressionBlockGenerator2}.
 
 
-
-\begin{figure}[htp]
+\begin{figure}[h]
 \begin{center}
   \vspace{-3mm}
   \includegraphics[width=120mm]{figures/expressionBlockGenerator1.png}
@@ -150,21 +149,20 @@ is the creation of the additional method for the block expression as shown in
   The called template \ic{weaveBlockExpression} is shown in
   \fig{expressionBlockGenerator2}.}
   \label{expressionBlockGenerator1}
-  \vspace{-5mm} 
 \end{center}
 \end{figure}
+
  
 
-\noindent The template shown in \fig{expressionBlockGenerator2} shows the
+The template shown in \fig{expressionBlockGenerator2} shows the
 creation of the method. The mapping label (\ic{b2M}) creates a mapping between the
 \ic{BlockExpression} and the created method. We will use this label to refer to
 this generated method when we generate the method call that replaces the
 \ic{BlockExpression} (\fig{expressionBlockGenerator3}).
 
 
-\begin{figure}[htp] 
+\begin{figure}[h] 
 \begin{center}
-  \vspace{-3mm}
   \includegraphics[width=120mm]{figures/expressionBlockGenerator2.png}
   \caption[labelInTOC]{This generator template creates a method from the block
   expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ic{string}
@@ -174,12 +172,20 @@ this generated method when we generate the method call that replaces the
   \ic{b2M} (block-to-method) mapping label is used later when generating the
   call to this generated method (shown in \fig{expressionBlockGenerator3}).}
   \label{expressionBlockGenerator2} 
+  \vspace{-5mm} 
 \end{center}
 \end{figure}
 
+Another concept introduced by the \ic{exprblocks} language is the
+\ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
+in function bodies. It is used to mark locations at which subsequent
+generators can add additional code. These subsequent generators will use a
+reduction rule to replace the placeholder with whatever they want to put at this
+location. It is a means to building extensible generators, as we will see later.
 
-\begin{figure}[htp]
+\begin{figure}[h]
 \begin{center}
+  \vspace{-10mm} 
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
   \caption[labelInTOC]{Here we generate the call to the method generated in
   \fig{expressionBlockGenerator2}. We use the mapping label \ic{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
@@ -190,24 +196,15 @@ this generated method when we generate the method call that replaces the
 \end{center}
 \end{figure}
 
-\vspace{-5mm}
-
-\noindent Another concept introduced by the \ic{exprblocks} language is the
-\ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
-in function bodies. It is used to mark locations at which subsequent
-generators can add additional code. These subsequent generators will use a
-reduction rule to replace the placeholder with whatever they want to put at this
-location. It is a means to building extensible generators, as we will see later.
 
 
-In the classification (\sect{typesOfMod}) we mentioned that we consider language
-restriction as a form of Extension. To illustrate this point we prevent the use
+
+\noindent In the classification (\sect{typesOfMod}) we mentioned that we
+consider language restriction as a form of Extension. To illustrate this point we prevent the use
 of \ic{return} statements inside block expressions (the reason for this
 restriction is that the way we generate from the block expressions cannot handle
 return statements). To achieve this, we add a \ic{can be ancestor} constraint to
 the \ic{BlockExpression}:
-
-\pagebreak[4]
 
 \vspace{-2mm}
 \begin{code} 
@@ -229,8 +226,8 @@ writing constraints from the perspective of the child. This is important to
 keep dependencies pointing in the right direction.
 
 
-Extension comes in two flavors. One feels like Extension, and the other one
-feels more like Embedding. In this section we have described the Extension
+\noindent Extension comes in two flavors. One feels like Extension, and the
+other one feels more like Embedding. In this section we have described the Extension
 flavor: we provide (a little, local) additional syntax to an otherwise unchanged
 language (block expressions and placeholders). The programs still essentially
 look like Java programs, and in a few particular places, something is different.

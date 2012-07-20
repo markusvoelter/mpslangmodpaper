@@ -1,5 +1,4 @@
 
-\vspace{-5mm}
 \mvsubsec{Language Embedding}
 \label{Embedding}
 
@@ -29,7 +28,6 @@ As an example we embed an existing \ic{expressions} language into the
 may have a dependency on the other. Below is an example program using the
 resulting language that uses expressions after the \ic{validate} keyword:
 
-\pagebreak[4]
 
 \begin{code}
 form CompanyStructure                                                                                                                                  
@@ -65,7 +63,7 @@ in \ic{uispec\_validation} and is a subconcept of \ic{Field}.
 \end{center}
 \end{figure}
 
-\noindent To support the migration of existing models that use \ic{Field}
+To support the migration of existing models that use \ic{Field}
 instances, we provide an intention. An Intention (known as a Quick Fix in Eclipse) is an
 in-place model transformation that can be triggered by the user by selecting it
 from the Intentions menu accessible via \ic{Alt-Enter}. This particular
@@ -209,8 +207,6 @@ operation concepts: EqualsExpression
   } 
 \end{code}
 
-\pagebreak[4]
-
 \phead{Generator} For the generator we can use the following two alternative
 approaches. We can use the \ic{expressions} language's existing to-text
 generator and wrap the expressions in some kind of \ic{TextWrapperStatement}.
@@ -265,8 +261,8 @@ form via the same placeholder reduction as in the case of the
 \end{figure}
  
  
-Just as in the discussion on Extension (\sect{Extension}), we may want to use
-constraints to restrict the embedded language in the context of a
+\noindent Just as in the discussion on Extension (\sect{Extension}), we may want
+to use constraints to restrict the embedded language in the context of a
 \ic{Validated- Field}. Consider the case where we wanted to embed the
 expressions part of C instead of the \ic{expressions} language. C comes with all kinds of
 operators relating to pointers, bit shifting and other C-specifics that are not

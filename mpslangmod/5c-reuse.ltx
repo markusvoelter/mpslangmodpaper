@@ -182,15 +182,12 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 \end{code}
  
  
-\vspace{-3mm}
 \subsubsection{Interwoven generated code}
 
 \ic{rbac} is a language for specifying role-based access
 control for \ic{entities}. The code below shows an example fragment. Note how it
 references entities (\ic{Depart- ment}) and attributes (\ic{Employee.name}) from
 an \ic{entities} fragment.
-
-\pagebreak[4]
 
 \begin{code}
 users: user mv : Markus Voelter     
@@ -211,7 +208,6 @@ languages. The sub-language \ic{rbac\_entities} provides two sub-concepts of
 \ic{Resource}, namely \ic{At- tributeResource} to reference to an
 \ic{Attribute}, and \ic{EntityResource} to refer to an \ic{Entity}, to define permissions for
 entities and their attributes.
-\vspace{-3mm}
 
 
 \begin{figure}[htp]
@@ -227,7 +223,6 @@ entities and their attributes.
 \end{figure}
 
 
-\vspace{-2mm}
 \phead{Type System} No type system rules apply here, because none of the
 concepts added by the \ic{rbac} language are typed or require constraints
 regarding the types in the \ic{entities} language.
