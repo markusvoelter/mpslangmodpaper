@@ -144,8 +144,8 @@ rule typeof_Attribute for Attribute as a {
 \end{code}
 \vspace{-1mm}
 
-This one answers the question of what the type system engine's type should be
-for instances of \ic{Attribute}. Note how this equation has two type variables
+\noindent This rule answers the question of what the type system engine's type
+should be for instances of \ic{Attribute}. Note how this equation has two type variables
 and no type values. It simply propagates the type of the attribute's specified
 type (the \ic{int} in \ic{int age;}) to be the type of the overall attribute.
 Note how the two typing rules discussed in this section play together to
@@ -169,8 +169,8 @@ checking rule check_Entity for Entity as e {
 }
 \end{code}
 
-This rule does \emph{not} establish typing equations, it just checks a property
-of the program (note the \emph{checking} in the rule header). It checks
+\noindent This rule does \emph{not} establish typing equations, it just checks a
+property of the program (note the \emph{checking} in the rule header). It checks
 attribute name uniqueness based on a set of the names. It reports an error if it
 finds a duplicate. It annotates the error with the attribute \ic{a}, so the
 editor can highlight the respective program element. Note how in case of the
@@ -267,15 +267,6 @@ discuss in more detail the generation of Java fields for each \ic{Entity}
   
 \end{itemize}
 
-\noindent Instead of mixing template code and target language code (and
-separating them with some kind of escape character) we annotate macros to
-regular, valid target language code. Macros can be attached to
-arbitrary program elements. This way, the target language code in templates
-\emph{is always structurally correct}, but it can still be annotated to control
-the transformation. Annotations are a generic MPS mechanism not specific to
-transformation macros and are discussed in \sect{annotations}.
-
- 
 \vspace{-2mm}
 \begin{figure}[htp]
 \begin{center}
@@ -287,4 +278,15 @@ transformation macros and are discussed in \sect{annotations}.
   \label{entitytemplate} 
 \end{center}
 \end{figure}
+
+
+\noindent Instead of mixing template code and target language code (and
+separating them with some kind of escape character) we annotate macros to
+regular, valid target language code. Macros can be attached to
+arbitrary program elements. This way, the target language code in templates
+\emph{is always structurally correct}, but it can still be annotated to control
+the transformation. Annotations are a generic MPS mechanism not specific to
+transformation macros and are discussed in \sect{annotations}.
+
+ 
 

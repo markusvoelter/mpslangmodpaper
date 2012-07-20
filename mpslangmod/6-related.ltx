@@ -311,6 +311,35 @@ them comparable. As of June 2012, the site contains 15 submissions.
 
 \mvsubsec{Other Related Work}
 
+
+
+\todo{review}
+
+In this paper we classify language composition approaches based on syntactic
+mixing and language dependencies. Other classifications have been proposed,
+including Mernik et al. ~\cite{MernikHS05}. Among others, they propose Extension
+(concepts are added to a language, similar to Extension as defined in this
+paper) and Restriction (concepts are removed from a language). The latter can
+actually be seen as a form of Extension: to restrict a language, we create an
+Extension that \emph{prohibits the use of some language concepts in certain
+contexts}. We discuss this at the end of \sect{Extension}. Mernik et al. also
+propose Piggybacking and Pipelining. We do not discuss Pipelining in this paper,
+here because it does not \emph{compose} languages, it just chain their
+transformations. Piggybacking refers to a language reusing concepts from an
+existing language. This corresponds to Extension with embedding flavor. In
+\cite{ErdwegGR12}, Erdweg et al. also propose a classification. Extension is the
+same as in our paper. They also consider Restriction as a form of Extension,
+where the extension restricts the use of certain language concepts. They call
+Unification what we call Embedding: two independent languages are used together
+in the same fragment. The two languages are combined without an invasive change
+to either of them. Each of the languages may have to be extended to "interface"
+with the other one. They also introduce the term Self-Extension, which describes
+the case where extensions are developed by means of the base language itself, an
+approach which is used by internal DSLs (see below) and is beyond the scope of
+this paper.
+
+
+
 We already discussed the language modularization and composition approaches
 proposed by Mernik et al.~\cite{MernikHS05} in \sect{typesOfMod}. In the
 Helvetia paper~\cite{2010_renggli_Embedding_languages_without_breaking_tools}
@@ -319,7 +348,7 @@ Extension. A \emph{pidgin} creatively bends the existing syntax of the host
 language to to extend its semantics. A \emph{creole} introduces completely new
 syntax and custom transformations back to the host language. An \emph{argot}
 reinterprets the semantics of valid host language code. In terms of this
-classification, both Extension and Embedding are creoles.
+classification, both Extension and Embedding are creoles. 
 
 
 The notion of incremental extension of languages  was first popularized in the
@@ -362,19 +391,22 @@ resulting implementation and mismatches in the resulting tool, as the author
 knows from personal experience.
 
 
-Internal DSLs are languages embedded in general purpose host languages. Suitable
-host languages are those that provide a flexible syntax, as well as meta
-programming facilities to support the definition of new abstractions with a
-custom concrete syntax. For example, Hofer et al. describes
-Embedding DSLs in Scala~\cite{HoferORM08}. The landmark work of
-Hudak~\cite{1998_hudak_modular_dsl_and_tools} introduces embedded DSLs as language extensions of Haskell. While Haskell
-provides advanced concepts that enable such extensions, the new DSLs are
-essentially just libraries built with the host language and are not first class
-language entities: they do not define their own syntax, compiler errors are
-expressed in terms of the host language, no custom semantic analyses are
-supported and no specific IDE-support is provided. Essentially all internal DSLs
-expressed with dynamic languages such as Ruby or Groovy, but also those embedded
-in static languages such as Scala suffer from these limitations. Since we
-consider IDE modularization and composition essential, we do not address
-internal DSLs in this paper.
+Internal DSLs are languages whose programs reside \emph{within} programs
+expressed in a general purpose host language. In contrast to the Embedding
+approach discussed in this paper, the DSL syntax and semantics are also defined
+with this same host language (as explained by Martin Fowler in his DSL book
+\cite{Fowler2011}). Suitable host languages are those that provide a flexible
+syntax, as well as meta programming facilities to support the definition of new
+abstractions with a custom concrete syntax. For example, Hofer et al. describes
+internal DSLs in Scala~\cite{HoferORM08}. The landmark work of
+Hudak~\cite{1998_hudak_modular_dsl_and_tools} introduces internal DSLs as
+language extensions of Haskell. While Haskell provides advanced concepts that
+enable creating such DSLs, they are essentially just libraries built with the
+host language and are not first class language entities: they do not define
+their own syntax, compiler errors are expressed in terms of the host language,
+no custom semantic analyses are supported and no specific IDE-support is
+provided. Essentially all internal DSLs expressed with dynamic languages such as
+Ruby or Groovy, but also those built with static languages such as Scala suffer
+from these limitations. Since we consider IDE modularization and composition
+essential, we do not address internal DSLs in this paper.
 

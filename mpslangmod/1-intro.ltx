@@ -274,23 +274,27 @@ the paper.
   to be designed specifically for a specific composition partner or not.
   Fragment structure captures whether the composition approach supports
   mixing of the concrete syntax of the composed languages or not.}
-  \vspace{-4mm}
+  \vspace{-8mm}
   \label{quadrants} 
 \end{center}
 \end{figure} 
 
 \vspace{2mm}
 \noindent As can be seen from the above descriptions, we distinguish the four
-approaches regarding fragment structure and language dependencies, as illustrated in
-\fig{quadrants}. \fig{fragAndLang} shows the relationships between fragments and
-languages in these cases. We used these two criteria as the basis for this paper
-because we consider them essential for the following reasons. \emph{Language dependencies} capture whether a language has to be designed with
-knowledge about a particular composition partner in order to be
+approaches regarding fragment structure and language dependencies, as
+illustrated in \fig{quadrants} (other classifications have been proposed, they
+are discussed in \sect{Related}). \fig{fragAndLang} shows the relationships
+between fragments and languages in these cases. We used these two criteria as
+the basis for this paper because we consider them essential for the following
+reasons. \emph{Language dependencies} capture whether a language has to be
+designed with knowledge about a particular composition partner in order to be
 composable with that partner. It is desirable in many scenarios that languages
 be composable \emph{without} previous knowledge about possible composition
-partners. \emph{Fragment Structure} captures whether the composed languages
-can be syntactically mixed. Since modular concrete syntax can be a challenge,
-this is not always easily possible, though often desirable.
+partners. \emph{Fragment Structure} captures whether the composed languages can
+be syntactically mixed. Since modular concrete syntax can be a challenge, this
+is not always easily possible, though often desirable.
+
+
 
 
 
@@ -314,18 +318,6 @@ this is not always easily possible, though often desirable.
 
 
 
-\todo{review}
-
-\noindent Mernik et al. also propose a number of composition approaches
-in~\cite{MernikHS05}, among them Extension and Restriction. In the context of
-the classification proposed in our paper, Restriction is a form of Extension: to
-restrict a language, we create an Extension that \emph{prohibits the use of some
-language concepts in certain contexts}. We discuss this at the end of
-\sect{Extension}. Mernik et al. also propose Piggybacking and Pipelining.
-We do not discuss Pipelining in this paper, here because it does not
-\emph{compose} languages, it just chain their transformations. Piggybacking
-refers to a language reusing concepts from an existing language. As we will
-see in this paper, this corresponds to Extension with embedding flavor. 
 
 
 \mvsubsec{Case Study}

@@ -8,7 +8,7 @@ Language Embedding enables \emph{heterogeneous} fragments with
 \emph{independent} languages. It is similar to Reuse in that there are two
 independent languages $l_1$ and $l_2$, but instead of establishing references
 between two homogeneous fragments, we now \emph{embed} instances of concepts
-from $l_2$ in a fragment $f$ expressed with $l_1$, so
+from $l_2$ in a fragment $f$ expressed with $l_1$:
 \begin{align} 
 \forall c \in \mathit{Cdn_f} \mid  \;
 	&\mathit{lo(co(c.parent))} = l_1 \; \wedge \nonumber \\
@@ -28,11 +28,12 @@ As an example we embed an existing \ic{expressions} language into the
 may have a dependency on the other. Below is an example program using the
 resulting language that uses expressions after the \ic{validate} keyword:
 
+\pagebreak[4]
+
 \begin{code}
 form CompanyStructure                                                                                                                                  
   uses Department                                                                                                                                      
   uses Employee                                                                                                                                        
-                                                                                                                                                       
   field Name: textfield(30) -> Employee.name validate lengthOf(Employee.name) < 30                                                                     
   field Role: combobox(Boss, TeamMember) -> Employee.role                                                                                              
   field Freelancer: checkbox -> Employee.freelancer 
@@ -41,6 +42,7 @@ form CompanyStructure
   field Office: textfield(20) -> Department.description                                                                                                
 \end{code}
 
+\vspace{-2mm}
 
 \phead{Structure and Syntax} We create a new language \ic{uispec\_validation}
 that extends \ic{uispec} and also extends \ic{expressions}. \fig{uival} shows the
@@ -57,7 +59,7 @@ in \ic{uispec\_validation} and is a subconcept of \ic{Field}.
   language. The language also defines a couple of additional expressions,
   including the \ic{AttributeRefExpr}, which can be used to refer to
   attributes of entities.}
-  \vspace{-3mm}
+  \vspace{-7mm}
   \label{uival}  
 \end{center}
 \end{figure}
@@ -76,13 +78,13 @@ transformation:
 
 \begin{code}
 execute(editorContext, node)->void { 
-    node<ValidatedField> vf = new node<ValidatedField>(); 
+    node<ValidatedField> vf = node.replace with new(ValidatedField); 
     vf.widget = node.widget; 
     vf.attribute = node.attribute; 
     vf.label = node.label; 
-    node.replace with(vf); 
 }
 \end{code}
+
 
 \noindent As mentioned, the \ic{uispec\_validation} language extends the
 \ic{uispec} and \ic{ex- pressions} languages. \ic{ValidatedField} has a
@@ -176,10 +178,10 @@ operation concepts: EqualsExpression
   }               
 \end{code}
 
+\vspace{-1mm}
 \noindent This overloaded operation specification is integrated with the
 inference-based typing rules using the following code: 
-
-\pagebreak[4]
+\vspace{-1mm}
 
 \begin{code}
 rule typeof_BinaryExpression for BinaryExpression as binExpr {                                                                                                                                                                                                                                                                                                                                                                                                                   
@@ -189,13 +191,14 @@ rule typeof_BinaryExpression for BinaryExpression as binExpr {
   } else { 
     error "operator " + binExpr.concept.name + " cannot be applied to operands "
           + left.concept.name + "/" + right.concept.name -> binExpr; 
-  } 
-} 
+} } 
 \end{code}
 
-\noindent To override these typing rules to work with \ic{entities.BooleanType},
-we simply provider another overloaded operation specification in the
+\vspace{-1mm}
+\noindent To override these typing rules for \ic{entities.BooleanType},
+we simply provide another overloaded operation specification in the
 \ic{uispec\_validation} language:
+\vspace{-4mm}
 
 \begin{code}
 operation concepts: EqualsExpression                                       
@@ -204,6 +207,8 @@ operation concepts: EqualsExpression
     node<BooleanType>;  // this is the expressions.BooleanType 
   } 
 \end{code}
+
+\pagebreak[4]
 
 \phead{Generator} For the generator we can use the following two alternative
 approaches. We can use the \ic{expressions} language's existing to-text

@@ -42,11 +42,11 @@ rather it is a form of language Referencing. The fragments remain homogeneous.
   $A2$, plugging $l_2$ into the context provided by $l_1$. Consequently,
   $l_2$ depends on $l_2$.}
   \label{langExtension}  
-  \vspace{-3mm}
+  \vspace{-5mm}
 \end{center}  
 \end{figure}
 
-As an example we extend the MPS base language with block expressions
+\noindent As an example we extend the MPS base language with block expressions
 and placeholders. These concepts make writing generators \emph{that generate
 base language code} much simpler. \fig{expressionBlock} shows an example. We use
 a screenshot instead of text because we use non-textual notations and color. 
@@ -190,7 +190,9 @@ this generated method when we generate the method call that replaces the
 \end{center}
 \end{figure}
 
-Another concept introduced by the \ic{exprblocks} language is the
+\vspace{-5mm}
+
+\noindent Another concept introduced by the \ic{exprblocks} language is the
 \ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
 in function bodies. It is used to mark locations at which subsequent
 generators can add additional code. These subsequent generators will use a
@@ -205,6 +207,7 @@ restriction is that the way we generate from the block expressions cannot handle
 return statements). To achieve this, we add a \ic{can be ancestor} constraint to
 the \ic{BlockExpression}:
 
+\pagebreak[4]
 
 \vspace{-2mm}
 \begin{code} 

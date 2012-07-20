@@ -14,13 +14,13 @@ $l_1$. This makes $l_2$ reusable with different languages, in contrast to langua
 Referencing, where concepts in $l_2$ reference concepts in $l_1$. We call $l_2$
 the \emph{context} language and $l_1$ the \emph{reused} language.
 
-A way of realizing dependent fragments while retaining independent languages is
+A way of realizing dependent fragments with independent languages is
 using an adapter language $l_A$ (cf. \cite{GOF95}) that contains concepts that
 \emph{extend} concepts in $l_2$ and \emph{references} concepts in $l_1$
-(\fig{langReuse}). One could argue that in this case Reuse is just a clever
-combination of Referencing and Extension. While this is true from an
-implementation perspective, it is worth describing as a separate approach
-because it enables the combination of two \emph{independent languages} by adding
+(\fig{langReuse}). One could argue that in this case Reuse is just a 
+combination of Referencing and Extension. This is true from an
+implementation perspective, but it is worth describing as a separate approach
+because it enables the combination of two \emph{independent languages} with
 an adapter \emph{after the fact}, so no pre-planning during the design of $l_1$
 and $l_2$ is necessary.
            
@@ -33,7 +33,7 @@ and $l_2$ is necessary.
   fragment expressed with $l_1$. To do this, an adapter language $l_A$ is
   added that uses Extension and Referencing to adapt $l_1$ to $l_2$.} 
   \label{langReuse}
-  \vspace{-4mm}  
+  \vspace{-6mm}  
 \end{center} 
 \end{figure} 
 
@@ -44,6 +44,8 @@ first one (a persistence mapping language) the generated code is
 separate from the code generated from the \ic{entities} language. The second
 one (a language for role-based access control) describes the case where the
 generated code has to be "woven into" the \ic{entities} code.
+
+\vspace{-4mm}  
 
 
 \subsubsection{Separated Generated Code}
@@ -57,6 +59,7 @@ that contains tables with columns. Columns have (database-specific) data types.
 On the right side we show the database definition code when it is reused with
 the \ic{entities} language; each column is mapped to an entity attribute.
 
+\vspace{-2mm}
 
 \begin{code}
 Database CompanyDB                          Database CompanyDB             
@@ -69,7 +72,6 @@ Database CompanyDB                          Database CompanyDB
     char role                                   char role <- Employee.role  
     char isFreelancer                           char isFreelancer <- Employee.freelancer
 \end{code}
-
 
                         
 \phead{Structure and Syntax} \fig{relmapping} shows the structure of the
@@ -187,6 +189,8 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 control for \ic{entities}. The code below shows an example fragment. Note how it
 references entities (\ic{Depart- ment}) and attributes (\ic{Employee.name}) from
 an \ic{entities} fragment.
+
+\pagebreak[4]
 
 \begin{code}
 users: user mv : Markus Voelter     

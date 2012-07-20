@@ -244,12 +244,17 @@ time (Introduction, page 2) the author should provide references and
 classification into internal and external DSLs. This classification is
 used in Section 6 without proper introduction in this paper.
 
-
+-> I have provided a reference, but I have done so in section
+   6 where the disctinction is important.
 
 13) Overloaded terms come again to play when the author start
 discussion on DSL embedding. Will average reader be able to
 differentiate embedding presented in this paper with embedding in work
 of Hudak and Hofer? I donÕt think so.
+
+-> I have removed the term embedding from this context (I just use
+   internal). I have also explained how internal DSLs differ from 
+   Embedding as discussed in my paper. This resolves the confusion.
 
 14) The author should compare their classification with the
 classification on language composition presented in the paper:
@@ -258,6 +263,7 @@ S. Erdweg, P. G. Giarrusso, T. Rendel. Language Composition Untangled.
 Proceedings of Workshop on Language Descriptions, Tools and
 Applications (LDTA'12), 2012.
 
+-> Interesting paper, I wasn't aware of it. I have added a discussion.
 
 15) Some problems in references still exist. In particular,
 a) 21. G. L. S. Jr. Growing a Language
