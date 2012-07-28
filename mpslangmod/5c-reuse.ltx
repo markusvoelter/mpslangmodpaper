@@ -75,8 +75,9 @@ Database CompanyDB                          Database CompanyDB
 
                         
 \phead{Structure and Syntax} \fig{relmapping} shows the structure of the
-\ic{relmapping} language. The abstract concept \ic{ColumnMapper} serves as a hook: if we reuse this language
-in a different context, we extend this hook in a context-specific way. 
+\ic{relmapping} language. The abstract concept \ic{ColumnMapper} serves as a
+hook: if we reuse this language in a different context, we extend this hook in a
+context-specific way.
 
 \begin{figure}[htp]
 \begin{center}
@@ -186,7 +187,7 @@ public class CompanyDBAdapter extends CompanyDBBaseAdapter {
 
 \ic{rbac} is a language for specifying role-based access
 control for \ic{entities}. The code below shows an example fragment. Note how it
-references entities (\ic{Depart- ment}) and attributes (\ic{Employee.name}) from
+references entities (\ic{Department}) and attributes (\ic{Employee.name}) from
 an \ic{entities} fragment.
 
 \begin{code}
@@ -227,7 +228,7 @@ entities and their attributes.
 concepts added by the \ic{rbac} language are typed or require constraints
 regarding the types in the \ic{entities} language.
 
-\phead{Generator} What distinguishes this case from the relmapping case is that
+\phead{Generator} What distinguishes this case from the \ic{relmapping} case is that
 the code generated from the \ic{rbac\_entities} language is \emph{not} separated from
 the code generated from the \ic{entities} (we cannot use the convenient
 base class/subclass approach). Instead, a permission check is required \emph{inside}
