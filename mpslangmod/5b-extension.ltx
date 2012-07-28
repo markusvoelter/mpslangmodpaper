@@ -200,11 +200,11 @@ location. It is a means to building extensible generators, as we will see later.
 
 
 \noindent In the classification (\sect{typesOfMod}) we mentioned that we
-consider language restriction as a form of Extension. To illustrate this point we prevent the use
-of \ic{return} statements inside block expressions (the reason for this
-restriction is that the way we generate from the block expressions cannot handle
-return statements). To achieve this, we add a \ic{can be ancestor} constraint to
-the \ic{BlockExpression}:
+consider language restriction as a form of Extension. To illustrate this point
+we prevent the use of \ic{return} statements inside block expressions (the
+reason for this restriction is that the way we generate from the block
+expressions cannot handle return statements). To achieve this, we add a \ic{can
+be ancestor} constraint to the \ic{BlockExpression}:
 
 \vspace{-2mm}
 \begin{code} 
