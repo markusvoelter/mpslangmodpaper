@@ -18,7 +18,7 @@ introduced in \sect{terminology} root nodes (and their descendants) are
 considered \emph{fragments}.
 
 
-\begin{code}
+\begin{lstlisting}[language=mpsmodex, deletekeywords={role}]
 module company                       // continued...
   entity Employee {                  entity Department {  
     id : int                           id : int      
@@ -27,7 +27,7 @@ module company                       // continued...
     worksAt : Department
     freelancer : boolean
   }                     
-\end{code}
+\end{lstlisting}
 
 
 
@@ -48,13 +48,12 @@ of children of type \ic{Attribute} in the \ic{attributes} role.
 A concept may also have references to other concepts (as opposed to children).
 
 
-\vspace{-2mm}
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={is}]
 concept Entity extends BaseConcept implements INamedConcept        
   is root: true
   children:                                     
     Attribute attributes 0..n
-\end{code}                                               
+\end{lstlisting}
 
 \begin{figure}[h]
 \begin{center}
@@ -97,7 +96,6 @@ other concepts are defined similarly.
 \end{center}
 \end{figure}
 
-\vspace{-4mm}
 \phead{Type System} As we have explained in \sect{HowMPSWorks}, language
 developers specify typing rules for language concepts. To calculate and check
 types for a program, MPS "instantiates" these rules for each instance of the
@@ -112,12 +110,10 @@ of a \ic{Type} (it answers the questions of what the type system's type of
 should be for e.g. \ic{int} if it is used in an attribute such as \ic{int
 age;}):
 
-\vspace{-1mm}
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}]
 rule typeof_Type for Type as t { 
     typeof(t) :==: t.copy; }                                       
-\end{code}
-\vspace{-1mm}
+\end{lstlisting}
 
 \noindent This rule has the name \ic{typeof\_Type} and applies to the language
 concept \ic{Type} (\ic{int} or \ic{string} are subconcepts of the abstract
@@ -135,14 +131,11 @@ reasons we cannot return the program element itself). Another typing rule
 defines the type of the \ic{Attribute} as a whole to be the type of the
 attribute's \ic{type} property:
 
-\vspace{-1mm}
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}]
 rule typeof_Attribute for Attribute as a {
     typeof(a) :==: typeof(a.type); }                                      
-\end{code}
-\vspace{-1mm}
+\end{lstlisting}
 
-\pagebreak[4]
 \noindent This rule answers the question of what the type system engine's type
 should be for instances of \ic{Attribute}. Note how this equation has two type variables
 and no type values. It simply propagates the type of the attribute's specified
@@ -156,7 +149,7 @@ There is one more rule we have to define. It is not strictly part of the type
 calculation. It is a constraint that checks the uniqueness of attribute names
 for any given \ic{Entity}:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}]
 checking rule check_Entity for Entity as e {
      set<string> names = new hashset<string>;
      foreach a in e.attributes {
@@ -166,7 +159,7 @@ checking rule check_Entity for Entity as e {
          names.add(a.name);
      }                                                                                                                                                                                                                                                                                                        
 }
-\end{code}
+\end{lstlisting}
 
 \noindent This rule does \emph{not} establish typing equations, it just checks a
 property of the program (note the \emph{checking} in the rule header). It checks

@@ -45,7 +45,7 @@ referencing language as discussed in the previous paragraph. However, the
 fragment is \emph{dependent}, since it references elements from another fragment
 (expressed in the \ic{entities} language). 
 
-\begin{code}
+\begin{lstlisting}[language=mpsmodex, deletekeywords={role}, morekeywords={}]
 form CompanyStructure                                                                                                                                  
   uses Department                                                                                                                                      
   uses Employee                                                                                                                                        
@@ -53,7 +53,7 @@ form CompanyStructure
   field Role: combobox(Boss, TeamMember) -> Employee.role                                                                                              
   field Freelancer: checkbox -> Employee.freelancer
   field Office: textfield(20) -> Department.description                                                                                                
-\end{code}
+\end{lstlisting}
 
 \begin{figure}[htp]
 \begin{center}
@@ -80,8 +80,8 @@ concept. It has a \ic{label} property, owns a \ic{Widget} and refers to the
 \ic{Attribute} it edits.
 
 \vspace{-1mm}
-
-\begin{code}
+ 
+\begin{lstlisting}[language=mps, deletekeywords={label}, morekeywords={}]
 concept Field extends BaseConcept               
   properties:                                 
     label : string                              
@@ -89,7 +89,7 @@ concept Field extends BaseConcept
     Widget     widget     1      
   references:                                 
     Attribute  attribute  1
-\end{code} 
+\end{lstlisting}
 
 
 \noindent Note that there is no composition of concrete syntax, since the
@@ -103,7 +103,7 @@ defined in the \ic{uispec} language. It references types from the \ic{entities}
 language.  We use a \ic{checking rule} to illustrate how constraints can be
 written that do not use the inference engine introduced earlier.
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={can, be}, morekeywords={}]
 checking rule checkTypes for Field as field {     
   node<Widget> w = field.widget; 
   node<Type> t = field.attribute.type;                                                                                                                                                                                                                                                                                                       
@@ -113,7 +113,7 @@ checking rule checkTypes for Field as field {
   if (w.isInstanceOf(ComboWidget) && !(t.isInstanceOf(StringType))) { 
     error "combobox can only be used with strings" -> w; 
 } }
-\end{code}
+\end{lstlisting}
 
 \vspace{-3mm}
 \phead{Generator} The defining characteristic of Referencing is that the two
@@ -131,12 +131,12 @@ in the code below represents the node cast operator and binds tightly; the code
 casts the \ic{Attribute}'s parent to \ic{Entity} and then accesses the \ic{name} property).
 
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={set}, morekeywords={}]
 concept behavior Attribute {                                                 
   public string qname() { this.parent : Entity.name + "." + this.name; }                                                                          
   public string setterName() { "set" + this.name.toFirstUpper(); }                                                                          
   public string getterName() { "get" + this.name.toFirstUpper(); }                                                                          
 }                                                                            
-\end{code}
+\end{lstlisting}
 
 

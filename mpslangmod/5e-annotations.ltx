@@ -36,7 +36,7 @@ the mapping from entity attributes to database columns directly in the
 
 \pagebreak[4]
 
-\begin{code}
+\begin{lstlisting}[language=mpsmodex, deletekeywords={role}, morekeywords={}] 
 module company                                 
   entity Employee {                            
     id : int -> People.id                      
@@ -50,7 +50,7 @@ module company
     id : int -> Departments.id                 
     description : string -> Departments.descr  
   }                                            
-\end{code}
+\end{lstlisting}
 
 
 \noindent This is a heterogeneous fragment, consisting of code from
@@ -66,7 +66,7 @@ and projected "inside" entities. The \ic{entities} language is not modified.
 language as well as the \ic{relmapping} language. In this language we define the
 following concept:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}] 
 concept AttrToColMapping extends NodeAnnotation  
   references:                               
     Column column 1       
@@ -74,7 +74,7 @@ concept AttrToColMapping extends NodeAnnotation
     role = colMapping
   concept links:
     annotated = Attribute
-\end{code}                                            
+\end{lstlisting}                                            
 
 \noindent \ic{AttrToColMapping} concept extends \ic{NodeAnnotation}, a concept
 predefined by MPS. Concepts that extend \ic{NodeAnnotation} have to provide a

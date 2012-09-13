@@ -75,7 +75,7 @@ expression from \fig{expressionBlock} transforms it into a method and a call
 to it:
 
 
-\begin{code}
+\begin{lstlisting}[language=java, deletekeywords={}, morekeywords={}]
 aEmployee.setName( retrieve_name(aEmployee, widget0) );
 ...
     
@@ -83,7 +83,7 @@ public String retrieve_name(Employee aEmployee, JComponent w) {
   String newValue = ((JTextField) w).getText();
   return newValue;
 }
-\end{code}
+\end{lstlisting}
 
 
 \vspace{-3mm}
@@ -94,11 +94,11 @@ expects an \ic{Expression}, so a \ic{BlockExpression} extends
 can now use \ic{BlockExpression}s in addition to the concepts provided by the
 base language. The fragments become \emph{heterogeneous}.
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}]
 concept BlockExpression extends Expression implements INamedConcept
   children:                                     
     StatementList   body   1      
-\end{code}
+\end{lstlisting}
           
           
 \phead{Type System} The type of the \ic{yield} statement is the type of the
@@ -109,13 +109,13 @@ is \ic{int}, because the type of \ic{1} is \ic{int}). Since the
 the type of the \ic{BlockExpression} is
 the common super type of the types of all the \ic{yield}s:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={var}]
 var resultType; 
-for (node<BlockExpressionYield> y : blockExpr.descendants<BlockExpressionYield>) { 
+for (node<BlockExpressionYield> y: blockExpr.descendants<BlockExpressionYield>){ 
   resultType :>=: typeof(y.result); 
 } 
 typeof(blockExpr) :==: resultType;
-\end{code}
+\end{lstlisting}
 
           
 \noindent This equation iterates over all \ic{yield} statements in a block
@@ -185,7 +185,7 @@ location. It is a means to building extensible generators, as we will see later.
 
 \begin{figure}[h]
 \begin{center}
-  \vspace{-10mm} 
+  \vspace{-4mm} 
   \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
   \caption[labelInTOC]{Here we generate the call to the method generated in
   \fig{expressionBlockGenerator2}. We use the mapping label \ic{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
@@ -206,15 +206,13 @@ reason for this restriction is that the way we generate from the block
 expressions cannot handle return statements). To achieve this, we add a \ic{can
 be ancestor} constraint to the \ic{BlockExpression}:
 
-\vspace{-2mm}
-\begin{code} 
-concept constraints for BlockExpression {
+\begin{lstlisting}[language=mps, deletekeywords={ancestor, scope, link},
+morekeywords={}] concept constraints for BlockExpression {
   can be ancestor:
     (operationContext, scope, node, childConcept, link)->boolean { 
       childConcept != concept/ReturnStatement/;  
 }   }
-\end{code}
-\vspace{-2mm}
+\end{lstlisting}
 
 \noindent The \ic{childConcept} variable represents the concept of which an
 instance is about to be added under a \ic{BlockExpression}. The constraint

@@ -29,17 +29,18 @@ may have a dependency on the other. Below is an example program using the
 resulting language that uses expressions after the \ic{validate} keyword:
 
 
-\begin{code}
+\begin{lstlisting}[language=mpsmodex, deletekeywords={role}, morekeywords={}]
 form CompanyStructure                                                                                                                                  
   uses Department                                                                                                                                      
   uses Employee                                                                                                                                        
-  field Name: textfield(30) -> Employee.name validate lengthOf(Employee.name) < 30                                                                     
+  field Name: textfield(30) -> Employee.name 
+                               validate lengthOf(Employee.name) < 30                                                                     
   field Role: combobox(Boss, TeamMember) -> Employee.role                                                                                              
   field Freelancer: checkbox -> Employee.freelancer 
         validate if (isSet(Employee.worksAt)) Employee.freelancer == true else
                     Employee.freelancer == false 
   field Office: textfield(20) -> Department.description                                                                                                
-\end{code}
+\end{lstlisting}
 
 \vspace{-2mm}
 
@@ -75,14 +76,15 @@ into a \ic{ValidatedField}, so that a validation expression can be entered. The
 core of the Intention is the following script, which performs the actual
 transformation:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={label},
+morekeywords={replace, with}] 
 execute(editorContext, node)->void { 
     node<ValidatedField> vf = node.replace with new(ValidatedField); 
     vf.widget = node.widget; 
     vf.attribute = node.attribute; 
     vf.label = node.label; 
 }
-\end{code}
+\end{lstlisting}
 
 
 \noindent As mentioned, the \ic{uispec\_validation} language extends the
@@ -99,13 +101,13 @@ an embedded language to its new context (the \ic{uispec} and \ic{entities}
 languages in the example). The following is the structure definition of the
 \ic{LengthOfExpr}.
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={}]
 concept LengthOfExpr extends Expression        
   properties:                                  
     alias = lengthOf                                    
   children:                                     
     Expression  expr  1 
-\end{code}                                               
+\end{lstlisting}                                               
 
 \noindent Note how it defines an \ic{alias}. The \ic{alias} is used to pick the
 concept from the code completion menu. If the user is in expression context, he must
@@ -121,16 +123,15 @@ reference attributes of entities that are used in the \ic{Form} within
 which we define the validation expression. The code below defines the necessary
 scoping rule:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={scope}, morekeywords={nlist}]
 (model, scope, referenceNode, enclosingNode) -> sequence<node< >> { 
   nlist<Attribute> res = new nlist<Attribute>; 
   node<Form> form = enclosingNode.ancestor<Form>; 
   for (node<EntityReference> er : form.usedEntities) { 
     res.addAll(er.entity.attributes); 
   } 
-  return res; 
-}
-\end{code}
+  return res;  }
+\end{lstlisting}
 
 \noindent Notice that the actual syntactic embedding of the expressions in the
 \ic{uispec\_ validation} language is not a problem because of how projectional
@@ -149,12 +150,12 @@ of an attribute reference is the type of the attribute's \ic{type} property, as 
 \ic{typeof(attrRef) :==: typeof( attrRef.attr.type)}.
 However, consider the following code:
 
-\begin{code}
+\begin{lstlisting}[language=mpsmodex, deletekeywords={}, morekeywords={}]
 field Freelancer: checkbox -> Employee.freelancer 
       validate if (isSet(Employee.worksAt)) 
                then Employee.freelancer == false 
                else Employee.freelancer == true 
-\end{code}
+\end{lstlisting}
 
 \noindent This code states that if the \ic{worksAt} attribute of an employee is
 set, then its \ic{freelancer} attribute must be \ic{false} else it must be
@@ -168,21 +169,22 @@ its argument types. Below is the code in the expressions language that defines
 the resulting type to be \ic{boolean} if the two arguments are
 \ic{expressions.BooleanType}:
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={concepts,
+left, right, type}] 
 operation concepts: EqualsExpression                                                     
   left operand type: new node<BooleanType>() 
   right operand type: new node<BooleanType>() 
-  operation type: (operation, leftOperandType, rightOperandType)->node< > { 
+  operation type: (op, leftOperandType, rightOperandType)->node< > { 
     new node<BooleanType>; 
   }               
-\end{code}
+\end{lstlisting}
 
 \vspace{-1mm}
 \noindent This overloaded operation specification is integrated with the
 inference-based typing rules using the following code: 
 \vspace{-1mm}
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={be, to}, morekeywords={type}]
 rule typeof_BinaryExpression for BinaryExpression as binExpr {                                                                                                                                                                                                                                                                                                                                                                                                                   
   node<> opType = operation type( binExpr , left , right ); 
   if (opType != null) { 
@@ -191,7 +193,7 @@ rule typeof_BinaryExpression for BinaryExpression as binExpr {
     error "operator " + binExpr.concept.name + " cannot be applied to operands "
           + left.concept.name + "/" + right.concept.name -> binExpr; 
 } } 
-\end{code}
+\end{lstlisting}
 
 \vspace{-1mm}
 \noindent To override these typing rules for \ic{entities.BooleanType},
@@ -199,13 +201,14 @@ we simply provide another overloaded operation specification in the
 \ic{uispec\_validation} language:
 \vspace{-4mm}
 
-\begin{code}
+\begin{lstlisting}[language=mps, deletekeywords={}, morekeywords={concepts,
+left, right, type, one}] 
 operation concepts: EqualsExpression                                       
   one operand type: new node<BooleanType> // this is the entities.BooleanType!     
-  operation type: (operation, leftOperandType, rightOperandType)->node< > { 
-    node<BooleanType>;  // this is the expressions.BooleanType 
+  operation type: (op, leftOperandType, rightOperandType)->node< > { 
+    node<BooleanType>;  // expressions.BooleanType 
   } 
-\end{code}
+\end{lstlisting}
 
 \phead{Generator} For the generator we can use the following two alternative
 approaches. We can use the \ic{expressions} language's existing to-text
