@@ -82,9 +82,12 @@ other concepts are defined similarly.
 
 
 \begin{figure}[htp]
-\begin{center}
   \vspace{-4mm}
+\fbox{
+\begin{minipage}{117.5 mm}
   \includegraphics[scale=0.55]{figures/editordefinition.png}
+\end{minipage}
+}
   \caption[labelInTOC]{The editor for \ic{Entity}. The outermost cell is a
   vertical list \ic{[/ .. /]}. In the first line, we use a horizontal list
   \ic{[> .. <]} that contains the keyword \ic{entity}, the \ic{name} property
@@ -93,7 +96,6 @@ other concepts are defined similarly.
   \ic{(> .. <)}. Finally, the third line contains the closing curly brace.}
   \vspace{-4mm}
   \label{editordefinition} 
-\end{center}
 \end{figure}
 
 \phead{Type System} As we have explained in \sect{HowMPSWorks}, language
@@ -203,8 +205,11 @@ counterparts. \fig{entitiesmc} shows a part of the \ic{entities} mapping configu
 
 \vspace{-2mm}
 \begin{figure}[htp]
-\begin{center}
+\fbox{
+\begin{minipage}{117.5mm}
   \includegraphics[width=80mm]{figures/entitiesmc.png}
+\end{minipage}
+}
   \caption[labelInTOC]{The mapping configuration for the \ic{entities} language. The
   root mapping rule for \ic{Entity} specifies that instances of \ic{Entity} should
   be transformed with the \ic{map\_Entity} template (which produces a Java
@@ -218,7 +223,6 @@ counterparts. \fig{entitiesmc} shows a part of the \ic{entities} mapping configu
   generated from the target entity. }
   \vspace{-6mm}
   \label{entitiesmc} 
-\end{center}
 \end{figure}
 
 
@@ -261,14 +265,16 @@ work in MPS we discuss in more detail the generation of Java fields for each
 
 \vspace{-2mm}
 \begin{figure}[htp]
-\begin{center}
+\fbox{
+\begin{minipage}{117.5mm}
   \includegraphics[width=100mm]{figures/entitytemplate.png}
+\end{minipage}
+}
   \caption[labelInTOC]{The template for creating a Java class from an
   \ic{Entity}. The generated class contains a field, a getter and a setter for
   each of the \ic{Attribute}s of the \ic{Entity}. The running text explains the
   details.}
   \label{entitytemplate} 
-\end{center}
 \end{figure}
 
 

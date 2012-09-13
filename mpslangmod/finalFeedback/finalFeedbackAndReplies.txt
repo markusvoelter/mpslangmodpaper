@@ -1,7 +1,7 @@
 > I had a look at the paper and the issues discussed in the letter. I can accept the paper in its current form,
 > although I disagree with the reply in the semantic issues, but I think we should not delay this any longer.
 
-ok, so this one should be addressed by my addressing the "longer comment".
+ok, so this one should be addressed by my addressing the "longer comment" below.
 
 
 >>>To me, the semantic composition is equally, if not more, important
@@ -33,9 +33,9 @@ So here is my reasoning:
   
 > See the paper by Erdweg et al. However, I am not insisting on another round 
 > of revision. I can live with this disagreement. To me would be enough it 
-> the author will remove the statement on page 2: “However, MPS also provides 
+> the author will remove the statement on page 2: "However, MPS also provides 
 > good support for composing the static semantics and execution semantics of 
-> languages.”
+> languages."
 
 * Regarding semantic composition, I describe in this paper how MPS handles
   type system and transformation composition (I also provide much more details
@@ -45,7 +45,8 @@ So here is my reasoning:
   reused completely. 
   
 * However, since the main contribution of MPS really is in the area of syntax,
-  I am ok with removing the sentence the reviewer wants me to remove.
+  I am ok with removing the sentence the reviewer wants me to remove. I have
+  removed the offending sentence.
 
 
 >> Another incomplete response was regarding the following issue:
@@ -58,25 +59,27 @@ So here is my reasoning:
 >-> Interesting paper, I wasn't aware of it. I have added a discussion.
 
 > The author discussed language extension, language unification and self-extension 
-> from Erdweg et al classification. But, not the ‘extension composition’ as a kind 
-> of language composition! Seems that MPS doesn’t support extension composition due 
+> from Erdweg et al classification. But, not the "extension composition�" as a kind 
+> of language composition! Seems that MPS doesn't support extension composition due 
 > to non-ability to overrides typing rules and existing generators in a sublanguage. 
 
 * nowhere do I say such a thing in the paper! In fact, the various means of 
   composition discuss how typing rules and generators are "overridden" in cases
   where this is required. I don't know where the reviewer gets this idea from!
   
-* In fact, MPS supports extension composition. I failed to mention this, right. 
-  But MPS supports even all of the variants: 
-  - incremental extension, where an extenion l2 is built on top of an extension l1
-    that is based on some base languge lb
+* In fact, MPS supports extension composition. The reviewer is right that I failed to 
+  mention this. In fact, MPS supports both variants: 
+  - incremental extension, where an extension l2 is built on top of an extension l1
+    that is based on some base language lb
   - as well as extension unification, where two languages l2 and l1 both extend 
     a base language lb, and still can be used together. 
 
-> It is a bad practice not to mention features which are not supported. 
+> It is a bad practice not to mention features which are not supported.
 
-* this is somewhat of an unjustified allegation....
-
+* the features *are* supported. This sentence sounds like an allegation of
+  me intentionally not mentioning it because MPS does not support it. However,
+  MPS does support it really well ...
+ 
 > The author should clearly clarify this point. 
 
 I have added the following: 

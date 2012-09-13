@@ -52,17 +52,19 @@ base language code} much simpler. \fig{expressionBlock} shows an example. We use
 a screenshot instead of text because we use non-textual notations and color. 
 
 \begin{figure}[htp]
-\begin{center}
   \vspace{-2mm}
+\fbox{
+\begin{minipage}{117.5mm}
   \includegraphics[width=120mm]{figures/expressionBlock.png}
+\end{minipage}
+}
   \caption[labelInTOC]{Block Expressions (rendered with a shaded background) are
   basically anonymous inline methods. Upon transformation, an actual method is
   generated that contains the block content, and the block expression is replaced with a call to this
   generated method. Block expressions are used mostly when implementing
   generators; this screenshot shows a generator that uses a block expression.}
   \label{expressionBlock}  
-  \vspace{-8mm}
-\end{center}
+  \vspace{-3mm}
 \end{figure}
 
 
@@ -137,9 +139,12 @@ is the creation of the additional method for the block expression as shown in
 
 
 \begin{figure}[h]
-\begin{center}
   \vspace{-3mm}
-  \includegraphics[width=120mm]{figures/expressionBlockGenerator1.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[width=118mm]{figures/expressionBlockGenerator1.png}
+\end{minipage}
+}
   \caption[labelInTOC]{We use a weaving rule to create an additional method for
   a block expression. A weaving rule processes an input element
   (a \ic{BlockExpression}) by creating another element \emph{in a different
@@ -149,12 +154,11 @@ is the creation of the additional method for the block expression as shown in
   The called template \ic{weaveBlockExpression} is shown in
   \fig{expressionBlockGenerator2}.}
   \label{expressionBlockGenerator1}
-\end{center}
 \end{figure}
 
- 
+\vspace{-3mm} 
 
-The template shown in \fig{expressionBlockGenerator2} shows the
+\noindent The template shown in \fig{expressionBlockGenerator2} shows the
 creation of the method. The mapping label (\ic{b2M}) creates a mapping between the
 \ic{BlockExpression} and the created method. We will use this label to refer to
 this generated method when we generate the method call that replaces the
@@ -162,8 +166,11 @@ this generated method when we generate the method call that replaces the
 
 
 \begin{figure}[h] 
-\begin{center}
-  \includegraphics[width=120mm]{figures/expressionBlockGenerator2.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[width=118mm]{figures/expressionBlockGenerator2.png}
+\end{minipage}
+}
   \caption[labelInTOC]{This generator template creates a method from the block
   expression. It uses \ic{COPY\_SRC} macros to replace the dummy \ic{string}
   type with the computed return type of the block expression, inserts a computed name, adds a
@@ -173,10 +180,9 @@ this generated method when we generate the method call that replaces the
   call to this generated method (shown in \fig{expressionBlockGenerator3}).}
   \label{expressionBlockGenerator2} 
   \vspace{-5mm} 
-\end{center}
 \end{figure}
 
-Another concept introduced by the \ic{exprblocks} language is the
+\noindent Another concept introduced by the \ic{exprblocks} language is the
 \ic{Placehol- derStatement}. It extends \ic{Statement} so it can be used
 in function bodies. It is used to mark locations at which subsequent
 generators can add additional code. These subsequent generators will use a
@@ -184,18 +190,21 @@ reduction rule to replace the placeholder with whatever they want to put at this
 location. It is a means to building extensible generators, as we will see later.
 
 \begin{figure}[h]
-\begin{center}
   \vspace{-4mm} 
-  \includegraphics[scale=0.5]{figures/expressionBlockGenerator3.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[scale=0.6]{figures/expressionBlockGenerator3.png}
+\end{minipage}
+}
+  \vspace{-2mm} 
   \caption[labelInTOC]{Here we generate the call to the method generated in
   \fig{expressionBlockGenerator2}. We use the mapping label \ic{b2M} to refer to the correct method (not shown; happens inside the reference macro). We pass in
   the variables from the call's environment as actual arguments using the
   \ic{LOOP} and \ic{COPY\_SRC} macros.}
   \label{expressionBlockGenerator3} 
   \vspace{-7mm}
-\end{center}
 \end{figure}
-
+ 
 
 
 

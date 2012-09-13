@@ -63,8 +63,8 @@ in \ic{uispec\_validation} and is a subconcept of \ic{Field}.
   \label{uival}  
 \end{center}
 \end{figure}
-
-To support the migration of existing models that use \ic{Field}
+ 
+\noindent To support the migration of existing models that use \ic{Field}
 instances, we provide an intention. An Intention (known as a Quick Fix in Eclipse) is an
 in-place model transformation that can be triggered by the user by selecting it
 from the Intentions menu accessible via \ic{Alt-Enter}. This particular
@@ -222,15 +222,17 @@ reusable generator from \ic{expressions} to BaseLanguage expressions. We choose
 this second alternative.
 
 \begin{figure}[h]
-\begin{center} 
-  \includegraphics[width=120mm]{figures/expr2blgen.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[width=118mm]{figures/expr2blgen.png}
+\end{minipage}
+}
   \caption[labelInTOC]{A number of reduction rules that map the reusable
   \ic{expressions} language to BaseLanguage (Java). Since the languages are very
   similar, the mapping is trivial. For example, a \ic{PlusExpression} is mapped
   to a \ic{+} in Java, the left and right arguments are reduced recursively through
   the \ic{COPY\_SRC} macro.}
   \label{expr2blgen}  
-\end{center} 
 \end{figure} 
 
 The actual expressions defined in the \ic{expressions} language and those of
@@ -241,7 +243,7 @@ language project \ic{expressions.blgen} and add reduction rules.
 
 
 
-We also need reduction rules for the new expressions added in the
+\noindent We also need reduction rules for the new expressions added in the
 \ic{uispec\_ validation} language (\ic{AttrRefExpression}, \ic{isSetExpression},
 \ic{LengthOfExpr}). Those rules are defined in
 \ic{uispec\_validation}.
@@ -252,15 +254,17 @@ form via the same placeholder reduction as in the case of the
 
 
 \begin{figure}
-\begin{center}
-  \includegraphics[width=120mm]{figures/reductionAttributeRef.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[width=118mm]{figures/reductionAttributeRef.png}
+\end{minipage}
+}
   \caption[labelInTOC]{References to entity attributes are mapped to a call to
   their getter method. The template fragment (inside the \ic{<TF .. TF>}) uses
   reference macros (->\$) to "rewire" the reference to the Java Bean instance, and
   the \ic{toString} method call to a call to the getter.}
   \label{reductionAttributeRef}  
   \vspace{-4mm}
-\end{center}
 \end{figure}
  
  

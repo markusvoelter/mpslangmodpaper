@@ -59,7 +59,7 @@ that contains tables with columns. Columns have (database-specific) data types.
 On the right side we show the database definition code when it is reused with
 the \ic{entities} language; each column is mapped to an entity attribute.
 
-\vspace{-2mm}
+\pagebreak[4]
 
 \begin{lstlisting}[language=mpsmodex, deletekeywords={}, morekeywords={}]
 database CompanyDB                 database CompanyDB             
@@ -286,9 +286,12 @@ location, we do not have to predefine \emph{how}.
  
 
 \begin{figure}[htp] 
-\begin{center}
   \vspace{-2mm}
+\fbox{
+\begin{minipage}{117.5mm}
   \includegraphics[scale=0.55]{figures/placeholder.png}
+\end{minipage}
+}
   \caption[labelInTOC]{This generator fragment creates a setter method for each
   attribute of an \ic{Entity}. The \ic{LOOP} iterates over all Attributes. The \ic{\$} macro
   computes the name of the method, and the \ic{COPY\_SRC} macro on the argument type
@@ -296,7 +299,6 @@ location, we do not have to predefine \emph{how}.
   permission check.}
   \label{placeholder}
   \vspace{-5mm}  
-\end{center}
 \end{figure}
 
 \noindent The \ic{rbac\_entities} generator contains a reduction rule for
@@ -315,9 +317,12 @@ introduce additional language dependencies, modularity is retained.
 
  
 \begin{figure}[htp] 
-\begin{center}
   \vspace{-3mm}
-  \includegraphics[width=120mm]{figures/placeholderreduction.png}
+\fbox{
+\begin{minipage}{117.5mm}
+  \includegraphics[width=118mm]{figures/placeholderreduction.png}
+\end{minipage}
+}
   \caption[labelInTOC]{This reduction rule replaces \ic{PlaceholderStatement}s
   with a permission check. Using the condition, we only match those
   placeholders whose identifier is \ic{pre-set} (notice how we have defined
@@ -326,7 +331,6 @@ introduce additional language dependencies, modularity is retained.
   exception is thrown if the permission check fails.}
   \label{placeholderreduction}  
   \vspace{-3mm}
-\end{center}
 \end{figure}
 
 
