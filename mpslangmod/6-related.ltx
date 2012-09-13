@@ -331,7 +331,19 @@ where the extension restricts the use of certain language concepts. They call
 Unification what we call Embedding: two independent languages are used together
 in the same fragment. The two languages are combined without an invasive change
 to either of them. Each of the languages may have to be extended to "interface"
-with the other one. They also introduce the term Self-Extension, which describes
+with the other one. Erdweg and his colleagues also discuss what they call
+Extension Composition. This addresses the question of how several extensions can
+be used together in a program. Erdweg et at. distinguish two cases. Incremental
+extension (where an extension $l_2$ is built on top of another extension $l_1$
+that is based on some base language $l_b$, as well as extension unification, 
+where two languages $l_2$ and $l_1$ both extend a base language $l_b$, and still
+can be used together in the same program. MPS supports both of these. In fact,
+for extension unification, there isn't even a need to define explicitly a
+unification of $l_1$ and $l_2$. The two extensions can be used in the same
+program "just so", as long as the semantics do not clash (see our discussion
+about transformation locality above in respect to~\cite{WykBGK08}). We discuss
+these features of MPS in~\cite{Voelter2012}, which addresses the modular
+extension of C. Erdweg et al. also introduce the term Self-Extension, which describes
 the case where extensions are developed by means of the base language itself, an
 approach which is used by internal DSLs (see below) and is beyond the scope of
 this paper.

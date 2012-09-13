@@ -1,0 +1,112 @@
+> I had a look at the paper and the issues discussed in the letter. I can accept the paper in its current form,
+> although I disagree with the reply in the semantic issues, but I think we should not delay this any longer.
+
+ok, so this one should be addressed by my addressing the "longer comment".
+
+
+>>>To me, the semantic composition is equally, if not more, important
+>>> than syntactic composition. As usually, syntactic level is easier 
+>>>than semantic level.
+>>
+>>-> I really don't agree. Defining the semantics for a DSL has always 
+>> been done by generating executable code in a lower-level language 
+>> (or by running an interpreter). While the level of "formality" for 
+>> this way of defining semantics may not be sufficient for everybody's
+>> needs, it certainly does work. 
+
+> The above observation is not correct from my point of view. 
+> What is a point of language composition at syntactic level if 
+> language implementer than must to re-implement semantics 
+> (or code generator) from scratch using GPL? There is not much 
+> work done yet in this area, not because it is easier than syntactic 
+> composition, but because it is harder to reuse and combine semantics
+> (interpreters, code generators). 
+
+So here is my reasoning:
+* if we cannot compose syntax, we won't even start thinking about 
+  composing semantics. So composing syntax is the starting point.
+* Many mainstream parsers-based systems cannot compose syntax to the
+  degree that MPS can do it. I think I make this clear in the related
+  work section.
+* This is why I argue it is important (or even *more* important at this
+  point) to support syntactic composition really well.
+  
+> See the paper by Erdweg et al. However, I am not insisting on another round 
+> of revision. I can live with this disagreement. To me would be enough it 
+> the author will remove the statement on page 2: “However, MPS also provides 
+> good support for composing the static semantics and execution semantics of 
+> languages.”
+
+* Regarding semantic composition, I describe in this paper how MPS handles
+  type system and transformation composition (I also provide much more details
+  in other material that is not part of the paper). MPS *does* provide good
+  support for that. However, there are cases (some variants of Embedding) where
+  the syntax can be reused, but the transformation cannot, at least cannot be
+  reused completely. 
+  
+* However, since the main contribution of MPS really is in the area of syntax,
+  I am ok with removing the sentence the reviewer wants me to remove.
+
+
+>> Another incomplete response was regarding the following issue:
+>>The author should compare their classification with the
+>>classification on language composition presented in the paper:
+>>S. Erdweg, P. G. Giarrusso, T. Rendel. Language Composition Untangled.
+>>Proceedings of Workshop on Language Descriptions, Tools and
+>>Applications (LDTA'12), 2012.
+>
+>-> Interesting paper, I wasn't aware of it. I have added a discussion.
+
+> The author discussed language extension, language unification and self-extension 
+> from Erdweg et al classification. But, not the ‘extension composition’ as a kind 
+> of language composition! Seems that MPS doesn’t support extension composition due 
+> to non-ability to overrides typing rules and existing generators in a sublanguage. 
+
+* nowhere do I say such a thing in the paper! In fact, the various means of 
+  composition discuss how typing rules and generators are "overridden" in cases
+  where this is required. I don't know where the reviewer gets this idea from!
+  
+* In fact, MPS supports extension composition. I failed to mention this, right. 
+  But MPS supports even all of the variants: 
+  - incremental extension, where an extenion l2 is built on top of an extension l1
+    that is based on some base languge lb
+  - as well as extension unification, where two languages l2 and l1 both extend 
+    a base language lb, and still can be used together. 
+
+> It is a bad practice not to mention features which are not supported. 
+
+* this is somewhat of an unjustified allegation....
+
+> The author should clearly clarify this point. 
+
+I have added the following: 
+
+Erdweg and his colleagues also discuss what they call
+Extension Composition. This addresses the question of how several extensions can
+be used together in a program. Erdweg et at. distinguish two cases. Incremental
+extension (where an extension $l_2$ is built on top of another extension $l_1$
+that is based on some base language $l_b$, as well as extension unification, 
+where two languages $l_2$ and $l_1$ both extend a base language $l_b$, and still
+can be used together in the same program. MPS supports both of these. In fact,
+for extension unification, there isn't even a need to define explicitly a
+unification of $l_1$ and $l_2$. The two extensions can be used in the same
+program "just so", as long as the semantics do not clash (see our discussion
+about transformation locality above in respect to~\cite{WykBGK08}). We discuss
+these features of MPS in~\cite{Voelter2012}, which addresses the modular
+extension of C. 
+
+
+> Some additional typos:
+> - Page 34: compositionand -> composition and
+
+fixed.
+
+> - Page 46: Glck -> Glück
+
+fixed.
+
+> - Page 47: The reference 31 broke the alphabetical order.
+
+Hm, I don't know what the problem is here and how Latex
+sorts the references.
+
